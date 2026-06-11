@@ -1,0 +1,63 @@
+<table>
+    <tr>
+        <td>Bala Bala Bala Bala Bala Bala</td>
+        <td>
+            <app-admin-action-col></app-admin-action-col>
+        </td>
+    </tr>
+</table>
+
+
+
+<ng-template #personalInfoModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modalLabel">Personal information</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">OK</button>
+    </div>
+</ng-template>
+
+
+
+
+
+<ng-template #blockUnblockModal let-modal>
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row mt-1">
+        <div class="col-12">
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-primary"
+        (click)="modal.close('Close click')">Block</button>
+    </div>
+</ng-template>
+
+<ng-template #editHistoryModal let-modal id="">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit history</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row mt-1">
+
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row mt-1">
+        <div class="col-12">
+        </div>
+        </div>
+    </div>
+</ng-template>

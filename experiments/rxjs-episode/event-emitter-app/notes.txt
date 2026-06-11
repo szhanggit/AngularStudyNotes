@@ -1,0 +1,87 @@
+cd D:\Study\AngularStudyNotes\experiments\event-emitter
+ng new event-emitter-app --routing
+cd D:\Study\AngularStudyNotes\experiments\event-emitter\event-emitter-app
+ng generate c Counter
+
+
+https://ultimatecourses.com/blog/component-events-event-emitter-output-angular-2
+
+
+
+-----------------------------------------
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter15.3\notes.txt
+
+Parent: src\app\template.html
+Child: src\app\attr.directive.ts
+    @Input is about inputing object into child.
+    @Output and EventEmitter are about outputing object from child.
+    
+
+
+-----------------------------------------
+ng generate s service/messageSubscriber
+ng generate c childSender    
+
+
+
+It looks like you are subscribing to an observable and want to handle the response. Here's how you can extend this code to include error handling and completion callbacks as well.
+
+```typescript
+this.refUserRoleStatusSvc.get().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+  next: (res) => {
+    // Handle the response here
+    console.log('Response:', res);
+  },
+  error: (err) => {
+    // Handle the error here
+    console.error('Error:', err);
+  },
+  complete: () => {
+    // Handle the completion here
+    console.log('Completed');
+  }
+});
+```
+
+In this example:
+
+- `next: (res)` handles the incoming response from the observable.
+- `error: (err)` handles any errors that occur during the observable stream.
+- `complete: ()` executes once the observable stream completes.
+
+Ensure you have `takeUntil(this.ngUnsubscribe)` properly set up to manage the unsubscription. Here’s an example of how to set up `ngUnsubscribe` in an Angular component:
+
+```typescript
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+export class YourComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject<void>();
+
+  constructor(private refUserRoleStatusSvc: YourService) {}
+
+  ngOnInit() {
+    this.refUserRoleStatusSvc.get().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (res) => {
+        // Handle the response here
+        console.log('Response:', res);
+      },
+      error: (err) => {
+        // Handle the error here
+        console.error('Error:', err);
+      },
+      complete: () => {
+        // Handle the completion here
+        console.log('Completed');
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+}
+```
+
+This setup ensures that the observable stream is properly unsubscribed when the component is destroyed, preventing memory leaks.

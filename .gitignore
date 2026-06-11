@@ -39,3 +39,59 @@ Thumbs.db
 
 /txcnotes/source/txc-front-web-toc.zip
 /txcnotes/source/TXC-MicroFrontends.zip
+
+# .NET / .NET Core
+## Build output
+bin/
+obj/
+out/
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## MSBuild
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio
+.vs/
+*.rsuser
+*.DbmdlFiles
+*.bak
+*.ncb
+*.svclog
+*.cache
+*.aps
+
+## Rider
+.idea/
+
+## Test results
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage.json
+coverage.opencover.xml
+
+## Publish output
+publish/
+**/Properties/launchSettings.json
+
+## User-specific files
+*.userprefs
+
+## OS generated
+*.DS_Store
+desktop.ini
+
+/experiments/view_child/angular-viewchild-example.zip

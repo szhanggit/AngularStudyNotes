@@ -1,0 +1,5 @@
+ng generate component admin.action.col
+ng generate service modal.subscriber
+
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\admin-management\admin-management-ag-grid\admin-action-col\admin-action-col.component.ts
+A dropdown button list in a data table.

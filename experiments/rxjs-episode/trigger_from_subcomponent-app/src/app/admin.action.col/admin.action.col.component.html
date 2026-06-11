@@ -1,0 +1,10 @@
+<div ngbDropdown>
+    <i class="uil-ellipsis-v" role="button" id="dropdownLink" ngbDropdownToggle></i>
+    <div ngbDropdownMenu aria-labelledby="dropdownLink">
+        <a ngbDropdownItem [routerLink]='["/maintenance/edit-admin"]' [queryParams]="{ id: 1 }">Edit user</a>
+        <a ngbDropdownItem (click)="openBlockUnblockModal()">Block user</a>
+        <a ngbDropdownItem (click)="openPersonalInfoModal()">View personal info</a>
+        <a ngbDropdownItem (click)="openEditHistoryModal()">View edit history</a>
+    </div>
+</div>
+  

@@ -1,0 +1,11 @@
+<div class="app">
+  Parent: {{ myCount }}
+  <app-counter
+    [count]="myCount"
+    (update)="countChange($event)">
+  </app-counter>
+</div>
+<br /><br /><br />
+<div>
+  <app-child-sender></app-child-sender>
+</div>
