@@ -1,0 +1,1 @@
+https://edenred.atlassian.net/wiki/spaces/TXCLOUD/pages/13168640368/Frontend+Unit+Testing+-+Angular+Karma+Jasmine

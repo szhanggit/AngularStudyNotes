@@ -1,0 +1,43 @@
+loading.interceptor.ts
+
+
+
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { LoaderService } from '../services/loader.service';
+import { HEADER_LOADING_INDICATOR } from '../constants/http';
+
+@Injectable()
+export class LoadingInterceptor implements HttpInterceptor {
+
+  private totalRequests = 0;
+
+  constructor(
+    private loadingService: LoaderService
+  ) {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    this.totalRequests++;
+    const loadingIndicator = request.headers.get(HEADER_LOADING_INDICATOR);
+    const hideLoadingIndicator = loadingIndicator === "none";
+
+    if (loadingIndicator) {
+      request.headers.delete(HEADER_LOADING_INDICATOR);
+    }
+
+    if (!hideLoadingIndicator) {
+      this.loadingService.setLoading(true);
+    }
+    
+    return next.handle(request).pipe(
+      finalize(() => {
+        this.totalRequests--;
+        if (this.totalRequests == 0) {
+          this.loadingService.setLoading(false);
+        }
+      })
+    );
+  }
+}
