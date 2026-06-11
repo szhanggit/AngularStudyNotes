@@ -1,0 +1,22 @@
+<div class="items">
+  <ul>
+    <li *ngFor="let p of players">{{ p.first_name }} {{ p.last_name }}</li>
+  </ul>
+
+
+    <ul>
+      <li *ngFor="let t of teams">{{ t.city }} {{ t.conference }}</li>
+    </ul>
+
+</div>
+<div>
+  <button (click)="loadPLayers()" >
+    Load Players
+  </button>
+  <button (click)="loadTeams()">Load Teams</button>
+</div>
+<div class="loading" *ngIf="loading$ | async">
+  <h1>Please wait...</h1>
+  <div class="spinner"></div>
+</div>
+

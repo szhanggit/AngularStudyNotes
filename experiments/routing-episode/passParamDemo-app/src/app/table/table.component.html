@@ -1,0 +1,30 @@
+<p>table works!</p>
+<button (click)="logOut()" routerLink="/">Log Out</button>
+<br />
+<table>
+    <tr>
+        <td>1</td>
+        <td><button routerLink="/form">Dog</button></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td><button [routerLink]="['/form',2]">Cat</button></td>
+    </tr>    
+    <tr>
+        <td>3</td>
+        <td><button [routerLink]="['/form',3,{name: 'Jellyfish', category: 'softfish', price: 98}]">Fish</button></td>
+    </tr>        
+</table>
+<br />
+<button class="btn btn-info mx-1" routerLink="products">
+    Count Products
+</button>
+<button class="btn btn-primary mx-1" routerLink="categories">
+    Count Categories
+</button>
+<button class="btn btn-secondary mx-1" routerLink="/table">
+    Count Neither
+</button>
+<div class="my-2">
+    <router-outlet></router-outlet>
+</div>

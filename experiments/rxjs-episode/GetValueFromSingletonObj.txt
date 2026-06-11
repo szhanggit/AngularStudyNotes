@@ -1,0 +1,31 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\interceptors\security\token.interceptor.ts
+    this.authSvc.authentication
+    .subscribe(d=>{
+      if (d.access_token != ""){
+        authModel = d;
+        //console.log("authModel", authModel,request.url);
+      }
+    });
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\auth.service.ts
+authentication = new BehaviorSubject<AuthMeModel>(new AuthMeModel());
+this.authentication.next(d);
+
+
+
+Get value from singleton object：
+Start: C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app.component.ts
+  ngOnInit() {
+    this.listenToLoading();
+    this.authSvc.fnGetAuth();
+  }
+Store value in the singleton object: this.userAuthClaim.next(res)
+Get value from the object:     this.authSvc.authentication
+    				.subscribe(d=>{
+
+
+--------------------------------------------------------------------------------------------------------------------------
+It can also get value like this.
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\login\authentication.service.ts
+  public get currentUserValue(): LoginResponse {
+    return this.currentUserSubject.value;
+  }

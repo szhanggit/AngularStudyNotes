@@ -1,0 +1,55 @@
+cd D:\Study\AngularStudyNotes\experiments\microfrontend-app
+ng new shell-app --routing
+ng new product-app --routing
+ng new merchant-app --routing
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+cd D:\Study\AngularStudyNotes\experiments\microfrontend-app\merchant-app\src\app
+	ng generate module shop --route shops --module app.module
+	ng generate module dobatchtransaction --route dobatchtransaction --module app.module
+	ng generate module createmerchant --route createmerchant --module app.module
+	cd D:\Study\AngularStudyNotes\experiments\microfrontend-app\merchant-app\src\app\shop
+		ng generate module shopOnStore --route shops --module shop.module
+		ng generate module shopOnLine --route shops --module shop.module
+		
+cd D:\Study\AngularStudyNotes\experiments\microfrontend-app\merchant-app\
+ng add @angular-architects/module-federation@14.3.0 --project merchant-app --type remote --port 4231 --force
+(The package @angular-architects/module-federation@0.9.0 will be installed and executed.
+ng serve --port 4231
+http://localhost:4231/remoteEntry.js)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+cd D:\Study\AngularStudyNotes\experiments\microfrontend-app\shell-app\src\app
+	ng generate module landing --route landing --module app.module
+	ng add @angular-architects/module-federation@14.3.0 --project shell-app --type host --port 4230 --force
+	
+	
+ng serve --port 4230
+http://localhost:4230
+http://localhost:4230/shops
+
+
+
+
+
+
+
+
+
+
+
+Reference:
+npm uninstall @angular-architects/module-federation
+npm cache clean --force
+ng add @angular-architects/module-federation@14.2.7
+ng add @angular-architects/module-federation --project shell --type host --port 4200
+ng add @angular-architects/module-federation --project mfe1 --type remote --port 4201
+
+https://npmmirror.com/package/@angular-architects/module-federation
+https://github.com/angular-architects/module-federation-plugin/blob/main/libs/mf/tutorial/tutorial.md

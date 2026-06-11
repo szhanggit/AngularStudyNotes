@@ -1,0 +1,43 @@
+ng new passParamDemo-app --routing
+cd passParamDemo-app
+ng generate c login
+ng generate c table
+ng generate c form
+ng generate c productcount
+ng generate c categorycount
+---------------------------------------
+
+The way to pass parameters:
+1. Parent form and child form.
+2. rxjs
+3. service
+4. Pass parameters by routing.	<--
+---------------------------------------
+
+
+<button routerLink="/table">Log In</button>
+
+
+
+
+C:\AngularStudyNotes\experiments\passParamDemo-app\src\app\table\table.component.html
+<td><button routerLink="/form">Dog</button></td>
+<td><button [routerLink]="['/form',2]">Cat</button></td>
+<td><button [routerLink]="['/form',3,{name: 'Jellyfish', category: 'softfish', price: 98}]">Fish</button></td>     
+
+
+
+---------------------------------------
+
+
+<button *ngFor="let category of categories" class="btn btn-secondary btn-block px-3" [routerLink]="['/table', category]" routerLinkActive="bg-primary">
+	{{category}}
+</button>
+{ path: "table/:category", component: TableComponent, children: childRoutes },
+
+
+
+<button class="btn btn-warning btn-sm" [routerLink]="['/form', 'edit', item.id]">
+	Edit
+</button>
+{ path: "form/:mode/:id", component: FormComponent },

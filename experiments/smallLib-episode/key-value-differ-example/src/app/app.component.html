@@ -1,0 +1,8 @@
+<div>
+  <h2>Product Details</h2>
+  <button (click)="updateProduct()">Update Product</button>
+  <div *ngIf="changes">
+    <h3>Changes Detected:</h3>
+    <div *ngFor="let change of changes">{{ change }}</div>
+  </div>
+</div>

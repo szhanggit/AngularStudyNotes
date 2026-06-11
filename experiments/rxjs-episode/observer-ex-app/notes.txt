@@ -1,0 +1,30 @@
+ng new observer-ex-app --routing --standalone false
+npm install bootstrap --save
+npm install @fortawesome/fontawesome-free --save
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap --save
+
+ng g service event
+ng g class layout.model
+ng g class eventType
+ng g component row00
+ng g component row01
+ng g component row02
+ng g component row10
+ng g component row11
+ng g component row12
+ng g component row20
+ng g component row21
+ng g component row22
+ng g component row00control
+ng g component row01control
+ng g component row02control
+ng g component row10control
+ng g component row11control
+ng g component row12control
+ng g component row20control
+ng g component row21control
+ng g component row22control
+
+https://ng-bootstrap.github.io/#/components/nav/api#NgbNavItem
+

@@ -1,0 +1,4 @@
+Go to ~\experiments\smallLib-episode\atob
+> npm init --yes
+> tsc
+> node dist/index.js

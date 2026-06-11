@@ -1,0 +1,40 @@
+NGX-TOASTR alert in angular17 standalone template | traditional notification and alert in angular
+https://www.youtube.com/watch?v=1HNuM3DAdA8
+https://github.com/nihira2020/standalone
+
+
+npm install ngx-toastr
+ng g c component/toastalert
+
+http://localhost:4200/toast
+https://www.npmjs.com/package/ngx-toastr
+-------------------------------------------
+C:\AngularStudyNotes\experiments\smallLib-episode\toastr-app2\src\app\app.config.ts
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes), provideHttpClient(),
+  importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(DataService)),
+  provideEnvironmentNgxMask(), provideAnimationsAsync(),
+  provideToastr(                                                            !!!!!!!
+    {                                                                       !!!!!!!
+      closeButton: true, positionClass: 'toast-top-center',                 !!!!!!!
+      timeOut: 1000000,preventDuplicates:false                              !!!!!!!
+    }                                                                       !!!!!!!    
+  )                                                                         !!!!!!!
+  ]
+};
+
+
+C:\AngularStudyNotes\experiments\smallLib-episode\toastr-app2\angular.json
+
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"                          !!!!!!1
+            ],
+
+
+
+C:\AngularStudyNotes\experiments\smallLib-episode\toastr-app2\src\app\component\toastalert\toastalert.component.ts
+Code goes here!
+

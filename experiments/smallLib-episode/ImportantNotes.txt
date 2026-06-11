@@ -1,0 +1,15 @@
+
+https://stackoverflow.com/questions/77539848/best-practice-for-main-ts-bootstrap-call-in-angular-17-standalone-configuration
+https://v17.angular.io/guide/standalone-migration
+
+
+
+
+https://medium.com/ng-gotchas/easily-create-the-legacy-angular-apps-v2-v4-v5-v6-ee4a22d7eb60
+#Angular 12: current
+npx -p @angular/cli@12.0.0 ng new angular12App
+
+
+
+Original code:
+C:\AngularStudyNotes\dotnettutorials\4.1RoutingInAngular\MyAngularApp

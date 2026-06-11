@@ -1,0 +1,84 @@
+middleoffice-app
+
+const routes: Routes = [
+  {
+    path: '', //Can be empty.
+    component: MerchantComponent, //No matter which component below is selected, this component MerchantComponent will not disappear.
+    children: [
+      //{ path: '', component: MerchantComponent }, //This component MerchantComponent could disappear once other options are selected.
+      { path: 'shops', component: ShopComponent }, 
+      { path: 'dobatchtransaction', component: DobatchtransactionComponent }, 
+      { path: 'createmerchant', component: CreatemerchantComponent }
+    ]
+  }
+];
+
+------------------------------------------------------------------------------------
+childrouting2-app
+
+D:\Study\AngularStudyNotes\experiments\childrouting2-app\src\app\app-routing.module.ts
+import { MerchantModule } from './merchant/merchant.module';  //If it is disabled, will show that 'router-outlet' cannot be recognized.
+/*
+If there is no dynamic module loading, module has to be imported at every beginning.
+*/
+
+const childRoutes_1: Routes = [
+  { path: "", /*
+    path: ""  =>  http://localhost:4200/merchants/shop
+    path: "s" =>  http://localhost:4200/merchants/s/shop
+  */
+    children: [
+      { path:'createmerchants', component: CreatemerchantsComponent },
+      { path:'shop', component: ShopComponent },
+      { path:'dobatchtransaction', component: DobatchtransactionComponent }
+    ]
+  }
+];
+
+------------------------------------------------------------------------------------
+
+txc-front-web-toc/emptyrouting-app
+app/pages/inventory
+~\app\pages\inventory\inventory.component.html
+A: If you add <router-outlet></router-outlet>, InventoryComponent will be a layout.
+B: If you do not add <router-outlet></router-outlet>, it will also work.
+
+
+A: 
+const routes: Routes = [
+  {
+    path: '', //Can be empty.
+    component: MerchantComponent, //No matter which component below is selected, this component MerchantComponent will not disappear.
+    children: [
+      //{ path: '', component: MerchantComponent }, //This component MerchantComponent could disappear once other options are selected.
+      { path: 'shops', component: ShopComponent }, 
+      { path: 'dobatchtransaction', component: DobatchtransactionComponent }, 
+      { path: 'createmerchant', component: CreatemerchantComponent }
+    ]
+  }
+];
+
+
+
+
+B: 
+const routes: Routes = [
+  { path: '', component: PagesComponent }, 
+  { path: 'inventory', loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule) }, 
+  { path: 'merchant-sku', loadChildren: () => import('./merchant-sku/merchant-sku.module').then(m => m.MerchantSkuModule) }, 
+  { path: 'maintenance', loadChildren: () => import('./maintenance/maintenance.module').then(m => m.MaintenanceModule) }
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+

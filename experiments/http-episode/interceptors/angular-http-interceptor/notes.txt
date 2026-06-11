@@ -1,0 +1,19 @@
+https://medium.com/@jaydeepvpatil225/http-interceptors-in-angular-6e9891ae0538
+
+
+
+
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true
+    }
+  ],

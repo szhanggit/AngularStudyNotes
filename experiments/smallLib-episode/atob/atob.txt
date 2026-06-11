@@ -1,0 +1,83 @@
+atob(loginResponse.token.split('.')[1])
+decode and encode in client and server end.
+------------------------------------------------
+
+`atob` is a built-in JavaScript function that decodes a base-64 encoded string. In TypeScript, you can use `atob` just like you would in JavaScript because TypeScript is a superset of JavaScript.
+
+### What is Base-64 Encoding?
+
+Base-64 encoding is a way of encoding binary data into an ASCII string format by translating it into a radix-64 representation. This is often used for encoding data that needs to be stored and transferred over media that are designed to deal with textual data. This includes embedding image data within HTML or CSS files.
+
+### Using `atob` in TypeScript
+
+Here’s a simple example of how to use `atob` in TypeScript:
+
+1. **Encode a string to base-64**: Use `btoa` (the opposite of `atob`).
+2. **Decode the base-64 string**: Use `atob`.
+
+### Example
+
+#### Encoding a String to Base-64
+
+```typescript
+const originalString = "Hello, World!";
+const base64Encoded = btoa(originalString);
+console.log(base64Encoded); // Outputs: "SGVsbG8sIFdvcmxkIQ=="
+```
+
+#### Decoding a Base-64 String
+
+```typescript
+const base64Encoded = "SGVsbG8sIFdvcmxkIQ==";
+const decodedString = atob(base64Encoded);
+console.log(decodedString); // Outputs: "Hello, World!"
+```
+
+### Full Example in TypeScript
+
+Let's put it all together in a TypeScript example:
+
+#### base64-demo.ts
+
+```typescript
+// Function to encode a string to base-64
+function encodeToBase64(input: string): string {
+  return btoa(input);
+}
+
+// Function to decode a base-64 string
+function decodeFromBase64(encoded: string): string {
+  return atob(encoded);
+}
+
+// Example usage
+const originalString = "Hello, World!";
+const base64Encoded = encodeToBase64(originalString);
+console.log(`Base-64 Encoded: ${base64Encoded}`); // Outputs: "SGVsbG8sIFdvcmxkIQ=="
+
+const decodedString = decodeFromBase64(base64Encoded);
+console.log(`Decoded String: ${decodedString}`); // Outputs: "Hello, World!"
+```
+
+### Error Handling
+
+If you pass a string to `atob` that is not correctly base-64 encoded, it will throw an error. You might want to handle this in a try-catch block.
+
+```typescript
+try {
+  const invalidBase64 = "InvalidString!";
+  const decoded = atob(invalidBase64);
+  console.log(decoded);
+} catch (e) {
+  console.error("Failed to decode base-64 string:", e);
+}
+```
+
+### Summary
+
+- **`atob`**: Decodes a base-64 encoded string.
+- **`btoa`**: Encodes a string into base-64.
+- Both functions can be used directly in TypeScript as they are part of the global JavaScript scope.
+- Error handling should be implemented for invalid base-64 strings. 
+
+By using these functions, you can easily handle base-64 encoding and decoding in your TypeScript applications.

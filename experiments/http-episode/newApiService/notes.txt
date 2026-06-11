@@ -1,0 +1,55 @@
+cd D:\Study\AngularStudyNotes\experiments
+ng new template-app --routing
+
+
+
+
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap@12.1.2 --force
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css" into angular.json
+
+
+cd D:\Study\AngularStudyNotes\experiments\template-app
+ng generate c navbasicex
+ng generate c templateoutlet
+ng generate c toggleex1
+ng generate c toggleex2
+ng generate c tooltip1
+
+
+
+ng generate c student
+ng generate c product
+ng generate class model/student.model
+ng generate class model/student.response.model
+ng generate service service/student
+ng generate service service/product
+ng generate service service/Rest.Datasource
+ng generate service service/loading
+ng generate service service/http.request.interceptor
+ng generate service model/student.repository
+
+Reference:
+https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap
+https://snyk.io/advisor/npm-package/@ng-bootstrap/ng-bootstrap
+https://ng-bootstrap.github.io/#/components/nav/api#NgbNavItem
+
+
+
+http://localhost:4200/
+http://localhost:4200/navbasic
+http://localhost:4200/template
+
+npm list @ng-bootstrap/ng-bootstrap
+npm uninstall @ng-bootstrap/ng-bootstrap
+
+
+--------------------------------------------
+https://www.geeksforgeeks.org/angular-ngx-bootstrap-progressbar-component/
+
+npm install ngx-bootstrap --save 
+
+<link href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css” rel=”stylesheet”>

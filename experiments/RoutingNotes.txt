@@ -1,0 +1,38 @@
+Table 25-4. The Routes Properties Used to Define Routes
+
+path 		This property specifies the path for the route.
+component 	This property specifies the component that will be selected when the active URL matches the path.
+pathMatch 	This property tells Angular how to match the current URL to the path property. There
+		are two allowed values: full, which requires the path value to completely match
+		the URL, and prefix, which allows the path value to match the URL, even if the URL
+		contains additional segments that are not part of the path value. This property is
+		required when using the redirectTo property, as demonstrated in Chapter 26.
+redirectTo 	This property is used to create a route that redirects the browser to a different URL
+		when activated. See Chapter 26 for details.
+children 	This property is used to specify child routes, which display additional components in
+		nested router-outlet elements contained in the template of the active component,
+		as demonstrated in Chapter 26.
+outlet 		This property is used to support multiple outlet elements, as described in Chapter 27.
+resolve 	This property is used to define work that must be completed before a route can be
+		activated, as described in Chapter 27.
+canActivate 	This property is used to control when a route can be activated, as described in Chapter 27.
+canActivateChild This property is used to control when a child route can be activated, as described in Chapter 27.
+canDeactivate 	This property is used to control when a route can be deactivated so that a new route
+		can be activated, as described in Chapter 27.
+loadChildren 	This property is used to configure a module that is loaded only when it is needed, as described in Chapter 27.
+canLoad 	This property is used to control when an on-demand module can be loaded.
+
+
+Table 27-2. The Routes Properties for Guards
+
+resolve 	This property is used to specify guards that will delay route activation until some operation has been completed, 
+		such as loading data from a server.
+canActivate 	This property is used to specify the guards that will be used to determine whether a route can be activated.
+canActivateChild This property is used to specify the guards that will be used to determine whether a child route can be activated.
+canDeactivate 	This property is used to specify the guards that will be used to determine whether a route can be deactivated.
+canLoad 	This property is used to guard routes that load feature modules dynamically, 
+		as described in the “Loading Feature Modules Dynamically” section.
+
+
+A resolver is used to ensure that a task is performed before a route can be activated.
+Resolve method will be called every time when the application tries to navigate to a route to which the resolver has been applied.

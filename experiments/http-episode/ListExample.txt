@@ -1,0 +1,20 @@
+Complete cycle to download data and display on the page:
+ApiService
+
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-list\tenant-list.component.html
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-list\tenant-list.component.ts
+  onFirstDataRendered(): void {
+    if (!this.gridApi) return;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant-list.service.ts
+
+
+
+
+
+
+
+
+

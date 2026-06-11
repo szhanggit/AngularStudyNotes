@@ -1,0 +1,11 @@
+<button type="button" routerLink="">Home</button>
+<button type="button" routerLink="/product">Product</button>
+
+<router-outlet></router-outlet>
+<div *ngIf="loading" class="loading-container flex-content-center">
+    <div class="d-flex align-items-center text-center">
+        <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+cd D:\Study\AngularStudyNotes\experiments
+ng new template-app --routing
+
+
+
+
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap@12.1.2 --force
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css" into angular.json
+
+
+  ngAfterViewInit(): void {
+    if (history.state?.isCreated) {
+      this.toast.showSuccess('You have successfully created a new product!');
+      this.productSvc.status = 2;
+    }
+    if (history.state?.isBatchUpdatedCombo) {
+      this.toast.showSuccess('Batch update product combo successful!');
+      this.productSvc.status = 1;
+    }
+    this.cdr.detectChanges();       //!!!!!!!!!!!!!!!!
+  }
+
+
+
+
+
+
+
+
+
+
+

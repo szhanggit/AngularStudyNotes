@@ -1,0 +1,46 @@
+﻿Install-Package Swashbuckle.AspNetCore
+https://localhost:5001/swagger/index.html
+https://localhost:5001/api/Login
+
+https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
+1. Make sure you place the UseCors code between app.UseRouting(); and app.UseAuthentication();
+app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseCors("CorsApi");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+});
+
+2. Then place this code in the ConfigureServices method
+services.AddCors(options =>
+{
+    options.AddPolicy("CorsApi",
+        builder => builder.WithOrigins("http://localhost:4200", "http://mywebsite.com")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
+3. And above the base controller I placed this
+[EnableCors("CorsApi")]
+[Route("api/[controller]")]
+[ApiController]
+public class BaseController : ControllerBase
+
+https://www.c-sharpcorner.com/article/enable-cors-consume-web-api-by-mvc-in-net-core-4/
+
+
+
+https://localhost:5001/api/Students?id=1
+https://localhost:5001/api/Students/1
+{
+  "id": 3,
+  "firstName": "Tom",
+  "lastName": "Peterson",
+  "grade": 3,
+  "gender": true
+}

@@ -1,0 +1,18 @@
+ng new login-app --routing
+ng generate module landing --route landing --module app.module
+ng generate module login --route login --module app.module
+cd login-app
+ng serve -o --port 12200
+
+
+http://localhost:12200/login
+http://localhost:12200/landing
+ng generate service services/auth.service
+ng generate service models/auth.models
+ng g m core
+ng g s core/auth.guard
+
+
+
+
+

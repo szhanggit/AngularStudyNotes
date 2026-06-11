@@ -1,0 +1,2 @@
+  Study { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+  Study loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),

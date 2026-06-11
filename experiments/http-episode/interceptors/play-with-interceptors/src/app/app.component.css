@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.items {
+  display: flex;
+}
+
+button {
+  background-color: rgb(59, 114, 235);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  margin: 1rem;
+}

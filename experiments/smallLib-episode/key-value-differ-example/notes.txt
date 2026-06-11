@@ -1,0 +1,118 @@
+Sure! `KeyValueDiffers` is a service in Angular that helps you detect changes in objects. Here’s an example that demonstrates how to use `KeyValueDiffers` to track changes in an object.
+
+### Example: Tracking Changes in an Object with `KeyValueDiffers`
+
+1. **Set up an Angular component**:
+    - Import necessary modules.
+    - Inject `KeyValueDiffers` into the component.
+    - Create a `KeyValueDiffer` instance.
+    - Use the differ to detect changes in an object.
+
+### Step-by-Step Implementation
+
+#### 1. Install Angular CLI and Create a New Project
+
+If you haven't already set up an Angular project, you can create one using the Angular CLI:
+
+```sh
+npm install -g @angular/cli
+ng new key-value-differ-example
+cd key-value-differ-example
+ng serve
+```
+
+#### 2. Modify `app.component.ts`
+
+```typescript
+import { Component, KeyValueDiffers, KeyValueDiffer, DoCheck } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div>
+      <h2>Product Details</h2>
+      <button (click)="updateProduct()">Update Product</button>
+      <div *ngIf="changes">
+        <h3>Changes Detected:</h3>
+        <div *ngFor="let change of changes">{{ change }}</div>
+      </div>
+    </div>
+  `
+})
+export class AppComponent implements DoCheck {
+  product = { id: 1, name: 'Product A', category: 'Category 1' };
+  productDiffer: KeyValueDiffer<string, any>;
+  changes: string[] = [];
+
+  constructor(private differs: KeyValueDiffers) {
+    this.productDiffer = this.differs.find(this.product).create();
+  }
+
+  ngDoCheck() {
+    const changes = this.productDiffer.diff(this.product);
+    if (changes) {
+      this.changes = [];
+      changes.forEachChangedItem(item => {
+        this.changes.push(`Changed: ${item.key} from ${item.previousValue} to ${item.currentValue}`);
+      });
+      changes.forEachAddedItem(item => {
+        this.changes.push(`Added: ${item.key} with value ${item.currentValue}`);
+      });
+      changes.forEachRemovedItem(item => {
+        this.changes.push(`Removed: ${item.key} (was ${item.previousValue})`);
+      });
+    }
+  }
+
+  updateProduct() {
+    this.product.name = 'Product B';
+    this.product.category = 'Category 2';
+  }
+}
+```
+
+#### 3. Explanation of the Code
+
+- **Imports**: Import `Component`, `KeyValueDiffers`, `KeyValueDiffer`, and `DoCheck` from `@angular/core`.
+- **Component Metadata**: Define the component's selector and template.
+- **Component Class**:
+  - **`product`**: An object representing the product details.
+  - **`productDiffer`**: An instance of `KeyValueDiffer` to track changes in the `product` object.
+  - **`changes`**: An array to store detected changes.
+  - **`constructor`**: Inject `KeyValueDiffers` and create a differ for the `product` object.
+  - **`ngDoCheck`**: Lifecycle hook to detect changes. If changes are detected, iterate through the changes and update the `changes` array.
+  - **`updateProduct`**: A method to update the product details, triggering change detection.
+
+#### 4. Modify `app.module.ts`
+
+Ensure your `AppComponent` is declared in your module:
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### Running the Application
+
+Run the Angular application using the Angular CLI:
+
+```sh
+ng serve
+```
+
+Navigate to `http://localhost:4200/` in your browser. You should see a button labeled "Update Product." Clicking this button will update the product details, and the changes will be detected and displayed below.
+
+This example demonstrates how to use `KeyValueDiffers` in Angular to detect changes in an object and respond to those changes appropriately.

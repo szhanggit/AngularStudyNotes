@@ -1,0 +1,123 @@
+1. Where does the data get loaded?
+localhost:4200 => localhost:4200/table => need to load table.component.ts.
+Will trigger => 
+    getProducts(): Product[] {
+        return this.model.getProducts()
+            .filter(p => this.category == null || p.category == this.category);
+    }
+
+=> src\app\model\repository.model.ts
+    constructor(private dataSource: RestDataSource) {
+        this.dataSource.getData().subscribe(data => this.products = data);
+    }
+
+
+    getProducts(): Product[] {
+        return this.products;
+    }
+
+=> src\app\model\rest.datasource.ts
+    getData(): Observable<Product[]> {
+        return this.sendRequest<Product[]>("GET", this.url);
+    }
+
+    private sendRequest<T>(verb: string, url: string, body?: Product)
+        : Observable<T> {
+
+        let myHeaders = new HttpHeaders();
+        myHeaders = myHeaders.set("Access-Key", "<secret>");
+        myHeaders = myHeaders.set("Application-Names", ["exampleApp", "proAngular"]);
+
+        return this.http.request<T>(verb, url, {
+            body: body,
+            headers: myHeaders
+        })
+        .pipe(delay(5000))
+        .pipe(catchError((error: Response) => 
+             throwError(`Network Error: ${error.statusText} (${error.status})`)));
+    }
+
+--------------------------------------------------------
+
+Wait until data has been fully loaded.
+src\app\model\model.resolver.ts
+If there is no data loaded, show loading... message.
+
+
+
+2. When loading message is displayed, other html components cannot be seen?
+loading message covers the whole page.
+
+3. What is the meaning of return this.dataSource.getData(); in src\app\model\model.resolver.ts?
+The return type shall be Observable<Product[]>.
+
+4. When will be loading message disappeared?
+src\app\messages\message.component.ts
+        router.events
+            .pipe(filter(e => e instanceof NavigationEnd 
+                || e instanceof NavigationCancel))
+            .subscribe(e => { this.lastMessage = null; });
+
+(The whole page has been loaded completely.)
+
+5. What does the resolver actually do here?
+Resolver will bring up the loading... page.
+After the loading is completed, message.component.ts will make the loading page disappearing. 
+
+6. What will happen if there is no loading message?
+In the 5 seconds, the whole page will become empty. Till the loading is completed, new navigation will be triggered.
+
+
+resolve(route: ActivatedRouteSnapshot,
+state: RouterStateSnapshot): Observable<Product[]> {
+return this.model.getProducts().length == 0
+? this.dataSource.getData() : null;
+}
+
+Angular will monitor this.dataSource.getData(). After completion, new navigation will be triggered.
+Angular will monitor null, and new navigation will be triggered right the way.
+
+
+7. What if loading message is disabled, and resolver is disabled too?
+New navigation will be triggered right the way, and you will see an empty form.
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+The second example:
+Using a Resolver to Prevent URL Entry Problems(P694)
+
+
+When form is reloaded, 
+
+src\app\core\form.component.ts	=>	model.getProduct(id)
+src\app\model\repository.model.ts	=>	constructor is triggered.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
