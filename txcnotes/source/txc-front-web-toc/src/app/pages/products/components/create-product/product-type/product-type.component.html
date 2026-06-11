@@ -1,0 +1,66 @@
+<div class="bg-white rounded p-5">
+    <span class="text-dark font-16"><strong>Which product type you would like to create? </strong><span class="text-danger">*</span></span>
+    <div class="row">
+        <div class="col-6 mt-3 mb-2" *ngFor="let productType of productTypes">
+            <div class="card text-center" *ngIf="!(selectedTenant === 'GR' && productType.key === 8)">
+                <div class="card-body p-5"
+                    [ngClass]="{'active': productType.key === selectedType.key, 'padding-alignment': !showIsChildSelection(productType.key) && productCustomizationService.isTaiwan(selectedTenant) || 
+                    productType.key === selectedType.key && productCustomizationService.isIndia(selectedTenant) && productType.key === 8}"
+                    (click)="selectType(productType)">
+                    <div
+                        [ngClass]="{'text-primary': productType.key === selectedType.key, 'text-secondary': !(productType.key === selectedType.key)}">
+                        {{ productType.value }}</div>
+                    <div *ngIf="productType.key === selectedType.key && !showIsChildSelection(productType.key) && productCustomizationService.isTaiwan(selectedTenant)"
+                        class="mt-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input name="inlineRadioOptions" class="form-check-input" type="radio"
+                                        [value]="false" [(ngModel)]="productType.isChild">
+                                    <label class="form-check-label" for="inlineRadio1">General</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input name="inlineRadioOptions" class="form-check-input" type="radio"
+                                        [value]="true" [(ngModel)]="productType.isChild">
+                                    <label class="form-check-label" for="inlineRadio2">Child</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="productType.key === selectedType.key && productCustomizationService.isIndia(selectedTenant) && productType.key === 8"
+                        class="mt-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input name="inlineRadioOptions" class="form-check-input" type="radio"
+                                        [value]="'standard'" [(ngModel)]="productType.superVoucherVersion">
+                                    <label class="form-check-label" for="inlineRadio1">Standard version</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input name="inlineRadioOptions" class="form-check-input" type="radio"
+                                        [value]="'deferredChildVersion'" [(ngModel)]="productType.superVoucherVersion">
+                                    <label class="form-check-label" for="inlineRadio2">Deferred child version</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <input name="inlineRadioOptions" class="form-check-input" type="radio"
+                                        [value]="'deferredChildCartVersion'"
+                                        [(ngModel)]="productType.superVoucherVersion">
+                                    <label class="form-check-label" for="inlineRadio2">Deferred child cart
+                                        version</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

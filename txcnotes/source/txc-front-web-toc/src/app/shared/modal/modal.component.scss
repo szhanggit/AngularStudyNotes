@@ -1,0 +1,96 @@
+.show{
+    display: initial;
+}
+
+.hide{
+    display: none;
+}
+
+.modal {
+    border-radius: 10px;
+    z-index: 1010;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 200px;
+    min-height: 200px;
+    // height: 500px;    
+    background-color: #fff;
+    
+
+    .close-btn{
+        width: 30px !important;
+    }
+
+    // .modal-header, .modal-footer{    
+    //     background-color: #f1f1f1;
+    //     border: 2px solid #E2E7EE;
+    // }
+
+    .modal-footer{
+        text-align: right;
+        padding: 10px 2px 0 0;
+        button:last-child{
+            margin:0 0 0 10px;
+        }
+        height: 35px;
+    }
+
+    .modal-header{
+        text-align: center;
+        margin: 22px 0 12px 0;
+        padding: 0 0 6px 0;
+        border-bottom: solid 0.5px #dfdfdf;
+
+        .modal-title{    
+            display: inline-block;
+            vertical-align: top;
+            font-size: 20px;
+            color: rgb(94, 94, 94);
+            padding: 0 0 0 1px;
+        }
+
+        // .modal-title, .modal-controls{
+        //     display: inline-block;
+        //     width: 49.9%;
+        //     vertical-align: top;
+        // }
+
+        // .modal-controls{            
+        //     text-align: right;
+        //     padding: 2px 0 0 0;
+        // }
+
+        // .modal-title{    
+        //     font-size: 30px;
+        //     color: rgb(94, 94, 94);
+        //     padding: 0 0 0 1px;
+        // }
+    }
+
+    .modal-body{
+        height: calc(100% - 80px);
+        padding: 10px 10px 5px 10px;
+    }
+
+
+  }
+.modal-overlay {
+
+/* recommendation:
+    don't focus on the number "1000" here, but rather,
+    you should have a documented system for z-index and 
+    follow that system. This number should be pretty
+    high on the scale in that system.
+*/
+z-index: 1000;
+
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: black;
+opacity: (0.3);
+}

@@ -1,0 +1,94 @@
+<div class="container-fluid">
+
+    <form id="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="row mt-2">
+            <div class="col-10">
+                <h3 class="page-title">Create Vendor</h3>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="row">
+                        <div class="d-flex justify-content-end ">
+                            <span class="text-secondary align-self-center font-14">Status</span>
+                            <select name="status" class="form-select font-12" formControlName="status">
+                                <option [ngValue]="1">Active</option>
+                                <option [ngValue]="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-sm-12">
+                                <div class="mb-3">
+                                    <label for="txtName" class="form-label">Vendor Name <span
+                                            class="text-danger"><strong>*</strong></span></label>
+                                    <input type="text" id="txtName" class="form-control"
+                                        [ngClass]="{'is-invalid': isFormInvalid && form.controls.name.invalid}"
+                                        formControlName="name">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-sm-12">
+                                <div class="mb-3">
+                                    <label for="txtVendorCode" class="form-label">Vendor Code<span
+                                            class="text-danger"><strong>*</strong></span></label>
+                                    <input type="text" id="txtVendorCode" class="form-control"
+                                        [ngClass]="{'is-invalid': isFormInvalid && form.controls.vendorCode.invalid}"
+                                        formControlName="vendorCode">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-sm-12">
+                                <div class="mb-3">
+                                    <label for="txtProgram" class="form-label">Program <span
+                                            class="text-danger"><strong>*</strong></span></label>
+                                    <input type="text" id="txtProgram" class="form-control"
+                                        [ngClass]="{'is-invalid': isFormInvalid && form.controls.programCode.invalid}"
+                                        formControlName="programCode">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-sm-12">
+                                <div class="mt-2">
+                                    <label for="lblInvokeType" class="form-label">Invoke type</label><br />
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="sync" name="invokeType" value="1"
+                                            class="form-check-input" formControlName="invokeType">
+                                        <label class="form-check-label" for="sync">1 sync</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="async" name="invokeType" value="2"
+                                            class="form-check-input" formControlName="invokeType">
+                                        <label class="form-check-label" for="async">2 async</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-sm-12">
+                                <div class="mb-3">
+                                    <label for="txtSetting" class="form-label">Setting <span
+                                            class="text-danger"></span></label>
+                                    <textarea id="txtSetting" class="form-control" formControlName="callSetting"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-end">
+                <button type="button" class="btn btn-dark rounded-pill" (click)="gotoList()">Cancel</button>
+                <button type="submit" class="btn btn-primary rounded-pill ms-1" [disabled]="!form.valid">Create</button>
+            </div>
+        </div>
+    </form>
+</div>

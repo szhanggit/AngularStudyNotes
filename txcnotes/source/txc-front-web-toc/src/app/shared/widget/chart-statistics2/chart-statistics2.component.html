@@ -1,0 +1,25 @@
+<div class="card widget-flat">
+    <div class="card-body">
+        <div class="float-end">
+            <button type="button" class="btn btn-sm btn-light">View</button>
+        </div>
+        <h6 class="text-muted text-uppercase mt-0" title="Revenue">{{title}}</h6>
+        <h3 class="mb-4 mt-2">{{mainNumber}}</h3>
+
+        <apx-chart class="apex-charts" #chart [series]="series" [chart]="chartData" [xaxis]="xaxis" [stroke]="stroke"
+            [plotOptions]="plotOptions" [colors]="colors" [autoUpdateSeries]="false" [labels]="labels"
+            [dataLabels]="dataLabels" [grid]="grid">
+        </apx-chart>
+
+        <div class="row text-center mt-3">
+            <div class="col-6">
+                <h6 class="text-truncate d-block">Last Month</h6>
+                <p class="font-18 mb-0">{{lastMonthNumber}}</p>
+            </div>
+            <div class="col-6">
+                <h6 class="text-truncate d-block">Current Month</h6>
+                <p class="font-18 mb-0">{{currentMonthNumber}}</p>
+            </div>
+        </div>
+    </div>
+</div>

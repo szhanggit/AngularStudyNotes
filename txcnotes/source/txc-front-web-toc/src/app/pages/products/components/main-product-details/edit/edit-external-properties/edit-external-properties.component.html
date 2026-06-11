@@ -1,0 +1,29 @@
+<div class="product-details">
+    <div class="row my-3">
+        <div class="col-6">
+            <span class="text-dark font-22"><strong>Edit Product Details</strong></span>
+            <div class="vr font-16 mx-2"></div>
+            <span class="text-secondary font-22 mx-2"><strong>{{ product?.productName | titlecase }}</strong></span>
+        </div>
+    </div>
+</div>
+
+<app-product-properties [selectedTenant]="selectedTenant" [selectedExternalProperties]="currentExternalProperties" (onExternalPropertiesChanged)="OnExternalPropertyChanged($event)"></app-product-properties>
+
+<div class="row my-2">
+    <div class="col-9">
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-secondary rounded-pill w-100 p-2 font-14"
+                    (click)="navigateBackToProductDetails()">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary rounded-pill w-100 p-2 font-14"
+                    [disabled]="!dirty"
+                    (click)="saveExternalProperty()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

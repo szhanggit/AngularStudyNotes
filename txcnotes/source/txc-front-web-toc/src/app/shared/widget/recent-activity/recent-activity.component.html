@@ -1,0 +1,18 @@
+<ngx-simplebar class="card-body py-0" [style.maxHeight.px]="height">
+    <!-- timeline start -->
+    <div class="timeline-alt py-0">
+        <div class="timeline-item" *ngFor="let activity of recentActivities">
+            <i
+                class="{{activity.timelineIcon}} bg-{{activity.variant}}-lighten text-{{activity.variant}} timeline-icon"></i>
+            <div class="timeline-item-info">
+                <a href="javascript:void(0)"
+                    class="text-{{activity.variant}} fw-bold mb-1 d-block">{{activity.title}}</a>
+                <small>{{activity.text}} <span class="fw-bold">{{activity.mainText}}</span></small>
+                <p class="mb-0 pb-2">
+                    <small class="text-muted">{{activity.time}}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- timeline end -->
+</ngx-simplebar>

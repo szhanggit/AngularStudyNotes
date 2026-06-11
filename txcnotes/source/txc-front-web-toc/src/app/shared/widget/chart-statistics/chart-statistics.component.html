@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <h5 class="text-muted fw-normal mt-0 text-truncate" [title]="titleTooltipText">{{title}}</h5>
+                <h3 class="my-2 py-1" *ngIf='isNumber(mainNumber)'>{{mainNumber | number}}</h3>
+                <h3 class="my-2 py-1" *ngIf='!isNumber(mainNumber)'>{{mainNumber}}</h3>
+                <p class=" mb-0 text-muted">
+                    <span class="{{subTitleClass}} me-2"><i [class]="subIconClass"></i>{{subNumber}}</span>
+                </p>
+            </div>
+            <div class="col-6">
+                <div class="text-end">
+                    <apx-chart class="apex-charts" [series]="series" [chart]="chartData" [xaxis]="xaxis"
+                        [tooltip]="tooltip" [stroke]="stroke" [plotOptions]="plotOptions" [colors]="colors"
+                        [autoUpdateSeries]="false">
+                    </apx-chart>
+                </div>
+            </div>
+        </div> <!-- end row-->
+    </div> <!-- end card-body -->
+</div>

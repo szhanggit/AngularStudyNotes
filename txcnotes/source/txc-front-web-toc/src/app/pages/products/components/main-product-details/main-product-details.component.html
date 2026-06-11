@@ -1,0 +1,496 @@
+<div class="product-details">
+    <div class="row mt-3">
+        <div class="col-6">
+            <span class="text-secondary font-22"><strong>{{ product?.productCode | titlecase  }}</strong></span>
+            <span class="text-dark font-22 mx-2"><strong>{{ product?.productName | titlecase }}</strong></span>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-3">
+            <div class="font-16">
+                <strong class="border"
+                    [ngClass]="{ 'text-success' : product?.status, 'text-danger' : !product?.status }">{{
+                    product?.status ? 'Active' : 'Inactive' }}</strong>
+                <div class="vr font-16 mx-2"></div>
+                <span class="text-secondary font-16">
+                    Product type: {{ product?.productType | producttype }}
+                </span>
+            </div>
+            <span *ngIf="product?.stopIssueTime" class="font-16"
+                [ngClass]="{'text-success' : stopIssueTimeColor, 'text-danger' : !stopIssueTimeColor}">
+                Stop issue time: {{ stopIssueTime | date : 'M/dd/YYYY hh:mm:ss aa' }}
+            </span>
+        </div>
+        <div class="col-9">
+            <div class="float-end">
+                <span ngbDropdown>
+                    <a class="btn btn-secondary rounded-circle" href="javascript:void(0)" role="button"
+                        id="dropdownLink" ngbDropdownToggle>
+                        <i class="uil uil-ellipsis-h"></i>
+                    </a>
+                    <div ngbDropdownMenu aria-labelledby="dropdownLink" class="dropdown-menu">
+                        <a ngbDropdownItem class="font-12" (click)="navigateToProductHistory()">View Product History</a>
+                    </div>
+                </span>
+
+                <button class="btn btn-secondary rounded-pill mx-2 font-12" (click)="openModal(stopIssueTimeModal)">
+                    {{ !product?.stopIssueTime ? 'Set stop issue time' : 'Edit stop issue time' }}
+                </button>
+
+                <button class="btn btn-primary rounded-pill font-12">View SKU details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngTemplateOutlet="productDetails"></ng-container>
+<ng-container *ngTemplateOutlet="pricingContractExpiry"></ng-container>
+<!-- <ng-container *ngTemplateOutlet="productTemplateImage"></ng-container> -->
+<ng-container *ngTemplateOutlet="externalProperties"></ng-container>
+
+<ng-template #productDetails>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn rounded-circle btn-secondary btn-sm" (click)="pdCollapse.toggle()"
+                    [attr.aria-expanded]="!productDetailsCollapsed" aria-controls="collapseExample">
+                    <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>Product Details</strong>
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToEditProductDetails()">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productDetailsCollapsed">
+            <!-- BASIC INFO -->
+            <app-basic-info [selectedTenant]="selectedTenant" [product]="product"></app-basic-info>
+            <!-- AVAILABLE MERCHANT -->
+            <!-- <div class="row mt-2">
+                <div>
+                    <span class="font-16"><strong>Available merchant for this product</strong></span>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4 text-left font-12"><strong>Merchant</strong></div>
+                            <div class="col-4 text-left font-12"><strong>Merchant Internal Code</strong></div>
+                            <div class="col-4 text-left font-12"><strong>Shops</strong></div>
+                            <hr class="my-2">
+                        </div>
+                        <div class="row">
+                            <div class="col-4 text-left text-primary font-14">{{ product?.merchantSKUId }}</div>
+                            <div class="col-4 text-left font-14">--</div>
+                            <div class="col-4 text-left text-primary font-14">--</div>
+                            <hr class="my-2">
+                        </div>
+                        <div class="row" *ngFor="let merchant of merchants.displayed">
+                            <div class="col-4 text-left text-primary font-14">{{ merchant.merchantName }}</div>
+                            <div class="col-4 text-left font-14">{{ merchant.merchantInternalCode }}</div>
+                            <div class="col-4 text-left text-primary font-14">{{merchant.shops}}</div>
+                            <hr class="my-2">
+                        </div>
+                    </div>
+                    <div class="text-center" *ngIf="merchants.all.length > 5">
+                        <button class="btn btn-outline-secondary font-12"
+                            (click)="availableMerchantShowAll = !availableMerchantShowAll">
+                            <ng-container *ngIf="!availableMerchantShowAll; else show5Only">
+                                Expand all merchants ({{ merchants.all.length + 1 }})
+                            </ng-container>
+                            <ng-template #show5Only>
+                                Collapse ({{ merchants.all.length + 1 }})
+                            </ng-template>
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+            <!-- VOUCHER NUMBER RULE -->
+            <!-- <div class="row my-2">
+                <div><span class="font-16"><strong>Voucher Number Rule</strong></span></div>
+                <div class="row mt-2">
+                    <div class="col-2 font-12"><strong>Rule Name</strong></div>
+                    <div class="col-2 font-12"><strong>Program</strong></div>
+                    <div class="col-1 font-12"><strong>Require Expiry Date</strong></div>
+                    <div class="col-2 font-12"><strong>Pin Code Type</strong></div>
+                    <div class="col-1 font-12"><strong>Has Multiple Barcode</strong></div>
+                    <div class="col-2 font-12"><strong>Show Code Type / Display Text</strong></div>
+                    <div class="col-1 font-12"><strong>On Demand</strong></div>
+                    <div class="col-1 font-12"><strong>Vendor Code / Order Number</strong></div>
+                    <hr class="my-3">
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="font-14"><strong>{{ product?.voucherIssuerId }}</strong></div>
+                        <div class="mt-2 font-12">{{ product?.createdBy }}</div>
+                    </div>
+                    <div class="col-2 font-14">--</div>
+                    <div class="col-1 font-14">--</div>
+                    <div class="col-2 font-14">--</div>
+                    <div class="col-1 font-14">--</div>
+                    <div class="col-2">
+                        <div class="font-14">--</div>
+                        <div class="font-14">--</div>
+                    </div>
+                    <div class="col-1 font-14">--</div>
+                    <div class="col-1 font-14">--</div>
+                    <hr class="my-2">
+                </div>
+            </div> -->
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #pricingContractExpiry>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn rounded-circle btn-secondary btn-sm" (click)="pceCollapse.toggle()"
+                    [attr.aria-expanded]="!pricingContractExpiryCollapsed" aria-controls="collapseExample">
+                    <i [class]="pricingContractExpiryCollapsed ? 'uil-angle-down': 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>Pricing & expiry</strong>
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <div class="float-end">
+                        <button class="btn btn-primary font-12" (click)="navigateToEditPricingExpiry()">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div #pceCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="pricingContractExpiryCollapsed">
+            <!-- Default pricing -->
+            <div class="row font-14" *ngIf="selectedType?.key === 1">
+                <div class="mb-2">
+                    <span class="font-16"><strong>Default pricing</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-4">Face value (with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.faceValueWithTax }}</div>
+                    <div class="col-4">Face value</div>
+                    <div class="col-2 bold">{{ productPrice?.faceValue }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (prepaid with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePrepaidWithTax }}</div>
+                    <div class="col-4">Default selling price (prepaid)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePrepaid }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (postpaid with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePostpaidWithTax }}</div>
+                    <div class="col-4">Default selling price (postpaid)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePostpaid }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default product cost (with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.costWithTax }}</div>
+                    <div class="col-4">Default product cost</div>
+                    <div class="col-2 bold">{{ productPrice?.cost }}</div>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <div class="row font-14" *ngIf="selectedType?.key === 2">
+                <div class="mb-2">
+                    <span class="font-16"><strong>Default pricing</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-4">Face value (with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.faceValueWithTax }}</div>
+                    <div class="col-4">Face value</div>
+                    <div class="col-2 bold">{{ productPrice?.faceValue }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (prepaid with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePrepaidWithTax }}</div>
+                    <div class="col-4">Default selling price (prepaid)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePrepaid }}</div>
+                    <div class="col-6">
+                    </div>
+                    <div class="col-4">Default selling price (prepaid %)</div>
+                    <div class="col-2 bold">{{ productPrice?.defaultSellingPrice }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default product cost (with tax %)</div>
+                    <div class="col-2 bold">{{ productPrice?.costWithTax }}</div>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <div class="row font-14" *ngIf="selectedType?.key === 3">
+                <div class="mb-2">
+                    <span class="font-16"><strong>Default pricing</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-4">Face value (with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.faceValueWithTax }}</div>
+                    <div class="col-4">Face value</div>
+                    <div class="col-2 bold">{{ productPrice?.faceValue }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (prepaid with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePrepaidWithTax }}</div>
+                    <div class="col-4">Default selling price (prepaid)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePrepaid }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (postpaid with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePostpaidWithTax }}</div>
+                    <div class="col-4">Default selling price (postpaid)</div>
+                    <div class="col-2 bold">{{ productPrice?.sellingPricePostpaid }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default product cost (with tax)</div>
+                    <div class="col-2 bold">{{ productPrice?.costWithTax }}</div>
+                    <div class="col-4">Default product cost</div>
+                    <div class="col-2 bold">{{ productPrice?.cost }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Balance</div>
+                    <div class="col-2 bold">{{ productPrice?.balance }}</div>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <div class="row font-14" *ngIf="selectedType?.key === 4">
+                <div class="mb-2">
+                    <span class="font-16"><strong>Default pricing</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (prepaid %)</div>
+                    <div class="col-2 bold">{{ productPrice?.defaultSellingPrice }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default product cost (with tax %)</div>
+                    <div class="col-2 bold">{{ productPrice?.defaultProductCost }}</div>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <!-- Expiry scheme -->
+            <div class="row mt-1">
+                <div class="mb-2">
+                    <span class="font-16 bold">Expiry scheme</span>
+                </div>
+                <div class="row font-12">
+                    <div class="col-1 text-left"></div>
+                    <div class="col-4 text-left">
+                        <span class="bold">Expiry Date Type</span>
+                    </div>
+                    <div class="col-7 text-left">
+                        <span class="bold">Expiry Condition</span>
+                    </div>
+                    <hr class="my-2">
+                </div>
+                <div class="row font-14" *ngFor="let expiryScheme of selectedExpirySchemes; let index = index;">
+                    <div class="col-1 text-left">
+                        <span>{{ index + 1 }}</span>
+                    </div>
+                    <div class="col-4 text-left">
+                        <span>{{ expiryScheme.expiryDateType }}</span>
+                    </div>
+                    <div class="col-7 text-left">
+                        <span>{{ expiryScheme.expiryCondition }}</span>
+                    </div>
+                    <hr class="my-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productTemplateImage>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn rounded-circle btn-secondary" (click)="ptiCollapse.toggle()"
+                    [attr.aria-expanded]="!productTemplateImageCollapsed" aria-controls="collapseExample">
+                    <i [class]="productTemplateImageCollapsed ? 'uil-angle-up' : 'uil-angle-down'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">Product template & image</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #ptiCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productTemplateImageCollapsed">
+            <div class="row">
+                <div class="col-6">
+                    <div class="bold">
+                        Email design
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">EmailTemplateName</div>
+                        </div>
+                        <div class="col-2">
+                            <a href="" class="text-primary">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <div class="bold">
+                        SMS design
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">SMSTemplateName</div>
+                        </div>
+                        <div class="col-2">
+                            <a href="" class="text-primary">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #externalProperties>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn btn-secondary rounded-circle" (click)="epCollapse.toggle()"
+                    [attr.aria-expanded]="!externalPropertiesCollapsed" aria-controls="collapseExample">
+                    <i [class]="externalPropertiesCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2 font-16 bold">External properties</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToEditExternalProperties()">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #epCollapse="ngbCollapse" class="mt-1" [(ngbCollapse)]="externalPropertiesCollapsed">
+            <div class="row font-14">
+                <div class="col-6">
+                    <div class="my-2">
+                        <span class="font-16 bold text-dark">System related details</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Reminder</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bold">1. Example</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Reversal limit</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bold">Always can reversed</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Pre-authorization limit</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bold">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 font-12">
+                <div class="col-12">
+                    <div class="my-2">
+                        <span class="font-16 bold text-dark">External Properties</span>
+                    </div>
+                    <ng-container *ngIf="currentExternalProperties.length > 0; else noExternalProperties">
+                        <div class="row py-2 bold">
+                            <div class="col-3 text-left">
+                                <span>Property Name</span>
+                            </div>
+                            <div class="col-3 text-left">
+                                <span>Property Value</span>
+                            </div>
+                            <div class="col-6 text-left">
+                                <span>Description</span>
+                            </div>
+                            <hr class="my-2">
+                        </div>
+                        <div class="row font-14" *ngFor="let externalProperty of currentExternalProperties">
+                            <div class="col-3 text-left">
+                                <span>{{ externalProperty.propertyName }}</span>
+                            </div>
+                            <div class="col-3 text-left">
+                                <span>{{ externalProperty.propertyValue }}</span>
+                            </div>
+                            <div class="col-6 text-left">
+                                <span>{{ externalProperty.description }}</span>
+                            </div>
+                            <hr class="my-2">
+                        </div>
+                    </ng-container>
+                    <ng-template #noExternalProperties>
+                        <div class="row my-2">
+                            <div class="text-center text-danger bold font-14">
+                                NO EXTERNAL PROPERTY TO DISPLAY
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #stopIssueTimeModal let-modal>
+    <div class="modal-body">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>Set stop issue time</strong></span>
+        </div>
+
+        <div class="my-3 position-relative" id="stopIssueTimeContainer">
+            <label class="form-label font-14">Stop issue time</label>
+            <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="stopIssueTimeDatepicker" [(ngModel)]="stopIssueTimeModel"
+                ngbDatepicker #stopIssueTimeDatepicker="ngbDatepicker" [footerTemplate]="footerTemplate"
+                (click)="stopIssueTimeDatepicker.toggle()" autoClose="'outside'">
+        </div>
+
+        <ng-template #footerTemplate>
+            <hr class="my-0">
+            <div class="ngb-footer-button">
+                <button class="btn btn-outline-secondary btn-sm me-1" (click)="stopIssueTimeDatepicker.close()">Cancel</button>
+                <button class="btn btn-secondary btn-sm" (click)="stopIssueTimeViaDatepicker(stopIssueTimeDatepicker)">Apply</button>
+            </div>
+        </ng-template>
+        
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close('Close click')">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary w-100 rounded-pill font-12"
+                    (click)="modal.close('Close click')">Save</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

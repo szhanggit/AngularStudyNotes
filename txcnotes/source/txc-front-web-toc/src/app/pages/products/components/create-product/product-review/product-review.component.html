@@ -1,0 +1,368 @@
+<ng-container *ngTemplateOutlet="productDetails"></ng-container>
+<ng-container *ngTemplateOutlet="pricingContractExpiry"></ng-container>
+<ng-container *ngTemplateOutlet="productTemplateImage"></ng-container>
+<ng-container *ngTemplateOutlet="externalProperties"></ng-container>
+
+<ng-template #productDetails>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn rounded-circle btn-secondary" (click)="pdCollapse.toggle()"
+                    [attr.aria-expanded]="!productDetailsCollapsed" aria-controls="collapseExample">
+                    <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">
+                    Product Details
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12" (click)="jumpStep(1)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productDetailsCollapsed">
+            <!-- BASIC INFO -->
+            <div class="row font-14">
+                <div>
+                    <span class="font-16"><strong>Basic Info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product name</div>
+                            <div class="col-6 bold">{{ detailsControls.productName.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product code</div>
+                            <div class="col-6 bold">{{ detailsControls.productCode.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product description</div>
+                            <div class="col-6 bold">{{ detailsControls.productDescription.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">External code</div>
+                            <div class="col-6 bold">{{ detailsControls.externalProductCode.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product Issuer</div>
+                            <div class="col-6 bold">{{ detailsControls.productIssuer.value }}-{{ detailsControls.productIssuerDropdown.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product Tag</div>
+                            <div class="col-6 bold">{{ detailsControls.productTag.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Available Brand</div>
+                            <div class="col-6 text-primary bold">{{ detailsControls.brand.value }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- AVAILABLE MERCHANT -->
+            <!-- <div class="row my-2">
+                <div>
+                    <h5>Available merchant for this product</h5>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4 text-left"><h6>Merchant</h6></div>
+                            <div class="col-4 text-left"><h6>Merchant Internal Code</h6></div>
+                            <div class="col-4 text-left"><h6>Shops</h6></div>
+                            <hr class="my-2">
+                        </div>
+                        <div class="row">
+                            <div class="col-4 text-left text-primary"><h5>Demo Merchant Name</h5></div>
+                            <div class="col-4 text-left"><h5>000000000123</h5></div>
+                            <div class="col-4 text-left text-primary"><h5>All (N shops)</h5></div>
+                            <hr class="my-2">
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- VOUCHER NUMBER RULE -->
+            <!-- <div class="row my-2">
+                <div><h5>Voucher Number Rule</h5></div>
+                <div class="row">
+                    <div class="col-2"><h6>Rule Name</h6></div>
+                    <div class="col-2"><h6>Program</h6></div>
+                    <div class="col-1"><h6>Require Expiry Date</h6></div>
+                    <div class="col-2"><h6>Pin Code Type</h6></div>
+                    <div class="col-1"><h6>Has Multiple Barcode</h6></div>
+                    <div class="col-2"><h6>Show Code Type / Display Text</h6></div>
+                    <div class="col-1"><h6>On Demand</h6></div>
+                    <div class="col-1"><h6>Vendor Code / Order Number</h6></div>
+                    <hr class="my-1">
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div><h5>Test 3rd Party Rule Name 001</h5></div>
+                        <div class="mt-2"><h6>Generated by 3rd party</h6></div>
+                    </div>
+                    <div class="col-2"><h5>ProgramName</h5></div>
+                    <div class="col-1"><h5>N</h5></div>
+                    <div class="col-2"><h5>Not Required</h5></div>
+                    <div class="col-1"><h5>N</h5></div>
+                    <div class="col-2">
+                        <div><h5>Code39</h5></div>
+                        <div><h5>N</h5></div>
+                    </div>
+                    <div class="col-1"><h5>No</h5></div>
+                    <div class="col-1"><h5>--</h5></div>
+                    <hr class="my-2">
+                </div>
+            </div> -->
+            <!-- ADDITIONAL INFO -->
+            <div class="row my-2">
+                <div><span class="font-16"><strong>Additional information</strong></span></div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Note for internal used (Operation)</div>
+                            <div class="col-6 bold">{{ detailsControls.operationNotes.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Note for internal used (Sales)</div>
+                            <div class="col-6 bold">{{ detailsControls.salesNotes.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Note for internal used (Customer service)</div>
+                            <div class="col-6 bold">{{ detailsControls.customerServiceNotes.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #pricingContractExpiry>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn rounded-circle btn-secondary" (click)="pceCollapse.toggle()"
+                    [attr.aria-expanded]="!pricingContractExpiryCollapsed" aria-controls="collapseExample">
+                    <i [class]="pricingContractExpiryCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">Pricing, contract and expiry</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12" (click)="jumpStep(2)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pceCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="pricingContractExpiryCollapsed">
+            <!-- Default pricing -->
+            <div class="row">
+                <div class="mb-2"><h5>Default pricing</h5></div>
+                <div class="row">
+                    <div class="col-4">Face value (with tax)</div>
+                    <div class="col-2 bold">500</div>
+                    <div class="col-4">Face value</div>
+                    <div class="col-2 bold">476.19</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (prepaid with tax)</div>
+                    <div class="col-2 bold">500.0000</div>
+                    <div class="col-4">Default selling price (prepaid)</div>
+                    <div class="col-2 bold">476.1905</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default selling price (postpaid with tax)</div>
+                    <div class="col-2 bold">500.0000</div>
+                    <div class="col-4">Default selling price (postpaid)</div>
+                    <div class="col-2 bold">476.1905</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-4">Default product cost (with tax)</div>
+                    <div class="col-2 bold">500.0000</div>
+                    <div class="col-4">Default product cost</div>
+                    <div class="col-2 bold">476.1905</div>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <!-- Expiry scheme -->
+            <div class="row mt-1">
+                <div><h5>Expiry scheme</h5></div>
+                <div class="row">
+                    <div class="col-1 text-left"></div>
+                    <div class="col-4 text-left"><h6>Expiry Date Type</h6></div>
+                    <div class="col-7 text-left"><h6>Expiry Condition</h6></div>
+                    <hr class="my-2">
+                </div>
+                <div class="row">
+                    <div class="col-1 text-left"><h5>1</h5></div>
+                    <div class="col-4 text-left"><h5>Flexible Date Depends on Third party</h5></div>
+                    <div class="col-7 text-left"><h5>Flexible Date Deferred Within End Of 3 Months Expired After Activation</h5></div>
+                    <hr class="my-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productTemplateImage>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn rounded-circle btn-secondary" (click)="ptiCollapse.toggle()"
+                    [attr.aria-expanded]="!productTemplateImageCollapsed" aria-controls="collapseExample">
+                    <i [class]="productTemplateImageCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">Product template & image</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12" (click)="jumpStep(3)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #ptiCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productTemplateImageCollapsed">
+            <div class="row">
+                <div class="col-6">
+                    <div class="bold">
+                        Email design
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">EmailTemplateName</div>
+                        </div>
+                        <div class="col-2">
+                            <a href="" class="text-primary">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <div class="bold">
+                        SMS design
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">SMSTemplateName</div>
+                        </div>
+                        <div class="col-2">
+                            <a href="" class="text-primary">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #externalProperties>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn btn-secondary rounded-circle" (click)="epCollapse.toggle()"
+                    [attr.aria-expanded]="!externalPropertiesCollapsed" aria-controls="collapseExample">
+                    <i [class]="externalPropertiesCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">External properties</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12" (click)="jumpStep(4)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #epCollapse="ngbCollapse" class="mt-1" [(ngbCollapse)]="externalPropertiesCollapsed">
+            <div class="row">
+                <div class="col-6">
+                    <div class="my-2">
+                        <h5>System related details</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Reminder</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bold">1. Example</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Reversal limit</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bold">Always can reversed</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Pre-authorization limit</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bold">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="my-2">
+                        <h5>External Properties</h5>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-3 text-left"><h6>Property Name</h6></div>
+                        <div class="col-3 text-left"><h6>Property Value</h6></div>
+                        <div class="col-6 text-left"><h6>Description</h6></div>
+                        <hr class="my-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-3 text-left"><h5>Property Name</h5></div>
+                        <div class="col-3 text-left"><h5>01</h5></div>
+                        <div class="col-6 text-left"><h5>PropertyDescription</h5></div>
+                        <hr class="my-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

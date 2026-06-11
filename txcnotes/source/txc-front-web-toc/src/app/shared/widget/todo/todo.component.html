@@ -1,0 +1,53 @@
+<!-- todo start -->
+<div class="todoapp">
+    <div class="card-body py-0" *ngIf="archivable">
+        <div class="row">
+            <div class="col">
+                <h5 id="todo-message"><span id="todo-remaining">{{getInprogressTodoCount()}}</span> of <span
+                        id="todo-total">{{toDoItems.length}}</span>
+                    remaining</h5>
+            </div>
+            <div class="col-auto">
+                <a href="javascript:void(0)" (click)="archiveTasks()" class="float-end btn btn-light btn-sm"
+                    id="btn-archive">Archive</a>
+            </div>
+        </div>
+    </div>
+
+    <ngx-simplebar [style.maxHeight.px]="height" class="card-body py-0" [class.mb-0]="addable">
+        <ul class="list-group list-group-flush todo-list" id="todo-list">
+            <li class="list-group-item border-0 ps-0" *ngFor="let todo of toDoItems">
+                <div class="form-check mb-0" *ngIf="todo.status==='completed'">
+                    <input type="checkbox" class="form-check-input todo-done" [id]="todo.id" checked
+                        (change)="toggleTodo(todo)" />
+                    <label class="form-check-label" [for]="todo.id"><s>{{todo.text}}</s></label>
+                </div>
+
+                <div class="form-check mb-0" *ngIf="todo.status==='inprogress'">
+                    <input type="checkbox" class="form-check-input" [id]="todo.id" (change)="toggleTodo(todo)" />
+                    <label class="form-check-label" [for]="todo.id">{{todo.text}}</label>
+                </div>
+            </li>
+        </ul>
+    </ngx-simplebar>
+
+    <div class="card-body pt-2" *ngIf="addable">
+        <form name="todo-form" #addTodo="ngForm" (ngSubmit)="addNewTask()">
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="todo-input-text" name="todo-input-text" class="form-control"
+                        placeholder="Add new todo" required [(ngModel)]="newTask"
+                        [ngClass]="{'is-invalid': submitted && newTask === '' || newTask===' '}">
+                    <div class="invalid-feedback">
+                        Please enter your task name
+                    </div>
+                </div>
+                <div class="col-auto d-grid">
+                    <button class="btn-primary btn-md btn waves-effect waves-light" type="submit"
+                        id="todo-btn-submit">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- todo end -->

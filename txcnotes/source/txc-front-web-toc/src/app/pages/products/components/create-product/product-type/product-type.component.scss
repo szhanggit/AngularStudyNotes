@@ -1,0 +1,29 @@
+.card-body {
+    border: 1.2px solid #D5D8DD;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+
+    &.active,
+    &:hover {
+        color: #0D8AFF !important;
+        border: 1.2px solid #0D8AFF !important;
+        cursor: pointer;
+    }
+
+    &.active {
+        vertical-align: top;
+
+        &.padding-alignment {
+            text-align: left;
+            padding: 3rem !important;
+        }
+
+        label {
+            color: #6D7787;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 400;
+        }
+    }
+}

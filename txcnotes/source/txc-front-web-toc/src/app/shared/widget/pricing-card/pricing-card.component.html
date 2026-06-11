@@ -1,0 +1,17 @@
+<div class="row {{containerClass}}">
+    <div class="col-md-4" *ngFor="let plan of pricingPlans">
+        <div class="card card-pricing" [ngClass]="{'card-pricing-recommended': plan.recommended}">
+            <div class="card-body text-center">
+                <div class="card-pricing-plan-tag" *ngIf="plan.recommended">Recommended</div>
+                <p class="card-pricing-plan-name fw-bold text-uppercase">{{plan.name}}</p>
+                <i class="card-pricing-icon text-primary" [class]="plan.icon"></i>
+                <h2 class="card-pricing-price">{{plan.price | currency}} <span>/ {{plan.duration ? plan.duration :
+                        'Month'}}</span></h2>
+                <ul class="card-pricing-features">
+                    <li *ngFor="let feature of plan.features">{{feature}}</li>
+                </ul>
+                <button class="btn btn-primary mt-4 mb-2 rounded-pill">Choose Plan</button>
+            </div>
+        </div> <!-- end Pricing_card -->
+    </div> <!-- end col -->
+</div>

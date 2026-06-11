@@ -1,0 +1,11 @@
+// image input
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+
+    .empty-img {
+        height: 60px;
+        width: auto;
+        background-color: #D5D8DD;
+    }
+}

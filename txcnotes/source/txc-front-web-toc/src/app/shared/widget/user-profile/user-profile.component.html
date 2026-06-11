@@ -1,0 +1,25 @@
+<div class="card" *ngIf="loggedInUser">
+    <div class="card-body">
+        <span class="float-start m-2 me-4">
+            <img [src]="loggedInUser.avatar" style="height: 100px;" alt="" class="rounded-circle img-thumbnail">
+        </span>
+        <div class="">
+            <h4 class="mt-1 mb-1">{{loggedInUser.name}}</h4>
+            <p class="font-13"> {{loggedInUser.title}}</p>
+
+            <ul class="mb-0 list-inline">
+                <li class="list-inline-item me-3">
+                    <h5 class="mb-1">$ 25,184</h5>
+                    <p class="mb-0 font-13">Total Revenue</p>
+                </li>
+                <li class="list-inline-item">
+                    <h5 class="mb-1">5482</h5>
+                    <p class="mb-0 font-13">Number of Orders</p>
+                </li>
+            </ul>
+        </div>
+        <!-- end div-->
+    </div>
+    <!-- end card-body-->
+</div>
+<!-- end card -->

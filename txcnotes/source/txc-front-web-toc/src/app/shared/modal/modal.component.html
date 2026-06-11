@@ -1,0 +1,27 @@
+<div [class.show]="modalInfoModel.display"
+     [class.hide]="!modalInfoModel.display">
+
+    <div class="modal" id="modal" 
+    [style.width]="modalInfoModel.dimention.width"
+    [style.height]="modalInfoModel.dimention.height">
+        <div class="modal-header">
+            <div class="modal-title">
+                {{modalInfoModel.title}}
+            </div>
+            <!-- <div class="modal-controls">
+                <button class="btn close-btn" (click)="btnCloseClick()">X</button>
+            </div> -->
+        </div>
+        <div class="modal-body">
+            <ng-template #modalContainer></ng-template>
+        </div>
+        <!-- <div class="modal-footer">
+            <button class="btn" id="btnSave" (click)="btnSaveClick()">Save</button>
+            <button class="btn" id="btnCancel" (click)="btnCancelClick()">Cancel</button>
+        </div> -->
+    </div>
+
+
+    <div class="modal-overlay" id="modal-overlay">
+    </div>
+</div>

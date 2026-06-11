@@ -1,0 +1,39 @@
+<div class="chat-conversation">
+    <ngx-simplebar [class]="listContainerClass" style="height: 322px;">
+        <ul class="conversation-list">
+            <li class="clearfix" *ngFor="let message of chatMessages;"
+                [ngClass]="{'odd': message.sender.name==='Dominic'}">
+                <div class="chat-avatar">
+                    <img [src]="message.sender.avatar" alt="user">
+                    <i>{{message.time}}</i>
+                </div>
+                <div class="conversation-text">
+                    <div class="ctext-wrap">
+                        <i>{{message.sender.name}}</i>
+                        <p>
+                            {{message.message}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </ngx-simplebar>
+    <div [class]="formContainerClass">
+        <form name="chat-form" #chatForm="ngForm" (ngSubmit)="sendMessage()">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control chat-input" placeholder="Enter your text" required
+                        name="new-message" [(ngModel)]="newMessage"
+                        [ngClass]="{'is-invalid': submitted && newMessage===''}">
+                    <div class="invalid-feedback">
+                        Please enter your messsage
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-danger chat-send waves-effect waves-light">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div> <!-- end .chat-conversation-->
