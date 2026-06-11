@@ -1,0 +1,117 @@
+Table 12-5. The Angular Brackets
+
+[target]="expr" indicates a one-way data binding where data flows from the
+expression to the target. 
+
+{{expression}} This is the string interpolation binding.
+
+(target) ="expr" indicates a one-way binding where the data flows from the
+target to the destination specified by the expression. This is the binding used to
+handle events.
+
+[(target)] ="expr" two direction.
+
+
+---------------------------------------------------------------------------------------------
+
+<div [ngClass]="'text-white m-2 p-2 ' + getClasses()">
+Hello, World.
+</div>
+
+text-white m-2 p-2 bg-success
+
+<div ngClass="'text-white m-2 p-2 ' + getClasses()">
+Hello, World.
+</div>
+
+class="'text-white m-2 p-2 ' + getClasses()"
+
+
+
+---------------------------------------------------------------------------------------------
+
+Using the Standard Property Binding
+<input class="form-control" [value]="model.getProduct(1)?.name || 'None'" />
+---------------------------------------------------------------------------------------------
+Using the String Interpolation Binding
+<div [ngClass]="'text-white m-2 p-2 ' + getClasses()">
+	Name: {{ model.getProduct(1)?.name || 'None' }}
+</div>
+---------------------------------------------------------------------------------------------
+Using the Attribute Binding
+<td [attr.colspan]="model.getProducts().length">
+	{{model.getProduct(1)?.name || 'None'}}
+</td>
+---------------------------------------------------------------------------------------------
+Using the Class Bindings
+<div [class]="getClasses(1)">
+	The first product is {{model.getProduct(1).name}}.
+</div>
+getClasses(key: number): string {
+	let product = this.model.getProduct(key);
+	return "p-2 " + (product.price < 50 ? "bg-info" : "bg-warning");
+}
+---------------------------------------------------------------------------------------------
+Setting Individual Classes Using the Special Class Binding
+<div class="p-2"
+	[class.bg-success]="model.getProduct(2).price < 50"
+	[class.bg-info]="model.getProduct(2).price >= 50">
+	The second product is {{model.getProduct(2).name}}
+</div>
+---------------------------------------------------------------------------------------------
+Setting Classes Using the ngClass Directive
+<div class="p-2" [ngClass]="getClassMap(1)">
+	The first product is {{model.getProduct(1).name}}.
+</div>
+
+getClassMap(key: number): Object {
+	let product = this.model.getProduct(key);
+	return {
+		"text-center bg-danger": product.name == "Kayak",
+		"bg-info": product.price < 50
+	};
+}
+
+
+<div class="p-2" [ngClass]="{'bg-success': model.getProduct(3).price < 50, 'bg-info': model.getProduct(3).price >= 50}">
+The third product is {{model.getProduct(3).name}}
+</div>
+---------------------------------------------------------------------------------------------
+
+Setting a Single Style Property
+<div class="p-2 bg-warning">
+	The <span [style.fontSize]="fontSizeWithUnits">first</span>
+	product is {{model.getProduct(1).name}}.
+</div>
+
+---------------------------------------------------------------------------------------------
+Setting Styles Using the ngStyle Directive
+
+The <span [ngStyle]="getStyles(1)">first</span>
+getStyles(key: number) {
+	let product = this.model.getProduct(key);
+	return {
+		fontSize: "30px",
+		"margin.px": 100,
+		color: product.price > 50 ? "red" : "green"
+	};
+}
+---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
