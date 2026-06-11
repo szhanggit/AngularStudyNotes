@@ -1,0 +1,14 @@
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+
+
+  ngAfterViewInit(): void {
+    if (history.state?.isCreated) {
+      this.toast.showSuccess('You have successfully created a new product!');
+      this.productSvc.status = 2;
+    }
+    if (history.state?.isBatchUpdatedCombo) {
+      this.toast.showSuccess('Batch update product combo successful!');
+      this.productSvc.status = 1;
+    }
+    this.cdr.detectChanges();
+  }

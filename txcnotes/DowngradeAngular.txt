@@ -1,0 +1,6 @@
+https://stackoverflow.com/questions/50363530/how-to-downgrade-angular-cli-version
+https://github.com/angular/angular-cli#updating-angular-cli
+
+npm uninstall -g @angular/cli
+npm cache clean
+npm install -g @angular/cli@1.4.1
