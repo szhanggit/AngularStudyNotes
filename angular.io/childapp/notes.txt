@@ -1,0 +1,12 @@
+https://www.telerik.com/blogs/angular-basics-setting-up-child-routes-angular-12
+
+ng new childapp --routing
+cd childapp
+ng serve
+
+ng generate component withdraw
+ng generate component deposit
+ng generate component balance
+
+ng generate component deposita
+ng generate component depositb
