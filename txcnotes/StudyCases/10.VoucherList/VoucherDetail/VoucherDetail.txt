@@ -1,0 +1,29 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/voucher/voucher-details/d5fef985-538f-41dc-9bf5-f2262dca1b0b
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'voucher',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.voucherPath,
+      exposedModule: './voucher.module'
+    }).then(m => m.VoucherModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\voucher-routing.module.ts
+  {
+    path: 'voucher-details/:id',
+    component: VoucherDetailsComponent,
+    // canActivate: [PageAuthorizationGuard]
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\voucher-details\voucher-details.component.html
+

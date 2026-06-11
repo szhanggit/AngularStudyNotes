@@ -1,0 +1,41 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"\n    query {\n      vouchersByVoucherNumber(\n        voucherNumber: \"STAGING1132074562\"\n        where: { stateId: { nin: [1, 15] } }\n      ) {\n        \n    totalCount\n    items {\n        id\n        guid\n        voucherNumberMask\n        state {\n          id\n          stateName\n        }\n        frozenAmount\n        balance\n        activatedOn\n        expiryOn\n        stateDescription\n        issuedOn\n        alias\n    }\n      }\n    }"}
+
+
+
+
+{
+    "data": "{\"vouchersByVoucherNumber\":{\"totalCount\":0,\"items\":[]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\voucher-list\voucher-list.component.ts
+  search(): void {
+    switch (this.searchTermFormGroup.get('searchOption')?.value) {
+      // Single result
+      case this.searchTermsEnum.VOUCHER_NUMBER: {
+        this.voucherApiService.getVoucherListByVoucherNumber(this.searchTermFormGroup.get('searchTerm')?.value).pipe(
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\voucher-api.service.ts
+  getVoucherListByVoucherNumber(voucherNumber: any): Observable<BaseResponse> {
+    const query = `
+    query {
+      vouchersByVoucherNumber(
+        voucherNumber: "${voucherNumber}"
+        where: { stateId: { nin: [1, 15] } }
+      ) {
+        ${this.voucherListItems}
+      }
+    }`;
+    return this.graphqlApiService.postQuery(query);
+  }
