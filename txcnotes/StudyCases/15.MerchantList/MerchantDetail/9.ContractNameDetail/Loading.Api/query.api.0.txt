@@ -1,0 +1,129 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n        contracts(\n          merchantId: 2811\n          where : { contractId : {eq : 23937 } }\n        ) {\n          items {\n            contractId\n      \n            contractName\n      \n            startDate\n      \n            endDate\n\n            contractNumber\n\n            displayStatus\n\n            skuQuantity\n      \n            statusId\n\n            creator\n\n            createdTime\n      \n            contractPaymentTerm {\n              id\n      \n              value\n            }\n      \n            contractPriceOption {\n              id\n      \n              value\n            }\n      \n            contractCostScheme {\n              id\n      \n              value\n            }\n      \n            costPercentage\n      \n            contractCostRoundingRule {\n              id\n      \n              value\n            }\n\n            contractCostRoundingPlaces{\n              id\n\n              value\n            }\n          }\n        }\n      }"}
+
+
+
+{
+    "data": "{\"contracts\":{\"items\":[{\"contractId\":23937,\"contractName\":\"AUTOTEST20231215000544584\",\"startDate\":\"2023-12-14T16:00:00Z\",\"endDate\":\"2999-12-31T15:59:59Z\",\"contractNumber\":\"0000000023937\",\"displayStatus\":\"Valid\",\"skuQuantity\":1,\"statusId\":3,\"creator\":\"msioson\",\"createdTime\":\"2023-12-15T00:05:44.87Z\",\"contractPaymentTerm\":{\"id\":1,\"value\":\"When purchase\"},\"contractPriceOption\":{\"id\":1,\"value\":\"Upon purchase\"},\"contractCostScheme\":{\"id\":1,\"value\":\"Cost %\"},\"costPercentage\":100.0,\"contractCostRoundingRule\":{\"id\":1,\"value\":\"Round up\"},\"contractCostRoundingPlaces\":{\"id\":1,\"value\":\"0\"}}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\contract.service.ts
+
+
+
+
+
+
+
+  // will call on graphql query merchants to get contract by merchantId and contractId: MerchantInfo
+  getByID(merchantId: number, contractId : number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = { query: `query {
+        contracts(
+          merchantId: ${merchantId}
+          where : { contractId : {eq : ${contractId} } }
+        ) {
+          items {
+            contractId
+      
+            contractName
+      
+            startDate
+      
+            endDate
+
+            contractNumber
+
+            displayStatus
+
+            skuQuantity
+      
+            statusId
+
+            creator
+
+            createdTime
+      
+            contractPaymentTerm {
+              id
+      
+              value
+            }
+      
+            contractPriceOption {
+              id
+      
+              value
+            }
+      
+            contractCostScheme {
+              id
+      
+              value
+            }
+      
+            costPercentage
+      
+            contractCostRoundingRule {
+              id
+      
+              value
+            }
+
+            contractCostRoundingPlaces{
+              id
+
+              value
+            }
+          }
+        }
+      }`};
+    return this.http.post(url, data , { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

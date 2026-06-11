@@ -1,0 +1,25 @@
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\auth.service.ts
+
+
+
+  fnGetAuthorization(){
+    this.api.get('auth')
+    .pipe(map((d)=>{
+      var result = new ModResOpModel();
+      if((d) && (d.data)) result = d.data as ModResOpModel;
+      //console.log("Menu reference",d);
+      return result;
+    }))
+    .subscribe({
+      next:res=> this.authorization.next(res)
+      , error: e=> console.error(e)
+    });
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }

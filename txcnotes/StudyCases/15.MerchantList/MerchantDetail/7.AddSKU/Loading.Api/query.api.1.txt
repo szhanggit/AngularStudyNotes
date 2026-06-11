@@ -1,0 +1,115 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{\n          voucherNumberRules(\n            where: {and: [{merchantId: {eq: 2810}}, {voucherGenerateWay: {eq: 2}}, {isDeleted: {eq: false}}]},\n            order: [{createdDateTime: DESC}]) {\n            items {\n              voucherNumberRuleId,\n              ruleName,\n              voucherNumberPrefix,\n              voucherNumberType,\n              voucherNumberLength,\n              distVoucherNumUnderBarcode,\n              createdDateTime,\n              algorithmId,\n              voucherNumberGenerator,\n              barcodeType {\n                  id,\n                  description\n              },\n              voucherGenerator{\n                  id,\n                  description\n              },\n              contractSKU {\n                id\n              },\n              createdBy\n            }\n          }\n        }"}
+
+
+
+{
+    "data": "{\"voucherNumberRules\":{\"items\":[{\"voucherNumberRuleId\":9466,\"ruleName\":\"pipipipipi\",\"voucherNumberPrefix\":null,\"voucherNumberType\":2,\"voucherNumberLength\":10,\"distVoucherNumUnderBarcode\":false,\"createdDateTime\":\"2023-12-27T04:08:48.577Z\",\"algorithmId\":1,\"voucherNumberGenerator\":1,\"barcodeType\":{\"id\":1,\"description\":\"Code39\"},\"voucherGenerator\":{\"id\":1,\"description\":\"Edenred\"},\"contractSKU\":[],\"createdBy\":\"stzhang\"},{\"voucherNumberRuleId\":9461,\"ruleName\":\"AUTOTEST20231214191746195\",\"voucherNumberPrefix\":null,\"voucherNumberType\":2,\"voucherNumberLength\":10,\"distVoucherNumUnderBarcode\":false,\"createdDateTime\":\"2023-12-14T19:17:46.46Z\",\"algorithmId\":1,\"voucherNumberGenerator\":1,\"barcodeType\":{\"id\":7,\"description\":\"Text\"},\"voucherGenerator\":{\"id\":1,\"description\":\"Edenred\"},\"contractSKU\":[{\"id\":12703},{\"id\":12704},{\"id\":12705},{\"id\":12706}],\"createdBy\":\"msioson\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-form\sku-form.component.ts
+
+          this._vnrService.getVoucherNumberRulesGraphQL(this.merchantId, this.currentProgram.isEdenred).subscribe(
+            (res) => {
+              this.vnrList = JSON.parse(res.data).voucherNumberRules.items;
+            });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\voucher-number-rule.service.ts
+
+
+  // method to get vnr list from GraphQL
+  public getVoucherNumberRulesGraphQL(merchantId: number, isEdenredProgram: boolean): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{
+          voucherNumberRules(
+            where: {and: [{merchantId: {eq: ${merchantId}}}, {voucherGenerateWay: {eq: ${isEdenredProgram? 1 : 2}}}, {isDeleted: {eq: false}}]},
+            order: [{createdDateTime: DESC}]) {
+            items {
+              voucherNumberRuleId,
+              ruleName,
+              voucherNumberPrefix,
+              voucherNumberType,
+              voucherNumberLength,
+              distVoucherNumUnderBarcode,
+              createdDateTime,
+              algorithmId,
+              voucherNumberGenerator,
+              barcodeType {
+                  id,
+                  description
+              },
+              voucherGenerator{
+                  id,
+                  description
+              },
+              contractSKU {
+                id
+              },
+              createdBy
+            }
+          }
+        }`
+    };
+    return this.http.post(url, body,{ headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

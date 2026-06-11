@@ -1,0 +1,171 @@
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-list\merchant-list.component.html
+
+
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                        <span class="d-none d-md-block">All Merchant</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="list; context: { tab: 1 }"></ng-container>
+                    </ng-template>
+                </li>
+
+
+
+
+<ng-template #list>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngIf="isMerchantViewer">
+            <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="!(isLoading$ | async); else isLoadingData">
+            <ng-container *ngTemplateOutlet="table"></ng-container>
+        </ng-container>
+        <ng-template #isLoadingData>
+            <div class="text-center">
+                <span class="text-secondary">
+                    Loading data ...
+                </span>
+            </div>
+        </ng-template>
+        <ng-container *ngIf="!(isLoading$ | async) && total; else nodata">
+            <ng-container *ngTemplateOutlet="pagination"></ng-container>
+        </ng-container>
+        <ng-template #nodata>
+            <div class="text-center">
+                <span class="text-secondary">
+                    {{ (isLoading$ | async) ? '' : 'No data to Display' }}
+                </span>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+
+
+
+
+<ng-template #table let-products="products">
+    <table class="table table-striped table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col">Merchant Name</th>
+                <th scope="col" *ngIf="tenant === 'GL'">Merchant Acquirer</th>
+                <th scope="col">Merchant Internal Code</th>
+                <th scope="col" *ngIf="tenant === 'SG'">Merchant UEN</th>
+                <th scope="col" *ngIf="tenant === 'TW'">Invoice Number</th>
+                <th scope="col">Program</th>
+                <th scope="col" *ngIf="tenant === 'GL' || tenant === 'IN' || tenant === 'SG'">Support Consumer Scan</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let merchant of merchants$ | async; index as i">
+                <td><a href="{{ getEventUrl(merchant) }}" (click)="navigateToDetails($event, merchant)">{{ merchant.merchantName }}</a></td>
+                <td *ngIf="tenant === 'GL'">{{ merchant.merchantAcquireName ||
+                    getMerchantAcquirerName(merchant.merchantAcquireId) }}</td>
+                <td>{{ merchant.identityCode }}</td>
+                <td *ngIf="tenant === 'SG'">{{
+                    merchant.invoiceRegisterNumber }}</td>
+                <td *ngIf="tenant === 'TW'">{{ merchant.invoiceRegisterNumber }}
+                </td>
+                <td>{{ merchant.programName || '--' }}</td>
+                <td *ngIf="tenant === 'GL' || tenant === 'IN' || tenant === 'SG'">{{ merchant.needConsumerScan ? 'Yes' :
+                    'No'}}</td>
+                <td><label class="switch">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" [disabled]="!isMerchantEditor"
+                                [checked]="merchant.status === 1" (change)="setMerchantStatus(merchant)">
+                        </div>
+                    </label></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-list\merchant-list.component.ts
+this.merchants$ = merchantService.merchants$;
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\merchant.service.ts
+get merchants$() { return this._merchants$.asObservable(); }
+
+
+
+
+switchMap(() => this._getMerchants()),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

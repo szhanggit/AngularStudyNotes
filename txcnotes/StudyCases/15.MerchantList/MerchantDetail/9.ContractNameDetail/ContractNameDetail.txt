@@ -1,0 +1,19 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/contract/details/23828?merchantId=2781
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'contract/details/:id',
+        component: ContractDetailsComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\contract-details\contract-details.component.html
+<app-sku-list [contractId]="contractId" [merchantId]="merchantId" [valid]="isValid || isFuture" (hasValidList)="hasList($event)" (hasInValidList)="hasList($event)"></app-sku-list>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-list\sku-list.component.html
+

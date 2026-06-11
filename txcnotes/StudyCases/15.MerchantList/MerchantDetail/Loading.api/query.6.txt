@@ -1,0 +1,13 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n        voucherNumberRules(\n            where: { \n                ,\n                merchantId: { eq: 2810 },\n                isDeleted: { eq: false }\n            }\n            order: { voucherNumberRuleId: DESC }\n            take: 20\n            skip: 0\n        ) {\n            totalCount\n            items {\n                merchantId\n                voucherNumberRuleId\n                ruleName\n                voucherNumberPrefix\n                voucherNumberType\n                voucherNumberLength\n                barcodeType {\n                    id\n                    description\n                },\n                voucherGenerator {\n                    id\n                    description\n                },\n                barcodeType {\n                    id\n                    description\n                }\n                createdBy\n                createdDateTime\n                algorithmId\n                distVoucherNumUnderBarcode\n                algorithmId\n                requestExpiryDate\n                hasMultipleBarcode\n                onDemand\n                pinType {\n                    id\n                    description\n                }\n                contractSKU {\n                    id\n                }\n                vendor {\n                    vendorCode\n                    name\n                    id\n                }\n            }\n        }\n    }"}
+
+
+
+
+{
+    "data": "{\"voucherNumberRules\":{\"totalCount\":1,\"items\":[{\"merchantId\":2810,\"voucherNumberRuleId\":9461,\"ruleName\":\"AUTOTEST20231214191746195\",\"voucherNumberPrefix\":null,\"voucherNumberType\":2,\"voucherNumberLength\":10,\"barcodeType\":{\"id\":7,\"description\":\"Text\"},\"voucherGenerator\":{\"id\":1,\"description\":\"Edenred\"},\"createdBy\":\"msioson\",\"createdDateTime\":\"2023-12-14T19:17:46.46Z\",\"algorithmId\":1,\"distVoucherNumUnderBarcode\":false,\"requestExpiryDate\":true,\"hasMultipleBarcode\":null,\"onDemand\":false,\"pinType\":null,\"contractSKU\":[{\"id\":12703},{\"id\":12704},{\"id\":12705},{\"id\":12706}],\"vendor\":null}]}}",
+    "message": null,
+    "success": true
+}

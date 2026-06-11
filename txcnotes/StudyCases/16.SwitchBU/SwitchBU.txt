@@ -1,0 +1,23 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app.component.html
+ <app-topbar></app-topbar>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\shared\topbar\topbar.component.html
+                    <div class="notify-item" href="" (click)="switchBu()">
+                      Switch BU
+                    </div>
+
+  switchBu() {
+    this.modalService.open(BusinessUnitSelectComponent, {
+      centered: true,
+      size: 'md',
+      backdrop: 'static'
+    });
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\business-unit\components\business-unit-select\business-unit-select.component.html

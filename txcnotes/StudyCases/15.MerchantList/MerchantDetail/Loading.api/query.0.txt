@@ -1,0 +1,11 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{dictionaries (where: { category: { eq: \"MerchantCategory\"}}) { dictionaryId displayName parentId }}"}
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":108,\"displayName\":\"Restaurant\",\"parentId\":null},{\"dictionaryId\":109,\"displayName\":\"Fitness\",\"parentId\":null},{\"dictionaryId\":110,\"displayName\":\"ShoppingMall\",\"parentId\":null},{\"dictionaryId\":111,\"displayName\":\"Entertainment\",\"parentId\":null},{\"dictionaryId\":112,\"displayName\":\"Coffe Shop\",\"parentId\":null},{\"dictionaryId\":113,\"displayName\":\"Fast Food\",\"parentId\":null},{\"dictionaryId\":114,\"displayName\":\"Cake And Desert\",\"parentId\":null},{\"dictionaryId\":115,\"displayName\":\"Chinese Food\",\"parentId\":null},{\"dictionaryId\":116,\"displayName\":\"Western Food\",\"parentId\":null},{\"dictionaryId\":117,\"displayName\":\"Convenient Store\",\"parentId\":null},{\"dictionaryId\":333,\"displayName\":\"Multiple Selection\",\"parentId\":null}]}",
+    "message": null,
+    "success": true
+}

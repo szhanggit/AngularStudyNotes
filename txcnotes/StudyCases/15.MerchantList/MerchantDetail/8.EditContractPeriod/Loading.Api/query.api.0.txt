@@ -1,0 +1,82 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+{"query":"query {\n      contractSKUByContractId\n          (\n          keyword : \"\"\n          contractId :  23937\n          skip: 0 \n          take: 10 \n          order :{createdDateTime: DESC}  \n           )\n              {\n                totalCount\n                items \n                  {\n                    id\n                    skuName  \n                    skuNumber\n                    merchantGroupId\n                    faceValueWithTax\n                    multiplier\n                    skuType    \n                        {       \n                              id    \n                              value \n                        }      \n                    contractSKUCosts   \n                        {         \n                              id   \n                              costWithTax\n                              validStartDate\n                              validEndDate\n                              contractSkuStatus\n                                  {\n                                    id\n                                    value  \n                                  }\n                                  skuCostContract\n                                  {\n                                      contractId\n                                      contractName\n                                      contractNumber\n                                      contractCostScheme{\n                                        id\n                                      }\n\n                                  }        \n                          }\n                      voucherNumberRule       \n                          {              \n                            voucherNumberRuleId  \n                            ruleName\n                          } \n                          createdBy\n                          createdDateTime\n                  }\n              }\n\n      }"}
+
+
+
+{
+    "data": "{\"contractSKUByContractId\":{\"totalCount\":1,\"items\":[{\"id\":12710,\"skuName\":\"AUTOTEST202312150005445856\",\"skuNumber\":\"AUTOTEST20231215000544585\",\"merchantGroupId\":null,\"faceValueWithTax\":null,\"multiplier\":null,\"skuType\":{\"id\":4,\"value\":\"Dynamic Face Value\"},\"contractSKUCosts\":[{\"id\":27086,\"costWithTax\":100.0,\"validStartDate\":\"2023-12-14T16:00:00Z\",\"validEndDate\":\"2999-12-31T15:59:59Z\",\"contractSkuStatus\":{\"id\":2,\"value\":\"Approved\"},\"skuCostContract\":{\"contractId\":23937,\"contractName\":\"AUTOTEST20231215000544584\",\"contractNumber\":\"0000000023937\",\"contractCostScheme\":{\"id\":1}}}],\"voucherNumberRule\":{\"voucherNumberRuleId\":9462,\"ruleName\":\"AUTOTEST20231215000535640\"},\"createdBy\":\"msioson\",\"createdDateTime\":\"2023-12-15T00:05:44.887Z\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\sku.service.ts
+
+
+  getAllByContractId(pageIndex : number = 0, pageSize : number = 20, searchTerm : string = "", contractId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = { query: `query {
+      contractSKUByContractId
+          (
+          keyword : \"${searchTerm}\"
+          contractId :  ${contractId}
+          skip: ${pageIndex} 
+          take: ${pageSize} 
+          order :{createdDateTime: DESC}  
+           )
+              {
+                totalCount
+                items 
+                  {
+                    id
+                    skuName  
+                    skuNumber
+                    merchantGroupId
+                    faceValueWithTax
+                    multiplier
+                    skuType    
+                        {       
+                              id    
+                              value 
+                        }      
+                    contractSKUCosts   
+                        {         
+                              id   
+                              costWithTax
+                              validStartDate
+                              validEndDate
+                              contractSkuStatus
+                                  {
+                                    id
+                                    value  
+                                  }
+                                  skuCostContract
+                                  {
+                                      contractId
+                                      contractName
+                                      contractNumber
+                                      contractCostScheme{
+                                        id
+                                      }
+
+                                  }        
+                          }
+                      voucherNumberRule       
+                          {              
+                            voucherNumberRuleId  
+                            ruleName
+                          } 
+                          createdBy
+                          createdDateTime
+                  }
+              }
+
+      }`
+    };
+    return this.http.post(url, data , { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }

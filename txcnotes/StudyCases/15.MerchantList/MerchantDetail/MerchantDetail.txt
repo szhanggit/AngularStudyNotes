@@ -1,0 +1,450 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/details?tenantName=TW&merchantId=2787
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'details',
+        component: MerchantDetailsComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-details\merchant-details.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-details\merchant-details.component.ts
+
+  ngOnInit(): void {
+    this._authLibService.isLoading.next(true);
+    this._merchantService.getMerchantById(this.id).subscribe(		<================================
+
+
+
+Merchant details & contract info
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\merchant.service.ts
+  // will retrieve specific merchant: MerchantInfo?MerchantId={value}, method: get
+  getMerchantById(merchantId: number): Observable<GetMerchantResponse> {
+    const url = `${this._getURL()}api/MerchantInfo?MerchantId=${merchantId}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<GetMerchantResponse>;
+  }
+
+
+
+-----------------------------------------------------------------------------------------------------------
+Shops
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\shops\shop-list\shop-list.component.html
+
+<ng-template #table let-shops="shops">
+    <table class="table table-striped table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col">Shop Name</th>
+                <ng-container *ngIf="tenant === 'SG'">
+                    <th scope="col">Subsidiary UEN</th>
+                    <th scope="col">Subsidiary Name</th>
+                </ng-container>
+                <th scope="col">Internal Shop Code</th>
+                <th scope="col">External Shop Code</th>
+                <th scope="col">Shop Address</th>
+                <th scope="col">Shop Phone Number</th>
+                <th scope="col">Status</th>
+                <th scope="col" *ngIf="!isMerchantViewer || isMerchantEditor">Action</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let shop of shop$ | async; index as i">
+                <td>{{ shop.shopName }}</td>
+                <ng-container *ngIf="tenant === 'SG'">
+                    <td>{{ shop.subsidiaryUen }}</td>
+                    <td>{{ shop.subsidiaryName }}</td>
+                </ng-container>
+                <td>{{ shop.identityCode }}</td>
+                <td>{{ shop.externalCode }}</td>
+                <td>
+                    <app-shop-address-span
+                        [shop]="shop"
+                        [cities]="cities"
+                        [statesOrProvinces]="statesOrProvinces"
+                        [countries]="countries"
+                    >
+                    </app-shop-address-span>
+                </td>
+                <td>{{ shop.contactPhone }}</td>
+                <td>
+                    <label class="switch">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" [disabled]="!isMerchantEditor" [checked]="shop.shopStatus === 1"
+                                (change)="updateStatus(shop)">
+                        </div>
+                    </label>
+                </td>
+                <td *ngIf="!isMerchantViewer || isMerchantEditor">
+                    <button class="btn mx-2" (click)="navigateToEditShop(shop.shopId)">
+                        <i class="mdi mdi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+
+this.shop$ = shopService.shops$;
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\shop.service.ts
+switchMap(() => this._getMerchantShop()),
+
+
+  private _getMerchantShop(): Observable<GetShopResponse> {
+    const { pageSize, page, searchTerm, status, merchantId } = this._state;
+    if (this.merchantId === 0) {
+      return of({
+        data: {
+          shopDetailsModel: [],
+          totalCount: 0
+        },
+        message: 'Success',
+        success: true
+      });
+    }
+    const url = `${this._getURL()}api/MerchantShop?${this.searchTerm != '' ? 'SearchKeyword=' : ''}${searchTerm}${this.merchantId != 0 ? '&MerchantId=' : ''}${this.merchantId != 0 ? merchantId : ''}&RowCount=${pageSize}&PageNumber=${page}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<GetShopResponse>;
+  }
+
+--------------------------------------------------------------------------------------------------------------------------
+Acceptance Loop
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\acceptance-loop\merchant-acceptance-loop-list\merchant-acceptance-loop-list.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\acceptance-loop\acceptance-loop-list\acceptance-loop-list.component.html
+
+
+    this._acceptanceLoopApiService.getMonoAcceptanceLoopByMerchantId(this.merchantId, this.allowPagination?  this.itemStart -1 : undefined, this.allowPagination? this.pageSize : undefined).subscribe((res) => {
+      if(res.success) {
+        this.total = JSON.parse(res.data).monoAcceptanceLoopByMerchantId.totalCount;
+        this.acceptanceLoops = JSON.parse(res.data).monoAcceptanceLoopByMerchantId.items;
+        this.noData.emit(this.acceptanceLoops.length == 0);
+        for (let index = 0; index < this.acceptanceLoops.length; index++) {
+          const element = this.acceptanceLoops[index];
+          if(!element?.isDefault)
+          this.selctedAcceptanceLoopsId.push(element.acceptanceLoopId);
+          this.selectedItem.emit(this.selctedAcceptanceLoopsId);
+        }
+      }});
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\acceptance-loop-api.service.ts
+
+  public getMonoAcceptanceLoopByMerchantId(merchantId: number, skip?: number, take?: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const skipClause = skip ? `, skip: ${skip}` : '';
+    const takeClause = take ? `, take: ${take}` : '';
+    const body = { query:
+      `query{
+        monoAcceptanceLoopByMerchantId(merchantId: ${merchantId}
+          order: [{isDefault: DESC}, { createdOn: DESC }]
+          ${skipClause}
+          ${takeClause}
+          )
+          {
+            totalCount
+              items {
+                acceptanceLoopId
+                code
+                description
+                isDefault
+                shopCountAvailableInAL
+                status
+                createdBy
+                createdOn
+              }
+          }
+        }`
+    }
+    return this.http.post(url, body,{ headers: this._getHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+--------------------------------------------------------------------------------------------------------------------------
+Voucher number rule
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\voucher-number-rule-list\voucher-number-rule-list.component.html
+        <tbody class="font-14">
+            <tr *ngFor="let voucherNumberRule of voucherNumberRuleList; let index = index">
+                <td>
+                    <div [ngClass]="{'bold': !program.isEdenred}">{{ voucherNumberRule.ruleName }}</div>
+                    <div *ngIf="!program.isEdenred" class="font-12">{{ program.name }}</div>
+                </td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberPrefix }}</td>
+                <td *ngIf="!program.isEdenred">{{ voucherNumberRule.requestExpiryDate | yesNo }}</td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberType | voucherNumberType }}</td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberLength }}</td>
+                <td>{{ voucherNumberRule.barcodeType.description || '--' }}</td>
+                <td>{{ (voucherNumberRule.distVoucherNumUnderBarcode | yesNo) || voucherNumberRule.displayText }}</td>
+                <td *ngIf="!program.isEdenred && tenant == 'TW'">{{ voucherNumberRule.hasMultipleBarcode | yesNo }}</td>
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\voucher-number-rule-list\voucher-number-rule-list.component.ts
+      this._voucherNumberRuleService
+      .getSpecificVoucherNumberRule(this.merchantId)
+      .subscribe((res) => {
+        this.voucherNumberRuleList = res ?? []
+        if (this.voucherNumberRuleList.length && this.action === 'vnrCancelled') {
+          this.vnrListCollapsed = false;
+        }
+      });
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\voucher-number-rule.service.ts
+  getSpecificVoucherNumberRule(
+    merchantId: number | undefined | null,
+    voucherNumberRuleId: number | undefined | null = null
+  ) {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const voucherNumberRuleIdQuery = voucherNumberRuleId
+      ? `voucherNumberRuleId: { eq: ${voucherNumberRuleId} }`
+      : '';
+    const body = {
+      query: `query {
+        voucherNumberRules(
+            where: { 
+                ${voucherNumberRuleIdQuery},
+                merchantId: { eq: ${merchantId} },
+                isDeleted: { eq: false }
+            }
+            order: { voucherNumberRuleId: DESC }
+            take: 20
+            skip: 0
+        ) {
+            totalCount
+            items {
+                merchantId
+                voucherNumberRuleId
+                ruleName
+                voucherNumberPrefix
+                voucherNumberType
+                voucherNumberLength
+                barcodeType {
+                    id
+                    description
+                },
+                voucherGenerator {
+                    id
+                    description
+                },
+                barcodeType {
+                    id
+                    description
+                }
+                createdBy
+                createdDateTime
+                algorithmId
+                distVoucherNumUnderBarcode
+                algorithmId
+                requestExpiryDate
+                hasMultipleBarcode
+                onDemand
+                pinType {
+                    id
+                    description
+                }
+                contractSKU {
+                    id
+                }
+                vendor {
+                    vendorCode
+                    name
+                    id
+                }
+            }
+        }
+    }`,
+    };
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+Contract
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\merchant-contract-list\merchant-contract-list.component.html
+
+
+Contract  --  Valid Contracts	--	true
+Contract  --  Invalid Contracts	--	false
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\contract-list\contract-list.component.html
+
+
+        <tbody>
+            <tr class="font-14" *ngFor="let contract of contractList">
+                <td><a href="{{ getUrl(contract) }}" class="text-primary" target="_self">{{ contract.contractName }} <br> {{ contract.contractNumber }}</a></td>
+                <td>{{ contract.startDate | txcLocalDateTime | date : "yyyy/MM/dd" }} - <br> {{ contract.endDate | txcLocalDateTime |  date : "yyyy/MM/dd" }}</td>
+                <td>{{ contract.contractPaymentTerm.value }}</td>
+                <td>{{ contract.contractPriceOption.value }}</td>
+                <td>{{ contract.contractCostScheme.id == 1? "%" : "Fixed" }}</td>
+                <td>{{ contract.contractCostScheme.value == "Fixed" ? "N/A" : contract.costPercentage }}</td>
+                <td>
+                    <span [class]="getContractStatusUI(contract.displayStatus)" *ngIf="contract.statusId != 4">{{ contract.displayStatus }}</span>
+                    <span [class]="getContractStatusUI(contract.displayStatus)" *ngIf="contract.statusId == 4" ngbPopover="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." triggers="mouseenter:mouseleave" popoverTitle="Reject Reson">{{ contract.displayStatus }}</span>
+                </td>
+                <td>{{ contract.skuQuantity }}</td>
+                <td *ngIf="valid && _merchantPermissionService.isMerchantEditor">
+                    <button type="button" class="btn btn-secondary btn-sm text-nowrap" *ngIf="!disableAddSKU(contract)" (click)="navigateToAddSKU(contract)"><i class="mdi mdi-plus me-1"></i>Add SKU</button>
+                </td>
+                <td *ngIf="valid && _merchantPermissionService.isMerchantEditor">
+                    <div ngbDropdown class="d-inline-block" *ngIf="!disableEditContract(contract) || !disableEditContractPeriod(contract) || !disableDuplicateContract(contract)">
+                    <i class="mdi mdi-dots-vertical fs-3" id="dropdownBasic1" ngbDropdownToggle></i>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button ngbDropdownItem *ngIf="!disableEditContract(contract)" class="px-3" (click)="navigateToContractDetails(contract)">Edit contract</button>
+                        <button ngbDropdownItem *ngIf="!disableEditContractPeriod(contract)" class="px-3" (click)="navigateToContractDetails(contract)">Edit contract period</button>
+                        <button ngbDropdownItem *ngIf="!disableDuplicateContract(contract)" class="px-3" (click)="navigateToContractDetails(contract)">Duplicate contract&SKU</button>
+                      </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\contract-list\contract-list.component.ts
+    this.contractService.getAll(this.itemStart-1, this.pageSize, this.searchTerm, isNaN(this.selectcontractStatus) ? null : this.selectcontractStatus, this.valid, this.merchant.merchantId).pipe(
+      debounceTime(3000)
+    ).subscribe((response:BaseResponse)=>{
+      if(response.success){
+        this.contractList = JSON.parse(response.data).contracts.items;
+        this.totalCount = JSON.parse(response.data).contracts.totalCount;
+        if(this.searchTerm == "")
+          this.hasList.emit(this.contractList.length > 0);
+      }
+    });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\contract.service.ts
+  // will call on graphql query merchants to get contract list: MerchantInfo
+  getAll(pageIndex : number = 0, pageSize : number = 20, searchTerm : string = "", contractStatus : number, valid : boolean = true,  merchantId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = { query: `query {
+        contracts(
+          keyword : \"${searchTerm}\" 
+          valid : ${valid} 
+          contractStatus : ${contractStatus} 
+          skip: ${pageIndex} 
+          take: ${pageSize} 
+          merchantId: ${merchantId}
+          order :{createdTime: DESC}
+        ) {
+            totalCount
+
+          items {
+            contractId
+      
+            contractName
+      
+            startDate
+      
+            endDate
+
+            contractNumber
+
+            displayStatus
+      
+            contractPaymentTerm {
+              id
+      
+              value
+            }
+      
+            contractPriceOption {
+              id
+      
+              value
+            }
+      
+            contractCostScheme {
+              id
+      
+              value
+            }
+      
+            costPercentage
+      
+            contractCostRoundingRule {
+              id
+      
+              value
+            }
+
+            contractCostRoundingPlaces{
+              id
+
+              value
+            }
+      
+            skuQuantity
+      
+            statusId
+          }
+        }
+      }`};
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+SKU
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\merchant-sku-list\merchant-sku-list.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-list\sku-list.component.html
+
+
+            <ng-container  *ngFor="let sku of skuList">
+            <tr class="font-14" >
+                <td class="valignTop" attr.rowspan="{{sku.contractSKUCosts.length+1}}">{{ sku.skuName }} <br> {{ sku.skuNumber }}</td>
+                <tr class="font-14" *ngFor="let skucost of sku.contractSKUCosts">
+                <td>{{sku.skuType.value}}</td>
+                <td>{{sku.faceValueWithTax === null ? "NA" : sku.faceValueWithTax}}</td>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-list\sku-list.component.ts
+      this.SkuService.getAll(this.itemStart-1, this.pageSize, this.searchTerm,  this.valid, this.merchant.merchantId).pipe(
+        debounceTime(this.debounceTime)
+      ).subscribe((response:BaseResponse)=>{
+        if(response.success){         
+          this.skuList = JSON.parse(response.data).contractSkuByMerchantId.items;
+          this.totalCount = JSON.parse(response.data).contractSkuByMerchantId.totalCount;
+           if(this.searchTerm == "")
+            this.hasValidList.emit(this.skuList.length > 0);
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\sku.service.ts
+  getAll(pageIndex : number = 0, pageSize : number = 20, searchTerm : string = "",  valid : boolean | undefined,  merchantId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const validClause = valid !== undefined ? `, valid: ${valid}` : '';
+    const data = { query: `query {
+      contractSkuByMerchantId
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

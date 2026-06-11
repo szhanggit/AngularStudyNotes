@@ -1,0 +1,16 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\contract-modal-add-sku\contract-modal-add-sku.component.html
+    <div class="col-12 text-center">
+        <a href="javascript:void(0)" class="text-decoration-underline" (click)="downloadSkuTemplate()">Download
+            Batch SKU Template</a>
+    </div>
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\contract.service.ts
+  /// <summary>
+  /// Download for sample import SKU batch file.
+  /// </summary>
+  downloadSkuTemplate(merchantId:number){   
+    const url = `${this._getURL()}api/Contract/DownloadSkuTemplate?MerchantId=${merchantId}`;
+    return this.http.get(url,{ headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()),responseType: 'blob', observe: 'response' });
+  }
