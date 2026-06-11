@@ -1,0 +1,7 @@
+Reading Host Element Attributes:
+It will match any element that has the pa-attr attribute, regardless of the tag type, and will work
+as well on td elements as it does on tr elements.
+
+<td pa-attr pa-attr-class2="bg-warning">{{item.category}}</td>
+has to add pa-attr, otherwise, attr.directive.ts will not be called.
+

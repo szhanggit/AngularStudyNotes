@@ -1,0 +1,28 @@
+Responding to Input Property Changes----------------------------
+Creating Custom Events-----------------------------------
+
+Output properties are the Angular feature that allows directives to add custom events to their host
+elements, through which details of important changes can be sent to the rest of the application.
+
+src\app\attr.directive.ts
+    constructor(private element: ElementRef) {
+        this.element.nativeElement.addEventListener("click", e => {
+            if (this.product != null) {
+                this.click.emit(this.product.category);
+            }
+        });
+    }
+
+On UI =>
+[pa-product]="item" (pa-category)="newProduct.category = $event"
+
+On directive.ts =>
+    @Output("pa-category")
+    click = new EventEmitter<string>();
+
+    @HostListener("click")
+    triggerCustomEvent() {
+        if (this.product != null) {
+            this.click.emit(this.product.category);
+        }
+    }

@@ -1,0 +1,51 @@
+Using a Single Host Element Attribute-----------------------------
+Creating Data-Bound Input Properties-----------------------------
+Responding to Input Property Changes-----------------------------
+
+constructor(element: ElementRef, @Attribute("pa-attr") bgClass: string)
+
+<td pa-attr="bg-warning">{{item.category}}</td>
+
+
+
+
+
+Creating Data-Bound Input Properties：
+constructor(private element: ElementRef) {}
+
+@Input("pa-attr")
+bgClass: string;
+
+Directives receive expressions using data-bound input properties, also known as input properties or,
+simply, inputs.
+
+ngOnInit() {
+    this.element.nativeElement.classList.add(this.bgClass || "bg-success", "text-white");
+}
+
+
+
+
+
+
+Table 15-3. The Directive Lifecycle Hook Methods
+ngOnInit                This method is called after Angular has set the initial value for all the input properties that the directive has declared.
+ngOnChanges             This method is called when the value of an input property has changed and also just before the ngOnInit method is called.
+ngDoCheck               This method is called when Angular runs its change detection process so that directives have an opportunity to update any state that isn’t directly associated with an input property.
+ngAfterContentInit      This method is called when the directive’s content has been initialized. See the “Receiving Query Change Notifications” section in Chapter 16 for an example that uses this method.
+ngAfterContentChecked   This method is called after the directive’s content has been inspected as part of the change detection process.
+ngOnDestroy             This method is called immediately before Angular destroys a directive.
+
+
+
+
+    ngOnChanges(changes: {[property: string]: SimpleChange }) {
+        let change = changes["bgClass"];
+        let classList = this.element.nativeElement.classList;
+        if (!change.isFirstChange() && classList.contains(change.previousValue)) {
+            classList.remove(change.previousValue);
+        }
+        if (!classList.contains(change.currentValue)) {
+            classList.add(change.currentValue);
+        }
+    }

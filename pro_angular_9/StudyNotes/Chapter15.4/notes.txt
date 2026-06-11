@@ -1,0 +1,43 @@
+Creating a Two-Way Binding on the Host Element:
+src\app\twoway.directive.ts
+
+The first argument to the @HostListener decorator specifies the name of the event that will be handled by the listener. 
+The second argument is an array that will be used to provide the decorated methods with arguments.
+@HostListener("input", ["$event.target.value"])
+updateValue(newValue: string) {
+    this.fieldValue = newValue;
+    this.update.emit(newValue);
+}
+
+["$event.target.value"]    =>   newValue: string
+
+
+paModel可以看作是对ngModel的具体实现。
+当改变form里的name，ngOnChanges负责更新Host name1和Host name2。
+
+都更新到Host name1和Host name2上。
+    ngOnChanges(changes: { [property: string]: SimpleChange }) {
+        let change = changes["modelProperty"];
+        if (change.currentValue != this.fieldValue) {
+            this.fieldValue = changes["modelProperty"].currentValue || "";
+        }
+    }
+
+
+都更新到form里的name。
+    @HostListener("input", ["$event.target.value"])
+    updateValue(newValue: string) {
+        this.fieldValue = newValue;
+        this.update.emit(newValue);
+    }    
+
+Host name1和Host name2
+    @HostBinding("value")
+    fieldValue: string = "";    
+
+处理Host name1和Host name2的变动。
+    @HostListener("input", ["$event.target.value"])
+    updateValue(newValue: string) {
+        this.fieldValue = newValue;
+        this.update.emit(newValue);
+    }    

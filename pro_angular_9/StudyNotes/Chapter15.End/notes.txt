@@ -1,0 +1,49 @@
+Exporting a Directive for Use in a Template Variable-----------------------
+The exportAs property of the @Directive decorator specifies a name that will be used to refer to the
+directive in template variables.
+
+
+
+
+src\app\twoway.directive.ts
+@Directive({
+selector: "input[paModel]",
+exportAs: "paModel"
+})
+export class PaModel {
+
+
+
+
+
+src\app\template.html
+<input class="bg-primary text-white" [(paModel)]="newProduct.name" #paModel="paModel" />
+<div class="bg-primary text-white">Direction: {{paModel.direction}}</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

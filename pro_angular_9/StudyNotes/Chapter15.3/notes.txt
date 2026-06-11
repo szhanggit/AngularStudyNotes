@@ -1,0 +1,31 @@
+Creating Host Element Bindings:
+src\app\attr.directive.ts
+
+(Click a row to assign category into newProduct.category)
+
+Even if you are sure that a directive will have access to the DOM, the same results can be achieved in a
+more elegant way using standard Angular directive features: property and event bindings.
+
+Bindings on the host element are defined using two decorators
+@HostBinding and @HostListener
+
+The @HostBinding decorator is used to set up a property binding on the host element and is applied to
+a directive property. The listing sets up a binding between the class property on the host element and the
+decorator’s bgClass property.
+
+
+
+ <td [pa-attr]="item.category == 'Soccer' ? 'bg-info' : null">    
+
+    @Input("pa-attr")
+    @HostBinding("class")
+    bgClass: string;
+
+1. Declare [pa-attr] in script, @HostBinding("class").
+2. Pass value of [pa-attr] from UI to script, must declare @Input("pa-attr").
+
+
+
+src\app\template.html
+        <tr *ngFor="let item of getProducts(); let i = index" [pa-attr]="getProducts().length < 6 ? 'bg-success' : 'bg-warning'"
+        [pa-product]="item" (pa-category)="newProduct.category = $event">
