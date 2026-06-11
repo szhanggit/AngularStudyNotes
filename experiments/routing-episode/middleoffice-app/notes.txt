@@ -1,0 +1,18 @@
+ng new middleoffice-app --routing	(after running this, need cd middleoffice-app)
+cd middleoffice-app
+ng generate module merchant --route merchants --module app.module
+	cd D:\Study\AngularStudyNotes\experiments\middleoffice-app\src\app\merchant
+	ng generate module shop --route shops --module merchant.module
+	ng generate module dobatchtransaction --route dobatchtransaction --module merchant.module
+	ng generate module createmerchant --route createmerchant --module merchant.module
+ng generate module order --route orders --module app.module
+ng generate module product --route products --module app.module
+ng generate module client --route clients --module app.module
+ng generate module csportal --route csportal --module app.module
+
+
+
+
+
+
+
