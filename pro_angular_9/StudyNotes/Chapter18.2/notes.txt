@@ -1,0 +1,21 @@
+Formatting Numbers:
+<td style="vertical-align:middle">{{item.price | number:"3.2-2" }}</td>
+<minIntegerDigits>.<minFactionDigits>-<maxFractionDigits>
+
+------------------------------------------------------------------
+Set culture:
+app.module.ts
+import { LOCALE_ID } from "@angular/core";
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeFr);
+
+providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
+
+
+
+
+
+------------------------------------------------------------------
+Formatting Currency Values
+{{item.price | currency:"USD":"symbol":"2.2-2" }}

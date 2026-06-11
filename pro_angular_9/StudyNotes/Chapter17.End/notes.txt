@@ -1,0 +1,4 @@
+Querying Template Content:
+
+@ViewChildren(PaCellColor)
+viewChildren: QueryList<PaCellColor>;

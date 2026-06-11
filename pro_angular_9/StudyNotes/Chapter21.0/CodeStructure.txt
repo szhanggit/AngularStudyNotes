@@ -1,0 +1,23 @@
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter21.0\example\src\app\app.module.ts
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { ProductComponent } from "./component";
+import { ComponentsModule } from "./components/components.module";
+
+@NgModule({
+    imports: [BrowserModule, //FormsModule, ReactiveFormsModule,
+          ComponentsModule],//ModelModule, CommonModule,
+    declarations: [ProductComponent],
+    bootstrap: [ProductComponent]
+})
+export class AppModule { }
+
+
+
+------------
+Only needs to call components.module. All of the other modules are included already.
+components.module has all of the running env ProductComponent needs.
+
+
+
+

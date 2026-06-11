@@ -1,0 +1,116 @@
+Using Output Properties to Coordinate Between Components
+
+Child components can use output properties that define custom events.
+
+How child components can call functions in the parent component?
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.1\src\app\template.html	(Parent component)
+<paProductForm (paNewProduct)="addProduct($event)"></paProductForm>
+$event will get product object from child.
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.1\src\app\component.ts (Parent component)
+    addProduct(p: Product) {
+        console.log("addProduct in component.ts.");
+        this.model.saveProduct(p);
+    }  
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.1\src\app\productForm.component.ts (Child component)
+    @Output("paNewProduct")
+    newProductEvent = new EventEmitter<Product>();
+
+    submitForm(form: any) {
+        console.log("submitForm in productForm.component.ts.");
+        this.newProductEvent.emit(this.newProduct);			//sending trigger
+        this.newProduct = new Product();
+        form.reset();
+    }
+----------------------------------------------------------------------------------------------------------
+
+Projecting Host Element Content:
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.1\src\app\toggleView.component.html
+<div class="checkbox">
+    <label>
+        <input type="checkbox" [(ngModel)]="showContent" />
+        Show Content
+    </label>
+</div>
+<ng-content *ngIf="showContent"></ng-content>
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.1\src\app\template.html
+        <paToggleView>
+            <paProductTable [model]="model"></paProductTable>
+        </paToggleView>
+
+paToggleView is a sub component. paProductTable can even be nested in the sub component. 
+<ng-content> is like an iframe.
+----------------------------------------------------------------------------------------------------------
+
+To ensure that the CSS in the style element affects only the HTML elements managed by the component.
+<div _ngcontent-jwe-c40="" class="form-group">
+	<label _ngcontent-jwe-c40="">Name</label>
+	<input _ngcontent-jwe-c40="" name="name" class="form-control ng-untouched ng-pristine ng-valid" ng-reflect-name="name">
+</div>
+
+This is known as the component’s view encapsulation behavior, shadow DOM.
+
+
+@Component({
+selector: "paProductForm",
+templateUrl: "productForm.component.html",
+styleUrls: ["productForm.component.css"],
+encapsulation: ViewEncapsulation.Emulated
+})
+----------------------------------------------------------------------------------------------------------
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.End\src\app\productTable.component.ts
+    @ViewChildren(PaCellColor)
+    viewChildren: QueryList<PaCellColor>;
+   
+    ngAfterViewInit() {
+        this.viewChildren.changes.subscribe(() => {
+            this.updateViewChildren();
+        });
+        this.updateViewChildren();
+    }
+
+    private updateViewChildren() {
+        setTimeout(() => {
+            this.viewChildren.forEach((child, index) => {
+                child.setColor(index % 2 ? true : false);
+            })
+        }, 0);
+    }
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter17.End\src\app\cellColor.directive.ts
+@Directive({
+    selector: "td"
+})
+export class PaCellColor {
+
+    @HostBinding("class")
+    bgClass: string = "";
+
+    setColor(dark: Boolean) {
+        this.bgClass = dark ? "bg-dark" : "";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

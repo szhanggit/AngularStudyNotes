@@ -1,0 +1,37 @@
+Creating a Simple Structural Directive-----------------------------
+Using the Concise Structural Directive Syntax----------------------
+(ended at P388)
+Re-create the functionallity provided by the ngIf directive.
+
+
+src\app\template.html
+src\app\structure.directive.ts
+src\app\app.module.ts
+The ViewContainerRef object is used to manage the contents of the view container, which is the part of
+the HTML document where the ng-template element appears and for which the directive is responsible.
+
+The ViewContainerRef object represents the place in the HTML document occupied by the
+ng-template element, and the TemplateRef object represents the ng-template element’s contents.
+
+Note The contents of the ng-template element are being destroyed and re-created, not simply hidden and
+revealed. If you want to show or hide content without removing it from the HTML document, then you can use a
+style binding to set the display or visibility property.
+
+Table 16-3. Useful ViewContainerRef Methods and Properties
+
+element             This property returns an ElementRef object that represents the container element.
+createEmbeddedView(template)
+This method uses a template to create a new view. See the text after the table
+for details. This method also accepts optional arguments for context data (as
+described in the “Creating Iterating Structural Directives” section) and an index
+position that specifies where the view should be inserted. The result is a ViewRef
+object that can be used with the other methods in this table.
+
+
+
+clear()             This method removes all the views from the container. length This property returns the number of views in the container.
+get(index)          This method returns the ViewRef object representing the view at the specified index.
+indexOf(view)       This method returns the index of the specified ViewRef object.
+insert(view, index) This method inserts a view at the specified index.
+remove(Index)       This method removes and destroys the view at the specified index.
+detach(index)       This method detaches the view from the specified index without destroying it so that it can be repositioned with the insert method.

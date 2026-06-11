@@ -1,0 +1,12 @@
+ng test
+
+http://jasmine.github.io
+
+---------------------------------------------------------------------
+Testing an Angular Component:
+
+Table 29-5. Useful TestBed Methods:
+configureTestingModule      This method is used to configure the Angular testing module.
+createComponent             This method is used to create an instance of the component.
+compileComponents           This method is used to compile components, as described in the “Testing a Component with an External Template” section.
+

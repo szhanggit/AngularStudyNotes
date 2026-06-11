@@ -1,0 +1,14 @@
+Dealing with Property-Level Data Changes-------------------------------
+
+when the properties of an individual object change. This has a knock-on effect on the data
+bindings contained within the ng-template element, either directly through a change in the implicit value
+or indirectly through the additional context values provided by the directive. Angular takes care of these
+changes automatically, reflecting any changes in the context data in the bindings that depend on them.
+
+src\app\iterator.directive.ts
+        setInterval(() => {
+            this.odd = !this.odd; this.even = !this.even;
+            this.$implicit.price++;
+            }, 2000);
+
+It creates independent thread. 5 in total. Keep changing data in property level.            

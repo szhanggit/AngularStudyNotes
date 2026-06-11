@@ -1,0 +1,62 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+ng serve -o --port 12333
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12333/
+
+-------------------------------------------
+
+message.service.ts
+@Injectable()
+export class MessageService {
+    private subject = new Subject<Message>();
+
+    reportMessage(msg: Message) {
+        this.subject.next(msg);
+    }
+        
+    get messages(): Observable<Message> {
+        return this.subject;
+    }
+}
+
+
+import { MessageModule } from "../messages/message.module";
+Core module needs to reference message module.
+
+---------------------------------
+
+    providers: [{
+        provide: SHARED_STATE,
+        deps: [MessageService, Model],
+        useFactory: (messageService, model) => {
+                let subject = new Subject<SharedState>();
+                subject.subscribe(m => messageService.reportMessage(//每次做DI时都加了一步。
+                    new Message(MODES[m.mode] + (m.id != undefined
+                ? ` ${model.getProduct(m.id).name}` : "")))
+            );
+            return subject;
+        }
+    }]
+    /*
+    every state change event sent by the table component is displayed by the message component,
+    */  
+
+
+
+
+
+

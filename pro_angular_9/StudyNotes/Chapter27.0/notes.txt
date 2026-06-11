@@ -1,0 +1,202 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+npm run json                          //It is for running data server.	(http://localhost:3500/products/2)
+ng serve -o --port 12388
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12388/form/edit
+http://localhost:12388/form/create
+http://localhost:12388/
+
+Chapter27.0
+From beginning to the end of Guarding Routes.
+
+
+
+----------------------------------------------------------------------------------------
+Delaying Navigation with a Resolver
+[resolve] This property is used to specify guards that will delay route activation until some
+operation has been completed, such as loading data from a server.
+
+
+
+
+----------------------------------------------------------------------------------------
+Displaying Placeholder Content
+
+
+resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product[]>	大量数据下载完才显示页面。否则会显示一张空白页面。to ensure that the application has received the data that it requires before a route is activated.
+http://localhost:4200/form/edit/7	没有resolve，刷新后就不显示数据。有resolve后，刷新后不会丢数据。To prevent URL entry problems.
+canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {	Show terms and conditions before entering a new page.
+	(Auth) | (Make sure that at first time, show landing page C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter8\SportsStore\src\app\storeFirst.guard.ts)
+canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {	Show questions before entering a new child page. (click Count Categories)
+canLoad(route: Route): Promise<boolean> | boolean {	Show message before load dynamic module.
+canDeactivate(component: FormComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {	Show unsaved notification before leaving the current page.	
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    
+    return true;
+
+  }
+----------------------------------------------------------------------------------------
+Using a Resolver to Prevent URL Entry Problems
+
+After reload a form by F5, the form is empty. This is a problem.
+const routes: Routes = [
+	{
+		path: "form/:mode/:id", component: FormComponent,
+		resolve: { model: ModelResolver }
+	},
+	{
+		path: "form/:mode", component: FormComponent,
+		resolve: { model: ModelResolver }
+	},
+	{ path: "table", component: TableComponent, children: childRoutes },
+	{ path: "table/:category", component: TableComponent, children: childRoutes },
+	{ path: "", redirectTo: "/table", pathMatch: "full" },
+	{ path: "**", component: NotFoundComponent }
+]
+
+
+
+
+----------------------------------------------------------------------------------------
+Creating Additional Outlet Elements
+
+There are three router-outlet:
+<div class="bg-primary text-white p-2">This is the ondemand component</div>
+	<div class="row">
+		<div class="col-12 p-2">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6 p-2">
+			<router-outlet name="left"></router-outlet>
+		</div>
+		<div class="col-6 p-2">
+			<router-outlet name="right"></router-outlet>
+		</div>
+	</div>
+</div>
+
+
+
+let routing = RouterModule.forChild([
+	{
+		path: "",
+		component: OndemandComponent,
+		children: [
+			{ path: "",
+			  children: [
+				{ outlet: "primary", path: "", component: FirstComponent, },
+				{ outlet: "left", path: "", component: SecondComponent, },
+				{ outlet: "right", path: "", component: SecondComponent, },
+			]},
+		]
+	},
+]);
+
+
+----------------------------------------------------------------------------------------
+Navigating When Using Multiple Outlets
+
+
+let routing = RouterModule.forChild([
+	{
+		path: "", component: OndemandComponent,
+			children: [
+				{
+					path: "",
+					children: [
+						{ outlet: "primary", path: "", component: FirstComponent, },
+						{ outlet: "left", path: "", component: SecondComponent, },
+						{ outlet: "right", path: "", component: SecondComponent, },
+					]
+				},
+				{
+					path: "swap",
+					children: [
+						{ outlet: "primary", path: "", component: SecondComponent, },
+						{ outlet: "left", path: "", component: FirstComponent, },
+						{ outlet: "right", path: "", component: FirstComponent, },
+					]
+				},
+			]
+	},
+]);
+
+<button class="btn btn-secondary m-2" routerLink="/ondemand">Normal</button>
+<button class="btn btn-secondary m-2" routerLink="/ondemand/swap">Swap</button>
+
+----------------------------------------------------------------------------------------
+Dynamically load modules: (loadChildren: () => import("./ondemand/ondemand.module").then(m => m.OndemandModule))
+The function in the listing tells Angular to load the OndemandModule class from the ondemand/ondemand.module file.
+
+const routes: Routes = [
+    {
+        path: "ondemand",
+        loadChildren: () => import("./ondemand/ondemand.module").then(m => m.OndemandModule),
+        canLoad: [LoadGuard]
+    },
+    { path: "**", component: NotFoundComponent }
+]
+
+export const routing = RouterModule.forRoot(routes);
+
+
+---------------
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter27.1\exampleApp\src\app\ondemand\ondemand.module.ts
+let routing = RouterModule.forChild([
+    {
+        path: "",
+        component: OndemandComponent,
+        children: [
+            { 
+                path: "",
+                children: [
+                { outlet: "primary", path: "", component: FirstComponent, },
+                { outlet: "left", path: "", component: SecondComponent, },
+                { outlet: "right", path: "", component: SecondComponent, },
+            ]},
+            {
+                path: "swap",
+                children: [
+                { outlet: "primary", path: "", component: SecondComponent, },
+                { outlet: "left", path: "", component: FirstComponent, },
+                { outlet: "right", path: "", component: FirstComponent, },
+                ]
+            },
+        ]
+    },
+]);
+
+
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+
+
+
+[["Yes", () => resolve(true)], ["No", () => resolve(false)]]; This is a typescript tuple.
+
+
+
+
+
+
+

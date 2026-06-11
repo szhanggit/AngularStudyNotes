@@ -1,0 +1,25 @@
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+-----------------------------------------------------------
+
+Understanding the Token
+
+All providers rely on a token, which Angular uses to identify the dependency that the provider can resolve.
+The simplest approach is to use a class as the token, which is what I did in Listing 20-4. However, you can use
+any object as the token, which allows the dependency and the type of the object to be separated. This has the
+effect of increasing the flexibility of the dependency injection configuration because it allows a provider to
+supply objects of different types.
+
+src\app\app.module.ts
+providers: [DiscountService, SimpleDataSource, Model, { provide: "logger", useClass: LogService }],
+
+src\app\discount.service.ts
+constructor(@Inject("logger") private logger: LogService) { }

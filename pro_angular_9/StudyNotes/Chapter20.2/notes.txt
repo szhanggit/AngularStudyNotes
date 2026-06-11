@@ -1,0 +1,17 @@
+Using Opaque Tokens:
+
+Make token absolutely unique.
+To help work around this, Angular provides the InjectionToken class, which provides an object wrapper around a string value and can be used to create unique token values.
+
+
+Using the InjectionToken means that there will be no confusion between services.
+
+
+src\app\log.service.ts
+export const LOG_SERVICE = new InjectionToken("logger");
+
+src\app\app.module.ts
+providers: [DiscountService, SimpleDataSource, Model, { provide: LOG_SERVICE, useClass: LogService }],
+
+src\app\discount.service.ts
+constructor( @Inject(LOG_SERVICE) private logger: LogService) { }

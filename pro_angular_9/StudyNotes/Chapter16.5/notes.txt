@@ -1,0 +1,36 @@
+Keeping Track of Views:
+
+src\app\template.html
+src\app\iterator.directive.ts
+
+
+
+Data in memory can easily be added, deleted, and modified. However not easy to be detected on page right the way.
+trackById can fill the gap. It is all about performance tuning.
+
+private views: Map<any, PaIteratorContext> = new Map<any, PaIteratorContext>();
+
+    ngDoCheck() {
+        let changes = this.differ.diff(this.dataSource);
+        if (changes != null) {
+            changes.forEachAddedItem(addition => {
+                let context = new PaIteratorContext(addition.item, addition.currentIndex, changes.length);
+                context.view = this.container.createEmbeddedView(this.template, context);
+                this.views.set(addition.trackById, context);
+            });
+            let removals = false;
+            changes.forEachRemovedItem(removal => {
+                removals = true;
+                let context = this.views.get(removal.trackById);
+                if (context != null) {
+                    this.container.remove(this.container.indexOf(context.view));
+                    this.views.delete(removal.trackById);
+                }
+            });
+            if (removals) {
+                let index = 0;
+                this.views.forEach(context =>
+                context.setData(index++, this.views.size));
+            }
+        }
+    }

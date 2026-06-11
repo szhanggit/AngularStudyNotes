@@ -1,0 +1,6 @@
+Understanding Animation Style Groups:
+
+const commonStyles = {
+    border: "black solid 4px",
+    color: "white"
+};

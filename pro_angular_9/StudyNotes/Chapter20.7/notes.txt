@@ -1,0 +1,24 @@
+Using the Existing Service Provider:
+
+This provider can be useful when you want to refactor the set of providers but don’t want to eliminate
+all the obsolete tokens to avoid refactoring the rest of the application. Listing 20-19 shows the use of this
+provider.
+
+
+
+src\app\app.module.ts
+
+
+
+
+      providers: [DiscountService, SimpleDataSource, Model,
+          { provide: LOG_LEVEL, useValue: LogLevel.DEBUG },
+          { provide: "debugLevel", useExisting: LOG_LEVEL },
+          { provide: LogService,
+            deps: ["debugLevel"],
+              useFactory: (level) => {
+                let logger = new LogService();
+                logger.minimumLevel = level;
+                return logger;
+              }
+            }],

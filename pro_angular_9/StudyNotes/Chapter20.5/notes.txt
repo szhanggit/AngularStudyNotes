@@ -1,0 +1,18 @@
+Using the Value Provider:
+
+Table 20-5. The Value Provider Properties
+provide         This property defines the service token, as described in the “Understanding the Token” section earlier in the chapter.
+useValue        This property specifies the object that will be used to resolve the dependency.
+multi           This property is used to allow multiple providers to be combined to provide an array of objects
+that will be used to resolve a dependency on the token. See the “Resolving a Dependency with
+Multiple Objects” section earlier in the chapter for an example.
+
+src\app\app.module.ts
+let logger = new LogService();
+logger.minimumLevel = LogLevel.DEBUG;
+
+      providers: [DiscountService, SimpleDataSource, Model,
+        { provide: LogService, useValue: logger }], 
+
+src\app\discount.service.ts
+constructor(private logger: LogService) { }        

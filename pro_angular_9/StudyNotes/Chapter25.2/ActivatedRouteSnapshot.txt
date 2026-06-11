@@ -1,0 +1,60 @@
+Table 25-6	The Basic ActivatedRouteSnapshot Properties
+url 		This property returns an array of UrlSegment objects, each of which describes a single segment in the URL that matched the current route.
+params 		This property returns a Params object, which describes the URL parameters, indexed by name.
+queryParams 	This property returns a Params object, which describes the URL query parameters, indexed by name.
+fragment 	This property returns a string containing the URL fragment.
+
+
+RouterStateSnapshot
+
+
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if (this.firstNavigation) {
+            this.firstNavigation = false;
+            if (route.component != StoreComponent) {
+                this.router.navigateByUrl("/");
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+
+
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if (!this.auth.authenticated) {
+            this.router.navigateByUrl("/admin/auth");
+            return false;
+        }
+
+
+export class AdminComponent {
+    constructor(private auth: AuthService, private router: Router) { }
+    logout() {
+        this.auth.clear();
+        this.router.navigateByUrl("/");
+    }
+}
+
+
+    <button type="reset" class="btn btn-secondary" routerLink="/admin/main/products">
+        Cancel
+    </button>
+
+
+    constructor(private repository: ProductRepository, private router: Router, activeRoute: ActivatedRoute) {
+        this.editing = activeRoute.snapshot.params["mode"] == "edit";
+        if (this.editing) {
+            Object.assign(this.product, repository.getProduct(activeRoute.snapshot.params["id"]));
+        }
+    }
+
+
+                <button class="btn btn-sm btn-warning m-1" [routerLink]="['/admin/main/products/edit', p.id]">
+                    Edit
+                </button>
+
+

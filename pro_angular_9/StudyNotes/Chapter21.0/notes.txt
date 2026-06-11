@@ -1,0 +1,103 @@
+cd example
+npm install bootstrap@4.4.1
+
+ng serve -o --port 10000
+
+
+
+There is no module-wide scope for providers, which means that the providers
+defined by a feature module will be available as though they had been defined by
+the root module.
+
+import { AppModule } from './app/app.module';
+main.ts => platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
+It calls root module.
+
+
+--------------------------------------------------------------
+For providers:
+There is no module-wide scope for providers, which means that the providers
+defined by a feature module will be available as though they had been defined by
+the root module.
+
+
+
+root module => src\app\app.module.ts	imports; declarations; bootstrap.
+feature module => imports; declarations; exports.
+
+imports 		This property is used to import the modules that are required by the classes in the modules.
+providers		This property is used to define the module’s providers. When the feature module is loaded,
+		the set of providers is combined with those in the root module, which means that the
+		feature module’s services are available throughout the application (and not just within the module).
+declarations	This property is used to specify the directives, components, and pipes in the module.
+		This property must contain the classes that are used within the module and those that are
+		exposed by the module to the rest of the application.
+exports		This property is used to define the public exports from the module. It contains some or all
+		of the directives, components, and pipes from the declarations property and some or all
+		of the modules from the imports property.
+
+mv src/app/*.model.ts src/app/model/
+mv src/app/limit.formvalidator.ts src/app/model/
+
+
+The difference between imports and declarations.
+imports only for moduels.
+When a custmized module is imported, you have to add it in imports.
+
+A common mistake is to assume that services defined in a module are accessible only to the classes
+within that module. There is no module scope in Angular. Providers defined by a feature module are used as
+though they were defined by the root module. Local providers defined by directives and components in the
+feature module are available to their view and content children even if they are defined in other modules.
+
+
+
+
+Table 21-3. The @NgModule Decorator Root Module Properties
+imports 		This property specifies the Angular modules that are required to support the directives, components, and pipes in the application.
+declarations 	This property is used to specify the directives, components, and pipes that are used in the application.
+providers 		This property defines the service providers that will be used by the module’s injector. 
+				These are the providers that will be available throughout the application and used when no local provider for a service is available, as described in Chapter 20.
+bootstrap 		This property specifies the root components for the application.
+
+
+
+
+
+Creating Feature Modules:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

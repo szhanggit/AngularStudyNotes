@@ -1,0 +1,219 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+npm run json                          //It is for running data server.	(http://localhost:3500/products/2)
+ng serve -o --port 12344
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12344/form/edit
+http://localhost:12344/form/create
+http://localhost:12344/
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+const routes: Routes = [
+{ path: "form/edit", component: FormComponent },
+{ path: "form/create", component: FormComponent },
+{ path: "", component: TableComponent }]
+
+
+http://localhost:4200/form/edit 		FormComponent
+http://localhost:4200/form/create 		FormComponent
+http://localhost:4200/ 				TableComponent
+
+
+path
+component
+pathMatch
+redirectTo
+children
+canActivate
+canActivateChild
+
+-------------------------------------------------------------------------------------------------------------------
+route by routerLink, page will not be reloaded.
+Enter URL directly in browser window, page will be reloaded.
+
+-------------------------------------------------------------------------------------------------------------------
+
+app.component.html:
+<paMessages></paMessages>
+<router-outlet></router-outlet>
+
+
+<button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" routerLink="/form/edit">
+
+
+Angular provides a service that components can receive to get details of the current route: (ActivatedRoute)
+    constructor(private model: Model, activeRoute: ActivatedRoute) {
+        this.editing = activeRoute.snapshot.url[1].path == "edit";
+    }
+
+
+[url] 		This property returns an array of UrlSegment objects, each of which describes a single segment in the URL that matched the current route.
+[params] 	This property returns a Params object, which describes the URL parameters, indexed by name.
+[queryParams] 	This property returns a Params object, which describes the URL query parameters, indexed by name.
+[fragment] 	This property returns a string containing the URL fragment.
+
+
+-------------------------------------------------------------------------
+Routing Parameters：
+{ path: "form/edit", component: FormComponent },
+{ path: "form/create", component: FormComponent },
+Combine them together:
+{ path: "form/:mode", component: FormComponent },
+Using Optional Route Parameters：
+http://localhost:4200/form/edit/2;name=Lifejacket;price=48.95
+-------------------------------------------------------------------------
+const routes: Routes = [
+{ path: "form/:mode", component: FormComponent },
+{ path: "", component: TableComponent }
+]
+
+http://localhost:4200/form 		No match—too few segments
+http://localhost:4200/form/create 	Matches, with create assigned to the mode parameter
+http://localhost:4200/form/london 	Matches, with london assigned to the mode parameter
+http://localhost:4200/product/edit 	No match—the first segment is not form
+http://localhost:4200/form/edit/1 	No match—too many segments
+
+constructor(private model: Model, activeRoute: ActivatedRoute) {
+	this.editing = activeRoute.snapshot.params["mode"] == "edit";
+}
+
+-------------------------------------------------------------------------
+const routes: Routes = [
+{ path: "form/:mode/:id", component: FormComponent },
+{ path: "form/:mode", component: FormComponent },
+{ path: "", component: TableComponent }]
+
+<button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" [routerLink]="['/form', 'edit', item.id]">
+	Edit
+</button>
+
+
+
+constructor(private model: Model, activeRoute: ActivatedRoute) {
+	this.editing = activeRoute.snapshot.params["mode"] == "edit";
+	let id = activeRoute.snapshot.params["id"];
+	if (id != null) {
+		Object.assign(this.product, model.getProduct(id) || new Product());
+	}
+}
+
+
+-------------------------------------------------------------------------
+Using Optional Route Parameters:
+
+<button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" [routerLink]="['/form', 'edit', item.id, {name: item.name, category: item.category, price: item.price}]">
+	Edit
+</button>
+
+http://localhost:4200/form/edit/5;name=Stadium;category=Soccer;price=79500
+
+
+
+constructor(private model: Model, activeRoute: ActivatedRoute) {
+	this.editing = activeRoute.snapshot.params["mode"] == "edit";
+	let id = activeRoute.snapshot.params["id"];
+	if (id != null) {
+		let name = activeRoute.snapshot.params["name"];
+		let category = activeRoute.snapshot.params["category"];
+		let price = activeRoute.snapshot.params["price"];
+		if (name != null && category != null && price != null) {
+			this.product.id = id;
+			this.product.name = name;
+			this.product.category = category;
+			this.product.price = Number.parseFloat(price);
+		} else {
+			Object.assign(this.product, model.getProduct(id) || new Product());
+		}
+	}
+}
+
+
+
+-------------------------------------------------------------------------
+Navigating in Code:
+
+import { ActivatedRoute, Router } from "@angular/router";
+router: Router
+
+this.router.navigateByUrl("/");
+
+navigateByUrl(url, extras) This method navigates to the specified URL. The result of the method is
+a Promise, which resolves with true when the navigation is successful
+and false when it is not and which is rejected when there is an error.
+
+
+this.router.navigate['/student', 1234];
+
+
+-------------------------------------------------------------------------
+Receiving Navigation Events:
+
+NavigationStart 	This event is sent when the navigation process starts.
+RoutesRecognized 	This event is sent when the routing system matches the URL to a route.
+NavigationEnd 		This event is sent when the navigation process completes successfully.
+NavigationError 	This event is sent when the navigation process produces an error.
+NavigationCancel 	This event is sent when the navigation process is canceled.
+
+
+import { Router, NavigationEnd, NavigationCancel } from "@angular/router";
+import { filter } from "rxjs/operators";
+
+
+constructor(messageService: MessageService, router: Router) {
+	messageService.messages.subscribe(m => this.lastMessage = m);
+	router.events.pipe(filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel)).subscribe(e => { this.lastMessage = null; });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+component.ts and template.html could be deleted.
+
+Start:
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter21.End\src\index.html
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter21.End\src\app\app.module.ts
+bootstrap: [ProductFormComponent, ProductTableComponent]
+----------------------------------------------------------------------------------------------
+
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter21.End\src\app\app.module.ts
+
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+//import { ProductComponent } from "./component";	//不需要引用，因为已经特别引用了ProductTableComponent和ProductFormComponent。
+//import { FormsModule, ReactiveFormsModule } from "@angular/forms";	//对ProductTableComponent和ProductFormComponent没用。
+import { ProductTableComponent } from "./components/productTable.component";
+import { ProductFormComponent } from "./components/productForm.component";
+// import { PaDiscountDisplayComponent } from "./discountDisplay.component";	//对ProductTableComponent和ProductFormComponent没用。
+// import { PaDiscountEditorComponent } from "./discountEditor.component";		//对ProductTableComponent和ProductFormComponent没用。
+import { ModelModule } from "./model/model.module";			//会被ProductTableComponent和ProductFormComponent用到。
+import { CommonModule } from "./common/common.module";		//会被ProductTableComponent和ProductFormComponent用到。
+import { ComponentsModule } from "./components/components.module";	//是ProductTableComponent和ProductFormComponent的Context。比如把common作为依赖！！！
+																	//import { CommonModule } from "./common/common.module"; ProductTableComponent和ProductFormComponent不认识！！！
+@NgModule({
+    imports: [BrowserModule, //FormsModule, //ReactiveFormsModule,
+        ModelModule, CommonModule],             //, ComponentsModule
+    //declarations: [ProductComponent],
+    bootstrap: [ProductFormComponent, ProductTableComponent]
+})
+export class AppModule { }
+----------------------------------------------------------------------------------------------
+
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter21.End\src\app\components\components.module.ts
+Cannot be deleted. It is the running context of ProductTableComponent and ProductFormComponent!!!
+
+----------------------------------------------------------------------------------------------
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter21.End\src\app\components\components.module.ts
+@NgModule({
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, CommonModule],
+    declarations: [PaDiscountDisplayComponent, PaDiscountEditorComponent, ProductFormComponent, ProductTableComponent],
+    //exports: [ProductFormComponent, ProductTableComponent]				//没用
+})
+export class ComponentsModule { }
+
+
+----------------------------------------------------------------------------------------------
+src\app\model\model.module.ts referenced by:
+src\app\common\common.module.ts referenced by:
+src\app\components\components.module.ts referenced by:
+src\app\app.module.ts 
+
+在第一层app.module.ts，需要列出所有引用的modules。
+src\app\components\components.module.ts只需要引用common.module.ts。
+src\app\common\common.module.ts只需要引用model.module.ts。
+
+
+Conclusion:
+1. 引用module是为提供running env。只引用component，不引用module，component跑不起来。
+2. 在app.module.ts，要run ProductFormComponent和ProductTableComponent，需要3个running env。components.module.ts； common.module.ts； model.module.ts。
+3. 其它module中，只需引用直接引用的module。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

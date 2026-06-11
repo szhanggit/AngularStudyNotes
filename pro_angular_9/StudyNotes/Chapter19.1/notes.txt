@@ -1,0 +1,5 @@
+Preparing the Service:
+
+all the components in the application that have declared a dependency
+on DiscountService have received the same object. If you edit the value in either of the input elements, the
+changes will be reflected in the other input element and in the string interpolation bindings,

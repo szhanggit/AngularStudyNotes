@@ -1,0 +1,29 @@
+{{item.price | currency:"USD":"symbol" }}
+
+Data Value:     item.price
+Vertical Bar:   |
+Pipe Name:      currenty
+Pipe Arguments: "USD":"symbol"
+
+Creating a Customer Pipe:
+export class PaAddTaxPipe {
+    defaultRate: number = 10;
+
+    transform(value: any, rate?: any): number {
+        let valueNumber = Number.parseFloat(value);
+        let rateNumber = rate == undefined ?
+        this.defaultRate : Number.parseInt(rate);
+        return valueNumber + (valueNumber * (rateNumber / 100));
+    }
+}
+
+
+Dropdown List:
+    <select [value]="taxRate || 0" (change)="taxRate=$event.target.value">
+        <option value="0">None</option>
+        <option value="10">10%</option>
+        <option value="20">20%</option>
+        <option value="50">50%</option>
+    </select>
+
+{{item.price | addTax:(taxRate || 0) | currency:"USD":"symbol" }}    

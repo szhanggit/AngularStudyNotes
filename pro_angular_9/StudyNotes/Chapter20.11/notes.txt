@@ -1,0 +1,7 @@
+Creating a Provider for View Children
+
+Angular uses the provider when resolving dependencies for view children but not for content children.
+This means dependencies for content children are referred up the application’s hierarchy as though the
+component had not defined a provider. In the example, this means that the view child will receive the service
+created by the component’s provider, and the content child will receive the service created by the module’s
+provider,

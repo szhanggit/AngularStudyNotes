@@ -1,0 +1,189 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+npm run json                          //It is for running data server.	(http://localhost:3500/products/2)
+ng serve -o --port 12377
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12377/form/edit
+http://localhost:12377/form/create
+http://localhost:12377/
+
+Chapter26.0
+From beginning to Fixing all buttons.
+
+
+
+
+-------------------------------------------------------------------------------
+Using Wildcards in Routes:
+
+
+
+const routes: Routes = [
+{ path: "form/:mode/:id", component: FormComponent },
+{ path: "form/:mode", component: FormComponent },
+{ path: "", component: TableComponent },
+{ path: "**", component: NotFoundComponent }		//default
+]
+
+
+-------------------------------------------------------------------------------
+Using Redirections in Routes:\
+
+const routes: Routes = [
+{ path: "form/:mode/:id", component: FormComponent },
+{ path: "form/:mode", component: FormComponent },
+{ path: "does", redirectTo: "/form/create", pathMatch: "prefix" },	//pathMatch: "prefix"
+{ path: "table", component: TableComponent },
+{ path: "", redirectTo: "/table", pathMatch: "full" },			//pathMatch: "full"
+{ path: "**", component: NotFoundComponent }
+]
+
+
+pathMatch Values:
+prefix 		This value configures the route so that it matches URLs that start with the specified path, ignoring any subsequent segments.
+full 		This value configures the route so that it matches only the URL specified by the path property.
+
+
+
+const routes: Routes = [
+	{
+		path:'', rediretTo:'Login', pathMatch:'full'
+	},
+	{
+		path:'studentLink', component: StudentComponent
+	},
+	{
+		path:'studentdetailsLink', component: StudentdetailComponent
+	},
+	{
+		path:'Login', component:LoginComponent
+	},	
+];
+
+
+
+
+-------------------------------------------------------------------------------
+Navigating Within a Component:
+
+<div *ngIf="editing" class="p-2">
+	<button class="btn btn-secondary m-1" [routerLink]="['/form', 'edit', model.getPreviousProductid(product.id)]">
+		Previous
+	</button>
+	<button class="btn btn-secondary" [routerLink]="['/form', 'edit', model.getNextProductId(product.id)]">
+		Next
+	</button>
+</div>
+
+
+
+-------------------------------------------------------------------------------
+Responding to Ongoing Routing Changes:
+It is a good practise for navigating through objects.
+
+constructor(public model: Model, activeRoute: ActivatedRoute, public router: Router) {
+	activeRoute.params.subscribe(params => {
+		this.editing = params["mode"] == "edit";
+		let id = params["id"];
+		if (id != null) {
+			Object.assign(this.product, model.getProduct(id) || new Product());
+		}
+	})
+}
+
+
+-------------------------------------------------------------------------------
+Creating Child Routes:
+
+const routes: Routes = [
+	{ path: "form/:mode/:id", component: FormComponent },
+	{ path: "form/:mode", component: FormComponent },
+	{ path: "does", redirectTo: "/form/create", pathMatch: "prefix" },
+	{
+		path: "table",
+		component: TableComponent,
+		children: [
+			{ path: "products", component: ProductCountComponent },
+			{ path: "categories", component: CategoryCountComponent }
+		]
+	},
+	{ path: "table/:category", component: TableComponent },
+	{ path: "table", component: TableComponent },
+	{ path: "", redirectTo: "/table", pathMatch: "full" },
+	{ path: "**", component: NotFoundComponent }
+]
+
+/table/products
+/table/categories
+
+
+-------------------------------------------------------------------------------
+Accessing Parameters from Child Routes:
+
+const childRoutes: Routes = [
+	{ path: "products", component: ProductCountComponent },
+	{ path: "categories", component: CategoryCountComponent },
+	{ path: "", component: ProductCountComponent }
+];
+
+const routes: Routes = [
+	{ path: "form/:mode/:id", component: FormComponent },
+	{ path: "form/:mode", component: FormComponent },
+	{ path: "does", redirectTo: "/form/create", pathMatch: "prefix" },
+	{ path: "table", component: TableComponent, children: childRoutes },
+	{ path: "table/:category", component: TableComponent, children: childRoutes },
+	{ path: "", redirectTo: "/table", pathMatch: "full" },
+	{ path: "**", component: NotFoundComponent }
+]
+
+export const routing = RouterModule.forRoot(routes);
+
+The ActivatedRoute Properties for Child-Parent Route Information:
+pathFromRoot 		This property returns an array of ActivatedRoute objects representing all the routes used to match the current URL.
+parent 			This property returns an ActivatedRoute representing the parent of the route that selected the component.
+firstChild 		This property returns an ActivatedRoute representing the first child route used to match the current URL.
+children 		This property returns an array of ActivatedRoute objects representing all the child routes used to match the current URL.
+
+
+
+constructor(private model: Model, private keyValueDiffers: KeyValueDiffers, private changeDetector: ChangeDetectorRef, activeRoute: ActivatedRoute) {
+	activeRoute.pathFromRoot.forEach(route => route.params.subscribe(params => {
+		if (params["category"] != null) {
+			this.category = params["category"];
+			this.updateCount();
+		}
+	}))
+}
+
+-------------------------------------------------------------------------------
+P675	Menu button
+<button class="btn btn-secondary btn-block"
+routerLink="/table" routerLinkActive="bg-primary"
+[routerLinkActiveOptions]="{exact: true}">	//It means exact match
+
+Setting this property to true will add the element to the class specified by the
+routerLinkActive attribute only when there is an exact match with the active route’s URL. With this change,
+the All button will be highlighted only when all of the products are shown,
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+

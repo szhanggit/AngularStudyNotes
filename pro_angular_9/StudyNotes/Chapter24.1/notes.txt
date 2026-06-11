@@ -1,0 +1,101 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+npm install json-server@0.16.0
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+package.json
+"scripts": {
+"ng": "ng",
+"start": "ng serve",
+"build": "ng build",
+"test": "ng test",
+"lint": "ng lint",
+"e2e": "ng e2e",
+"json": "json-server --p 3500 restData.js"
+},
+
+npm run json                          //It is for running data server.	(http://localhost:3500/products/2)
+ng serve -o --port 12445
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12445/
+
+
+From beginning to Consolidating HTTP Requests
+
+Start from Making Cross-Origin Requests
+
+
+getData(): Observable<Product[]> {
+return this.http.jsonp<Product[]>(this.url, "callback");
+}
+            JSONP can be used only for get requests, which are sent using the HttpClient.jsonp method. When
+            you call this method, you must provide the URL for the request and the name for the callback parameter. 
+
+
+Handling Errors-----------------------------------------
+
+
+    private sendRequest<T>(verb: string, url: string, body?: Product): Observable<T> {
+
+        let myHeaders = new HttpHeaders();
+        myHeaders = myHeaders.set("Access-Key", "<secret>");
+        myHeaders = myHeaders.set("Application-Names", ["exampleApp", "proAngular"]);
+
+        return this.http.request<T>(verb, url, {
+            body: body,
+            /*headers: new HttpHeaders({
+                "Access-Key": "<secret>",
+                "Application-Name": "exampleApp"
+            })*/
+            headers: myHeaders
+        }).pipe(catchError((error: Response) =>
+        throwError(`Network Error: ${error.statusText} (${error.status})`)));
+    }
+
+
+
+
+
+
+@Injectable()
+export class MessageErrorHandler implements ErrorHandler {
+    constructor(private messageService: MessageService, private ngZone: NgZone) {}
+
+    handleError(error) {
+        let msg = error instanceof Error ? error.message : error.toString();
+        this.ngZone.run(() => this.messageService.reportMessage(new Message(msg, true)), 0);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

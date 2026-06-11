@@ -1,0 +1,10 @@
+It shows the problem.
+
+declared a service in productTable.component.ts, and input the service into PaDiscountDisplayComponent and PaDiscountEditorComponent.
+
+The problem arises in the way that I had to create and distribute the shared object: the
+instance of the DiscountService class.
+
+Creating the shared object in the
+ProductTableComponent class makes that class slightly more complex and slightly more difficult to test
+effectively.

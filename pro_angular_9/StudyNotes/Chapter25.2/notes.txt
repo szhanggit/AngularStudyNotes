@@ -1,0 +1,21 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+npm run json                          //It is for running data server.	(http://localhost:3500/products/2)
+ng serve -o --port 12366
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12366/form/edit
+http://localhost:12366/form/create
+http://localhost:12366/

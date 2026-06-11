@@ -1,0 +1,23 @@
+Dealing with Collection-Level Data Changes:
+
+Receiving notifications about collection-level changes is done by implementing the ngDoCheck
+method,
+
+减少ngDoCheck()的负担。
+    ngDoCheck() {
+        let changes = this.differ.diff(this.dataSource);
+        if (changes != null) {
+            console.log("ngDoCheck called, changes detected");
+            changes.forEachAddedItem(addition => {
+                this.container.createEmbeddedView(this.template, new PaIteratorContext(addition.item, addition.currentIndex, changes.length));
+            });
+        }
+    }
+
+
+src\app\iterator.directive.ts    
+
+
+DefaultIterableDiffer太老了。
+现在用KeyValueDiffer
+例子在： C:\AngularStudyNotes\experiments\key-value-differ-example\src\app\app.component.ts

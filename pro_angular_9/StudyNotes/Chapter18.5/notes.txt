@@ -1,0 +1,3 @@
+Formatting Key/Value Pairs:
+let item of getProducts() | keyvalue
+-----------------------------------------------

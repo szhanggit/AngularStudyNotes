@@ -1,0 +1,34 @@
+Providing Additional Context Data---------------------------------
+Using the Concise Structure Syntax--------------------------------
+
+src\app\template.html
+src\app\iterator.directive.ts
+
+      <ng-template [paForOf]="getProducts()" let-item let-i="index" let-odd="odd" let-even="even">
+        <tr [class.bg-info]="odd" [class.bg-warning]="even">
+          <td>{{i + 1}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.category}}</td>
+          <td>{{item.price}}</td>
+        </tr>
+      </ng-template> 
+
+
+
+Using the Concise Structure Syntax:
+
+When using the concise syntax, the Of part of the attribute is omitted, the name is prefixed with an
+asterisk, and the brackets are omitted.
+      
+
+
+class PaIteratorContext {
+    odd: boolean; even: boolean;
+    first: boolean; last: boolean;
+    constructor(public $implicit: any, public index: number, total: number ) {
+        this.odd = index % 2 == 1;
+        this.even = !this.odd;
+        this.first = index == 0;
+        this.last = index == total - 1;
+    }
+}      

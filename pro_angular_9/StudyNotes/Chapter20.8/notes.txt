@@ -1,0 +1,18 @@
+Using Local Providers
+Each component and
+directive can have its own injector, and each injector can be configured with its own set of providers, known
+as local providers.
+
+    transform(price: number): number {
+        //console.log("price is: " + price);
+        if (price > 100) {
+            //console.log("Transform is triggered in discount.pipe.ts.");
+            this.logger.logInfoMessage(`Large price discounted: ${price}`);
+        }
+        return this.discount.applyDiscount(price);
+    }
+
+如果只想看    this.logger.logInfoMessage(`Large price discounted: ${price}`);
+不想看        return this.discount.applyDiscount(price); 
+怎么办？
+Using Local Providers

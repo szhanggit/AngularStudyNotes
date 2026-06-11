@@ -1,0 +1,22 @@
+Creating Impure Pipes:
+
+    <tr *paFor="let item of getProducts() | filter:categoryFilter;
+    let i = index; let odd = odd; let even = even"
+    [class.bg-info]="odd" [class.bg-warning]="even">
+
+Pure: When true, this pipe is reevaluated only when its input value or its arguments are changed.
+This is the default value. See the “Creating Impure Pipes” section for details    
+The pure decorator property is used to tell Angular when to call the pipe’s transform method. The default
+value for the pure property is true, which tells Angular that the pipe’s transform method will generate a
+new value only if 
+1. the input data value—the data value before the vertical bar character in the template—changes 
+2. or when one or more of its arguments is modified. This is known as a pure pipe because it has no
+independent internal state and all its dependencies can be managed using the Angular change detection process.
+
+Impure: Setting the pure decorator property to false creates an impure pipe and tells Angular that the pipe has
+its own state data or that it depends on data that may not be picked up in the change detection process when
+there is a new value.
+(Any data change or user interaction in the app will trigger the transform. It will consume a lot computing resource.)
+
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter18.1\src\app\categoryFilter.pipe.ts

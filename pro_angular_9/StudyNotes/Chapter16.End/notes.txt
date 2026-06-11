@@ -1,0 +1,22 @@
+Receiving Query Change Notifications
+
+Before this, after deleting a row, page cannot be updated automatically.
+After this, after deleting a row, page can be updated automatically.
+
+src\app\template.html
+src\app\cellColor.directive.ts
+src\app\cellColorSwitcher.directive.ts
+
+    ngAfterContentInit() {
+        this.contentChildren.changes.subscribe(() => {
+            setTimeout(() => this.updateContentChildren(this.modelProperty), 2000);
+        }); //Need to start a new thread.
+    }
+
+This method accepts a function that is called when the contents of the QueryList change, meaning that there
+is some change in the set of directives matched by the argument to the @ContentChildren decorator.
+
+It does so within a call to the setTimeout function, which delays the execution of the method call until
+after the subscribe callback function has completed. Without the call to setTimeout, Angular will report
+an error because the directive tries to start a new content update before the existing one has been fully
+processed.

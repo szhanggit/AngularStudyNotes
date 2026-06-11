@@ -1,0 +1,5 @@
+Understanding Element Transitions:
+
+The void state is used to define transitions for when an element is added to or removed from the template.
+
+

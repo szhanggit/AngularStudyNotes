@@ -1,0 +1,41 @@
+Creating Iterating Structural Directives---------------------------------------------
+
+      <ng-template [paForOf]="getProducts()" let-item>
+        <tr><td colspan="4">{{item.name}}</td></tr>
+      </ng-template>
+
+src\app\template.html
+src\app\iterator.directive.ts
+
+paForOf: The name of this attribute is important. When using an ng-template element, the name of the data
+source attribute must end with Of to support the concise syntax, which I will introduce shortly.
+
+[paForOf]="getProducts()"
+When using an ng-template element, the name of the data
+source attribute must end with Of to support the concise syntax,
+
+let-item
+In this example, I have used let-item to tell Angular that I want the implicit value to be assigned to a
+variable called item, which is then used within a string interpolation binding to display the name property of
+the current data item.
+
+
+When calling the createEmbeddedView method, the directive provides two arguments: 
+the TemplateRef:  object received through the constructor and a context object. The TemplateRef object provides the content
+to insert into the container, 
+and the context object provides the data for the implicit value: which is specified
+using a property called $implicit. It is this object, with its $implicit property, that is assigned to the item
+template variable and that is referred to in the string interpolation binding. To provide templates with the
+context object in a type-safe way, I defined a class called PaIteratorContext, whose only property is called
+$implicit.
+
+
+
+Using the Concise Structure Syntax---------------------------------------------
+<tr *paFor="let item of getProducts(); let i = index; let odd = odd; let even = even" [class.bg-info]="odd" [class.bg-warning]="even">
+	<td>{{i + 1}}</td>
+	<td>{{item.name}}</td>
+	<td>{{item.category}}</td>
+	<td>{{item.price}}</td>
+</tr>
+

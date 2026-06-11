@@ -1,0 +1,17 @@
+Add animation:
+src\app\app.module.ts
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+Element states are created
+using the state function, which accepts the name and the style set that should be associated with it.
+
+state("selected", style({
+backgroundColor: "lightgreen",
+fontSize: "20px"
+})),
+
+There are two states in the listing, called selected and notselected, which will correspond to whether
+the product described by a table row is in the category selected by the user.
+
+src\app\core\table.animations.ts
+src\app\core\table.component.ts

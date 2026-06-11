@@ -1,0 +1,57 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+ng serve -o --port 12333
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12333/
+
+1. Share data was stored in a singleton similiar variable.
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter23.0\exampleApp\src\app\core\sharedState.model.ts
+
+2. Now set it in a polling
+       ngDoCheck() {
+        if (this.lastId != this.state.id) {
+            this.product = new Product();
+            if (this.state.mode == MODES.EDIT) {
+                Object.assign(this.product, this.model.getProduct(this.state.id));
+            }
+            this.lastId = this.state.id;
+        }
+
+
+ngDoCheck:  checks every single update in the whole application.
+Subscribe:  Only checks changes relating to a specific observable.
+
+
+the table component wants to receive an Observer<SharedState> object,
+while the form component wants an Observable<SharedState> object.
+Any changes in table can be sent to form and be executed.
+
+This object is an Observerable whose notifications will be
+SharedState objects, which will represent an edit or create operation started by the user.
+------------------------------------------------------------------------------
+
+The value-based provider tells Angular to use a Subject<SharedState> object to resolve dependencies
+on the SHARED_STATE token, which will provide the components with the functionality they need to
+collaborate.
+
+providers: [{ provide: SHARED_STATE, useValue: new Subject<SharedState>() }]
+
+------------------------------------------------------------------------------
+Last Event: {{ stateEvents | async | formatState }}
+stateEvents is an object of SharedState class.
+async and formatState modifies the object.
+formatState is defined at state.pipe.ts.
+

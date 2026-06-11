@@ -1,0 +1,13 @@
+Querying Multiple Content Children:
+
+src\app\template.html
+src\app\cellColorSwitcher.directive.ts
+src\app\cellColor.directive.ts
+src\app\component.ts
+
+The @ContentChild decorator finds the first directive object that matches the argument and assigns it to the
+decorated property. If you want to receive all the directive objects that match the argument, then you can
+use the @ContentChildren decorator instead,
+
+    @ContentChildren(PaCellColor, {descendants: true})
+    contentChildren: QueryList<PaCellColor>;

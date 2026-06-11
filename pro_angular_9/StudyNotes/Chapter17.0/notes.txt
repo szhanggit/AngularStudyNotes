@@ -1,0 +1,28 @@
+Steps to define a component:
+1. Needs to be imported.
+2. Declare the component.
+3. Add into HTML page.
+
+
+
+
+If you are using TypeScript, then you can use multiline strings to make inline templates more readable.
+Multiline strings are denoted with the backtick character (the ` character, which is also known as the grave
+accent), and they allow strings to spread over multiple lines, as shown in Listing 17-6.
+
+@Input("model")
+dataModel: Model;
+
+Few components exist in isolation and need to share data with other parts of the application. Components
+can define input properties to receive the value of data binding expressions on their host elements. The
+expression will be evaluated in the context of the parent component, but the result will be passed to the child
+component’s property.
+
+
+<paProductTable [model]="model"></paProductTable>
+model object is past from template.html into productTable.component.ts.
+
+
+
+    @Output("paNewProduct")
+    newProductEvent = new EventEmitter<Product>();

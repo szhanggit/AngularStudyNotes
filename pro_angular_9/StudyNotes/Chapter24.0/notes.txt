@@ -1,0 +1,141 @@
+ng new exampleApp --routing false --style css --skip-git --skip-tests
+ng new exampleApp
+cd exampleApp
+npm install bootstrap@4.4.1
+npm install json-server@0.16.0
+
+angular.json
+"styles": [
+"styles.css",
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+package.json
+"scripts": {
+"ng": "ng",
+"start": "ng serve",
+"build": "ng build",
+"test": "ng test",
+"lint": "ng lint",
+"e2e": "ng e2e",
+"json": "json-server --p 3500 restData.js"
+},
+
+npm run json                          //It is for running data server.	(http://localhost:3500/products/2)
+ng serve -o --port 12444
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+http://localhost:12444/
+
+
+From beginning to Consolidating HTTP Requests
+
+
+Terminate server: ctrl + c
+
+
+Explain:
+Check app.module.ts
+Usually:
+bootstrap: [AppComponent]
+In app.component.ts, selector: 'app-root',
+so in index.html:
+<app-root></app-root>
+
+However in this case
+bootstrap: [TableComponent, FormComponent, MessageComponent]
+In table.component.ts, selector: "paTable",
+In form.component.ts, selector: selector: "paForm"
+In message.component.ts, selector: "paMessages"
+so in index.html:
+<paMessages></paMessages>
+<paTable></paTable>
+<paForm></paForm>
+
+
+---------------------------------------------------------
+model.module.ts
+	repository.model.ts
+		rest.datasource.ts
+
+---------------------------------------------------------
+When the application starts, constructors will be executed at the first time.
+src\app\model\repository.model.ts
+    constructor(private dataSource: RestDataSource) {
+        this.dataSource.getData().subscribe({
+            next: data => {
+                var len = data.length;
+                console.log("The length of the list is: " + len);    
+                this.products = data;
+            },
+            error: e => console.log(e),
+            complete:()=>{
+                console.log("Completed!");                
+            }
+        });
+    }
+
+It triggers the data loading.
+
+
+
+---------------------------------------------------------
+    private sendRequest<T>(verb: string, url: string, body?: Product): Observable<T> {
+
+        let myHeaders = new HttpHeaders();
+        myHeaders = myHeaders.set("Access-Key", "<secret>");
+        myHeaders = myHeaders.set("Application-Names", ["exampleApp", "proAngular"]);
+
+        return this.http.request<T>(verb, url, {
+            body: body,
+            /*headers: new HttpHeaders({
+                "Access-Key": "<secret>",
+                "Application-Name": "exampleApp"
+            })*/
+            headers: myHeaders
+        }).pipe(catchError((error: Response) =>
+        throwError(`Network Error: ${error.statusText} (${error.status})`)));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

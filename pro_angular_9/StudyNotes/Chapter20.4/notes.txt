@@ -1,0 +1,15 @@
+Resolving a Dependency with Multiple Objects:
+
+src\app\app.module.ts
+    providers: [DiscountService, SimpleDataSource, Model,
+      { provide: LOG_SERVICE, useClass: LogService, multi: true },
+      { provide: LOG_SERVICE, useClass: SpecialLogService, multi: true }],
+
+src\app\discount.service.ts
+    constructor( @Inject(LOG_SERVICE) loggers: LogService[]) {
+        this.logger = loggers.find(l => l.minimumLevel == LogLevel.DEBUG);
+    }
+
+    Dynamically determine which class to implement.      
+
+

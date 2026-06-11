@@ -1,0 +1,27 @@
+Using the Factory Provider:
+
+Table 20-6. The Factory Provider Properties
+provide     This property defines the service token, as described in the “Understanding the Token” section earlier in the chapter.
+deps        This property specifies an array of provider tokens that will be resolved and passed to the
+            function specified by the useFactory property.
+useFactory  This property specifies the function that will create the service object. The objects produced
+            by resolving the tokens specified by the deps property will be passed to the function as
+            arguments. The result returned by the function will be used as the service object.
+multi       This property is used to allow multiple providers to be combined to provide an array
+            of objects that will be used to resolve a dependency on the token. See the “Resolving a
+            Dependency with Multiple Objects” section earlier in the chapter for an example.
+
+
+
+
+providers: [DiscountService, SimpleDataSource, Model,
+{
+  provide: LogService, useFactory: () => {
+    let logger = new LogService();
+    logger.minimumLevel = LogLevel.DEBUG;
+    return logger;
+  }
+}],
+
+
+

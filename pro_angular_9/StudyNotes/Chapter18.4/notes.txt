@@ -1,0 +1,3 @@
+Slicing Data Arrays:
+let item of getProducts() | slice:0:(itemCount || 1);
+-----------------------------------------------------------------

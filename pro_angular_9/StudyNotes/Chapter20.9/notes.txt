@@ -1,0 +1,10 @@
+Creating Local Providers in a Component:
+If a provider is in Module, it is a global provider.
+If a provider is in Component, it is a local provider.
+
+src\app\productTable.component.ts
+@Component({
+    selector: "paProductTable",
+    templateUrl: "productTable.component.html",
+    providers:[LogService]
+})

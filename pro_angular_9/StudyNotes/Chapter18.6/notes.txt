@@ -1,0 +1,9 @@
+Selecting Values:
+<td>Helps you {{ item.category | i18nSelect:selectMap }} </td>
+
+Pluralizing Values:
+<div class="bg-info text-white p-2">
+    <div>There are {{ 1 | i18nPlural:numberMap }} </div>
+    <div>There are {{ 2 | i18nPlural:numberMap }} </div>
+    <div>There are {{ 100 | i18nPlural:numberMap }} </div>
+</div>

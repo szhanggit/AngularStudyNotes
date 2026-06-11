@@ -1,0 +1,84 @@
+Ch26
+1.  return this.model.getProducts().map(p => p.category).filter((category, index, array) => array.indexOf(category) == index);
+2.	Object.assign(this.product, model.getProduct(id) || new Product());
+3.	Relative child link:
+            <button class="btn btn-info mx-1" routerLink="products">
+                Count Products
+            </button>
+            <!--<button class="btn btn-primary mx-1" routerLink="/table/categories">-->
+            <button class="btn btn-primary mx-1" routerLink="categories">
+                Count Categories
+            </button>
+            <button class="btn btn-secondary mx-1" routerLink="/table">
+                Count Neither
+            </button>
+			
+            this.count = this.model.getProducts()
+                .map(p => p.category)
+                .filter((category, index, array) => array.indexOf(category) == index)
+                .length;
+
+this.differ.diff(this.model.getProducts()) != null
+
+				                activeRoute.pathFromRoot.forEach(route => route.params.subscribe(params => {
+                if (params["category"] != null) {
+                    this.category = params["category"];
+                    this.updateCount();
+                }
+            }))
+			
+Table 26-2. The pathMatch Values
+
+prefix 		This value configures the route so that it matches URLs that start with the specified path, ignoring any subsequent segments.
+full 		This value configures the route so that it matches only the URL specified by the path property.
+
+Build a self navigation form.
+activeRoute.params.subscribe(params => {
+this.editing = params["mode"] == "edit";
+let id = params["id"];
+if (id != null) {
+Object.assign(this.product, model.getProduct(id) || new Product());
+}
+})
+
+Table 26-3
+url 		This property returns an Observable<UrlSegment[]>, which provides the set of URL segments each time the route changes.
+params 		This property returns an Observable<Params>, which provides the URL parameters each time the route changes.
+queryParams This property returns an Observable<Params>, which provides the URL query parameters each time the route changes.
+fragment 	This property returns an Observable<string>, which provides the URL fragment each time the route changes.
+
+
+return this.model.getProducts()
+.filter(p => this.category == null || p.category == this.category);
+
+
+get categories(): string[] {
+return this.model.getProducts()
+.map(p => p.category)
+.filter((category, index, array) => array.indexOf(category) == index);
+}
+
+styling Links for Active Routes
+<button *ngFor="let category of categories"
+class="btn btn-secondary btn-block px-3"
+[routerLink]="['/table', category]"
+routerLinkActive="bg-primary">
+{{category}}
+</button>
+
+
+Table 26-6. The ActivatedRoute Properties for Child-Parent Route Information
+pathFromRoot 	This property returns an array of ActivatedRoute objects representing all the routes used to match the current URL.
+parent 			This property returns an ActivatedRoute representing the parent of the route that selected the component.
+firstChild 		This property returns an ActivatedRoute representing the first child route used to match the current URL.
+children 		This property returns an array of ActivatedRoute objects representing all the child routes used to match the current URL.
+
+
+
+                activeRoute.pathFromRoot.forEach(route => route.params.subscribe(params => {
+                if (params["category"] != null) {
+                    this.category = params["category"];
+                    this.updateCount();
+                }
+            }))
+

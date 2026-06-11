@@ -1,0 +1,127 @@
+Chapter 25
+
+:mode is like a routing vairable.
+{ path: "form/:mode/:id", component: FormComponent },
+{ path: "form/:mode", component: FormComponent },
+{ path: "", component: TableComponent }]
+
+
+1. Build a repository pattern for Angular.
+2. Inject tokens into an Angular service.
+    providers: [Model, RestDataSource,
+        { provide: REST_URL, useValue: `http://${location.hostname}:3500/products` }]
+    providers: [MessageService,
+        { provide: ErrorHandler, useClass: MessageErrorHandler }]
+		export const SHARED_STATE = new InjectionToken("shared_state");
+
+3.              let index = this.products.findIndex(item => this.locator(item, p.id));
+                this.products.splice(index, 1, p);
+4. let msg = error instanceof Error ? error.message : error.toString();
+5.
+        this.ngZone.run(
+            () => this.messageService.reportMessage(new Message(msg, true))
+            , 0);
+
+
+
+            <!--<button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" routerLink="/form/edit">
+                Edit
+            </button>-->
+            <!--<button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" [routerLink]="['/form', 'edit', item.id]">  //To match three segment routing pattern.
+                Edit
+            </button>-->
+            <!--<button class="btn btn-warning btn-sm" (click)="editProduct(item.id)" [routerLink]="['/form', 'edit', item.id, {name: item.name, category: item.category, price: item.price}]">
+                Edit
+            </button>-->
+            <button class="btn btn-warning btn-sm" [routerLink]="['/form', 'edit', item.id, {name: item.name, category: item.category, price: item.price}]"> //Optional Route Parameters
+                Edit
+            </button>
+http://localhost:4200/form/edit/5;name=Stadium;category=Soccer;price=79500
+
+    submitForm(form: NgForm) {
+        if (form.valid) {
+            this.model.saveProduct(this.product);
+            //this.product = new Product();
+            //form.reset();
+            this.router.navigateByUrl("/");
+        }
+    }
+
+Table 25-9 Selected Route methods and Properties
+navigated 			This boolean property returns true if there has been at least one navigation event and false otherwise.
+url 				This property returns the active URL.
+isActive(url, exact) 		This method returns true if the specified URL is the URL defined by the active route. The exact argument specified whether all the segments in the specified URL must match the current URL for the method to return true.
+events 				This property returns an Observable<Event> that can be used to monitor navigation changes. See the “Receiving Navigation Events” section for details.
+navigateByUrl(url, extras) 	This method navigates to the specified URL. The result of the method is a Promise, which resolves with true when the navigation is successful and false when it is not and which is rejected when there is an error.
+navigate(commands, extras) 	This method navigates using an array of segments. The extras object
+can be used to specify whether the change of URL is relative to the
+current route. The result of the method is a Promise, which resolves
+with true when the navigation is successful and false when it is not
+and which is rejected when there is an error.
+
+
+
+
+    constructor(private model: Model, activeRoute: ActivatedRoute, private router: Router) {
+        //this.editing = activeRoute.snapshot.url[1].path == "edit";
+        this.editing = activeRoute.snapshot.params["mode"] == "edit";
+        let id = activeRoute.snapshot.params["id"];
+        if (id != null) {            
+            let name = activeRoute.snapshot.params["name"];
+            let category = activeRoute.snapshot.params["category"];
+            let price = activeRoute.snapshot.params["price"];
+
+            if (name != null && category != null && price != null) {
+                this.product.id = id;
+                this.product.name = name;
+                this.product.category = category;
+                this.product.price = Number.parseFloat(price);
+            } else {
+                Object.assign(this.product, model.getProduct(id) || new Product());
+            }
+        }
+    }    
+
+
+P638	Subject with a BehaviorSubject
+
+
+
+Table 25-4. The Routes Properties Used to Define Routes
+
+从一页转到另一页：
+activeRoute: ActivatedRoute
+activeRoute.snapshot will return a type: ActivatedRouteSnapshot
+activeRoute.snapshot.url[1].path == "edit";
+Table 25-6
+url 		This property returns an array of UrlSegment objects, each of which describes a single segment in the URL that matched the current route.
+params 		This property returns a Params object, which describes the URL parameters, indexed by name.
+queryParams 	This property returns a Params object, which describes the URL query parameters, indexed by name.
+fragment 	This property returns a string containing the URL fragment.
+
+Table 25-7 The UrlSegment Properties
+path 		This property returns a string that contains the segment value.
+parameters 	This property returns an indexed collection of parameters, as described in the “Using Route Parameters” section.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

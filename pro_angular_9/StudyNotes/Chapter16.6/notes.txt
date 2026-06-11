@@ -1,0 +1,22 @@
+Querying the Host Element Content:
+
+src\app\template.html
+src\app\cellColorSwitcher.directive.ts
+src\app\cellColor.directive.ts
+src\app\component.ts
+
+Click check box to make the background of the first td tag dark.
+
+The PaCellColor class defines a simple attribute directive that operates on td elements and that binds
+to the class property of the host element. The setColor method accepts a Boolean parameter that, when
+the value is true, sets the class property to bg-dark, which is the Bootstrap class for a dark background.
+
+...
+@ContentChild(PaCellColor)
+contentChild: PaCellColor;
+...
+The @ContentChild decorator tells Angular that the directive needs to query the host element’s content
+and assign the first result of the query to the property. The argument to the @ContentChild director is one
+or more directive classes. In this case, the argument to the @ContentChild decorator is PaCellColor, which
+tells Angular to locate the first PaCellColor object contained within the host element’s content and assign it
+to the decorated property.

@@ -1,0 +1,9 @@
+Dealing with Collection-Level Data Changes:
+The second type of change occurs when the objects within the collection are added, removed, or replaced.
+Angular doesn’t detect this kind of change automatically, which means the iterating directive’s ngOnChanges
+method won’t be invoked.
+
+Receiving notifications about collection-level changes is done by implementing the ngDoCheck
+method,
+
+src\app\iterator.directive.ts
