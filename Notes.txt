@@ -1,0 +1,37 @@
+https://www.pragimtech.com/courses/angular-2-tutorial-for-beginners/
+https://www.pragimtech.com/courses/angular-crud-tutorial/
+https://dotnettutorials.net/course/angular-tutorials/
+
+Good Resource:
+https://www.techiediaries.com/angular-lazy-load-module-example/
+https://mokkapps.de/blog/manually-lazy-load-modules-and-components-in-angular/
+
+
+https://blog.logrocket.com/customize-angular-lazy-loading-modules-multiple-frontends/   (Need to spend time on it)
+
+https://medium.com/@ckyidr9/lazy-load-feature-modules-without-routing-in-angular-9-ivy-220851cc7751 (Lazy loading by clicking a button)
+https://www.c-sharpcorner.com/article/f/
+
+
+
+
+Edenred Tutorial:
+https://edenred-my.sharepoint.com/personal/andreaelaine_sabio_consulting-for_edenred_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2Fkt%2FHow%20to%20process%20TXC%20UI%20%2D%20%20training%2D20220401%5F140207%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2Fkt&ga=1
+https://edenred-my.sharepoint.com/personal/andreaelaine_sabio_consulting-for_edenred_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements%2FCONTINUATION%20OF%20ANGULAR%20TRAINING%2D20220308%5F153444%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements&ct=1652861137684&or=OWA%2DNT&cid=002a04f9%2D8acf%2D8cfb%2D3902%2D2dc808f10d73&ga=1
+https://edenred-my.sharepoint.com/personal/andreaelaine_sabio_consulting-for_edenred_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements%2FGTG%20FOR%20ANGULAR%20TRAINING%2D20220304%5F150125%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements&ct=1652861076333&or=OWA%2DNT&cid=afe6beeb%2Dab6f%2Dbb4e%2D7b86%2D84ea477e3f77&ga=1
+
+
+
+How to process TXC UI - training-20220401_140207
+https://edenred-my.sharepoint.com/personal/andreaelaine_sabio_consulting-for_edenred_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2Fkt%2FHow%20to%20process%20TXC%20UI%20%2D%20%20training%2D20220401%5F140207%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2Fkt&ct=1652932199892&or=OWA%2DNTB&cid=c219cb2e%2Df303%2D1f07%2D2280%2Dc7a1152a9738&ga=1
+
+GTG FOR ANGULAR TRAINING-20220304_150125
+https://edenred-my.sharepoint.com/personal/andreaelaine_sabio_consulting-for_edenred_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements%2FGTG%20FOR%20ANGULAR%20TRAINING%2D20220304%5F150125%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements&ct=1652932560271&or=OWA%2DNTB&cid=4717f1a9%2D600c%2Df89b%2Dbe5e%2Dcee275ab23d4&ga=1
+Continuation of angular training-20220308_153444
+https://edenred-my.sharepoint.com/personal/andreaelaine_sabio_consulting-for_edenred_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements%2FCONTINUATION%20OF%20ANGULAR%20TRAINING%2D20220308%5F153444%2DMeeting%20Recording%2Emp4&parent=%2Fpersonal%2Fandreaelaine%5Fsabio%5Fconsulting%2Dfor%5Fedenred%5Fcom%2FDocuments%2FEnregistrements&ct=1652932627427&or=OWA%2DNTB&cid=71c5c814%2D6f49%2Df51b%2Da5cc%2D17b8451ca784&ga=1
+
+https://angular.cn/guide/built-in-directives
+https://ng-bootstrap.github.io/#/components/datepicker/examples
+
+
+Angular for Beginners Course [Full Front End Tutorial with TypeScript]

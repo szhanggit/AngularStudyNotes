@@ -1,0 +1,103 @@
+ng new SportsStore --routing false --style css --skip-git --skip-tests
+ng new MyAngularApp
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g module student
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g module Employee
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g c Employee/EmployeeLogin
+
+ng g pipe MyTitle --flat
+ng generate service Student
+
+Adding Routing in Angular:
+ng generate module app-routing –flat –module=app
+Here –flat puts the file in src/app folder instead of its own folder and –module=app tells the CLI to register it in the imports array of the AppModule.
+
+Both module and component are nothing but class.
+It is a module when a class is decorated with @NgModule.
+It is a component when a class is decorated with @Component.
+
+
+Rollback and install the latest version of cli:
+npm cache clean –force
+npm install -g @angular/cli@latest
+
+e2e stands for end-to-end testing.
+It will monitor who visits your application, which users log in to your application, how much time they stay in your application, how many pages a user visits within your application, when the user logout from your application.
+
+node_modules Folder contains the packages (folders of the packages) which are installed into your application when you created a project in angular.
+
+
+
+angular.json:
+It contains all the configuration of your Angular Project.
+index.html:
+It is the starting point of your angular application.
+main.ts:
+It is the starting point of typescript file.
+
+
+Auto install dev packages:
+npm install --save-dev
+npm install --force
+
+A module is a container to group components, services, directives, pipes.
+Declarations Array (declarations):
+The declarations array is an array of components, directives, and pipes. 
+Whenever you add a new component, first the component needs to be imported and then a reference of that component must be included in the declarations array.
+Imports Array (imports): 
+In the imports section, we need to include other modules (Except @NgModule).
+Providers Array (providers):
+We need to include the services in the provider's section.
+Bootstrap Array (bootstrap):
+This section is basically used to bootstrap your angular application i.e. which component will execute first.
+exports:
+Needs to be visible in app.module.ts.
+
+
+
+
+
+DOM Property values can be changed, whereas the HTML attribute values can never be changed.
+
+
+
+
+
+Add bootstrap:
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install --save-dev jsonwebtoken@8.5.1
+
+Registering bootstrap in Angular:
+"styles": [
+	"src/style.css",
+	"node_modules/bootstrap/dist/css/bootstrap.min.css"
+]
+
+Registering Jquery in Angular:
+"scripts": [
+	"node_modules/jquery/dist/jquery.min.js",
+	"node_modules/bootstrap/dist/js/bootstrap.min.js"
+]
+
+Importing bootsrtap into styles.css:
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+Add above in D:\Study\AngularStudyNotes\dotnettutorials\5.1BootstrapWithAngular\MyAngularApp\src\styles.css
+
+
+
+
+mv src/app/*.model.ts src/app/model/
+mv src/app/limit.formvalidator.ts src/app/model/
+
+
+
+https://www.npmjs.com/package/angular-cli
+Component	ng g component my-new-component
+Directive	ng g directive my-new-directive
+Pipe		ng g pipe my-new-pipe
+Service		ng g service my-new-service
+Class		ng g class my-new-class
+Interface	ng g interface my-new-interface
+Enum		ng g enum my-new-enum
+Module		ng g module my-module

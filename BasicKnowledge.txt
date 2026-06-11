@@ -1,0 +1,15 @@
+https://dotnettutorials.net/lesson/modules-angular-application/
+
+Declarations:
+The declarations array is an array of components, directives, and pipes. 
+Whenever you add a new component, 
+first the component needs to be imported and then a reference of that component must be included in the declarations array.
+
+
+Imports Array (imports):
+In the imports section, we need to include other modules (Except @NgModule). 
+By default, it includes two modules i.e. BrowserModule and AppRoutingModule. 
+Like the components, here also, first you need to import the modules, 
+and then you need to include a reference of that module in the imports section as shown in the below image.
+
+
