@@ -1,0 +1,40 @@
+cd D:\Study\AngularStudyNotes\experiments\resolver-episode
+ng new loadingResolver --routing false
+cd D:\Study\AngularStudyNotes\experiments\resolver-episode\loadingResolver\src\app
+ng generate module message --module app.module
+ng generate module model --module app.module
+ng generate component table --module app.module 
+ng generate component form --module app.module 
+cd D:\Study\AngularStudyNotes\experiments\resolver-episode\loadingResolver\src\app\message
+ng generate component message --module message.module
+cd D:\Study\AngularStudyNotes\experiments\resolver-episode\loadingResolver\src\app\model
+
+
+When data loading is finished, it will be called and the message will be removed.
+src\app\message\message.component.ts
+  constructor(messageService: MessageService, router: Router) { 
+    messageService.messages.subscribe(m => this.lastMessage = m);
+    router.events
+        .pipe(filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel))
+        .subscribe(e => { this.lastMessage = null; });
+  }
+  
+
+With ModelResolver, table page will be loaded after getData() is finished.  
+------------------------------------
+
+repository.model.ts constructor initialized. In the constructor, it calls rest.dataSource.ts => getData()
+In rest.dataSource.ts getData gets data stream from server, 
+a handler in the constructor of repository.model.ts will handle the data stream in real time.
+The handle assigns data into products: Product[] in repository.model.ts.
+
+table component will go to read products: Product[] in repository.model.ts in many times.
+
+
+------------------------------------
+
+Without ModelResolver, form is loaded before getData().
+With ModelResolver, form is loaded after getData() is finished.
+
+It is all about model.resolver.ts.
+return this.dataSource.getData();     //It is all about waiting for getData().
