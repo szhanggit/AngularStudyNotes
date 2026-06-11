@@ -1,0 +1,24 @@
+why is TypeScript needed inside Angular and what is pros and cons of TypeScript?
+
+
+1. Superset of javascript. 
+It gets strong type. Knowing type info at compiling time is strong type. Knowing the one in running time is week type. Bugs can be found in compiling time, or even in editor, before running one for strong type. 
+Before running typescript, need to translate them into javascript. Typescript cannot be directly running on browser, but javascript.
+And last but not least, TypeScript helps us to define entities with a specific interface instead of just an object. It is much easier to read.
+----------------------------------------
+Not easy to learn.
+Cannot use typesscipt directlly in the browser.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

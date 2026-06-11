@@ -1,0 +1,5 @@
+let fruits: string[] = ['Apple', 'Orange', 'Banana'];
+let fruits: Array<string> = ['Apple', 'Orange', 'Banana'];
+
+const foo: string | number = 'foo';
+let values: (string | number)[] = ['Apple', 2, 'Orange', 3];

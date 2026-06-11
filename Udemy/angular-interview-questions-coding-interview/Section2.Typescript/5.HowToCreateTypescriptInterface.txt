@@ -1,0 +1,15 @@
+export interface IUser {
+    id: string
+    name: string;
+    age: number;
+    getMessage(): string;
+}
+
+const user: IUser = {
+	id: '1',
+	name: 'Mike',
+	age: 30,
+	getMessage(){
+		return 'Hello World!';
+	}
+}

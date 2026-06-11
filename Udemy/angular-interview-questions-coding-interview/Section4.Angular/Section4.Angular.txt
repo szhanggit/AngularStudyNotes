@@ -1,0 +1,1283 @@
+25. What is SPA?
+It means that we don't have anything on the backend but just client JavaScript. Everything is loaded and rendered on client side based on a single page. 
+How it is different from server side rendering and what are the pros and cons of spa?
+-----------------------------------------------------------------------------------------------------------------------
+What is the benefit of single page application?
+Routing without bothering server. Actually JavaScript dynaically builds page on an empty HTML page. All of the page rendering is on client side.
+-----------------------------------------------------------------------------------------------------------------------
+SSR Server side rendering What does it mean?
+Server rendered an HTML page and delivered it to the client and we had routing inside backend,
+-----------------------------------------------------------------------------------------------------------------------
+So the main question is now what is the pros and cons of using single page application versus server side rendering?
+SPA: 
+1. do everything on client. Client side needs strong computing power.
+2. No static page. No friendly to searching engine.
+
+If the app is simple SSR is good.
+If the app is big, SPA is good.
+
+-----------------------------------------------------------------------------------------------------------------------
+26. What are pros and cons of Angular compared to React?
+Good side of Angular:
+delivers fast App.
+routing animations
+services 
+DI loosely couple each components
+No need to install additional libraries.
+
+TypeScript by default, strong type to make app running safely.
+Rxjs makes app more interactive.
+
+---------------------------
+Not easy to learn.
+breaking changes from major version to major version.
+the code base of Angular is extremely huge, not easy to dig inside Angular and understand its code on a good level.
+
+-----------------------------------------------------------------------------------------------------------------------
+Which brings us to the next question, how it is compared to react?
+React is easier to learn. doesn't have 1.working with HTTP, 2.services,3.routing,4.DI.
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+27. How does Angular work?
+package.json
+tsconfig.json
+angular.json	schema(setting of the whole project)			"main": "src/main.ts",
+src\main.ts		This is exactly our initial file that we are loading:		
+platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
+src\app\app.module.ts	bootstrap: [AppComponent]
+src\app\app.component.ts
+
+
+
+28. Sharing data between components in Angular
+1. Parent child communication
+@Input() currentPage?: number = 0;
+@Output() notifyParent: EventEmitter<number> = new EventEmitter<number>();
+
+this.notifyParent.emit(5);
+
+<button (click)="notifyParent.emit(333)">Go to parent</button>
+
+parent:
+<app-child [currentPage]="currentPage" (notifyParent)="notifyParent($event)"></app-child>
+
+notifyParent(value: number): void {
+	console.log('notifyParent', value);
+}
+2. Use a service
+3. NgRx (It is the wrapper around Redux)
+
+
+
+
+29. What ways of binding in Angular do you know?
+<input type="text" [value]="initialValue" (keyup)="changeValue($event)"/>
+{{initialValue}}
+<input [(ngModel)]="initialValue" />
+<input [ngModel]="initialValue" (ngModelChange)="modelChange($event)" />
+------
+initialValue = 'asdf';
+changeValue(event: Event): void {
+	console.log(event);
+	const initialValue = (event.target as HTMLInputElement).value;
+	this.initialValue = initialValue;
+}
+
+modelChange(value: string): void {
+	this.initialValue = initialValue;
+}
+
+30. What is HTML in Angular?
+<app-child [currentPage]="currentPage" (notifyParent)="notifyParent($event)"></app-child>
+
+This is a special angular syntax which is just angular template.
+It is not used by Angular as HTML. Everything here is transformed in the functions. And then this functions are executed to build a dom.
+
+
+
+31. What are services in Angular?
+import {Injectable} from '@angular/core';
+
+@Injectable()
+export class DatesService {
+	getToday(): Date{
+		const startOfDateTimestamp = new Date().setHours(0,0,0,0);
+		return new Date(startOfDateTimestamp);
+	}
+	
+	getTomorrow(): Date {
+		const today = this.getToday();
+		return new Date(today.setDate(today.getDate() + 1));
+	}
+	
+	getYesterday(): Date {
+		const today = this.getToday();
+		return new Date(today.setDate(today.getDate() - 1));
+	}
+}
+
+providers: [DatesService]
+
+
+
+32. How to make HTTP Request in Angular?
+
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserInterface } from './user.interface';
+
+@Injectable()
+export class UsersService {
+  constructor(private http: HttpClient) {}
+
+  getUsers(): Observable<UserInterface[]> {
+    return this.http.get<UserInterface[]>('http://localhost:3004/users');
+  }
+}
+
+
+
+
+
+
+
+33. How does dependency injection work?
+
+
+import { NgModule } from '@angular/core';
+import { UsersComponent } from './components/users/users.component';
+import { UsersService } from './users.service';
+
+@NgModule({
+  providers: [UsersService],
+  declarations: [UsersComponent],
+  exports: [UsersComponent],	//!!!
+})
+export class UsersModule {}
+
+
+
+
+34. How to use a router in Angular?
+How to add routing to the application?
+
+
+
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent }, // Default route
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' } // Wildcard route for a 404 page
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+What is global routing?
+a centralized approach to managing the application's routes in one place, typically within the AppRoutingModule. 
+
+When global routing can be bad?
+Not good in big and complex app.
+
+
+What is router-outlet?
+<router-outlet></router-outlet>
+a directive that acts as a placeholder in the DOM 
+where the router dynamically displays views (components) based on the application's routing configuration.
+
+
+How to create router-link?
+<a routeLink="/">Home</a>
+<a [routerLink]="['/', 'foo', 'bar']">Home</a>
+
+
+
+
+
+
+35. What are life cycle hooks in Angular?
+ngOnInit():void{}		after initializing components
+ngOnChanges():void{}	When inputs changed inside components.
+ngOnDestroy():void{}
+ngAfterViewInit():void{}	When our component and all of its children are being rendered.
+
+
+
+
+
+
+
+36. What are ViewChild and ViewChildren in Angular?
+
+<button (click)="increment()" #button>Increment child</button>
+---------------------------------------------------------------
+import { Component, ViewChild } from '@angular/core';
+import { ChildComponent } './child.component';
+
+@Component(
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: [./app.component.css],
+)
+export class AppComponent implements AfterViewInit{
+	@ViewChild(ChildComponent, {static: true}) child?: ChildComponent	//static means always have this componnent inside the html.
+	@ViewChild('button', {static: true}) buttonRef?: ElementRef<HTMLButtonElement>;
+	
+	@ViewChildren(ChildComponent) children?: QueryList<ChildComponent>;
+	@ViewChildren('button') buttonsRef?: QueryList<ElementRef<HTMLButtonElement>>;
+	
+	
+	increment(): void {
+		this.child?.increment();
+	}
+	
+	ngAfterViewInit(): void{
+		if(this.buttonRef?.nativeEmement){
+			this.buttonRef?.nativeEmement.innerHTML = 'foooooo';
+		}
+		
+		this.children?.forEach((child) => console.log(child));
+		this.buttonsRef?.forEach((button) => console.log(button));
+	}
+}
+
+
+
+
+37. Constructor vs NgOnInit in Angular - what is the difference?
+constructor is only for injecting services and quick initialization.
+
+
+
+
+38. Unsubscribe in Angular - why is it important?
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
+
+@Component({
+	selector: 'users',
+	templateUrl: './users.component.html',
+})
+export class UsersComponent implements OnInit, OnDestroy {
+	data$ = interval(1000);
+	dataSubscription?: Subscription;
+	
+	ngOnInit(): void {
+		this.dataSubscription = this.data$.subscribe((data) => {
+			console.log('data', data);
+		});
+	}
+	
+	ngOnDestroy(): void {
+		this.dataSubscription?.unsubscribe();	//After jumping into other pages, this thread will be cancelled.
+	}
+}
+----------------------------------
+
+Users {{ data$ | async }}	//will be unsubscribed automatically.
+----------------------------------
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
+
+@Component({
+	selector: 'users',
+	templateUrl: './users.component.html',
+})
+export class UsersComponent implements OnInit, OnDestroy {
+	data$ = interval(1000);
+	
+	ngOnInit(): void {
+		/*this.data$.pipe(take(1)).subscribe((data) => {
+			console.log('data', data);
+		});*/
+		this.data$.pipe(takeWhile((value) => value < 5)).subscribe((data) => {
+			console.log('data', data);
+		});
+	}
+	
+	ngOnDestroy(): void {
+
+	}
+}
+----------------------------------
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
+
+@Component({
+	selector: 'users',
+	templateUrl: './users.component.html',
+})
+export class UsersComponent extends Unsub implements OnInit, OnDestroy {
+	data$ = interval(1000);
+	unsubscribe$ = new Subject<void>();
+	
+	ngOnInit(): void {
+		this.data$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+			console.log('data', data);
+		});
+	}
+	
+	ngOnDestroy(): void {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
+	}
+}
+
+export abstract class Unsub implements OnDestroy {
+	unsubscribe$ = new Subject<void>();
+	ngOnDestroy(): void {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
+	}
+}
+
+
+
+
+39. What are change detection and onPush in Angular?
+Changing at the parent level, will trigger digest cycle in the child.
+This coupling is useless. The change in parent level is not supposed to affect child.
+The solution is OnPush strategy.
+
+In child:
+@Component({
+	selector: 'app-todos-todo',
+	templateUrl: './todo.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+})
+
+ChangeDetectionStrategy.OnPush,	//This will reduce triggering on the child.
+Triggering on child will only happen when the input of the child is changed.
+It is the way to manually trigger child:
+changeArray(){
+	this.todos[0] = {...this.todos[0], text: 'Fooo'};
+}
+
+
+
+40. Null in async pipe - what is the problem here?
+Angular thinks inside observable, there is null.
+
+<ng-container *ngIf="currentPage$ | async as currentPage">
+	<child [currentPage]="currentPage$ | async"></child>
+</ng-container>
+
+41. How to handle errors in async pipe in Angular
+import { HttpClient } from '@angular/common/http' 
+import { Component, OnInit } from '@angular/core';
+
+export interface UserInterface {
+	id: string;
+	name: string;
+}
+
+@Component({
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+	users$ = new BehaviorSubject<UserInterface[]>([]);
+	isLoading$ = new BehaviorSubject<boolean>(false);
+	constructor(private http: HttpClient) {}
+	
+	ngOnInit(): void {
+		this.isLoading$.next(true);
+		this.http.get<UserInterface[]>('http://localhost:3004').subscribe((users) => {
+			this.users$.next(users);
+			this.isLoading$.next(false);
+		});
+	}
+}
+
+
+
+{{ users$ | async }}
+
+
+42. What is the difference in ngContainer, ngTemplate, ngContent, ngTemplateOutlet?
+ngTemplate: Define reusable templates that aren't rendered immediately.
+<div *ngIf="article; else loading">{{ article.title }}</div>
+<ng-template [ngIf]="article" [ngIfElse]="loading"><div>{{article.Title}}</div></ng-template>
+<ng-template #loading><div>Loading...</div></ng-template>
+------------------------------------------------------------------------
+ngContainer: Group elements without adding extra elements to the DOM.
+<ng-container *ngIf="numbers">
+	<ng-container *ngFor="let number of numbers">
+		{{number}}
+	</ng-container>
+</ng-container>
+------------------------------------------------------------------------
+ngContent: Project parent content into a child component's template.
+<div class="child-content">
+	<ng-content></ng-content>
+</div>
+<app-child>
+	xxxxxxxxxxx
+</app-child>
+------------------------------------------------------------------------
+ngTemplateOutlet: Dynamically render a template in a specific location. (Pass parameters into ng-template)
+<ng-container *ngTemplateOutlet="articleTemplate; context: {article}"></ng-container>
+<ng-template #articleTemplate let-article="article">
+	<div>{{ article.title }}</div>
+</ng-template>
+
+
+
+
+
+43. How to create an Angular animation?
+When to use angular animation and not css animation?
+If there is no logic in animation, better to use css animation.
+If there is logic in, better to use angular animation. Write logic in typescript.
+
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component } from '@angular/core';
+
+const enterTransition = transition(':enter', [
+	style({
+		opacity: 0,
+	}),
+	animate('1s ease-in', style({opacity: 1})),
+]);
+
+const exitTransition = transition(':leave', [
+	style({
+		opacity: 1,
+	}),
+	animate('1s ease-out', style({opacity: 0})),
+]);
+
+const fadeIn = trigger('fadeIn', [enterTransition]);
+const fadeOut = trigger('fadeOut', [exitTransition]);
+
+/*
+const fadeInOut = trigger('fadeInOut', [
+	state('open', style({opacity: 1})),
+	state('close', style({opacity: 0})),
+	transition('open => close', [animate('1s ease-out')]),
+	transition('close => open', [animate('1s ease-in')]),
+]);
+
+
+
+*/
+
+
+
+
+@Component({
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	sytleUrls: ['./app.component.css'],
+	animations: [fadeIn, fadeOut],
+})
+export class AppComponent{
+	isShown = false;
+	
+	fadeInOut(): void {
+		this.isShown = !this.isShown;
+	}
+}
+--------------------------
+
+<button (click)="fadeInOut()">Fade in / out</button>
+<div @fadeIn @fadeOut *ngIf="isShown">This is a block with fade in / out</div>
+<div [@fadeInOut]="isShown ? 'open' : 'close'">
+This is a block with fade in / out
+</div>
+
+
+
+
+44. How as keyword works in Angular?
+<div *ngIf="currentUser$ | async as currentUser">
+	{{currentUser.name}}
+	{{currentUser.surname}}
+	{{currentUser.age}}
+</div>
+-------------------------------------------------------
+<div>
+	{{ (currentUser$ | async)?.name }}
+	{{ (currentUser$ | async)?.surname }}
+	{{ (currentUser$ | async)?.age }}
+</div>
+-------------------------------------------------------
+foo$ = of('foo');
+bar$ = of('bar');
+baz$ = of('baz');
+
+data$ = combineLatest({
+	foo: this.foo$,
+	bar: this.bar$,
+	baz: this.baz$,
+});
+
+<div *ngIf="data$ | async as data">{{data.foo}} {{data.bar}}</div>
+
+45. AOT vs JIT compilation - what is the difference?
+just in time compilation in development and ahead of time in production.
+(translate typescript and templates into javascript functions)
+(Additionally, in Just in Time compilation, we are getting less errors than in Ahead of time compilation)(we can use Ahead of Time compilation in development mode)
+
+
+
+
+
+
+46. Component vs Directive - what is the difference?
+<child [currentPage]=""></child>
+Using components to create some parts or widgets, popular text sections. Break app into components for reusing and easy to support. (has template)
+<div highlight>Fooo</div>
+Using directive when you need to add some additional behavior to exist in DOM element. (Do not have template)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+47. Structural directive vs component directive vs attribute directive
+component directives: <app-my-component></app-my-component> It is just a component.
+structural directives: Like *ngIf and *ngFor, these modify the DOM structure by adding or removing elements.
+attribute directive: Like [ngClass] and [ngStyle], these modify the appearance or behavior of existing elements.
+
+
+
+
+
+48. Create a directive which changes the background of the element
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+	selector: '[backgroundChanger]',
+})
+export class BackgroundChangerDirective {
+	constructor(private el: ElementRef){
+		this.el.nativeEmement.style.backgroundColor = 'yellow';
+	}
+}
+
+<div backgroundChanger>Hello World!</div>
+
+
+49. How do pipes in Angular work?
+uppercase
+lowercase
+So what is pipe?
+This is simply a function which we can apply to some expression inside Angular template to transform it to another value.
+
+
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'impureExample',
+  pure: false // This makes the pipe impure.
+})
+export class ImpureExamplePipe implements PipeTransform {
+  transform(value: number): number {
+    return value * Math.random(); // Example of an operation that could change every time.
+  }
+}
+
+
+
+on every life cycle
+
+
+Pure Pipe:
+If you use a pure pipe to filter an array, it will only update the view if the array reference changes. If the content of the array changes (e.g., adding an item), but the array itself remains the same reference, the pure pipe won't recalculate.
+Impure Pipe:
+If you use an impure pipe for the same operation, it will update the view every time Angular runs change detection, ensuring that the view is always in sync with any changes, even if the array reference hasn't changed.
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+50. Why is it bad to call a function in the Angular template?
+<div>{{getFullname()}}</div>	//This is bad!
+When angular runs Digest cycle, it doesn't really know the result of this function.
+Therefore need to execute it in every Digest cycle.
+
+Suggestion:
+<div>{{ person | fullname }}</div>
+
+
+51. What is Angular Ivy?
+
+
+Another question that you might get is what is Angular Ivy?
+Ivy is a rendering engine and compiler.
+With that, we got a partial compilation with every single change of our components and we don't need to wait for the whole tree.
+Tree shaking: removing all modules that are imported but are not used.
+(Additionally, in Just in Time compilation, we are getting less errors than in Ahead of time compilation)(we can use Ahead of Time compilation in development mode)
+
+
+
+
+
+52. What is Angular interceptor?
+It is something that intercepts our request to API and make some changes inside this request.
+For exmaple: catch exception, write JWT token in headers, add loading animation, logging request.
+
+
+@Injectable()
+export class MyInterceptorService implements HttpInterceptor {
+	intercept(
+		httpRequest: HttpRequest<any>,
+		next: HttpHandler
+	): Observable<HttpEvent<any>>{
+		return next.handle(httpRequest.clone({setHeaders: {API_KEY: '12345'}}));
+	}
+}
+
+
+providers: [{
+	provide: HTTP_INTERCEPTORS,
+	useClass: MyInterceptorService,
+	multi: true,
+}]
+
+
+
+53. What is Angular generator?
+Generator is a way from the console to create different entities, like module, component, service, and pipe.
+
+ng generator module foo --routing
+ng g component foo/home
+ng g pipe MyTitle --flat
+ng generate service Student
+
+54. How to protect Angular route from accessing?
+
+const routes: Routes = [
+	{
+		path: 'users',
+		componnent: UsersComponent,
+		canActivate: [AuthGuardService]
+	},
+];
+
+
+@Injectable()
+export class AuthGuardService implements CanActivate {
+	constructor(private router: Router){}
+	canActivate(): boolean {
+		if(localStorage.getItem('token')){
+			this.router.navigateByUrl('/');
+			return true;
+		}
+		return false;
+	}
+	
+	canActivate(): Observable<boolean> {
+		//return of(true).pipe(map((isLoggedIn) => {
+			if(!isLoggedIn){
+				return false;
+			}
+			
+			return true;
+		}));
+		return this.usersService.isLoggedIn$;
+	}
+	
+}
+
+
+55. What is lazy loading in Angular?
+Just load modules we need in the cuurent situation. It is for enhancing performance.
+
+const routes: Routes = [
+	path: 'users',
+	loadChildren: () => import('./users/users.module').then((m) => m.UserModuel),
+];
+
+
+
+56. What is forRoot in Angular?
+Write an example how to inject a module with some configuration.
+
+
+import { ModuleWithProiders, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+	imports: [CommonModule],
+})
+export class FooModule {
+	static forRoot(config: FooConfig): ModuleWithProviders<FooModule> {
+		return {
+			ngModule: FooModule,
+			providers: [FooService, {provide: 'config', useValue: config}]
+		}
+	} 
+}
+
+------------------------------
+//The FooService is in the FooModule.
+import { Inject, Injectable } from "@angular/core";
+
+@Injectable()
+export class FooService {
+	fooConfig?: FooConfig;
+	
+	constructor(@Inject('config') private config: FooConfig) {
+		this.config = config;
+	}
+}
+
+------------------------------
+
+export interface FooConfig {
+	apiUrl: string;
+}
+
+------------------------------
+@NgModule({
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule,
+		CommonModule,
+		AppRoutingMOdule,
+		FormsModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		FooModule.forRoot({apiUrl: 'http://localhost:3004'}),
+	],
+	bootstrap: [AppComponent],
+})
+
+------------------------------
+import { Component, OnInit } from '@angular/core';
+import { FooService } from './foo/foo.service';
+
+@Component({
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+})
+export class AppComponent {
+	constructor(private fooService: FooService) {
+		console.log('config', fooService.fooConfig);
+	}
+}
+
+
+57. What is SSR in Angular or Service Side Rendering?
+
+
+
+
+
+
+Server side:
+1. friendly for SEO. 
+2. fast loading.
+SAP:
+have a huge and difficult state with lots of interactions on the client.
+
+If the app is complex, must use client side.
+
+
+
+
+
+
+
+
+
+
+
+
+
+58. What is ngZone in Angular?
+How we execute code outside Angular change detection?
+When does it make sense?
+Write a small example.
+
+
+NgZone is a service provided by the Angular framework to help manage and optimize the change detection process.
+
+
+
+<div (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" #element>
+	Element
+</div>
+
+{{ position | json }}
+-----------------------------
+
+export class AppComponent {
+	@ViewChild('element', {static:true}) element: any;
+	position: any;
+	
+	constructor(private zone: NgZone){}
+	
+	mouseDown(event: any){
+		this.element = event.target;
+		this.zone.runOutsideAngular(() => {
+			window.document.addEventListener('mousemove', this.mouseMove.bind(this));
+		});
+	}
+	
+	mouseMove(event: any){
+		event.preventDefault();
+		this.element.setAttribute('x', event.clientX);
+		this.element.setAttribute('y', event.clientY);
+	}
+	
+	mouseUp(event: any){
+		this.zone.run(() => {
+			this.position = {
+				x: this.element.getAttribute('x'),
+				y: this.element.getAttribute('y'),
+			}
+		});
+		window.document.removeEventListener('mousemove', this.mouseMove);
+	}
+}
+
+
+
+
+this.ngZone.runOutsideAngular(() => {
+    // Long-running task
+    setTimeout(() => {
+      this.ngZone.run(() => {
+        // UI update or operation requiring change detection
+      });
+    }, 1000);
+  });
+Running Expensive Operations Outside Angular: When performing a task that does not affect the UI or need change detection, you can run it outside of Angular's zone.
+
+
+
+this.ngZone.run(() => {
+  // Code here will trigger change detection
+});
+Re-entering Angular's Zone: After an asynchronous operation outside Angular's zone, you may need to trigger change detection.
+
+
+
+59. How do Angular forms work?
+What forms do we have in Angular?
+How do they differ?
+1. Template driven forms (for AngularJS people learn Angular easily)
+2. Reactive forms
+
+export class AppComponent {
+	isSubmitted = false;
+	registerForm = this.fb.group({
+		username: ['', Validators.required],
+		password: ['', Validators.required],
+		email: ['', [Validators.required, Validators.email]]
+	});
+
+	constructor(private fb: FormBuilder){}
+	
+	ngOnInit(): void {
+		this.registerForm.get('username')?.valueChanges.subscribe((value) => {
+			console.log('valueChanges', value);
+		});
+	}
+	
+	onSubmit(): void{
+		isSubmitted = true;
+		console.log('onSubmit', this.registerForm.value, this.registerForm.valid);
+	}
+}
+
+-----------------------------------
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+	<div>
+		<input type="text" formControlName="username" />
+		<span *ngIf="registerForm.get('username')?.hasError('required') &&
+		(registerForm.get('username')?.dirty || registerForm.get('username').touched || isSubmitted)">This field is required</span>
+	</div>
+	<div>
+		<input type="text" formControlName="email" />
+	</div>
+	<div>
+		<input type="password" formControlName="password" />
+	</div>
+	<div>
+		<button type="submit"></button>
+	</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+60. How to fix Angular input has no initializer error?
+export class ChildComponent {
+	@Input() currentPage: number = 1;
+	@Input() foo: string = 'Not Set';
+}
+
+tsconfig.json
+"strictPropertyInitialization": false
+
+---------------------------------------------------------------------
+61. NgRx - what is this and how does it work?
+Are you familiar with Redux or NgRx?	redux pattern on Angular
+1. Provide a formal pattern for 
+a. organizing state
+b. managing state
+c. communicating state changes so that components can react accordingly.
+ 
+Without NgRx, as we build our app, we will define service or repo to manage state data. WHen app grows big, we will create many services and repos with similar purpose.
+A single store can replace them all.
+Help the communication amoung components.
+
+
+Use NgRx when:
+State everywhere. (The store provides a place for UI state to retain it between router views)
+Getting data again and again! (The store provides a client-side cache to use as needed)
+Notify everyone!(The reducer updates the store and the store notifies all subscribers)
+Something is not working(Great debugging tool)
+
+State Management
+Performance 
+Tooling
+Component communication
+
+State
+Actions
+Reducers
+
+
+Take your debugging for the next level
+Supercharge state and actions
+Handle side effects with NgRx effects
+
+Advantages:
+Centralized immutable state
+Performance
+Testability
+Tooling
+Componnent communication
+
+
+What is State?	View State(*ngIf conditions); User Information; Entity Data; User Selection and Input
+
+
+Redux Pattern: (is a predictable state container for js apps)
+[View] passes user event to [Component] dispatches to [Action] calls [Reducer] update [Store].
+[Selector] gets data from [Store].
+
+Redux Principles:
+1. single source of truth called the store.
+2. State is read only and only changed by dispatching actions.
+3. Changes are made using pure functions called reducers.
+
+Actions: {
+	type: 'LOGIN',
+	payload: {username: 'Duncan', password: 'secret'}
+}
+
+Reducer:
+function reducer(state, action){
+	switch(action.type){
+		case 'LOAD_USER':
+			return {users:[...state.users, action.payload]};
+	}
+}
+
+Store(State):
+
+Single source of truth called the store.
+State is read-only and changed by dispatching actions.
+Changes are made using pure functions called reducers.
+
+---------------------------------------------------------------------
+62. Angular inject
+How to use inject in Angular? What are the benefits?
+
+constructor(usersService UsersService){
+
+}
+---------------------------------
+usersService = inject(UsersService);
+page$ = inject(ActivatedRoute).queryParams.pipe(
+	filter(params => params['page']),
+	map(params => params['page'])
+);
+---------------------------------
+export class Foo{
+	constructor(private usersService: UsersService){}
+}
+export class Bar extends Foo{
+	constructor(private usersService: UsersService){
+		super(usersService);
+	}
+}
+---------------------------------
+export class Foo{
+	usersService = inject(UsersService);
+}
+export class Bar extends Foo{
+	constructor(){
+		super();
+	}
+}
+---------------------------------
+const onDestroy = () => {
+	const destroy$ = new Subject<void>();
+	const viewRef = inject(ChangeDetectorRef) as ViewRef;
+
+	viewRef.onDestroy(() => {
+		destroy$.next();
+		destroy$.complete();
+	});
+	return destroy$;
+}
+
+export class AppComponent implements OnInit{
+	usersService = inject(UsersService);
+	page$ = getPageParams();
+	destroy$ = onDestroy();
+	
+	ngOnInit(): void{
+		this.usersService
+		.getUsers()
+		.pipe(takeUntil(this.destroy$))
+		.subscribe(console.log);
+	}
+	
+}
+
+
+63. Angular standalone components
+How to use standalone components? What are the benefits?
+Modules are optional. We can build the whole angular app just with components.
+ng g c foo --standalone
+npx -p @angular/cli@15 ng g c foo --standalone
+
+@Component(
+	selector: 'app-foo',
+	standalone: true,
+	imports: [CommonModule],
+	templateUrl: './foo.component.html',
+	styleUrls: ['./foo.component.css']
+)
+
+
+
+
+
+64. Angular signals
+How to use Angular Signals? What are the benefits?
+Designed to improve the way developers handle and respond to data changes in Angular applications.
+
+import { Component, OnInit, signal } from '@angular/core'
+export class AppComponent implements OnInit {
+	title = signal<string>('');
+	users = signal<UserInterface[]>([]);
+	titleChangeEffect = effect(() => {
+		console.log('title changed effect', this.title());
+	});
+	usersTotal = computed(() => this.users().length);
+	
+	ngOnInit(): void {
+		setTimeout(() => {
+			//this.users.set([{id: '1', name: 'foo' }]);
+			this.users.update((prevUsers) => [...prevUsers, {id: '1', name: 'foo' }]);
+		}, 2000)
+	}
+	
+	changeTitle(event: Event){
+		const title = (event.target as HTMLInputElement).value;
+		this.title.set(title);
+		
+	}
+}
+------------------------------------------------------------------
+<input type="text" [value]="title()" (keyup)="changeTitle($event)" />
+{{ title() }}
+{{ usersTotal() }}
+
+
+
+
+
+
+
+
+
+
+65. Angular control flow
+Angular templates support control flow blocks that let you conditionally show, hide, and repeat elements.
+*ngIf
+*ngFor
+
+@for(user of users(); track $index){
+	<div>{{user.name}}</div>
+} @empty {
+	<div>We do not have anything.</div>
+}
+
+@if(user.role === 'admin'){
+	<div>Admin</div>
+}
+@else if(user.role === 'developer'){
+	<div>Developer</div>
+}
+@else{
+	<div>QA</div>
+}
+
+@switch(user.role){
+	@case('developer'){
+		<div>Developer</div>
+	}
+	@case('admin'){
+		<div>Admin</div>
+	}
+	@case('qa'){
+		<div>QA</div>
+	}
+}
+
+
+
+
+
+
+66. Angular defer (defered views)
+What is defer feature in Angular is doing?
+It is the view which will be rendered not initially, but after some time or based on some condition.
+Most of the components are not needed on initialization, which means we can defer them instead of loading or showing them at the beginning.
+Only load what is needed.
+
+------------------------------
+@defer(){	
+	<app-child></app-child>
+}
+@defer(on idle){	
+	<app-child></app-child>
+}
+------------------------------
+<div>Content</div>
+<div>Content</div>
+@defer(on viewport; on timer(2000)){	//on interaction	//on hover	//on immediate	//on timer(2000)	//on idle	(default)
+	<app-child></app-child>
+}
+@placeholder{
+	<div>Placeholder</div>
+}
+
+<button (click)="isVisible=true">Load</button>
+@defer(when isVisible){
+	<app-child></app-child>
+}
+@placeholder{
+	<div>Placeholder</div>
+}
+
+*ngIf	hide DOM elements. It does not render anything.
+@defer	Components will be rendered when you need it. Meanwhile they will be preloaded.  
+
+<button (click)="prefetchCondition=true">Load</button>
+@defer(when isVisible; prefetch when prefetchCondition){	//prefetch on idle	//prefetch as long as we have resource for that.
+	<app-child></app-child>
+}
+@placeholder{
+	<div>Placeholder</div>
+}
+
+-------------------------------------------------
+<div>Content</div>
+
+@defer(on viewport){
+	<app-child></app-child>
+}
+@loading(after 150ms; minimum 150ms){
+	<div>Loading</div>
+}
+@placeholder(minimum 150ms){
+	<div>Placeholder</div>
+}
+@error{
+	<div>Error</div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

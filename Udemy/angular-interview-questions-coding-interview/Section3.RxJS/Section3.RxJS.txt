@@ -1,0 +1,396 @@
+16. What are pros and cons of RxJS
+Rxjs is a stream based library for writing asynchronous and event based programs by using observable syntaxes.
+This is a stream based library which actually means we can transform anything in the stream you have.
+Then you can combine these streams, filter them, map data inside.
+
+
+
+So what are the pros and cons of using Rxjs?
+1. makes your whole application reactive.
+So what are cons of using Rxjs?
+1. Need higher coding skill to read and write it.
+And the last question here why Rxjs is so important inside Angular?
+If you will try to write your code without Rxjs, you will just fight against the framework and it won't do you any good.
+
+
+
+
+
+
+17. How to transform data in RxJS?
+import { Component } from '@angular/core';
+import { of, combineLatest, interval, Observable, map, filter } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JavaScriptPrimer';
+  constructor(){      
+    const normalizeUsers = (users$: Observable<UserInterface[]>): Observable<string[]> => {
+      return users$.pipe(map((users) => users.map((user) => user.name)));
+    }
+  }
+}
+
+export interface UserInterface {
+	id: string;
+	name: string;
+	age: number;
+	isActive: boolean
+}
+
+
+
+
+
+
+18. How filter works in RxJS?
+import { Component } from '@angular/core';
+import { of, combineLatest, interval, Observable, map, filter } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JavaScriptPrimer';
+  users$: Observable<UserInterface[]> = of([{id: '1', name: 'Jack', age: 30, isActive: true}]);
+  constructor(){      
+    this.getActiveUsers(this.users$).subscribe(activeUsers => {
+      console.log(activeUsers);
+    });
+  }
+
+  getActiveUsers = (users$: Observable<UserInterface[]>): Observable<UserInterface[]> => {
+    return users$.pipe(filter(users => users.every(user => user.isActive)));
+  }
+}
+
+export interface UserInterface {
+	id: string;
+	name: string;
+	age: number;
+	isActive: boolean
+}
+
+
+
+
+
+
+
+19. How to implement error handling in RxJS?
+import { Component } from '@angular/core';
+import { of, combineLatest, interval, Observable, map, catchError } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JavaScriptPrimer';
+
+  constructor(){
+    const normalizeUsers = (users$: Observable<UserInterface[]>): Observable<string[]> => {
+      return users$.pipe(map((users => {
+        throw new Error('foo');
+        return users.map((user) => user.name)
+      }), 
+      catchError(err => {
+        console.log('err1', err);
+        return of([]);
+      })//inside map
+	  ))
+    };
+
+
+
+    normalizeUsers(of([{id: '1', name: 'foo', age: 30}])).subscribe({
+      next: (res) => {
+        console.log('res', res);
+      },
+      error: (msg) => {
+        console.log('err2', msg);
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
+
+
+
+
+  }
+}
+
+export interface UserInterface {
+	id: string;
+	name: string;
+	age: number;
+}
+
+
+
+
+20. What does combineLatest operator work in RxJS?
+combineLatest:	All of the threads keep emitting.
+ForkJoin: 		Only emit when all of the threads are finished.
+
+import { Component } from '@angular/core';
+import { of, combineLatest, interval } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JavaScriptPrimer';
+
+  constructor(){
+    const foo$ = of('foo')
+    const bar$ = of('bar')
+    const baz$ = of('baz')
+    ForkJoin([foo$, bar$, baz$]).subscribe((res) => console.log('res', res));
+  }
+}
+//res	['foo', 'bar', 'baz']
+
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JavaScriptPrimer';
+
+  constructor(){
+    const foo$ = interval(1000);
+    const bar$ = of('bar')
+    const baz$ = of('baz')
+    combineLatest([foo$, bar$, baz$]).subscribe((res) => console.log('res', res));
+  }
+}
+//res	[0, 'bar', 'baz']
+//res	[1, 'bar', 'baz']
+//res	[2, 'bar', 'baz']
+//res	[3, 'bar', 'baz']
+//res	[4, 'bar', 'baz']
+//res	[5, 'bar', 'baz']
+
+21. How Subject and Behaviorsubject work in RxJS?
+
+import { Component } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+
+export interface UserInterface {
+	id: string;
+	name: string;
+}
+
+@Component({
+	selector: 'app-root',
+	templateUrl: 'app.component.html',
+	styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+	constructor(){
+		const users$ = new BehaviorSubject<UserInterface[]>([]);
+		const subject$ = new Subject();
+		subject$.subscribe(res => console.log('subject', res));
+		
+		setTimeout(() => {
+			users$.next([{id: '1', name: 'foo'}]);
+			subject$.next(1);
+		}, 2000);
+		
+		users$.subscribe(res => console.log('res', res, users$.getValue()));//users$.getValue() only available for Behaviorsubject. So it is preferred.
+	}
+}
+
+
+//first trigger is empty.
+//second trigger after 2 sec is {id: '1', name: 'foo'} and 1.
+So to speak, subject$ does not have any initial value.
+
+22. Observables vs Promises - what is the difference?
+Promises:	We're writing something like fetch request to the API, we're getting data within or we catch an error later, which actually means promise is something which is happening over long time, but at the end it only happens once.
+Observable: is a completely different thing. This is a stream of your data, which actually means this is something where we can get new data with time and then we can react with subscribe to this change of the data.
+
+Essentially inside Angular you should almost never use promises we're using everywhere. Just observables.
+
+Why is that?
+We can combine different observables from different source of data.
+
+constructor() {
+	const foo$ = of('1');
+	foo$.subscribe((value) => console.log(value));
+	foo$.toPromise().then(value => console.log(value));
+}
+
+But the main problem is that our promise will happen only once.
+
+23. Cold vs hot observables - what is the difference?
+//Cold:
+constructor(){
+	const observable = new Observable((obs) => {
+		obs.next(Math.random());
+	});
+	
+	observable.subscribe((data) => console.log(data));
+	observable.subscribe((data) => console.log(data));
+}
+//Will generate two different result.
+-----------------------------------------------------------------
+//Hot:
+constructor(){
+	const random = Math.random();
+	const observable = new Observable((obs) => {
+		obs.next(random);
+	});
+	
+	observable.subscribe((data) => console.log(data));
+	observable.subscribe((data) => console.log(data));
+}
+//Will generate two same result.
+
+
+
+
+
+24. What is map, flatMap, mergeMap, concatMap, switchMap, exhaustMap in RxJS?
+//of 只跟独立数据。 from 可跟array。
+constructor(){
+	from([0,1,2,3,4]).pipe(map(el => el*10)).subscribe(res => console.log(res));
+}
+//0	10	20	30	40
+-----------------------------------------------------------------------------------
+import { interval, timer, from, map, delay, mergeMap, of, flatMap, concatMap, switchMap, exhaustMap } from 'rxjs';
+
+constructor(){
+	const example = (operator: any) => () => {
+		from([0, 1, 2, 3, 4])
+		  .pipe(operator((x: any) => of(x).pipe(delay(500))))
+		  .subscribe(
+			console.log,
+			() => {},
+			() => console.log(`${operator.name} completed`)
+		  );
+	  };
+	example(mergeMap)();
+	example(flatMap)();
+	example(concatMap)();
+	example(switchMap)();	//only get 4
+	example(exhaustMap)();	//only get 0
+}
+
+
+mergeMap:	So if you need to create an observable for your source element directly without waiting for the previous one, then merge map is a way to go. (Do not need to go through delay)
+Flat map is just an alias for merge map and it is not used.
+concatMap creates an observable, but it waits for the previous observable to be completed before creation. (go through the delay.)
+switchMap: The main difference between switch map and concat map is that it cancels all of the previous observables.
+exhaustMap: It is opposite to switchMap. Ignoring all of our next observables when we ahve a running observable.
+
+
+-----------------------------------------------------------------------------------
+import { Component } from '@angular/core';
+import { interval, timer, from, map, delay, mergeMap, of, 
+  flatMap, concatMap, switchMap, exhaustMap, Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'JavaScriptPrimer';
+  users: UserInterface[] = [
+    { id: '1', name: 'foo' },
+    { id: '2', name: 'bar' },
+  ];
+
+  constructor(){
+    const foo$ = this.getUser('1').pipe(
+      concatMap((user) => this.getUserDetails(user))
+    );
+    
+    foo$.subscribe((foo) => console.log('foo', foo));
+  }
+
+  getUser(id: string): Observable<UserInterface> {
+    const user = this.users.find((user) => user.id === id)!;
+    return of(user);
+  }
+  
+  getUserDetails(user: UserInterface) : Observable<UserDetailsInterface>{
+    return of({id: user.id, age: 30});
+  }
+}
+
+
+export interface UserInterface {
+	id: string;
+	name: string;
+}
+
+export interface UserDetailsInterface{
+  id: string;
+  age: number;
+}
+
+
+
+//result: foo {id: '1', age: 30}
+
+
+//switchMap => foo {id: '1', age: 30}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

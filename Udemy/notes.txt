@@ -1,0 +1,6 @@
+Angular - The Complete Guide (2023 Edition)
+Maximilian Schwarzmuller
+
+Reactive Angular Course (with RxJs, Angular 15)
+Angular University
+

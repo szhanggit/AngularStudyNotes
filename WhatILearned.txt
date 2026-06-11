@@ -1,0 +1,32 @@
+D:\Study\AngularStudyNotes\experiments\Login0\login-app\src\app\login\login.module.ts
+D:\Study\AngularStudyNotes\experiments\Login0\login-app\src\app\login\auth.service.service.ts
+Both files must reference
+import { HttpClientModule } from "@angular/common/http";
+
+Then this will work:
+constructor(private http: HttpClient) { }
+
+-----------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\experiments\Login0\login-app\src\app\login\login.module.ts
+import { ReactiveFormsModule } from '@angular/forms';
+D:\Study\AngularStudyNotes\experiments\Login0\login-app\src\app\login\auth.service.service.ts
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private fb: FormBuilder
+  ) { }
+
+
+----------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\experiments\Login0\login-app\src\app\login\login.module.ts
+import { HttpClientModule } from '@angular/common/http';
+
+D:\Study\AngularStudyNotes\experiments\Login0\login-app\src\app\core\core.module.ts
+import { HttpClientModule } from '@angular/common/http';
+
+After importing HttpClientModule into child modules, there will be no need to import HttpClientModule at root module.
+However core.module.ts needs to be imported in the root module.

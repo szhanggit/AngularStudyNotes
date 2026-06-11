@@ -1,0 +1,38 @@
+Angular Signals is a new reactive data system introduced in Angular 16, designed to improve the way developers handle and respond to data changes in Angular applications. It is part of the reactivity model in Angular, allowing for more efficient and fine-grained reactivity, which can lead to better performance and more maintainable code.
+
+### Key Concepts:
+1. **Signal**: A signal is a piece of state that holds a value and can notify subscribers when its value changes. It's similar to a reactive variable.
+2. **Computed**: A computed value is derived from one or more signals. It automatically recalculates when any of its dependencies (signals) change.
+3. **Effect**: An effect is a function that runs in response to changes in one or more signals. Effects are used to react to data changes, like updating the DOM or triggering side effects.
+
+### Benefits:
+- **Fine-Grained Reactivity**: Angular Signals provide more precise control over what needs to be re-rendered in response to data changes, potentially reducing unnecessary updates and improving performance.
+- **Simplified State Management**: Signals can help in managing state more easily by making the dependencies between different parts of the state explicit and easier to track.
+- **Better Performance**: By only recalculating or re-rendering parts of the application that depend on the changed data, Angular Signals can lead to more efficient updates.
+
+### Example:
+Here’s a simple example of using a signal in Angular:
+
+```typescript
+import { signal, computed } from '@angular/core';
+
+// Create a signal with an initial value
+const count = signal(0);
+
+// Create a computed signal that derives from `count`
+const doubleCount = computed(() => count.value * 2);
+
+// Use the signal
+console.log(count.value);  // Output: 0
+console.log(doubleCount.value);  // Output: 0
+
+// Update the signal
+count.set(1);
+
+console.log(count.value);  // Output: 1
+console.log(doubleCount.value);  // Output: 2
+```
+
+In this example, the `count` signal holds a value that can be updated. The `doubleCount` computed signal automatically updates whenever `count` changes, showing the power of reactivity in Angular Signals.
+
+This system aligns with Angular's goal of making state management more intuitive and powerful, especially for larger and more complex applications.

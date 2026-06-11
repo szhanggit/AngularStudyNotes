@@ -1,0 +1,35 @@
+In TypeScript, the `Pick` utility type allows you to create a new type by selecting a subset of properties from an existing type. This is useful when you want to work with a type that has only certain properties from another type.
+
+Here's an example:
+
+```typescript
+// Define an interface with several properties
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    age: number;
+    isAdmin: boolean;
+}
+
+// Use Pick to create a new type with only 'id' and 'name' properties
+type UserPreview = Pick<User, 'id' | 'name'>;
+
+// Now, UserPreview only has 'id' and 'name' properties
+const userPreview: UserPreview = {
+    id: 1,
+    name: "John Doe",
+    // email: "john@example.com", // Error: 'email' does not exist in type 'UserPreview'
+    // age: 30, // Error: 'age' does not exist in type 'UserPreview'
+    // isAdmin: false, // Error: 'isAdmin' does not exist in type 'UserPreview'
+};
+
+console.log(userPreview); // Output: { id: 1, name: "John Doe" }
+```
+
+### Explanation:
+- **`User`**: The original interface with multiple properties.
+- **`UserPreview`**: A new type created using `Pick<User, 'id' | 'name'>`, which includes only the `id` and `name` properties from the `User` interface.
+- **`userPreview`**: An object that conforms to the `UserPreview` type, which only allows the `id` and `name` properties. Attempting to add other properties from the `User` interface will result in a TypeScript error.
+
+This is how `Pick` is used to create a new type with a subset of properties from an existing type.

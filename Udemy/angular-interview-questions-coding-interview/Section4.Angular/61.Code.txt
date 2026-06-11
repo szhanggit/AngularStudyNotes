@@ -1,0 +1,278 @@
+
+
+
+users/users.module.ts
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {UsersComponent} from './components/users/users.component';
+import {UsersService} from './services/users.service';
+import {reducers} from './store/reducers';
+
+const routes: Routes = [{
+	path: '',
+	component: UsersComponent,
+}];
+
+@NgModule({
+	imports: [
+		CommonModule, 
+		RouterModule.forChild(routes), 
+		StoreModule.forFeature('users', reducers), 
+		EffectsModule.forFeature([UsersEffects]),
+	],		
+	declarations: [UsersComponent],
+	providers: [UsersService],
+	exports: [UsersComponent],
+})
+export class UsersModuel{}
+
+
+
+
+
+
+npm install @ngrx/store@latest
+npm install @ngrx/effects@latest
+npm install @ngrx/store-devtools@latest
+
+services/users.service.ts
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {UserInterface} from '../types/user.interface';
+import {HttpClient} from '@angular/common/http';
+
+@Injectable()
+export class UsersService{
+	constructor(private http: HttpClient){}
+	
+	getUsers(): Observable<UserInterface[]>{
+		return this.http.get<UserInterface[]>('http://localhost:3004/users');
+	}
+}
+
+
+
+export interface UserInterface {
+	id: string;
+	name: string;
+	age: number;
+}
+
+app/app.module.ts
+
+import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'; 
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {ApRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+
+@NgModule({
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule,
+		CommonModule,
+		AppRoutingModule,
+		FormsModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		StoreModule.forRoot({}),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: false,
+			autoPause: true,
+		})，
+		EffectsModule.forRoot(),
+	],
+	bootstrap: [AppComponent]
+})
+export class AppModule{}
+
+-----------------------------------------
+store/reducers.ts
+
+import {createReducer} from '@ngrx/store';
+import {UsersStateInterface} from '../types/usersState.interface';
+import *  as UsersActions from './actions'
+
+export const initialState: UsersStateInterface = {
+	isLoading: false,
+	data: [],
+	error: null,
+}
+
+export const reducers = createReducer(
+	initialState, 
+	on(UsersActions.getUsers, (state) => ({...state, isLoading: true})),
+	on(UsersActions.getUsersSuccess, (state, action) => ({
+		...state,
+		isLoading: false,
+		data: action.users,
+	})),
+	on(UsersActions.getUsersFailure, (state, action) => ({
+		...state,
+		isLoading: false,
+		error: action.error,
+	}))
+);
+
+
+-----------------------------------------
+types/usersState.interface.ts
+
+import {UserInterface} from './user.interface';
+
+export interface UsersStateInterface {
+	isLoading: boolean;
+	data: UserInterface[];
+	error: string | null;
+}
+
+-----------------------------------------
+store/actions.ts
+
+import {createAction, props} from '@ngrx/store';
+import { UserInterface } from '../types/user.interface';
+
+export const getUsers = createAction('[Users] Get Users');	//It is just namespace
+export const getUsersSuccess = createAction('[Users] Get Users success', props<users:UserInterface[]>());
+export const getUsersFailure = createAction('[Users] Get Users failure', props<error:string>());
+
+-----------------------------------------
+users/users.component.ts
+
+import {Component, OnInit} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {AppStateInterface} from 'src/app/types/appState.interface';
+import * as UsersActions from '../../store/actions';
+import {isLoadingSelector} from '../../store/selectors';
+import {UserInterface} from '../../types/user.interface';
+
+@Component({
+	selector: 'users',
+	templateUrl: './users.component.html',
+})
+export class UsersComponent implements OnInit {
+	isLoading$: Observable<boolean>;
+	error$: Observable<string | null>;
+	users$: Observable<UserInterface[]>;
+	
+	constructor(private store: Store<AppStateInterface>){
+		this.isLoading$ = this.store.pipe(select(isLoadingSelector));
+		this.error$ = this.store.pipe(select(errorSelector));
+		this.users$ = this.store.pipe(select(usersSelector));
+	}
+	
+	ngOnInit(): void{
+		this.store.dispatch(UsersActions.getUsers());
+	}
+}
+
+-----------------------------------------
+types/appState.interface.ts
+
+import {UsersStateInterface} from '../users/types/usersState.interface';
+
+export interface AppStateInterface {
+	users: UsersStateInterface;
+}
+
+-----------------------------------------
+store/effects.ts
+
+import {Injectable} from "@angular/core";
+import {Actions, createEffect, ofType} from "@ngrx/effects";
+import {mergeMap} from "rxjs";
+import {UsersService} from "../services/users.service";
+import * as UsersActions from './actions';
+
+@Injectable()
+export class UsersEffects {
+	getUsers$ = createEffects {
+		this.action$.pipe(
+			ofType(UsersActions.getUsers),
+			mergeMap(() => {
+				return this.usersService.getUsers().pipe(
+					map((users) => UsersActions.getUsersSuccess({users})),
+					catchError((error) => {of(UsersActions.getUsersFailure({error: error.message}))})
+				)
+			})
+		);
+	}
+	
+	constructor(private actions$: Actions, private usersService: UsersService) {}
+}
+
+
+-----------------------------------------
+store/selectors.ts
+import {createSelector} from '@ngrx/store';
+import {AppStateInterface} from 'src/app/types/appState.interface';
+
+export const selectFeature = (state: AppStateInterface) => state.users;
+
+export const isLoadingSelector = createSelector(
+	selectFeature,
+	(state) => state.isLoading
+);
+
+export const usersSelector = createSelector(
+	selectFeature,
+	(state) => state.data
+);
+
+export const errorSelector = createSelector(
+	selectFeature,
+	(state) => state.error
+);
+
+-----------------------------------------
+users/users.component.html
+<h1>Users</h1>
+
+<div *ngIf="isLoading$ | async">Loading...</div>
+
+<div *ngIf="error$ | async as error">{{ error }}</div>
+
+<div *ngFor="let user of users$ | async">
+	{{ user.name }}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

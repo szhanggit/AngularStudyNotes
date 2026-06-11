@@ -1,0 +1,74 @@
+61. NgRx - what is this and how does it work?
+Are you familiar with Redux or NgRx?	redux pattern on Angular
+1. Provide a formal pattern for 
+a. organizing state
+b. managing state
+c. communicating state changes so that components can react accordingly.
+ 
+Without NgRx, as we build our app, we will define service or repo to manage state data. WHen app grows big, we will create many services and repos with similar purpose.
+A single store can replace them all.
+Help the communication amoung components.
+
+
+Use NgRx when:
+State everywhere. (The store provides a place for UI state to retain it between router views)
+Getting data again and again! (The store provides a client-side cache to use as needed)
+Notify everyone!(The reducer updates the store and the store notifies all subscribers)
+Something is not working(Great debugging tool)
+
+State Management
+Performance 
+Tooling
+Component communication
+
+State
+Actions
+Reducers
+
+
+Take your debugging for the next level
+Supercharge state and actions
+Handle side effects with NgRx effects
+
+Advantages:
+Centralized immutable state
+Performance
+Testability
+Tooling
+Componnent communication
+
+
+What is State?	View State(*ngIf conditions); User Information; Entity Data; User Selection and Input
+
+
+Redux Pattern: (is a predictable state container for js apps)
+[View] passes user event to [Component] dispatches to [Action] calls [Reducer] update [Store].
+[Selector] gets data from [Store].
+
+Redux Principles:
+1. single source of truth called the store.
+2. State is read only and only changed by dispatching actions.
+3. Changes are made using pure functions called reducers.
+
+Actions: {
+	type: 'LOGIN',
+	payload: {username: 'Duncan', password: 'secret'}
+}
+
+Reducer:
+function reducer(state, action){
+	switch(action.type){
+		case 'LOAD_USER':
+			return {users:[...state.users, action.payload]};
+	}
+}
+
+Store(State):
+
+Single source of truth called the store.
+State is read-only and changed by dispatching actions.
+Changes are made using pure functions called reducers.
+
+-----------------------------------
+Effect: it is something used for asynchronous process. For example, when we are calling a service which has an API call inside. 
+
