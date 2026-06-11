@@ -1,0 +1,10 @@
+ng new childrouting-app --routing
+cd childrouting-app
+ng generate c merchant
+ng generate c order
+ng generate c product
+ng generate c client
+ng generate c csportal
+ng generate c dobatchtransaction
+ng generate c createmerchants
+ng generate c shop  
