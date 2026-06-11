@@ -1,0 +1,79 @@
+https://api-staging.txc.edenred.net/gateway/api/Merchant/VoucherNumberRule/BarCodeTypeRef
+
+
+{
+    "data": {
+        "barCodeDto": [
+            {
+                "id": 1,
+                "description": "Code39"
+            },
+            {
+                "id": 2,
+                "description": "Code128A"
+            },
+            {
+                "id": 3,
+                "description": "Code128B"
+            },
+            {
+                "id": 4,
+                "description": "Code128C"
+            },
+            {
+                "id": 5,
+                "description": "EAN-13"
+            },
+            {
+                "id": 6,
+                "description": "QrCode"
+            },
+            {
+                "id": 7,
+                "description": "Text"
+            }
+        ]
+    },
+    "message": "Success",
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\voucher-number-rule.service.ts
+  // method to get vnr barcode types
+  getVoucherNumberRuleBarCode(): Observable<GetVoucherNumberRuleBarCodeResponse> {
+    const url = `${this._getURL()}api/Merchant/VoucherNumberRule/BarCodeTypeRef`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<GetVoucherNumberRuleBarCodeResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

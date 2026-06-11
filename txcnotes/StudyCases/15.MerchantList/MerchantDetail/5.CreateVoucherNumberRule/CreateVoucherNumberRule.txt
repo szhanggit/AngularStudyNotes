@@ -1,0 +1,82 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/voucher-number-rule/create?tenantName=TW&merchantId=2787&isEdenredProgram=false&isMerchantGroup=false
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'voucher-number-rule/create',
+        component: VoucherNumberRuleCreateComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\voucher-number-rule-create\voucher-number-rule-create.component.html
+
+        <ng-container *ngIf="isEdenredProgram; else thirdPartyProgram">
+            <app-voucher-number-rule-form [tenant]="tenant" [merchantId]="merchantId"
+                [voucherNumberRuleForm]="voucherNumberRuleForm" [isMerchantGroup]="isMerchantGroup"></app-voucher-number-rule-form>
+        </ng-container>
+        <ng-template #thirdPartyProgram>
+            <app-third-party-voucher-number-rule-form [tenant]="tenant" [merchantId]="merchantId"
+                [voucherNumberRuleForm]="voucherNumberRuleForm">
+            </app-third-party-voucher-number-rule-form>
+        </ng-template>
+
+
+<app-voucher-number-rule-form
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\voucher-number-rule-form\voucher-number-rule-form.component.html
+
+
+
+
+<app-third-party-voucher-number-rule-form
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\third-party-voucher-number-rule-form\third-party-voucher-number-rule-form.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

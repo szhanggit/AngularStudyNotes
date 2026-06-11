@@ -1,0 +1,40 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/contract/create?merchantId=2787
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'contract/create',
+        component: ContractCreateComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\contract-create\contract-create.component.html
+<app-contract-form [merchantId]="merchantId" [tenant]="tenant" [formGroup]="formGroup" [isEdit]="false" [programId]="programId"></app-contract-form>
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\contract\contract-form\contract-form.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+https://api-staging.txc.edenred.net/gateway/api/Merchant/VoucherNumberRule/PinTypeRef
+
+
+{
+    "data": {
+        "pinCodeDto": [
+            {
+                "id": 0,
+                "description": "Not Required"
+            },
+            {
+                "id": 1,
+                "description": "Pure Digital, 4 digits"
+            },
+            {
+                "id": 2,
+                "description": "Pure Digital, 6 digits"
+            },
+            {
+                "id": 3,
+                "description": "Pure Digital, 8 digits"
+            },
+            {
+                "id": 4,
+                "description": "Letter Digital, 4 digits"
+            },
+            {
+                "id": 5,
+                "description": "Letter Digital, 6 digits"
+            }
+        ]
+    },
+    "message": "Success",
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\third-party-voucher-number-rule-form\third-party-voucher-number-rule-form.component.ts
+
+_voucherNumberRuleService.getVoucherNumberRulePinCode()
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\voucher-number-rule.service.ts
+  // method to get vnr pincode types
+  getVoucherNumberRulePinCode(): Observable<GetVoucherNumberRulePinCodeResponse> {
+    const url = `${this._getURL()}api/Merchant/VoucherNumberRule/PinTypeRef`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<GetVoucherNumberRulePinCodeResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
