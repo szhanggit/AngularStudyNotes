@@ -1,0 +1,25 @@
+ng new ngrx-basicA-app --routing --standalone false
+
+
+
+
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap@12.1.2 --force
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css" into angular.json
+
+
+https://www.bilibili.com/video/BV1m6421c7FQ/?spm_id_from=333.880.my_history.page.click&vd_source=3c46c834257dfeb6158df2cd8a7b140e
+Angular ngrx Redux 快速入门教程
+
+https://github.com/DeborahK/Angular-NgRx-GettingStarted
+
+npm install @ngrx/store --force
+npm install @ngrx/store-devtools --force
+npm install @ngrx/effects --force
+
+----------------------------------------------------------------
+ng generate c firstex
+ng generate c secondex

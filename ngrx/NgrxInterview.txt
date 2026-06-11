@@ -1,0 +1,82 @@
+Q: What is NgRx?
+A: NgRx is a framework for building reactive applications in Angular. NgRx provides state management, isolation of side effects, entity collection management, router bindings, code generation, and developer tools that enhance developers' experience when building many different types of applications.
+
+Q: What are the benefits of using store (ngrx) in angular?
+A:
+
+Centralized, Immutable State — All relevant application state exists in one location. This makes it easier to track down problems, as a snapshot of the state at the time of an error can provide important insight and make it easy to recreate issues.
+Performance — Since the state is centralized at the top of your application, data updates can flow down through your components relying on slices of the store.
+Testability -All state updates are handled in reducers, which are pure functions. Pure functions are elementary to test, as it is simply input in, and assert against output.
+Q: What are Reducers in NgRX?
+A: Reducers in NgRx are responsible for handling transitions from one state to the next state in your application. Reducer functions handle these transitions by determining which actions to handle based on the action’s type. Reducers are pure functions that are the only ones that can change state. They are not really changing the state but making a copy of the existing state and changing one or more properties in the new state.
+
+Q: What is the difference between NgRX and RxJS?
+A: Ngrx is a redux implementation using rxjs. Rxjs is for handling complex asynchronous work like taking communication between client and server. Ngrx is for optimally storing data in the client and recalling them from all over the application, usually.
+
+Q: What are the Actions in NgRX?
+A: Actions are one of the main building blocks in NgRx. Actions express unique events that happen throughout your application. Actions are objects that extend the NgRx Action class with a ‘type’ property. They have an optional ‘payload’ property (naming is up to you but the standard is to name it ‘payload’) for sending in data to the effect/reducer and are dispatched by the store to run an effect or change state in a reducer.
+
+Q: What are States in NgRX?
+A: State is a single, immutable data structure. Actions describe state changes. Pure functions called reducers take the previous state and the next action to compute the new state. State accessed with the Store, an observable of state, and an observer of actions.
+
+Q: Can you explain the different parts of a state tree in NgRx?
+The different parts of a state tree in NgRx include the reducer functions, the actions, and the selectors. The reducer functions are responsible for handling the state changes, the actions are responsible for dispatching the appropriate actions to the reducers, and the selectors are responsible for retrieving the appropriate data from the state tree.
+
+Q: What are actions and reducers in NgRx?
+Actions are objects that contain information about what just happened in your application. Reducers are functions that take in the current state of your application and an action and then return a new state object.
+
+Q: How does an action differ from a reducer in NgRx?
+An action is a function that is used to trigger a change in the state of an application, while a reducer is a function that is used to handle the changed state. In other words, an action is used to initiate a change, while a reducer is used to actually implement the change.
+
+Q: What is a selector in NgRx?
+A selector is a function that selects a slice of state from the store. Selectors can be used to create derived data, such as a filtered list of items or a sum of items.
+
+Q: Can you explain what an effect is in NgRx?
+In NgRx, effects provide a way to isolate side effects from components and services. By using an effect, you can make sure that your component or service is only responsible for one thing. For example, if you have a component that needs to make a request to an API, you can use an effect to handle that request. This way, the component can focus on other things, and the effect can take care of the API request.
+
+Q: What is the purpose of entity adapters in NgRx?
+Entity adapters are used to simplify the process of working with entities in NgRx. They provide a number of helper methods for performing CRUD operations on entities, as well as methods for selecting entities based on various criteria.
+
+Q: What do you understand about effects vs ngrx-entity in NgRx?
+There are two main types of data in NgRx: entities and effects. Entities are the data that make up your application, while effects are the actions that can be taken on that data. In general, effects are used for asynchronous operations, while entities are used for synchronous operations.
+
+Q: What are some important mechanics of using NgRx?
+NgRx is a library for Angular that helps to manage the state in an application. When using NgRx, it is important to understand how to create actions, reducers, and selectors. Actions are used to describe what has happened in the application, and they are dispatched from components. Reducers take the action and update the state accordingly. Selectors are used to selecting a slice of state from the store to be used in a component.
+
+Q: What are some real-world use cases for NgRx?
+NgRx is a great tool for managing state in large-scale applications. It can be used to keep track of user data, application settings, and even application states.
+
+Q: When should I use selectors in my app?
+Selectors are a powerful tool in NgRx, and they can be used in a variety of different ways. Generally speaking, you should use selectors any time you need to access data from the store outside of a component or effect. Selectors can be used to compute derived data or to provide an easier way to access specific parts of the store.
+
+Q: How can you debug your store with Redux Dev Tools?
+By default, the Redux DevTools is not enabled in production. However, you can enable them by setting the environment variable REACT_APP_ENABLE_REDUX_DEV_TOOLS to true. This will enable the DevTools and allow you to inspect the state of your store at any point in time.
+
+Q: What’s the difference between @ngrx/store, @ngrx/effects, and @ngrx/entity?
+@ngrx/store is the library that provides the core Redux-like store for NgRx. @ngrx/effects is a library that provides a way to isolate side effects from your NgRx store. @ngrx/entity is a library that provides an easy way to manage entities in NgRx.
+
+Q: Why would you want to use NgRx instead of Angular services or RxJS Subjects?
+NgRx provides a way to manage state in Angular applications. This can be helpful for a number of reasons, including making it easier to debug application state, providing a more predictable way to manage state, and making it easier to unit test state management code.
+
+Q: In NgRx, why would you want to use entities over plain arrays in your state?
+Entities offer a few advantages over plain arrays when used in NgRx state. First, entities allow you to keep track of the entities by a key, which can be useful for looking up entities by id. Second, entities allow you to denormalize your data, which can improve performance when working with large data sets. Finally, entities offer a few helper methods for working with data, such as the ability to get the keys of all entities in the state.
+
+Q: What are some common mistakes developers make when working with NgRx?
+Some common mistakes developers make when working with NgRx include not unsubscribing from observables, mutating state instead of creating immutable state objects, and not using the NgRx devtools.
+
+Q: What’s the best way to update nested objects in NgRx?
+The best way to update nested objects in NgRx is to use the update operator. This operator will allow you to update specific parts of an object without having to replace the entire object.
+
+Q: What are some key benefits of using NgRx?
+NgRx provides a way to manage state in Angular applications. It is a Redux-inspired state management library that is designed to work well with Angular. NgRx provides a few key benefits, including:
+
+– simplifying state management by providing a single place to store all application state
+– making it easier to debug applications by providing clear, concise Redux devtools
+– providing a way to easily unit test state management logic
+– making it easier to refactor code by providing well-defined reducers and action creators
+
+Q: Where do you put NgRx effects in your app?
+NgRx effects can be placed anywhere in your app, but it is generally recommended to keep them in a separate file or module from your reducers and actions. This helps to keep your code organized and makes it easier to test your effects.
+
+
+https://www.youtube.com/watch?v=bx0g0ml0HcM
