@@ -1,0 +1,209 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+
+parameters:
+  - name: MFEFolderName
+    type: string
+  - name: DistFolderName
+    type: string
+  - name: StorageName
+    type: string
+  - name: ContainerName
+    type: string
+  - name: BuildConfiguration
+    type: string
+  - name: keyVaultSecretsPullFilter
+    type: string
+  - name: environment
+    type: string
+  - name: keyVaultServiceConnection
+    type: string
+  
+jobs:
+- deployment: Build
+  displayName: Build
+  workspace:
+    clean: all
+  pool:
+    name: 'APAC agent pool'
+    demands:
+      - AZP_DEPLOYMENT_BUILD_AGENT -equals $(codeBuildAgentName)
+  environment: ${{ parameters.environment }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+            - checkout: self
+              submodules: true
+            - task: NodeTool@0
+              inputs:
+                versionSpec: '16.x'
+              displayName: 'Install Node.js'
+
+            # configure npm authenticate for txc-angular feed
+            - task: npmAuthenticate@0
+              inputs:
+                workingFile: ${{parameters.MFEFolderName}}/.npmrc
+
+            - task: CmdLine@2
+              displayName: 'npm cache clean --force'
+              inputs:
+                script: |
+                  dir
+                  npm cache clean --force
+                workingDirectory: 'Shared-Library'
+
+            - task: CmdLine@2
+              displayName: 'npm cache clean --force'
+              inputs:
+                script: |
+                  dir
+                  npm cache clean --force
+                workingDirectory: ${{parameters.MFEFolderName}}
+
+            - task: CmdLine@2
+              displayName: 'SharedLibrary npm install force'
+              inputs:
+                script: |
+                  dir
+                  npm install --force --save
+                workingDirectory: 'Shared-Library'
+
+            - task: CmdLine@2
+              displayName: 'SharedLibrary npm build'
+              inputs:
+                script: |
+                  dir
+                  npm run build
+                workingDirectory: 'Shared-Library'
+
+            - task: CmdLine@2
+              displayName: 'SharedLibrary-AuthorizationLibrary Create tgz'
+              inputs:
+                script: |
+                  dir
+                  npm pack
+                workingDirectory: '$(Build.SourcesDirectory)/Shared-Library/dist/authorization-library'
+
+            - task: CmdLine@2
+              displayName: 'SharedLibrary-ComponentLibrary Create tgz'
+              inputs:
+                script: |
+                  dir
+                  npm pack
+                workingDirectory: '$(Build.SourcesDirectory)/Shared-Library/dist/component-library'
+
+            - task: CmdLine@2
+              displayName: 'Project npm install'
+              inputs:
+                script: |
+                  npm install -g @angular/cli
+                  dir 
+                workingDirectory: ${{parameters.MFEFolderName}}
+                
+            # - task: CmdLine@2
+            #   displayName: 'npm cache clear'
+            #   inputs:
+            #     script: |
+            #       dir
+            #       npm cache clean --force
+            #     workingDirectory: ${{parameters.MFEFolderName}}
+            
+            - task: CmdLine@2
+              displayName: 'Project npm install force'
+              inputs:
+                script: |
+                  dir
+                  npm install --force --save
+                workingDirectory: ${{parameters.MFEFolderName}}
+
+            - task: CmdLine@2
+              displayName: 'Echo Create authorization library tgz'
+              inputs:
+                script: |
+                  dir
+                workingDirectory: '$(Build.SourcesDirectory)/Shared-Library/dist/authorization-library'
+
+            - task: CmdLine@2
+              displayName: "Fetch Package Version of Auth Library"
+              inputs:
+                script: |
+                  json_file="$(Build.SourcesDirectory)/Shared-Library/projects/authorization-library/package.json"
+                  AuthLibraryVersion=$(jq -r '.version' $json_file)
+                  echo "##vso[task.setvariable variable=AuthLibraryVersion;]$AuthLibraryVersion"
+
+            - task: CmdLine@2
+              displayName: 'Echo install authorization library'
+              inputs:
+                script: |
+                  echo npm install '$(Build.SourcesDirectory)/Shared-Library/dist/authorization-library/authorization-library-$(AuthLibraryVersion).tgz'
+
+            - task: CmdLine@2
+              displayName: 'Project npm install authorization library'
+              inputs:
+                script: |
+                  dir
+                  npm install --force '$(Build.SourcesDirectory)/Shared-Library/dist/authorization-library/authorization-library-$(AuthLibraryVersion).tgz'
+                workingDirectory: ${{parameters.MFEFolderName}}
+
+            - task: CmdLine@2
+              displayName: 'Echo Create component library tgz'
+              inputs:
+                script: |
+                  dir
+                workingDirectory: '$(Build.SourcesDirectory)/Shared-Library/dist/component-library'
+
+            - task: CmdLine@2
+              displayName: "Fetch Package Version of Component Library"
+              inputs:
+                script: |
+                  json_file="$(Build.SourcesDirectory)/Shared-Library/projects/component-library/package.json"
+                  ComponentLibraryVersion=$(jq -r '.version' $json_file)
+                  echo "##vso[task.setvariable variable=ComponentLibraryVersion;]$ComponentLibraryVersion"
+
+            - task: CmdLine@2
+              displayName: 'Echo install component library'
+              inputs:
+                script: |
+                  echo npm install '$(Build.SourcesDirectory)/Shared-Library/dist/component-library/component-library-$(ComponentLibraryVersion).tgz'
+
+            - task: CmdLine@2
+              displayName: 'Project npm install component library'
+              inputs:
+                script: |
+                  dir
+                  npm install --force '$(Build.SourcesDirectory)/Shared-Library/dist/component-library/component-library-$(ComponentLibraryVersion).tgz'
+                workingDirectory: ${{parameters.MFEFolderName}}
+
+            - task: CmdLine@2
+              displayName: 'build project'
+              inputs:
+                script: |
+                  npm run ${{parameters.BuildConfiguration}} --prod                  
+                workingDirectory: ${{parameters.MFEFolderName}}
+
+            - task: AzureKeyVault@2
+              inputs:
+                connectedServiceName: ${{ parameters.keyVaultServiceConnection }}
+                keyVaultName: $(keyVaultName)
+                secretsFilter: ${{parameters.keyVaultSecretsPullFilter}}
+                runAsPreJob: true # Runs before the job starts
+
+            - task: CmdLine@2
+              displayName: Echo upload storage command
+              inputs:
+                script: |
+                  echo az storage blob upload-batch -d '${{parameters.ContainerName}}' --account-name ${{parameters.StorageName}} -s "$(Build.SourcesDirectory)/${{parameters.MFEFolderName}}/dist/${{parameters.DistFolderName}}" --overwrite --connection-string '$(${{parameters.keyVaultSecretsPullFilter}})'
+
+            - task: AzureCLI@2
+              displayName: Upload to Storage
+              inputs:
+                azureSubscription: 'esg-dev-txc'
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                  az storage blob upload-batch -d '${{parameters.ContainerName}}' --account-name ${{parameters.StorageName}} -s "$(Build.SourcesDirectory)/${{parameters.MFEFolderName}}/dist/${{parameters.DistFolderName}}" --overwrite --connection-string '$(${{parameters.keyVaultSecretsPullFilter}})'
+

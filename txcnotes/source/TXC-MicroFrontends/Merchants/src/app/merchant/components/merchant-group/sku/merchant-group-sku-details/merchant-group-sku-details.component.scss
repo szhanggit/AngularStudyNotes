@@ -1,0 +1,29 @@
+
+.dropdown-toggle::after{
+    display: none;
+}
+
+.input-group-prefix-icon > .input-group-text{
+    background-color: transparent;
+    border-right-width: 0px;
+}
+
+.input-group-prefix-icon > .form-control{
+    border-left-width: 0px;
+}
+
+.btn-sm.rounded-circle {
+    padding: 0;
+
+    &.btn-light {
+        background-color: #D5D8DD;
+    }
+
+    [class^=uil-]:before, [class*=" uil-"]:before {
+        font-size: 2rem !important;
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

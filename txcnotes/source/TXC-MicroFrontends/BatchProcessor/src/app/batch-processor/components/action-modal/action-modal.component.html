@@ -1,0 +1,31 @@
+<div class="row py-3 px-4">
+  <div class="col-12">
+    <lib-form [formModel]="formModel"></lib-form>
+  </div>
+  <div class="col-12" *ngIf="selectedTemplate">
+    <div class="mr-auto">
+      <label>Voucher template</label>
+    </div>
+    <div>{{ selectedTemplate }}-template.xls</div>
+  </div>
+  <div class="col-12 d-flex mt-3">
+    <div class="col-6 pr-2">
+      <button
+        class="btn font-12 w-100 rounded-pill btn-secondary"
+        (click)="activeModal.close('cancel')"
+        ngbAutofocus
+      >
+        {{ secondaryButton.buttonText }}
+      </button>
+    </div>
+    <div class="col-6 pl-2">
+      <button
+        class="btn font-12 w-100 rounded-pill btn-primary"
+        (click)="onPrimaryButtonClicked()"
+        [disabled]="isBtnDisabled"
+      >
+        {{ primaryButton.buttonText }}
+      </button>
+    </div>
+  </div>
+</div>

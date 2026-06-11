@@ -1,0 +1,56 @@
+<form [formGroup]="quotationFormGroup">
+    <div class="container-fluid quotation-list">
+        <div class="row my-3">
+            <div class="col-xl-10">
+                <h3 class=" text-dark">Quotation List</h3>
+            </div>       
+        </div> 
+        <div class="bg-white p-3 rounded mb-3">
+          <div class="font-16"><p>Search quotation no.,project name,sales email etc.</p></div>  
+          <div class="row">
+            <div class="col-3">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="col-3 font-14">Keyword</div>
+                    <div class="col-9 font-14"><input type="text" class="form-control ps-0" formControlName="keyword" ></div>
+                </div>
+            </div>
+            <div class="col-4"> 
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="col-3 font-14">Client name</div>
+                    <div class="col-9 font-14"><input type="text" class="form-control ps-0" formControlName="clientName"></div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="col-3 font-14">Valid At</div>
+                    <div class="col-9 font-14"><input type="text" class="form-control ps-0" (click)="datepicker.open()" placeholder="YYYY/MM/DD" formControlName="validAt" ></div>
+                    <div class="dp-hidden position-absolute top-1">
+                        <input
+                            name="datepicker"
+                            class="dp-hidden"
+                            ngbDatepicker
+                            #datepicker="ngbDatepicker"
+                            [autoClose]="'outside'"
+                            (dateSelect)="onDateSelection($event)"
+                            [displayMonths]="1"                       
+                            outsideDays="hidden"
+                            [startDate]="validAt!"
+                            tabindex="-1"
+                        />                   
+                </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row">
+                    <button type="button" class="btn btn-secondary text-nowrap" (click)="searchQuotation()">Search</button>
+                </div>
+            </div>
+        </div>
+        </div>   
+         <div>
+            <app-quotation-list></app-quotation-list>
+        </div>
+    </div>
+    </form>
+    
+    

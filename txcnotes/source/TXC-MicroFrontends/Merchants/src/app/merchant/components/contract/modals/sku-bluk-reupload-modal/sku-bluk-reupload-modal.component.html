@@ -1,0 +1,13 @@
+<div class="modal-header border-bottom-0">
+    <h4 class="modal-title text-center w-100" id="modal-basic-title">Reupload excel</h4>
+</div>
+<div class="modal-body">
+    <p class="text-muted text-center">
+        Are you sure you want to reupload an excel file? All uploaded data will be cleared.
+    </p>
+</div>
+<div class="modal-footer border-top-0 justify-content-center">
+    <button type="button" class="btn btn-secondary rounded-pill px-4"
+        (click)="activeModal.dismiss('Cross click');">Back </button>
+    <button type="button" class="btn btn-primary rounded-pill px-3" [appSkuBlukUpload] [programId]="programId" [merchantId]="merchantId" [costSchemeId]="costSchemeId">Reupload</button>
+</div>

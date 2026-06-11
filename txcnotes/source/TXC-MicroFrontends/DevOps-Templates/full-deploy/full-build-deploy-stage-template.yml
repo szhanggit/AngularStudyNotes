@@ -1,0 +1,119 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+
+parameters:
+  - name: MFEFolderName
+    type: string
+  - name: DistFolderName
+    type: string
+  - name: ContainerName
+    type: string
+
+stages:
+- stage: Dev
+  displayName: Dev
+  variables:
+  - template: ${{variables['System.DefaultWorkingDirectory']}}/DevOps-Templates/full-deploy/variable-templates/template-variables.yml 
+    parameters:
+      mfeEnv: 'dev'
+  jobs:
+  - template: job-templates/full-build-deploy-job-template.yml
+    parameters:
+      environment: 'aks-dev-env'
+      MFEFolderName: ${{parameters.MFEFolderName}}
+      DistFolderName: ${{parameters.DistFolderName}}
+      ContainerName: ${{parameters.ContainerName}}
+      StorageName: 'esgmfedevassestored'
+      BuildConfiguration: 'build-dev'
+      keyVaultServiceConnection: '87cda342-fbe8-4692-812e-296f320d1387'
+      keyVaultSecretsPullFilter: 'dev-mfe-connectionstring'
+
+- stage: Staging
+  displayName: Staging
+  variables:
+  - template: ${{variables['System.DefaultWorkingDirectory']}}/DevOps-Templates/full-deploy/variable-templates/template-variables.yml 
+    parameters:
+      mfeEnv: 'staging'
+  dependsOn:
+  - Dev
+  condition: succeeded('Dev')
+  jobs:
+  - template: job-templates/full-build-deploy-job-template.yml
+    parameters:
+      environment: 'aks-staging-env'
+      MFEFolderName: ${{parameters.MFEFolderName}}
+      DistFolderName: ${{parameters.DistFolderName}}
+      ContainerName: ${{parameters.ContainerName}}
+      StorageName: 'esgmfestagingassestored'
+      BuildConfiguration: 'build-staging'
+      keyVaultServiceConnection: '87cda342-fbe8-4692-812e-296f320d1387'
+      keyVaultSecretsPullFilter: 'staging-mfe-connectionstring'
+  
+- stage: TXCUAT
+  displayName: TXCUAT
+  variables:
+  - template: ${{variables['System.DefaultWorkingDirectory']}}/DevOps-Templates/full-deploy/variable-templates/template-variables.yml 
+    parameters:
+      mfeEnv: 'txcuat'
+  dependsOn:
+  - Dev
+  condition: succeeded('Dev')
+  jobs:
+  - template: job-templates/full-build-deploy-job-template.yml
+    parameters:
+      environment: 'aks-uat-env'
+      MFEFolderName: ${{parameters.MFEFolderName}}
+      DistFolderName: ${{parameters.DistFolderName}}
+      ContainerName: ${{parameters.ContainerName}}
+      StorageName: 'esgmfetxcuatassestored'
+      BuildConfiguration: 'build-txcuat'
+      keyVaultServiceConnection: '87cda342-fbe8-4692-812e-296f320d1387'
+      keyVaultSecretsPullFilter: 'txcuat-mfe-connectionstring'
+
+- stage: UAT
+  displayName: UAT
+  variables:
+  - template: ${{variables['System.DefaultWorkingDirectory']}}/DevOps-Templates/full-deploy/variable-templates/template-variables.yml 
+    parameters:
+      mfeEnv: 'uat'
+  dependsOn:
+  - TXCUAT
+  condition: succeeded('TXCUAT')
+  jobs:
+  - template: job-templates/full-build-deploy-job-template.yml
+    parameters:
+      environment: 'aks-uat-env'
+      MFEFolderName: ${{parameters.MFEFolderName}}
+      DistFolderName: ${{parameters.DistFolderName}}
+      ContainerName: ${{parameters.ContainerName}}
+      StorageName: 'esgmfeuatassestored'
+      BuildConfiguration: 'build-uat'
+      keyVaultServiceConnection: '87cda342-fbe8-4692-812e-296f320d1387'
+      keyVaultSecretsPullFilter: 'uat-mfe-connectionstring'
+
+- stage: PROD
+  displayName: PROD
+  variables:
+  - template: ${{variables['System.DefaultWorkingDirectory']}}/DevOps-Templates/full-deploy/variable-templates/template-variables.yml 
+    parameters:
+      mfeEnv: 'prod'
+  dependsOn:
+  - UAT
+  condition: succeeded('UAT')
+  jobs:
+  - template: job-templates/full-build-deploy-job-template.yml
+    parameters:
+      environment: 'aks-prod-env'
+      MFEFolderName: ${{parameters.MFEFolderName}}
+      DistFolderName: ${{parameters.DistFolderName}}
+      ContainerName: ${{parameters.ContainerName}}
+      StorageName: 'esgmfeprodassestorep'
+      BuildConfiguration: 'build-prod'
+      keyVaultServiceConnection: '3a9a6f23-4911-45ea-a0cf-aca515596020'
+      keyVaultSecretsPullFilter: 'prod-mfe-connectionstring'
+
+
+

@@ -1,0 +1,93 @@
+<p class="text-primary font-14" *ngIf="showNote">Noted that below choice will apply to all shops listed above, go to acceptance loop under merchant details page to do customization.</p>
+    <ng-container *ngIf="total != 0; else nodata">
+        <ng-container *ngTemplateOutlet="table"></ng-container>
+        <ng-container *ngIf="allowPagination">
+            <ng-container *ngTemplateOutlet="pagination"></ng-container>
+        </ng-container>
+    </ng-container>
+    <ng-template #nodata>
+        
+        <div class="text-center">
+            <span class="text-secondary">
+                <button class="btn btn-primary font-12 px-4" (click)="navigateToAcceptanceLoopCreate()" *ngIf="_merchantPermissionService.isMerchantEditor">Create acceptance loop</button>
+            </span>
+        </div>
+
+    </ng-template>
+
+
+<ng-template #table>
+    <table class="table table-centered mt-2">
+        <thead>
+            <tr class="font-12">
+                <th width="2%" *ngIf="allowSelect">
+                    <input type="checkbox" class="form-check-input" [checked]="allSelected" (change)="onSelectAllChange($event)">
+                </th>
+                <th width="20%">Acceptance Loop Name / Description</th>
+                <!-- <th width="20%">Available Merchant</th> -->
+                <th width="10%">Available Shop</th>
+                <th width="10%">Creator / Created Time</th>
+                <th width="5%" *ngIf="_merchantPermissionService.isMerchantEditor && allowAction">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let item of acceptanceLoops; index as i">
+                    <tr class="font-14" [ngClass]="{'table-active' : item.isDefault && !allowSelect}">                  
+                        <td width="2%" *ngIf="allowSelect" [ngClass]="{'pb-0' : item.isDefault && !allowSelect}">
+                            <input type="checkbox" class="form-check-input" [checked]="isSelected(item)" [disabled]="item.isDefault" (change)="onCheckChanged($event, item)">
+                        </td>
+                        <td width="20%" [ngClass]="{'pb-0' : item.isDefault && !allowSelect}">                        
+                            {{item.code}} <br/>
+                            <span class="text-muted font-12" *ngIf="!item.isDefault">{{item.description}}</span>
+                        </td>
+                        <!-- <td width="20%">
+                            <span *ngFor="let merchant of item.merchantsDisplay">
+                                {{merchant.name}} <br/> 
+                            </span>
+                        </td> -->
+                        <td width="10%" class="text-primary" [ngClass]="{'pb-0' : item.isDefault && !allowSelect}" (click)="openModal(item.acceptanceLoopId)">
+                            {{ item.isDefault ? "All (" + item.shopCountAvailableInAL + ( item.shopCountAvailableInAL > 1 ? " shops)" : " shop)") : "Limited (" + item.shopCountAvailableInAL + ( item.shopCountAvailableInAL > 1 ? " shops)" : " shop)") }}
+                        </td>
+                        <td width="10%" [ngClass]="{'pb-0' : item.isDefault && !allowSelect}">
+                            {{item.createdBy}}<br/>
+                            <span class="font-12">{{item.createdOn | date : 'yyyy/MM/dd hh:mm:ss a': 'UTC' + selectedTenantUTC }}</span>
+                        </td>
+                        <td width="5%" class="table-action" [ngClass]="{'pb-0' : item.isDefault && !allowSelect}" *ngIf="_merchantPermissionService.isMerchantEditor && allowAction">   
+                            <button class="btn btn-link text-dark mx-2" (click)="navigateToAcceptanceLoopEdit(item)" *ngIf="!item.isDefault">
+                                <i class="mdi mdi-pencil"></i>
+                            </button>
+                        </td>  
+                    </tr>
+                    <tr class="table-active" *ngIf="item.isDefault && !allowSelect">
+                        <td colspan="7" class="pt-0"><i class="mdi mdi-information-outline font-18"></i> All coming new shops will be auto added to this default acceptance loop. </td>
+                    </tr> 
+                
+            </ng-container>              
+            
+        </tbody>
+    </table>
+    
+</ng-template>
+<ng-template #pagination>
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ pageIndex }} of {{ pageCount }}, items {{ itemStart }} to {{ itemEnd }} of
+                {{ total }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end font-12">
+                <ngb-pagination [collectionSize]="total" [(page)]="pageIndex" [maxSize]="5"
+                    [pageSize]="pageSize" (pageChange)="bindData()"  class="pagination-rounded">
+                    <ng-template ngbPaginationPrevious>
+                        <i class="uil-angle-left"></i>
+                    </ng-template>
+                    <ng-template ngbPaginationNext>
+                        <i class="uil-angle-right"></i>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</ng-template>

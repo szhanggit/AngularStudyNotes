@@ -1,0 +1,11 @@
+.datepicker-wrapper {
+    display: flex;
+    #date-picker-icon {
+        width: 40px;
+    }
+
+}
+
+.invalid {
+    border: 1px solid red;
+}

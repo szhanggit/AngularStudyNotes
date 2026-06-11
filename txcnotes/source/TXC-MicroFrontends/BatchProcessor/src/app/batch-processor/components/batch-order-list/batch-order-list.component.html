@@ -1,0 +1,54 @@
+<div [ngSwitch]="selectedView">
+  <div *ngSwitchDefault class="my-3">
+    <div class="my-3">
+      <lib-header title="Batch Order List" [buttons]="actionButtons"></lib-header>
+    
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <ul
+            ngbNav
+            #nav="ngbNav"
+            (activeId)="(1)"
+            class="nav-tabs nav-bordered my-3"
+          >
+            <li ngbNavItem="1">
+              <a ngbNavLink>
+                <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                <span class="d-none d-md-block">Batch View</span>
+              </a>
+              <ng-template ngbNavContent>
+                <app-batch-view
+                  (selectedViewChange)="handleSelectedViewChange($event)"
+                ></app-batch-view>
+              </ng-template>
+            </li>
+            <li ngbNavItem="2">
+              <a ngbNavLink>
+                <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                <span class="d-none d-md-block">Batch Item View</span>
+              </a>
+              <ng-template ngbNavContent>
+                <app-batch-item-view></app-batch-item-view>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+        <div [ngbNavOutlet]="nav"></div>
+      </div>
+    </div>
+  </div>
+  <ngbd-toast-global></ngbd-toast-global>
+  <app-batch-error
+    *ngSwitchCase="statuses.Failed"
+    [status]="selectedView"
+    title="Create batch order"
+  ></app-batch-error>
+
+  <app-batch-error
+    *ngSwitchCase="statuses.InitialzingError"
+    [status]="selectedView"
+    title="Create batch order"
+    reuploadTitle="Reupload batch order"
+    (selectedViewChange)="handleSelectedViewChange($event)"
+  ></app-batch-error>
+</div>
