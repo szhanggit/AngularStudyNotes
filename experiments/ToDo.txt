@@ -1,0 +1,14 @@
+https://www.telerik.com/blogs/angular-basic-what-are-promises-async-await-why-should-you-care
+https://indepth.dev/posts/1235/how-to-reuse-common-layouts-in-angular-using-router-2
+https://stackblitz.com/edit/angular-multi-layout-example?file=app%2Fapp.routing.ts
+
+
+
+
+
+
+
+
+
+
+

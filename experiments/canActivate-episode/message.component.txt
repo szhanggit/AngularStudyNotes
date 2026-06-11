@@ -1,0 +1,44 @@
+src\app\terms.guard.ts
+
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
+        if (route.url.length > 0 && route.url[route.url.length - 1].path == "categories") {
+            return new Promise<boolean>((resolve, reject) => {
+                let responses: [string, (string) => void][] = [["Yes", () => resolve(true)], ["No ", () => resolve(false)]];
+                this.messages.reportMessage(new Message("Do you want to see the categories component?", false, responses));
+            });
+        } else {
+            return true;
+        }
+    }
+
+
+
+src\app\messages\message.model.ts
+export class Message {
+
+    constructor(public text: string,
+        public error: boolean = false,
+        public responses?: [string, (string) => void][]) { }
+}
+
+
+[string, (string) => void][]
+Looks like it is a dictionary array. Key is string and value is a function.
+let responses: [string, () => void][] = [["Yes...", () => {resolve(true);}], ["No...", () => {resolve(false);}]];
+
+(
+https://stackoverflow.com/questions/34530122/is-it-possible-to-declare-and-call-a-dictionary-of-functions-in-typescript
+// Here, I'm trying to declare a dictionary where the key is a number and the value is a function.
+var ElementFactory: { [elementType: number]: () => {}; };
+)
+
+
+
+
+
+src\app\messages\message.component.html
+        <button *ngFor="let resp of lastMessage?.responses; let i = index" (click)="resp[1]('adsf')" class="btn btn-primary m-2" [class.btn-secondary]="i > 0">
+                {{resp[0]}}
+        </button>
+
+(click) can have a string function.

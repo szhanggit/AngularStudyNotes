@@ -1,0 +1,30 @@
+<p>You are in studentdetail.component.html</p>
+<button (click)="getStudentById(1)">Get Student Detail</button>
+<button (click)="getStudentById2(1)">Get Student Detail2</button>
+<button (click)="registerStudent()">Register Student</button>
+<button (click)="editStudent()">Edit Student</button>
+<button (click)="deleteStudent(45)">Delete Student</button>
+<button (click)="download()">Download File</button>
+
+<div>
+    <h2>File Upload</h2>
+    <input type="file" (change)="onFileSelected($event)" />
+    <button (click)="onUpload()" [disabled]="!selectedFile">Upload</button>
+    <p *ngIf="uploadProgress >= 0">Upload Progress: {{uploadProgress}}%</p>
+</div>
+
+<div>
+    <button (click)="getAllStudents()">Get All Students</button>
+</div>
+
+<div>
+  <button (click)="forkJoinAllStudents()">Fork Join All Students</button>
+</div>
+
+<div>
+  <button (click)="promiseAllStudents()">Promise All Students</button>
+</div>
+
+<div>
+  <button (click)="fetchAllStudents()">Fetch All Students</button>
+</div>

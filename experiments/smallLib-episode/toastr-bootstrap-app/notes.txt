@@ -1,0 +1,39 @@
+cd D:\Study\AngularStudyNotes\experiments
+ng new template-app --routing
+
+
+
+
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap@12.1.2 --force
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css" into angular.json
+ng add @angular/localize
+
+cd D:\Study\AngularStudyNotes\experiments\template-app
+ng generate c bootstrapEx
+ng generate c bootstrapTXC
+ng generate c txcForm
+ng generate c roleManagement
+ng generate c systemException
+ng generate c bootstrap-ex/ToastsContainerEx
+ng generate c bootstrap-txc/ToastsContainerTXC
+ng generate service bootstrap-ex/ToastService
+ng generate service bootstrap-txc/ToastTxc
+ng generate service system-exception/toaster
+
+Reference:
+https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap
+https://snyk.io/advisor/npm-package/@ng-bootstrap/ng-bootstrap
+https://ng-bootstrap.github.io/#/components/nav/api#NgbNavItem
+
+
+
+http://localhost:4200/
+http://localhost:4200/navbasic
+http://localhost:4200/template
+
+npm list @ng-bootstrap/ng-bootstrap
+npm uninstall @ng-bootstrap/ng-bootstrap

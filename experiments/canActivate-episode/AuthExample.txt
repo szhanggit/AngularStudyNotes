@@ -1,0 +1,2 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\pages-routing.module.ts
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\guards\auth.guard.ts

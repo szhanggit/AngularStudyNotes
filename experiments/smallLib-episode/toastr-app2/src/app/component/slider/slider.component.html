@@ -1,0 +1,21 @@
+<h1>NGX-Slider</h1>
+
+<h2>Basic Slider</h2>
+<ngx-slider [(value)]="value" [options]="options"></ngx-slider>
+
+<label>Slider value is : {{value}}</label>
+
+<h2>Range Slider</h2>
+<ngx-slider [(value)]="value1" [(highValue)]="highvalue1" [options]="options"></ngx-slider>
+
+<label>From value is : {{value1}}</label>
+<label>To value is : {{highvalue1}}</label>
+
+<div style="height: 250px;">
+    <h2>Vertical Slider</h2>
+    <ngx-slider [(value)]="value2" [options]="options2"></ngx-slider>
+</div>
+
+<h2>dotted Slider</h2>
+<ngx-slider [(value)]="value3" [options]="options3"></ngx-slider>
+

@@ -1,0 +1,22 @@
+ng new middleoffice2-app --routing	(after running this, need cd middleoffice-app)
+cd middleoffice2-app
+ng generate module order --route orders --module app.module
+ng generate module product --route products --module app.module
+ng generate module client --route clients --module app.module
+ng generate module csportal --route csportal --module app.module
+ng generate module merchant --route merchants --module app.module
+	cd D:\Study\AngularStudyNotes\experiments\middleoffice2-app\middleoffice2-app\src\app\merchant
+	ng generate module shop --route shops --module merchant.module
+	ng generate module dobatchtransaction --route dobatchtransaction --module merchant.module
+	ng generate module createmerchant --route createmerchant --module merchant.module
+
+cd D:\Study\AngularStudyNotes\experiments\middleoffice2-app\middleoffice2-app\src\app\merchant\shop
+ng generate module shopOnStore --route shops --module shop.module
+ng generate module shopOnLine --route shops --module shop.module
+
+This is the default url.
+http://localhost:23453/clients
+
+If you manually change it to be
+http://localhost:23453/orders
+App will redirect it to be http://localhost:23453/clients.

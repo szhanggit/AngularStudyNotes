@@ -1,0 +1,55 @@
+canActivate 
+prevents the url modified by human hands.
+
+src\app\app-routing.module.ts	will be reloaded, once you manually change the URL.
+When you manually change the URL, 
+1. app-routing.module.ts will be reloaded, and defaultFirst.guard.ts will be reloaded too.
+2. Will go to the default page. It is the first load.
+3. Will go to the designated page. It is not the first load.
+
+
+Remember that navigation can be performed only by the application. If you change the URL directly
+in the browser’s URL bar, the browser will request the URL you enter from the web server. The Angular
+development server that is responding to HTTP requests will respond to any URL that doesn’t correspond
+to a file by returning the contents of index.html. This is generally a useful behavior because it means you
+won’t receive an HTTP error when the browser’s reload button is clicked. But it can cause problems if the
+application expects the user to navigate through the application following a specific path.
+
+Page 150.
+
+
+https://stackoverflow.com/questions/50056446/what-is-the-lifecycle-of-a-service-in-angular-5
+Lifecycle of a service:
+
+
+Service can have 2 scopes:
+
+If service is declared on your module, you have same instance shared for all, this means service will be constructed when the first component/directive/service/Pipe who needs it will be created. 
+Then it will be destroyed when Module itself will be destroyed (most of the time when page is unloaded)
+
+if the service is declared on Component/Directive/Pipe, 
+then 1 instance will be created each time when Component/Directive/Pipe will be created and destroyed when related Component/Directive/Pipe will be destroyed.
+
+
+Page 647
+The Perils of Changing The Url Manually
+如果手动改，页面会reload。不会有SPA的效果。
+
+
+
+
+agreement		canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean	(defined in the root)
+authApp			canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean    (defined in the specific module)
+deactivate		canDeactivate(component: ProductComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean	(defined in the root)
+deactivate2		canDeactivate(component: ProductComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean	(defined in the root)
+middleoffice2-app 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean	(defined in the root. Cannot go to other pages)
+
+
+
+resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product[]>	大量数据下载完才显示页面。否则会显示一张空白页面。to ensure that the application has received 
+http://localhost:4200/form/edit/7	没有resolve，刷新后就不显示数据。有resolve后，刷新后不会丢数据。To prevent URL entry problems.
+canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {	Show terms and conditions before entering a new page.
+	(Auth) | (Make sure that at first time, show landing page C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter8\SportsStore\src\app\storeFirst.guard.ts)
+canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {	Show questions before entering a new child page. (click Count Categories)
+canLoad(route: Route): Promise<boolean> | boolean {	Show message before load dynamic module.
+canDeactivate(component: FormComponent, route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {	Show unsaved notification before leaving the current page.	

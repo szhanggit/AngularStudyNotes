@@ -1,0 +1,4 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\interceptors\security\token.interceptor.ts
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\login\jwt.interceptor.ts
+
+
