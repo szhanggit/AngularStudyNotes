@@ -1,0 +1,53 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{dictionaries (where: { category: { eq: \"StateOrProvince\"}}) { dictionaryId displayName parentId }}"}
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":11,\"displayName\":\"Shanghai\",\"parentId\":6},{\"dictionaryId\":12,\"displayName\":\"Jiangsu\",\"parentId\":6},{\"dictionaryId\":13,\"displayName\":\"Taipei City\",\"parentId\":10},{\"dictionaryId\":14,\"displayName\":\"Keelung City\",\"parentId\":10},{\"dictionaryId\":15,\"displayName\":\"New Taipei City\",\"parentId\":10},{\"dictionaryId\":16,\"displayName\":\"Yilan County\",\"parentId\":10},{\"dictionaryId\":17,\"displayName\":\"Hsinchu City\",\"parentId\":10},{\"dictionaryId\":18,\"displayName\":\"Hsinchu County\",\"parentId\":10},{\"dictionaryId\":19,\"displayName\":\"Taoyuan County\",\"parentId\":10},{\"dictionaryId\":20,\"displayName\":\"Miaoli County\",\"parentId\":10},{\"dictionaryId\":21,\"displayName\":\"Taichung City\",\"parentId\":10},{\"dictionaryId\":22,\"displayName\":\"Changhua County\",\"parentId\":10},{\"dictionaryId\":23,\"displayName\":\"Nantou County\",\"parentId\":10},{\"dictionaryId\":24,\"displayName\":\"Chiayi City\",\"parentId\":10},{\"dictionaryId\":25,\"displayName\":\"Chiayi County\",\"parentId\":10},{\"dictionaryId\":26,\"displayName\":\"Yunlin County\",\"parentId\":10},{\"dictionaryId\":27,\"displayName\":\"Tainan City\",\"parentId\":10},{\"dictionaryId\":28,\"displayName\":\"Kaohsiung City\",\"parentId\":10},{\"dictionaryId\":29,\"displayName\":\"Nanhai Islands\",\"parentId\":10},{\"dictionaryId\":30,\"displayName\":\"Penghu County\",\"parentId\":10},{\"dictionaryId\":31,\"displayName\":\"Pingtung County\",\"parentId\":10},{\"dictionaryId\":32,\"displayName\":\"Taitung County\",\"parentId\":10},{\"dictionaryId\":33,\"displayName\":\"Hualien County\",\"parentId\":10},{\"dictionaryId\":34,\"displayName\":\"Kinmen County\",\"parentId\":10},{\"dictionaryId\":35,\"displayName\":\"Lienchiang County\",\"parentId\":10},{\"dictionaryId\":276,\"displayName\":\"Hong Kong Island\",\"parentId\":7},{\"dictionaryId\":277,\"displayName\":\"Kowloon\",\"parentId\":7},{\"dictionaryId\":278,\"displayName\":\"New Territories\",\"parentId\":7}]}",
+    "message": null,
+    "success": true
+}
+
+
+
+------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\dictionary.service.ts
+  // get dictionary items by category using graphql endpoint
+  getDictionaryItemsByCategory(category: string): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{dictionaries (where: { category: { eq: "${category}"}}) { dictionaryId displayName parentId }}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+  getCityStateCountry() {
+    return forkJoin([
+      this.getDictionaryItemsByCategory('City'),				
+      this.getDictionaryItemsByCategory('StateOrProvince'),		<=======================
+      this.getDictionaryItemsByCategory('Country'),			
+    ]);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantInfo
+
+
+{"merchant":{"isAutoCreateReimbursement":false,"sameKeyWithShop":false,"needConsumerScan":false,"isLegacyMerchant":false,"merchantContactEmailList":["merchantContactEmailList@edenred.com"],"edenredContactEmailList":["edenredContactEmailList@edenred.com"],"programId":308,"name":"AUTOTEST20231214191745095","externalCode":"AUTOTEST20231214191745095","invoiceRegisterNumber":"20231214191745095","securityKey":"EOZ5COAUA1LMJVURA3IQQ7FQ381FTBVG","status":1,"tX1MerchantUID":"20231214191745096","autoCreateReimbursementIntervalType":1,"autoCreateReimbursementDay":null,"reimbursementTaxType":0,"reimbursementReceivers":"merchantContactEmailList@edenred.com;edenredContactEmailList@edenred.com","mamEmail":"mamemail@edenred.com","reimbursementType":1,"merchantAutoType":0,"notificationMerchantCode":"","merchantEmail":"merchantEmail@edenred.com","merchantAcquirerId":0,"memo":"gfhfg","issuerType":0,"modifier":"modifier","mainContact":"","mainPhone":"","description":"","categoryId":113,"id":2810},"address":{"countryId":6,"stateOrProvinceId":11,"cityId":36,"district":"AUTOTEST","detailAddressLine":"AUTOTEST","postcode":"AUTOTEST"}}
+
+
+{"data":1,"message":"Success","success":true}
+
+
+--------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-form\merchant-form.component.ts
+  OnSubmit(): void {
+......
+      if (this.isEdit) {
+        body.merchant.id = this.f.merchantId.value;
+        body.merchant.modifier = 'modifier';
+
+        this._merchantService.updateMerchant(body).subscribe(
+          res => {
+            this.navigateToMerchantDetails(res.success);
+            this.isLoading$.next(false);
+          },
+          err => {
+            let errorMessage = err.error.Message ?? err.error.message;
+            if (err.error.data.length) {
+              err.error.data.forEach((errorMsg: string) =>
+                errorMessage = `${errorMessage}. ${errorMsg}`
+              );
+            }
+            this.toast.showDanger(errorMessage);
+            this.isLoading$.next(false);
+          });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\merchant.service.ts
+  // call update merchant endpoint: MerchantInfo, method: put
+  updateMerchant(body: any): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/MerchantInfo`;
+    return this.http.put(url, body, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

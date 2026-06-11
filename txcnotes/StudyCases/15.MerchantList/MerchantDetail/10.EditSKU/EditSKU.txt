@@ -1,0 +1,58 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/sku/edit/12601?contractId=23828&merchantId=2781&action=merchantDetails
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'sku/edit/:id',
+        component: SkuEditComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-edit\sku-edit.component.html
+<app-sku-form [merchantId]="merchantId" [contractId]="contractId" [skuId]="skuId"  [tenant]="tenant" [formGroup]="formGroup" [isEdit]="true" (onCancel)="onCancel($event)"></app-sku-form>
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-form\sku-form.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

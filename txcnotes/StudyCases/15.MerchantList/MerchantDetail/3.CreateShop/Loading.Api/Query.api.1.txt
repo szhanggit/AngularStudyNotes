@@ -1,0 +1,92 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{\n        monoAcceptanceLoopByMerchantId(merchantId: 2810\n          order: [{isDefault: DESC}, { createdOn: DESC }]\n          \n          \n          )\n          {\n            totalCount\n              items {\n                acceptanceLoopId\n                code\n                description\n                isDefault\n                shopCountAvailableInAL\n                status\n                createdBy\n                createdOn\n              }\n          }\n        }"}
+
+
+
+{
+    "data": "{\"monoAcceptanceLoopByMerchantId\":{\"totalCount\":1,\"items\":[{\"acceptanceLoopId\":3555,\"code\":\"AUTOTEST20231214191745095_2810 (all shops)\",\"description\":null,\"isDefault\":true,\"shopCountAvailableInAL\":1,\"status\":true,\"createdBy\":\"by System\",\"createdOn\":\"2023-12-14T19:17:45.177Z\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\acceptance-loop\acceptance-loop-list\acceptance-loop-list.component.ts
+  bindData(): void {
+    this._acceptanceLoopApiService.getMonoAcceptanceLoopByMerchantId(this.merchantId, this.allowPagination?  this.itemStart -1 : undefined, this.allowPagination? this.pageSize : undefined).subscribe((res) => {
+      if(res.success) {
+        this.total = JSON.parse(res.data).monoAcceptanceLoopByMerchantId.totalCount;
+        this.acceptanceLoops = JSON.parse(res.data).monoAcceptanceLoopByMerchantId.items;
+        this.noData.emit(this.acceptanceLoops.length == 0);
+        for (let index = 0; index < this.acceptanceLoops.length; index++) {
+          const element = this.acceptanceLoops[index];
+          if(!element?.isDefault)
+          this.selctedAcceptanceLoopsId.push(element.acceptanceLoopId);
+          this.selectedItem.emit(this.selctedAcceptanceLoopsId);
+        }
+      }});
+  }
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\acceptance-loop-api.service.ts
+  public getMonoAcceptanceLoopByMerchantId(merchantId: number, skip?: number, take?: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const skipClause = skip ? `, skip: ${skip}` : '';
+    const takeClause = take ? `, take: ${take}` : '';
+    const body = { query:
+      `query{
+        monoAcceptanceLoopByMerchantId(merchantId: ${merchantId}
+          order: [{isDefault: DESC}, { createdOn: DESC }]
+          ${skipClause}
+          ${takeClause}
+          )
+          {
+            totalCount
+              items {
+                acceptanceLoopId
+                code
+                description
+                isDefault
+                shopCountAvailableInAL
+                status
+                createdBy
+                createdOn
+              }
+          }
+        }`
+    }
+    return this.http.post(url, body,{ headers: this._getHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

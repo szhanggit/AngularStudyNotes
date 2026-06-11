@@ -1,0 +1,127 @@
+https://api-staging.txc.edenred.net/gateway/api/Contract/Sku
+
+
+Put
+
+
+{"skuId":12710,"skuName":"AUTOTEST202312150005445856","faceValueWithTax":null,"multiplier":null,"contractSkuCosts":[{"skuCostId":27086,"contractId":23937,"statusId":2,"validstartDate":"2023-12-14T16:00:00.000Z","validEndDate":"2999-12-31T15:59:59.000Z","costWithTax":100}]}
+
+
+
+{
+    "data": {
+        "skuId": 12710,
+        "skuValidationError": [],
+        "skuCostValidationError": []
+    },
+    "message": "Contract Sku updated successfully",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-form\sku-form.component.html
+                          <div class="col-6">
+                              <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                                  [disabled]="formGroup.invalid" (click)="OnSubmit()">{{ isEdit ? 'Save' : 'Add' }}</button>
+                          </div>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-form\sku-form.component.ts
+  //Event Onsubmit
+  OnSubmit(): void { 
+    if (!this.isEdit && !this.isExistingSKU) { 
+      if(this.index >= 0){
+        this.resetSkuDetails();
+      }
+      if(this.contractId <= 0 || this.contractStatus == "Draft"){
+        if (this.costs.length > 0) {
+          this.SaveDraftSKUContract();
+        }
+      }
+      else if(this.contractId >0 && this.contractStatus=="DraftEdit")
+      {
+        this.DraftEditContractAddSku();        
+      }
+      else{
+        this.SaveSKUContractDetails();
+      }
+    }
+    else {   
+      if(this.contractId >0 && this.contractStatus=="Valid")
+      {
+        if (this.costs.length > 0) {
+          this.UpdateSKUDetails();			<=========================
+        }
+      }
+      else if(this.contractId >0 && (this.contractStatus==null || this.contractStatus==undefined))
+      {
+        if (this.costs.length > 0) {
+          this.UpdateSKUDetails();			<=========================
+        }
+      }
+      else{
+        this.SaveDraftSKUContract();
+      }
+      
+    }
+  }
+
+
+
+
+
+
+
+  //Update SKU Details
+
+  private UpdateSKUDetails() {    
+......
+
+    this._skuService.updatesku(skuCost).subscribe(
+      (sku: BaseResponse) => {
+        let response = sku.data;
+        if (sku.success) {
+
+          this.OnCancel("SKUUpdated", sku.message);
+        }
+......
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\sku.service.ts
+  public updatesku(data: SkuUpdateRequest) {
+    const url = `${this._getURL()}api/Contract/Sku`;
+    return this.http.put(url, data , { headers:  this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

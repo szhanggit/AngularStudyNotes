@@ -1,0 +1,19 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/order
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'order',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.orderPath,
+      exposedModule: './order.module'
+    }).then(m => m.OrderModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\order-routing.module.ts
+{ path: '', component: OrderListComponent },
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-list\order-list.component.html
+

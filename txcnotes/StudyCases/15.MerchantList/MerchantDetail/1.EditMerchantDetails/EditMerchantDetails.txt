@@ -1,0 +1,17 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/edit?tenantName=TW&merchantId=2787
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'edit',
+        component: MerchantEditComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-edit\merchant-edit.component.html
+<app-merchant-form *ngIf="merchant" [merchantFormGroup]="merchantFormGroup" [merchant]="merchant" [tenant]="tenant" [isEdit]="true"></app-merchant-form>
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-form\merchant-form.component.html

@@ -1,0 +1,82 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantShop?&MerchantId=2810&RowCount=20&PageNumber=1
+
+
+&MerchantId=2810&RowCount=20&PageNumber=1
+
+
+
+{
+    "data": {
+        "shopDetailsModel": [
+            {
+                "shopId": 97432,
+                "merchantId": 2810,
+                "addressId": 393923,
+                "identityCode": "0000064861",
+                "merchantIdentityCode": "000000000008219",
+                "externalCode": "lkjljklkjlj",
+                "shopName": "lkjljklkjlj",
+                "shopStatus": 1,
+                "securityKey": "3439DF96EC335B34B2BC44ED21658B03",
+                "contactName": "",
+                "contactPhone": "78698797",
+                "subsidiaryUen": "",
+                "subsidiaryName": "",
+                "contactName2": null,
+                "contactPhone2": null,
+                "workKeyId": 0,
+                "workKey": null,
+                "workKeyExpireTime": "0001-01-01T00:00:00",
+                "workKeyCreatedTime": "0001-01-01T00:00:00",
+                "address": {
+                    "id": 393923,
+                    "detailAddressLine": "",
+                    "district": "jjhkjhkjh",
+                    "cityId": 280,
+                    "stateOrProvinceId": 277,
+                    "postcode": "",
+                    "countryId": 7,
+                    "longitude": 0.0,
+                    "latitude": 0.0,
+                    "status": 1
+                }
+            },
+            {
+                "shopId": 97427,
+                "merchantId": 2810,
+                "addressId": 393912,
+                "identityCode": "20231214191745",
+                "merchantIdentityCode": "000000000008219",
+                "externalCode": "20231214191745",
+                "shopName": "AUTOTEST20231214191745520",
+                "shopStatus": 1,
+                "securityKey": "AM3TYGFT41QIEUESEUAR6WY8HICYIGE7",
+                "contactName": "",
+                "contactPhone": "",
+                "subsidiaryUen": "null",
+                "subsidiaryName": "null",
+                "contactName2": null,
+                "contactPhone2": null,
+                "workKeyId": 0,
+                "workKey": null,
+                "workKeyExpireTime": "0001-01-01T00:00:00",
+                "workKeyCreatedTime": "0001-01-01T00:00:00",
+                "address": {
+                    "id": 393912,
+                    "detailAddressLine": "AUTOTEST",
+                    "district": "AUTOTEST",
+                    "cityId": 36,
+                    "stateOrProvinceId": 11,
+                    "postcode": "AUTOTEST",
+                    "countryId": 6,
+                    "longitude": 0.0,
+                    "latitude": 0.0,
+                    "status": 1
+                }
+            }
+        ],
+        "totalCount": 2
+    },
+    "message": "Success",
+    "success": true
+}

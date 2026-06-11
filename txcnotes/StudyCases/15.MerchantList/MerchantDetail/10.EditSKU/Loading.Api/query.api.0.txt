@@ -1,0 +1,118 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n      skuById(skuId:12710) {\n        createdBy, typeId,\n        faceValueWithoutTax, \n        faceValueWithTax, \n        multiplier, \n        skuName \n        skuNumber\n        contractSKUCosts{\n          id\n          costWithTax\n          validStartDate\n          validEndDate\n          contractId          \n          skuCostContract\n          {\n              contractName\n              contractNumber\n              contractId\n              costSchemeId\n              startDate\n              contractCostScheme {\n                id,\n                value\n            }\n          }\n          contractSkuStatus{\n            id\n            value\n        }\n      } \n        voucherNumberRule \n        {\n          ruleName\n          voucherNumberRuleId\n        }\n    }\n  ,\n  productsBySkuIds(skuIds:12710)\n  {\n   productId\n   productName\n  }\n}"}
+
+
+
+{
+    "data": "{\"skuById\":[{\"createdBy\":\"msioson\",\"typeId\":4,\"faceValueWithoutTax\":null,\"faceValueWithTax\":null,\"multiplier\":null,\"skuName\":\"AUTOTEST20231215000544585\",\"skuNumber\":\"AUTOTEST20231215000544585\",\"contractSKUCosts\":[{\"id\":27086,\"costWithTax\":100.0,\"validStartDate\":\"2023-12-14T16:00:00Z\",\"validEndDate\":\"2999-12-31T15:59:59Z\",\"contractId\":23937,\"skuCostContract\":{\"contractName\":\"AUTOTEST20231215000544584\",\"contractNumber\":\"0000000023937\",\"contractId\":23937,\"costSchemeId\":1,\"startDate\":\"2023-12-14T16:00:00Z\",\"contractCostScheme\":{\"id\":1,\"value\":\"Cost %\"}},\"contractSkuStatus\":{\"id\":2,\"value\":\"Approved\"}}],\"voucherNumberRule\":{\"ruleName\":\"AUTOTEST20231215000535640\",\"voucherNumberRuleId\":9462}}],\"productsBySkuIds\":[]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\sku.service.ts
+
+
+  getSkuById(skuId:number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = { query: `query {
+      skuById(skuId:${skuId}) {
+        createdBy, typeId,
+        faceValueWithoutTax, 
+        faceValueWithTax, 
+        multiplier, 
+        skuName 
+        skuNumber
+        contractSKUCosts{
+          id
+          costWithTax
+          validStartDate
+          validEndDate
+          contractId          
+          skuCostContract
+          {
+              contractName
+              contractNumber
+              contractId
+              costSchemeId
+              startDate
+              contractCostScheme {
+                id,
+                value
+            }
+          }
+          contractSkuStatus{
+            id
+            value
+        }
+      } 
+        voucherNumberRule 
+        {
+          ruleName
+          voucherNumberRuleId
+        }
+    }
+  ,
+  productsBySkuIds(skuIds:${skuId})
+  {
+   productId
+   productName
+  }
+}`
+};
+    return this.http.post(url, data , { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

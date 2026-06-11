@@ -1,0 +1,71 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query  {\n            orders(where: { id: { eq: 817 } }) {\n            items {\n                orderLines {\n                    id\n                    productVersion {\n                        productVersionId\n                        product {\n                            quotationProduct(quotationNumber: \"202312074426\") {\n                                id\n                                clientQuotationProductSoldPrice {\n                                    soldPrice\n                                    soldPriceWithTax\n                                }\n                            }\n                        }\n                        contractSKU {\n                            faceValueWithTax\n                            faceValueWithoutTax\n                        }\n                    }\n                }\n            }\n        }\n    }"}
+
+
+
+{
+    "data": "{\"orders\":{\"items\":[{\"orderLines\":[{\"id\":1281,\"productVersion\":{\"productVersionId\":6885,\"product\":{\"quotationProduct\":{\"id\":20628,\"clientQuotationProductSoldPrice\":[{\"soldPrice\":300.0,\"soldPriceWithTax\":300.0}]}},\"contractSKU\":[{\"faceValueWithTax\":50.0,\"faceValueWithoutTax\":47.62}]}}]}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.ts
+  getReference(quotationId: number, order: Order) {
+    this.quotationService
+      .getQuotationById(quotationId)
+      .pipe(
+        switchMap((result: BaseResponse) => {
+          if (result.success) {
+            if (result.data?.quotationItemList?.length > 0) {
+              this.selectedQuotation = result.data?.quotationItemList[0];
+              this.quotationStateService.setSelectedQuotationState(
+                this.selectedQuotation
+              );
+              this.isAdvanceBilling = this.selectedQuotation.advanceBilling;
+
+              return this.quotationService.getQuotationProduct(
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\quotation.service.ts
+  getQuotationProduct(quotationNumber: string, orderId: number) {
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query  {
+            orders(where: { id: { eq: ${orderId} } }) {
+            items {
+                orderLines {
+                    id
+                    productVersion {
+                        productVersionId
+                        product {
+                            quotationProduct(quotationNumber: "${quotationNumber}") {
+                                id
+                                clientQuotationProductSoldPrice {
+                                    soldPrice
+                                    soldPriceWithTax
+                                }
+                            }
+                        }
+                        contractSKU {
+                            faceValueWithTax
+                            faceValueWithoutTax
+                        }
+                    }
+                }
+            }
+        }
+    }`,
+    };
+    return (this.http.post(url, body) as Observable<BaseResponse>).pipe(
+      map((response: BaseResponse) => {
+        if (response.success) {
+          return JSON.parse(response.data)?.orders?.items[0];
+        }
+      })
+    );
+  }

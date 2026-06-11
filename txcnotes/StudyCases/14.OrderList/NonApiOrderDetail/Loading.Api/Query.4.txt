@@ -1,0 +1,59 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+{"query":"{\n        expirationPolicies {\n          id\n          name\n        }\n      }"}
+
+
+
+{
+    "data": "{\"expirationPolicies\":[{\"id\":50,\"name\":\"ChildFixedDateDependsOnMasterExpiry\"},{\"id\":42,\"name\":\"ChildFlexibleDateDependsOnMasterExpiry\"},{\"id\":8,\"name\":\"FixEndOfDay\"},{\"id\":9,\"name\":\"FixNotEndOfDay\"},{\"id\":1,\"name\":\"NoExpireDate\"},{\"id\":27,\"name\":\"ThirdPartyDay\"},{\"id\":26,\"name\":\"ThirdPartyFixEndOfDay\"},{\"id\":37,\"name\":\"ThirdPartyWithin10MonthsExpiredAfterActivation\"},{\"id\":38,\"name\":\"ThirdPartyWithin11MonthsExpiredAfterActivation\"},{\"id\":39,\"name\":\"ThirdPartyWithin12MonthsExpiredAfterActivation\"},{\"id\":40,\"name\":\"ThirdPartyWithin15DaysExpiredAfterActivation\"},{\"id\":28,\"name\":\"ThirdPartyWithin1MonthExpiredAfterActivation\"},{\"id\":29,\"name\":\"ThirdPartyWithin2MonthsExpiredAfterActivation\"},{\"id\":30,\"name\":\"ThirdPartyWithin3MonthsExpiredAfterActivation\"},{\"id\":41,\"name\":\"ThirdPartyWithin45DaysExpiredAfterActivation\"},{\"id\":49,\"name\":\"ThirdPartyWithin49DaysExpiredAfterActivation\"},{\"id\":31,\"name\":\"ThirdPartyWithin4MonthsExpiredAfterActivation\"},{\"id\":32,\"name\":\"ThirdPartyWithin5MonthsExpiredAfterActivation\"},{\"id\":33,\"name\":\"ThirdPartyWithin6MonthsExpiredAfterActivation\"},{\"id\":34,\"name\":\"ThirdPartyWithin7MonthsExpiredAfterActivation\"},{\"id\":35,\"name\":\"ThirdPartyWithin8MonthsExpiredAfterActivation\"},{\"id\":36,\"name\":\"ThirdPartyWithin9MonthsExpiredAfterActivation\"},{\"id\":25,\"name\":\"ThirdPartyWithinEndOf12MonthExpiredAfterActivation\"},{\"id\":18,\"name\":\"ThirdPartyWithinEndOf1MonthsExpiredAfterActivation\"},{\"id\":19,\"name\":\"ThirdPartyWithinEndOf2MonthsExpiredAfterActivation\"},{\"id\":20,\"name\":\"ThirdPartyWithinEndOf3MonthsExpiredAfterActivation\"},{\"id\":21,\"name\":\"ThirdPartyWithinEndOf4MonthsExpiredAfterActivation\"},{\"id\":22,\"name\":\"ThirdPartyWithinEndOf5MonthsExpiredAfterActivation\"},{\"id\":23,\"name\":\"ThirdPartyWithinEndOf6MonthsExpiredAfterActivation\"},{\"id\":45,\"name\":\"Within120DaysExpiredAfterActivation\"},{\"id\":16,\"name\":\"Within13DaysExpiredAfterActivation\"},{\"id\":46,\"name\":\"Within180DaysExpiredAfterActivation\"},{\"id\":5,\"name\":\"Within1MonthsExpiredAfterActivation\"},{\"id\":3,\"name\":\"Within20DaysExpiredAfterActivation\"},{\"id\":4,\"name\":\"Within2MonthsExpiredAfterActivation\"},{\"id\":2,\"name\":\"Within30DaysExpiredAfterActivation\"},{\"id\":43,\"name\":\"Within360DaysExpiredAfterActivation\"},{\"id\":10,\"name\":\"Within3MonthsExpiredAfterActivation\"},{\"id\":15,\"name\":\"Within49DaysExpiredAfterActivation\"},{\"id\":11,\"name\":\"Within6MonthsExpiredAfterActivation\"},{\"id\":44,\"name\":\"Within90DaysExpiredAfterActivation\"},{\"id\":17,\"name\":\"WithinEndOf12MonthsExpiredAfterActivation\"},{\"id\":14,\"name\":\"WithinEndOf1MonthsExpiredAfterActivation\"},{\"id\":13,\"name\":\"WithinEndOf2MonthsExpiredAfterActivation\"},{\"id\":7,\"name\":\"WithinEndOf3MonthsExpiredAfterActivation\"},{\"id\":12,\"name\":\"WithinEndOf4MonthsExpiredAfterActivation\"},{\"id\":6,\"name\":\"WithinEndOfCurrentMonthsExpiredAfterActivation\"}]}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.ts
+        // cross reference expiration policy
+        switchMap((order: Order) => {
+          return this.expirationPolicyService.getExpirationPolicies().pipe(
+            map((expirationPolicies: ExpirationPolicy[]) => {
+              for (const orderLine of order.orderLines) {
+                const expirationPolicy = expirationPolicies.find(
+                  (expirationPolicy) =>
+                    expirationPolicy.id === orderLine.expirationPolicyId
+                );
+                orderLine.expirySchemeText = expirationPolicy?.name;
+              }
+
+              return { ...order };
+            })
+          );
+        }),
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\expiry-policy.service.ts
+
+  getExpirationPolicies() {
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `{
+        expirationPolicies {
+          id
+          name
+        }
+      }`,
+    };
+    return (this.http.post(url, body) as Observable<BaseResponse>).pipe(
+      map((response: BaseResponse) => {
+        if (response.success) {
+          return JSON.parse(response.data)?.expirationPolicies;
+        }
+      })
+    );
+  }

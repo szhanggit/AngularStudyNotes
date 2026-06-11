@@ -1,0 +1,12 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":" query\n    {\n       contracts (merchantId:2810)\n       {\n           items\n           {\n               contractId,\n               contractName,\n               contractSKUCosts\n               {\n                   skuId\n               }\n           }\n       }\n    }"}
+
+
+
+{
+    "data": "{\"contracts\":{\"items\":[{\"contractId\":23930,\"contractName\":\"AUTOTEST20231214191746484\",\"contractSKUCosts\":[{\"skuId\":12703}]},{\"contractId\":23931,\"contractName\":\"AUTOTEST20231214191747307\",\"contractSKUCosts\":[{\"skuId\":12704}]},{\"contractId\":23932,\"contractName\":\"AUTOTEST20231214191749401\",\"contractSKUCosts\":[{\"skuId\":12705}]},{\"contractId\":23933,\"contractName\":\"AUTOTEST20231214191751390\",\"contractSKUCosts\":[{\"skuId\":12706}]}]}}",
+    "message": null,
+    "success": true
+}

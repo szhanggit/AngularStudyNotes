@@ -1,0 +1,64 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n      taxRateByTenantId {\n        companyTaxRate\n      }\n    }"}
+
+
+{
+    "data": "{\"taxRateByTenantId\":{\"companyTaxRate\":1.05}}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\sku.service.ts
+
+  getCompanyTaxRate() {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = { query: `query {
+      taxRateByTenantId {
+        companyTaxRate
+      }
+    }`
+    }
+    return this.http.post(url, data , { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{dictionaries (where: { category: { eq: \"VoucherIssuer\"}}) { dictionaryId displayName parentId }}"}
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":399,\"displayName\":\"Thailand Treepay\",\"parentId\":null},{\"dictionaryId\":400,\"displayName\":\"Thailand Dealcha\",\"parentId\":null}]}",
+    "message": null,
+    "success": true
+}

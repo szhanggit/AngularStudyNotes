@@ -1,0 +1,12 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+{"query":"query{dictionaries (where: { category: { eq: \"Country\"}}) { dictionaryId displayName parentId }}"}
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":6,\"displayName\":\"China\",\"parentId\":null},{\"dictionaryId\":7,\"displayName\":\"Hongkong\",\"parentId\":null},{\"dictionaryId\":8,\"displayName\":\"Korea\",\"parentId\":null},{\"dictionaryId\":9,\"displayName\":\"Singapore\",\"parentId\":null},{\"dictionaryId\":10,\"displayName\":\"Taiwan\",\"parentId\":null}]}",
+    "message": null,
+    "success": true
+}

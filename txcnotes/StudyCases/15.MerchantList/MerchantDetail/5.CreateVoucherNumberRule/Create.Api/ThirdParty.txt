@@ -1,0 +1,88 @@
+https://api-staging.txc.edenred.net/gateway/api/Merchant/VoucherNumberRule/ThirdParty
+
+Post
+{"displayVoucherNumberUnderBarcode":false,"barcodeTypeId":1,"ruleName":"pipipipipi","requestExpiryDate":true,"programName":"Family Mart","hasMultipartBarcode":false,"merchantId":2810,"vendorId":null}
+
+
+
+
+
+
+{
+    "data": 9466,
+    "message": "New voucher number rule has been successfully created",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\voucher-number-rule\third-party-voucher-number-rule-form\third-party-voucher-number-rule-form.component.ts
+        this._voucherNumberRuleService.createVoucherNumberRule(body, false).subscribe(
+          res => {
+
+
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\voucher-number-rule.service.ts
+  // method to call on create endpoint
+  createVoucherNumberRule(body: any, isEdenredProgram: boolean): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/Merchant/VoucherNumberRule/${isEdenredProgram ? 'EdenredProgram' : 'ThirdParty'}`;
+    return this.http.post(url, body, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

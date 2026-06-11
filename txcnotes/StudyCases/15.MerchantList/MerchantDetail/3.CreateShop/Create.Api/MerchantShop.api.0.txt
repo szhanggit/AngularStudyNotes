@@ -1,0 +1,93 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantShop
+
+
+Post
+{"shop":[{"shop":{"status":1,"name":"lkjljklkjlj","externalCode":"lkjljklkjlj","identityCode":"","sameExternalCode":false,"contactPhone":"78698797","securityKey":"3439DF96EC335B34B2BC44ED21658B03","address":{"countryId":7,"stateOrProvinceId":277,"cityId":280,"district":"jjhkjhkjh","detailAddressLine":"","postcode":""},"subsidiaryUen":"","subsidiaryName":"","merchantId":2810,"contactName":"","lastModifier":"stzhang"},"address":{"countryId":7,"stateOrProvinceId":277,"cityId":280,"district":"jjhkjhkjh","detailAddressLine":"","postcode":""},"acceptanceLoopId":[]}]}
+
+
+
+{"data":64861,"message":"Success","success":true}
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\shops\shop-form\shop-form.component.ts
+  OnSubmit(): void {
+......
+
+        this._shopService.createShop(body).subscribe(
+          res => {
+            this.navigateToMerchantDetails(res.success, 'shopCreated');
+            this.actionLoading$.next(false);
+          }, err => {
+            this.toast.showDanger(err.error.message ?? 'Something went wrong');
+            this.actionLoading$.next(false);
+          });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\shop.service.ts
+  createShop(body: any): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/MerchantShop`;
+    return this.http.post(url, body, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

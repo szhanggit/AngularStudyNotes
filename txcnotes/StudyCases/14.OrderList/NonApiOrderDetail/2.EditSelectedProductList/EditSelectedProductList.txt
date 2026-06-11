@@ -1,0 +1,25 @@
+          <app-view-form-accordion
+            (showChildProduct)="onShowChildProduct($event)"
+            [showChildProductToggle]="true"
+            [showEdit]="
+              (showEditBtn &&
+                (orderStatus === orderStatuses.Created ||
+                  orderStatus === orderStatuses.Rejected)) ||
+              (showActiveAllProductList &&
+                orderStatus === orderStatuses.Published)
+            "
+            [hasSecondaryButton]="showActiveAllProductList"
+            [isSecondaryButtonDisabled]="isActiveAllDisabled"
+            [editText]="showActiveAllProductList ? 'Select product' : 'Edit'"    <==============
+            [isPrimary]="true"
+            [sectionCollapsed]="productSelectionCollapsed"
+            [sectionTitle]="'Selected product list'"		<==============
+            (secondaryButtonClicked)="onActiveAllClicked()"
+            (editClicked)="
+              onOrderDetailsStateChange(
+                editOrderDetailsType.SelectedProductList
+              )
+            "
+            [disableChildToggle]="disableChildToggle"
+            [isShowChildProduct]="showChildProduct"
+          >

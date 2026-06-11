@@ -1,0 +1,12 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{\n        monoAcceptanceLoopByMerchantId(merchantId: 2810\n          order: [{isDefault: DESC}, { createdOn: DESC }]\n          , skip: -1\n          , take: 100\n          )\n          {\n            totalCount\n              items {\n                acceptanceLoopId\n                code\n                description\n                isDefault\n                shopCountAvailableInAL\n                status\n                createdBy\n                createdOn\n              }\n          }\n        }"}
+
+
+
+{
+    "data": "{\"monoAcceptanceLoopByMerchantId\":{\"totalCount\":2,\"items\":[{\"acceptanceLoopId\":3555,\"code\":\"AUTOTEST20231214191745095_2810 (all shops)\",\"description\":null,\"isDefault\":true,\"shopCountAvailableInAL\":2,\"status\":true,\"createdBy\":\"by System\",\"createdOn\":\"2023-12-14T19:17:45.177Z\"},{\"acceptanceLoopId\":3561,\"code\":\"kljljljljlj\",\"description\":\"ljljljljlj\",\"isDefault\":false,\"shopCountAvailableInAL\":1,\"status\":true,\"createdBy\":\"stzhang\",\"createdOn\":\"2023-12-27T03:53:46.993Z\"}]}}",
+    "message": null,
+    "success": true
+}

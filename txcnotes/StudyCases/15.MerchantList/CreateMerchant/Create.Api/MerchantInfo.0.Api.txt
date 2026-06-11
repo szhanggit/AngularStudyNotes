@@ -1,0 +1,44 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantInfo
+
+
+{"merchant":{"isAutoCreateReimbursement":false,"sameKeyWithShop":false,"needConsumerScan":false,"isLegacyMerchant":false,"merchantContactEmailList":["er@edenred.com"],"edenredContactEmailList":[""],"programId":654,"name":"jhgkjhkhkh","externalCode":"kjhkhhjh","invoiceRegisterNumber":"67678978","securityKey":"5380EF092D9DE866D076553C6DC38B62","status":1,"tX1MerchantUID":"hkjhkh","autoCreateReimbursementIntervalType":0,"autoCreateReimbursementDay":2,"reimbursementTaxType":1,"reimbursementReceivers":"","mamEmail":"er@edenred.com","reimbursementType":2,"merchantAutoType":1,"notificationMerchantCode":"jhkjh","merchantEmail":"er@edenred.com","merchantAcquirerId":0,"memo":"","issuerType":2,"modifier":"","mainContact":"jhgjgh","mainPhone":"6769879797","description":"jhkjhkh","categoryId":113},"address":{"countryId":0,"stateOrProvinceId":0,"cityId":0,"district":"","detailAddressLine":"","postcode":""}}
+
+
+
+{"data":2815,"message":"Success","success":true}
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-form\merchant-form.component.ts
+        this._merchantService.createMerchant(body).subscribe(			<============================
+          () => {
+            this.backToList('created');
+            this.isLoading$.next(false);
+          },
+          err => {
+            let errorMessage = err.error.Message ?? err.error.message;
+            if (err.error.data.length) {
+              err.error.data.forEach((errorMsg: string) =>
+                errorMessage = `${errorMessage}. ${errorMsg}`
+              );
+            }
+            this.toast.showDanger(errorMessage);
+            this.isLoading$.next(false);
+          });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\merchant.service.ts
+  createMerchant(body: any): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/MerchantInfo`;
+    return this.http.post(url, body, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+

@@ -1,0 +1,87 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantShop?&MerchantId=2811&RowCount=20&PageNumber=1
+
+
+&MerchantId=2811&RowCount=20&PageNumber=1
+
+
+
+
+{
+    "data": {
+        "shopDetailsModel": [
+            {
+                "shopId": 97428,
+                "merchantId": 2811,
+                "addressId": 393914,
+                "identityCode": "0000064859",
+                "merchantIdentityCode": "000000000008220",
+                "externalCode": "20231215000532317",
+                "shopName": "AUTOTEST20231215000532317",
+                "shopStatus": 1,
+                "securityKey": "XITM94158SINMOX3X0MWAJ32UUVGB28M",
+                "contactName": "",
+                "contactPhone": "",
+                "subsidiaryUen": "null",
+                "subsidiaryName": "null",
+                "contactName2": null,
+                "contactPhone2": null,
+                "workKeyId": 0,
+                "workKey": null,
+                "workKeyExpireTime": "0001-01-01T00:00:00",
+                "workKeyCreatedTime": "0001-01-01T00:00:00",
+                "address": {
+                    "id": 393914,
+                    "detailAddressLine": "AUTOTEST",
+                    "district": "AUTOTEST",
+                    "cityId": 36,
+                    "stateOrProvinceId": 11,
+                    "postcode": "AUTOTEST",
+                    "countryId": 6,
+                    "longitude": 0.0,
+                    "latitude": 0.0,
+                    "status": 1
+                }
+            }
+        ],
+        "totalCount": 1
+    },
+    "message": "Success",
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\shop.service.ts
+
+
+  private _getMerchantShop(): Observable<GetShopResponse> {
+    const { pageSize, page, searchTerm, status, merchantId } = this._state;
+    if (this.merchantId === 0) {
+      return of({
+        data: {
+          shopDetailsModel: [],
+          totalCount: 0
+        },
+        message: 'Success',
+        success: true
+      });
+    }
+    const url = `${this._getURL()}api/MerchantShop?${this.searchTerm != '' ? 'SearchKeyword=' : ''}${searchTerm}${this.merchantId != 0 ? '&MerchantId=' : ''}${this.merchantId != 0 ? merchantId : ''}&RowCount=${pageSize}&PageNumber=${page}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<GetShopResponse>;
+  }
+
+
+
+

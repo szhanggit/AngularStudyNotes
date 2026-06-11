@@ -1,0 +1,8 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query { \n        contracts( merchantId: 2810 ) \n        { \n            totalCount \n        } \n      }"}
+
+
+
+{"data":"{\"contracts\":{\"totalCount\":4}}","message":null,"success":true}

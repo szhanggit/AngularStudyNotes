@@ -1,0 +1,74 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n        shops(where : { merchantId : {eq : 2810 }}\n          \n          \n        order: [{createdOn: DESC}])\n        {\n            totalCount\n            items\n            {\n                shopId,\n                name,\n                status,\n                identityCode,\n                createdOn\n            }\n        }\n    }"}
+
+
+
+
+{
+    "data": "{\"shops\":{\"totalCount\":2,\"items\":[{\"shopId\":97432,\"name\":\"lkjljklkjlj\",\"status\":1,\"identityCode\":\"0000064861\",\"createdOn\":\"2023-12-27T03:38:31.017Z\"},{\"shopId\":97427,\"name\":\"AUTOTEST20231214191745520\",\"status\":1,\"identityCode\":\"20231214191745\",\"createdOn\":\"2023-12-14T19:17:45.66Z\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\acceptance-loop\acceptance-loop-create\acceptance-loop-create.component.ts
+
+
+
+    this.acceptanceLoopApiService.getMerchantShop(merchantId).subscribe((res) => {
+      if(res.success && res.data) {
+        let shopDetailsModel = JSON.parse(res.data).shops.items;
+        shopDetailsModel.forEach((s:any) => {
+          const shopOption : ShopOption = {
+            shopId: s.shopId,
+            shopName: s.name,     // TODO: confirm 'shopName', 'name'
+            shopStatus: s.status, // TODO: confirm 'shopStatus', 'status'
+            identityCode: s.identityCode,
+            createdOn : s.createdOn,
+            acceptanceLoopMerchantShopId: 0,
+            isSelectedOrigin: false,
+            isSelected: false,
+            isVisible: true,
+            hasChanged: false
+          }
+
+          this.shopOptions?.push(shopOption);
+        })
+
+        this.acceptanceLoopService.refreshShopOptions(this.shopOptions);
+      }
+    });
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\acceptance-loop-api.service.ts
+  public getMerchantShop(merchantId: number, skip?: number, take?: number): Observable<BaseResponse> {
+      const url = `${this._getURL()}api/GraphQL/Query`;
+      const skipClause = skip ? `, skip: ${skip}` : '';
+    const takeClause = take ? `, take: ${take}` : '';
+    const body = { query:
+      `query {
+        shops(where : { merchantId : {eq : ${merchantId} }}
+          ${skipClause}
+          ${takeClause}
+        order: [{createdOn: DESC}])
+        {
+            totalCount
+            items
+            {
+                shopId,
+                name,
+                status,
+                identityCode,
+                createdOn
+            }
+        }
+    }`
+    }
+    return this.http.post(url, body,{ headers: this._getHeaders() }) as Observable<BaseResponse>;
+  }

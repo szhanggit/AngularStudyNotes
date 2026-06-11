@@ -1,0 +1,38 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{dictionaries (where: { category: { eq: \"Country\"}}) { dictionaryId displayName parentId }}"}
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":6,\"displayName\":\"China\",\"parentId\":null},{\"dictionaryId\":7,\"displayName\":\"Hongkong\",\"parentId\":null},{\"dictionaryId\":8,\"displayName\":\"Korea\",\"parentId\":null},{\"dictionaryId\":9,\"displayName\":\"Singapore\",\"parentId\":null},{\"dictionaryId\":10,\"displayName\":\"Taiwan\",\"parentId\":null}]}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\dictionary.service.ts
+  // get dictionary items by category using graphql endpoint
+  getDictionaryItemsByCategory(category: string): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{dictionaries (where: { category: { eq: "${category}"}}) { dictionaryId displayName parentId }}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+  getCityStateCountry() {
+    return forkJoin([
+      this.getDictionaryItemsByCategory('City'),				
+      this.getDictionaryItemsByCategory('StateOrProvince'),
+      this.getDictionaryItemsByCategory('Country'),			<=======================
+    ]);
+  }

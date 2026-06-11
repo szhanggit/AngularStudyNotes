@@ -1,0 +1,167 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+{"query":"query Orders {\n                orders(where: {id: {eq: 817}}) { items {\n                  id\n                  clientQuotationId\n                  clientId\n                  orderNumber\n                  mode\n                  isDirectDelivery\n                  publishDateTime\n                  status\n                  executingStatus\n                  executingResponse\n                  packageReceiver\n                  packagePassword\n                  orderName\n                  shortUrlAuthCodeGenerationWay\n                  indirectFileFormat\n                  mwvEmailTemplateId\n                  exportBarcodeInfo\n                  voucherSupplierId\n                  packagePinReceiver\n                  emailAttachShortUrlImageId\n                  urlType\n                  generateSequenceNumber\n                  memo\n                  orderActivateMode\n                  afterPublished\n                  fixedDate\n                  emailGreeting\n                  emailSubject\n                  smsGreeting\n                  createdDateTime\n                  orderLines {\n                      id\n                      status\n                      orderId\n                      totalQuantity\n                      emailQuantity\n                      smsQuantity\n                      defaultExpirationDate\n                      voucherReservationCode\n                      needShortUrl\n                      expirationPolicyId\n                      messageEncoding\n                      publishedQuantity\n                      needTrustAccount\n                      uniqueExternalOrderId\n                      productVersionId\n                      productVersion {\n                        productVersionId\n                        skuId\n                        product {\n                          productCode\n                          productName\n                          productType\n                          isMaster\n                        }\n                      }\n                      orderLineTemplateId\n                      orderLineTemplate {\n                        orderLineTemplateSet {\n                            orderLineTemplateSetId\n                            templateType\n                            templateSubType\n                            orderLineTemplateVersionId\n                            orderLineTemplateVersion {\n                                templateVersionId\n                                orderLineTemplateTagValue {\n                                    orderLineTemplateTagValueId\n                                    orderLineTemplateTagValueSet {\n                                        orderLineTemplateTagSetId\n                                        tagId\n                                        value\n                                      }\n                                  }\n                              }\n                          }\n                      }\n                      orderLineDetails {\n                          id\n                          orderLineId\n                          voucherId\n                          mobile\n                          email\n                          activeDate\n                          expirySchemeId\n                          expiryDate\n                          eDOrderNumber\n                          memo\n                          name\n                          address\n                          postCode\n                          languageId\n                          clientOrderNumber\n                          faceValue\n                          faceValueWithTax\n                          soldPrice\n                          soldPriceWithTax\n                          isEmailDelivered\n                          isSmsDelivered\n                      }\n                  }\n                  orderChannelId\n              }\n          }\n        }"}
+
+
+
+{
+    "data": "{\"orders\":{\"items\":[{\"id\":817,\"clientQuotationId\":8483,\"clientId\":1207,\"orderNumber\":\"20231226170219\",\"mode\":1,\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":32,\"executingStatus\":2,\"executingResponse\":null,\"packageReceiver\":null,\"packagePassword\":null,\"orderName\":\"Lean 35252 16\",\"shortUrlAuthCodeGenerationWay\":1,\"indirectFileFormat\":1,\"mwvEmailTemplateId\":null,\"exportBarcodeInfo\":1,\"voucherSupplierId\":null,\"packagePinReceiver\":null,\"emailAttachShortUrlImageId\":1,\"urlType\":1,\"generateSequenceNumber\":false,\"memo\":null,\"orderActivateMode\":1,\"afterPublished\":null,\"fixedDate\":null,\"emailGreeting\":null,\"emailSubject\":null,\"smsGreeting\":null,\"createdDateTime\":\"2023-12-26T09:02:20.013Z\",\"orderLines\":[{\"id\":1281,\"status\":1,\"orderId\":817,\"totalQuantity\":10,\"emailQuantity\":0,\"smsQuantity\":0,\"defaultExpirationDate\":\"1900-01-01T00:00:00Z\",\"voucherReservationCode\":null,\"needShortUrl\":true,\"expirationPolicyId\":6,\"messageEncoding\":null,\"publishedQuantity\":0,\"needTrustAccount\":true,\"uniqueExternalOrderId\":null,\"productVersionId\":6885,\"productVersion\":{\"productVersionId\":6885,\"skuId\":2612,\"product\":{\"productCode\":\"HLFMMDD002\",\"productName\":\"萊爾富行動折抵金50元\",\"productType\":1,\"isMaster\":false}},\"orderLineTemplateId\":1188,\"orderLineTemplate\":{\"orderLineTemplateSet\":[{\"orderLineTemplateSetId\":3237,\"templateType\":1,\"templateSubType\":1,\"orderLineTemplateVersionId\":3243,\"orderLineTemplateVersion\":{\"templateVersionId\":1363,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3249,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9801,\"tagId\":4,\"value\":\"\"},{\"orderLineTemplateTagSetId\":9802,\"tagId\":6,\"value\":\"\"},{\"orderLineTemplateTagSetId\":9803,\"tagId\":13,\"value\":\"s2\"}]}}},{\"orderLineTemplateSetId\":3238,\"templateType\":2,\"templateSubType\":2,\"orderLineTemplateVersionId\":3244,\"orderLineTemplateVersion\":{\"templateVersionId\":814,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3250,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9804,\"tagId\":6,\"value\":\"萊爾富行動折抵金50元\"}]}}}]},\"orderLineDetails\":[]}],\"orderChannelId\":414}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.ts
+  fetchOrderDetails() {
+    this.orderSvc
+      .getOrderById(this.orderId)
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+  getOrderById(id: number) {
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query Orders {
+                orders(where: {id: {eq: ${id}}}) { items {
+                  id
+                  clientQuotationId
+                  clientId
+                  orderNumber
+                  mode
+                  isDirectDelivery
+                  publishDateTime
+                  status
+                  executingStatus
+                  executingResponse
+                  packageReceiver
+                  packagePassword
+                  orderName
+                  shortUrlAuthCodeGenerationWay
+                  indirectFileFormat
+                  mwvEmailTemplateId
+                  exportBarcodeInfo
+                  voucherSupplierId
+                  packagePinReceiver
+                  emailAttachShortUrlImageId
+                  urlType
+                  generateSequenceNumber
+                  memo
+                  orderActivateMode
+                  afterPublished
+                  fixedDate
+                  emailGreeting
+                  emailSubject
+                  smsGreeting
+                  createdDateTime
+                  orderLines {
+                      id
+                      status
+                      orderId
+                      totalQuantity
+                      emailQuantity
+                      smsQuantity
+                      defaultExpirationDate
+                      voucherReservationCode
+                      needShortUrl
+                      expirationPolicyId
+                      messageEncoding
+                      publishedQuantity
+                      needTrustAccount
+                      productVersionId
+                      productVersion {
+                        productVersionId
+                        skuId
+                        product {
+                          productCode
+                          productName
+                          productType
+                          isMaster
+                        }
+                      }
+                      orderLineTemplateId
+                      orderLineTemplate {
+                        orderLineTemplateSet {
+                            orderLineTemplateSetId
+                            templateType
+                            templateSubType
+                            orderLineTemplateVersionId
+                            orderLineTemplateVersion {
+                                templateVersionId
+                                orderLineTemplateTagValue {
+                                    orderLineTemplateTagValueId
+                                    orderLineTemplateTagValueSet {
+                                        orderLineTemplateTagSetId
+                                        tagId
+                                        value
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                      orderLineDetails {
+                          id
+                          orderLineId
+                          voucherId
+                          mobile
+                          email
+                          activeDate
+                          expirySchemeId
+                          expiryDate
+                          eDOrderNumber
+                          memo
+                          name
+                          address
+                          postCode
+                          languageId
+                          clientOrderNumber
+                          faceValue
+                          faceValueWithTax
+                          soldPrice
+                          soldPriceWithTax
+                          isEmailDelivered
+                          isSmsDelivered
+                      }
+                  }
+                  orderChannelId
+              }
+          }
+        }`,
+    };
+    return (this.http.post(url, body) as Observable<BaseResponse>).pipe(
+      map((response: BaseResponse) => {
+        if (response.success) {
+          return JSON.parse(response.data)?.orders?.items[0];
+        }
+      })
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

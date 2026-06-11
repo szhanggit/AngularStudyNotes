@@ -1,0 +1,111 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{\n          voucherNumberRules(\n            where: {and: [{merchantId: {eq: 2811}}, {voucherGenerateWay: {eq: 1}}, {isDeleted: {eq: false}}]},\n            order: [{createdDateTime: DESC}]) {\n            items {\n              voucherNumberRuleId,\n              ruleName,\n              voucherNumberPrefix,\n              voucherNumberType,\n              voucherNumberLength,\n              distVoucherNumUnderBarcode,\n              createdDateTime,\n              algorithmId,\n              voucherNumberGenerator,\n              barcodeType {\n                  id,\n                  description\n              },\n              voucherGenerator{\n                  id,\n                  description\n              },\n              contractSKU {\n                id\n              },\n              createdBy\n            }\n          }\n        }"}
+
+
+
+{
+    "data": "{\"voucherNumberRules\":{\"items\":[{\"voucherNumberRuleId\":9462,\"ruleName\":\"AUTOTEST20231215000535640\",\"voucherNumberPrefix\":\"\",\"voucherNumberType\":1,\"voucherNumberLength\":10,\"distVoucherNumUnderBarcode\":false,\"createdDateTime\":\"2023-12-15T00:05:35.773Z\",\"algorithmId\":2,\"voucherNumberGenerator\":1,\"barcodeType\":{\"id\":2,\"description\":\"Code128A\"},\"voucherGenerator\":{\"id\":1,\"description\":\"Edenred\"},\"contractSKU\":[{\"id\":12707},{\"id\":12708},{\"id\":12709},{\"id\":12710}],\"createdBy\":\"msioson\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\voucher-number-rule.service.ts
+
+
+  // method to get vnr list from GraphQL
+  public getVoucherNumberRulesGraphQL(merchantId: number, isEdenredProgram: boolean): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{
+          voucherNumberRules(
+            where: {and: [{merchantId: {eq: ${merchantId}}}, {voucherGenerateWay: {eq: ${isEdenredProgram? 1 : 2}}}, {isDeleted: {eq: false}}]},
+            order: [{createdDateTime: DESC}]) {
+            items {
+              voucherNumberRuleId,
+              ruleName,
+              voucherNumberPrefix,
+              voucherNumberType,
+              voucherNumberLength,
+              distVoucherNumUnderBarcode,
+              createdDateTime,
+              algorithmId,
+              voucherNumberGenerator,
+              barcodeType {
+                  id,
+                  description
+              },
+              voucherGenerator{
+                  id,
+                  description
+              },
+              contractSKU {
+                id
+              },
+              createdBy
+            }
+          }
+        }`
+    };
+    return this.http.post(url, body,{ headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

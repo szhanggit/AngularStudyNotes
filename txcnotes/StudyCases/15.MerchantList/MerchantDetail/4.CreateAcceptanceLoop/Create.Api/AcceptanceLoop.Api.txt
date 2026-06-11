@@ -1,0 +1,83 @@
+https://api-staging.txc.edenred.net/gateway/api/AccLoop/AcceptanceLoop
+
+
+Post
+{"acceptanceLoopId":0,"code":"kljljljljlj","description":"ljljljljlj","status":true,"isDefault":false,"createdBy":"stzhang","createdOn":"2023-12-27T03:53:45.724Z","acceptanceLoopMerchants":[{"merchantId":2810,"status":true,"acceptanceLoopMerchantShops":[{"shopId":97427,"status":true}]}]}
+
+
+
+{"data":3561,"message":"Success","success":true}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\acceptance-loop\acceptance-loop-form\acceptance-loop-form.component.ts
+  OnSubmit() {
+    if (this.isEdit) {
+      this.updateAcceptanceLoop();
+    }
+    else {
+      this.createAcceptanceLoop();
+    }
+  }
+
+
+
+
+  // TODO: "status" fields clarification
+  createAcceptanceLoop() {
+......
+
+      this.acceptanceLoopApiService.createAcceptanceLoop(req).subscribe(
+        res => {
+          if(res.success) {
+            this.toast.showSuccess(`Acceptance loop ${req.code} was successfully created.`);
+            // TODO: navigate to acceptance loop list page if the user is coming from there
+            this.navigateToMerchantDetails();
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\acceptance-loop-api.service.ts
+  public createAcceptanceLoop(req: AcceptanceLoopCreateRequest): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/AccLoop/AcceptanceLoop`;
+    return this.http.post(url, req , { headers: this._getHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantInfo?MerchantId=2811
+
+
+MerchantId=2811
+
+
+{
+    "data": {
+        "merchantDetails": [
+            {
+                "merchantId": 2811,
+                "programId": 307,
+                "programCode": "00001",
+                "programName": "TX2.0",
+                "identityCode": "000000000008220",
+                "merchantName": "AUTOTEST20231215000525336",
+                "externalCode": "AUTOTEST20231215000525337",
+                "invoiceRegisterNumber": "20231215000525338",
+                "securityKey": "LTCDP569HD3XW6HRCQRS563NLS0IPT05",
+                "status": 1,
+                "tX1MerchantUID": "20231215000525343",
+                "isAutoCreateReimbursement": false,
+                "autoCreateReimbursementIntervalType": 1,
+                "reimbursementTaxType": 0,
+                "reimbursementType": 1,
+                "reimbursementReceivers": "merchantContactEmailList@edenred.com;edenredContactEmailList@edenred.com",
+                "sameKeyWithShop": false,
+                "mamEmail": "mamemail@edenred.com",
+                "merchantAutoType": 0,
+                "notificationMerchantCode": "",
+                "merchantEmail": "merchantEmail@edenred.com",
+                "merchantAcquireId": 0,
+                "merchantAcquireName": null,
+                "needConsumerScan": false,
+                "memo": "",
+                "issuerType": 0,
+                "workKeyId": 0,
+                "workKey": null,
+                "workKeyExpireTime": "0001-01-01T00:00:00",
+                "workKeyCreatedTime": "0001-01-01T00:00:00",
+                "isLegacyMerchant": false,
+                "mainContact": "",
+                "mainPhone": "",
+                "autoCreateReimbursementDay": null,
+                "description": "",
+                "categoryId": 333,
+                "address": {
+                    "id": 393913,
+                    "detailAddressLine": "AUTOTEST",
+                    "district": "AUTOTEST",
+                    "cityId": 36,
+                    "stateOrProvinceId": 11,
+                    "postcode": "AUTOTEST",
+                    "countryId": 6,
+                    "longitude": 0.0,
+                    "latitude": 0.0,
+                    "status": 1
+                },
+                "merchantContactEmailList": [
+                    "merchantContactEmailList@edenred.com"
+                ],
+                "edenredContactEmailList": [
+                    "edenredContactEmailList@edenred.com"
+                ]
+            }
+        ],
+        "totalCount": 1
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-edit\sku-edit.component.ts
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\sku\sku-form\sku-form.component.ts
+
+
+
+  ngOnInit(): void {
+    this._merchantService.getMerchantById(this.merchantId).subscribe(
+      (res) => {
+        this.merchant = res.data.merchantDetails[0];
+        this._programService.getProgramId(this.merchant.programId).subscribe(res => {
+          this.currentProgram = JSON.parse(res.data).programs.items[0];
+
+          this._vnrService.getVoucherNumberRulesGraphQL(this.merchantId, this.currentProgram.isEdenred).subscribe(
+            (res) => {
+              this.vnrList = JSON.parse(res.data).voucherNumberRules.items;
+            });
+        });
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"\n      query {\n        templates(where:\n          {\n              and: [\n                  {status: { eq: 1}}\n                  {type: { eq: 3}}\n                  {subType: { eq: 3}}\n                  \n                  \n              ]\n          },\n          skip: 0,\n          take: 10\n        )\n        {\n          items {\n              templateId\n              templateName\n              type\n              defaultLanguage\n          }\n        }\n      }"}
+
+
+
+
+{
+    "data": "{\"templates\":{\"items\":[{\"templateId\":371,\"templateName\":\"SmartVoucher\",\"type\":3,\"defaultLanguage\":1},{\"templateId\":372,\"templateName\":\"SmartVoucherNoPic\",\"type\":3,\"defaultLanguage\":1},{\"templateId\":373,\"templateName\":\"SmartVoucherWithQrCode\",\"type\":3,\"defaultLanguage\":1},{\"templateId\":374,\"templateName\":\"SmartVoucherWithRepeater\",\"type\":3,\"defaultLanguage\":1},{\"templateId\":380,\"templateName\":\"SmartVoucher_NoExpiryDate\",\"type\":3,\"defaultLanguage\":1}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\template.service.ts
+  getTemplatesList(
+    type: TemplateTypeEnum,
+    subType: TemplateSubTypeEnum,
+    term: string = '',
+    templateId: number = 0
+  ): Observable<Template[]> {
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const templateNameCondition = term
+      ? `{templateName: {contains: "${term}"}}`
+      : '';
+    const templateIdCondition =
+      templateId > 0 ? `templateId: { eq: ${templateId}}}` : '';
+
+    const body = {
+      query: `
+      query {
+        templates(where:
+          {
+              and: [
+                  {status: { eq: 1}}
+                  {type: { eq: ${type}}}
+                  {subType: { eq: ${subType}}}
+                  ${templateNameCondition}
+                  ${templateIdCondition}
+              ]
+          },
+          skip: 0,
+          take: 10
+        )
+        {
+          items {
+              templateId
+              templateName
+              type
+              defaultLanguage
+          }
+        }
+      }`,
+    };
+    return (this.http.post(url, body) as Observable<BaseResponse>).pipe(
+      map((response: BaseResponse) => {
+        if (response.success) {
+          return JSON.parse(response.data).templates.items;
+        }
+      })
+    );
+  }

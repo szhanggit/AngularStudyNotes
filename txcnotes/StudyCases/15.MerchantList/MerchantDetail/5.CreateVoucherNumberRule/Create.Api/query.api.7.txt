@@ -1,0 +1,28 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+{"query":"query { \n        contracts( merchantId: 2810 ) \n        { \n            totalCount \n        } \n      }"}
+
+
+
+{"data":"{\"contracts\":{\"totalCount\":4}}","message":null,"success":true}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\contract.service.ts
+  public getCount(merchantId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const tenantId = this._tenantConfigService.getTenant().id.toString();
+    const body = { query: 
+      `query { 
+        contracts( merchantId: ${merchantId} ) 
+        { 
+            totalCount 
+        } 
+      }`
+    };
+    return this.http.post(url, body,{ headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }

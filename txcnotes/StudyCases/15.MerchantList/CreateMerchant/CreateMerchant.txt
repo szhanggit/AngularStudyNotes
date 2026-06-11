@@ -1,0 +1,98 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/create
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'create',
+        component: MerchantCreateComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-create\merchant-create.component.html
+<ng-container *ngIf="merchantFormGroup">
+    <app-merchant-form [merchantFormGroup]="merchantFormGroup" [tenant]="tenant"></app-merchant-form>
+</ng-container>
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-form\merchant-form.component.html
+
+
+Click "Create" button,
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                                [disabled]="merchantFormGroup.invalid || (isLoading$ | async) || (isEdit && !merchantFormGroup.dirty)">{{
+                                (isLoading$ | async) ? 'Loading ...' : isEdit ? 'Save' :
+                                'Create' }}</button>
+
+
+<form [formGroup]="merchantFormGroup" (submit)="OnSubmit()" *ngIf="(merchant && isEdit) || !isEdit">
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-form\merchant-form.component.ts
+        this._merchantService.createMerchant(body).subscribe(			<============================
+          () => {
+            this.backToList('created');
+            this.isLoading$.next(false);
+          },
+          err => {
+            let errorMessage = err.error.Message ?? err.error.message;
+            if (err.error.data.length) {
+              err.error.data.forEach((errorMsg: string) =>
+                errorMessage = `${errorMessage}. ${errorMsg}`
+              );
+            }
+            this.toast.showDanger(errorMessage);
+            this.isLoading$.next(false);
+          });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\merchant.service.ts
+  createMerchant(body: any): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/MerchantInfo`;
+    return this.http.post(url, body, { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/merchants/shop/create?merchantId=2787
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\merchant-routing.module.ts
+    {
+        path: 'shop/create',
+        component: ShopCreateComponent,
+        canActivate: [PageAuthorizationGuard]
+    },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\shops\shop-create\shop-create.component.html
+<app-shop-form [merchantId]="merchantId" [tenant]="tenant" [shopFormGroup]="shopFormGroup" [isEdit]="false"></app-shop-form>
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\shops\shop-form\shop-form.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

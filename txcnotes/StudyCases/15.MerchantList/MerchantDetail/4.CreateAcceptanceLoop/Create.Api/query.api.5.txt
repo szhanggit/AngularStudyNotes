@@ -1,0 +1,11 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n          programs (\n              where: { id: { eq: 308} }\n          ) {\n              items {\n                  id\n                  name\n                  displayName\n                  isEdenred\n              }\n          }\n      }"}
+
+
+{
+    "data": "{\"programs\":{\"items\":[{\"id\":308,\"name\":\"FamilyMart\",\"displayName\":\"Family Mart\",\"isEdenred\":false}]}}",
+    "message": null,
+    "success": true
+}

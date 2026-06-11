@@ -1,0 +1,131 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n      taxRateByTenantId {\n        companyTaxRate\n      }\n    }"}
+
+
+
+{
+    "data": "{\"taxRateByTenantId\":{\"companyTaxRate\":1.05}}",
+    "message": null,
+    "success": true
+}
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\components\merchant-group\sku\merchant-group-sku-management\merchant-group-sku-management.component.ts
+  private getTaxRate() {
+    this.merchantGroupService.getTaxRate()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res: any) => {
+          if (!res.success) {
+            this.toast.showDanger(`Error in getting the tax rate for master product.`);
+            return;
+          }
+          const data = JSON.parse(res.data);
+          this.taxRate = data.taxRateByTenantId?.companyTaxRate;
+          if (this.taxRate == null || isNaN(this.taxRate!)) {
+            this.toast.showDanger(`Error in getting the tax rate for master product.`);
+          }
+        },
+        error: () => {
+          this.toast.showDanger(`Error in getting the tax rate for master product.`);
+        },
+        complete: () => { }
+      });
+  }
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Merchants\src\app\merchant\services\merchant-group.service.ts
+  getTaxRate(): Observable<BaseResponse> {
+    const body = {
+      query: `
+      query {
+        taxRateByTenantId {
+          companyTaxRate
+        }
+      }`
+    };
+    return this.http.post(this._graphQL, body, { headers: this._getHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
