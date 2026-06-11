@@ -1,0 +1,53 @@
+ng new emptyrouting-app --routing
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app
+mkdir layout
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\layout
+ng generate c private_layout
+ng generate c public_layout
+
+
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app
+ng generate module Pages --route pages --module app.module
+ng generate module Account --route accounts --module app.module
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\pages
+ng generate module Landing --route landing --module app.module
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\pages
+ng generate c Error404 --module pages.module
+ng generate c Error500 --module pages.module
+ng generate c Maintenance --module pages.module
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\account
+ng generate c login --module account.module
+ng generate c logout --module account.module
+ng generate c password --module account.module
+
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\pages
+ng generate module inventory --route inventory --module pages.module
+ng generate module merchant-sku --route merchant-sku --module pages.module
+ng generate module maintenance --route maintenance --module pages.module
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\pages\inventory
+ng generate c overview --module inventory.module
+ng generate c services --module inventory.module
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\pages\merchant-sku
+ng generate c create --module merchant-sku.module
+ng generate c detail --module merchant-sku.module
+ng generate c services --module merchant-sku.module
+
+cd D:\Study\AngularStudyNotes\experiments\txc-front-web-toc\emptyrouting-app\src\app\pages\maintenance
+ng generate c admin --module maintenance.module
+ng generate c media --module maintenance.module
+
+
+ng serve --port 4401  
+
+
+
+
+
+
+
