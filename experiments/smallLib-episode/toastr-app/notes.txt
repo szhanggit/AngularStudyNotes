@@ -1,0 +1,27 @@
+cd C:\AngularStudyNotes\experiments\smallLib-episode
+ng new toastr-app --routing
+
+
+ng serve -o
+npm install ngx-toastr
+npm install @angular/animations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

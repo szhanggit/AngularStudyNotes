@@ -1,0 +1,59 @@
+ng new simplebar-angular-app --routing --standalone false
+npm install simplebar-angular --save
+
+npm install bootstrap --save
+npm install @fortawesome/fontawesome-free --save
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap --save
+
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css" into angular.json
+
+
+
+
+https://www.npmjs.com/package/simplebar-angular
+https://grsmto.github.io/simplebar/
+https://github.com/Grsmto/simplebar/blob/master/packages/simplebar/README.md#3-demo
+
+
+
+ng g class models/menu.model
+ng g class models/layout.model
+ng g class models/auth.model
+ng g class models/menuData.model
+ng g class helper/utils
+
+
+
+
+
+---------------------------------------------------------------
+ngTemplateOutlet
+Chapter 13:
+<ng-template #titleTemplate let-text="title">
+    <h4 class="p-2 bg-success text-white">{{text}}</h4>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="titleTemplate"
+            [ngTemplateOutletContext]="{title: 'Header'}">
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="titleTemplate"
+            [ngTemplateOutletContext]="{title: 'Footer'}">
+</ng-template>
+---------------------------------------------------------------
+<ng-container *ngTemplateOutlet="MenuItemLink;context:{menu: menu, className: linkClassName}">
+</ng-container>
+
+<ng-template #MenuItem let-menu="menu" let-className="className" let-linkClassName="linkClassName">
+    <li [class]="className" [ngClass]="{ 'menuitem-active': activeMenuItems.includes(menu.key) }" *ngIf="menu.parentKey !== 'products' || (menu.hidden && !menu.hidden.includes(selectedTenant))">
+        <ng-container *ngTemplateOutlet="MenuItemLink;context:{menu: menu, className: linkClassName}">
+        </ng-container>
+    </li>
+</ng-template>
+
+
+
+collapsed: true         收起
+open                    打开

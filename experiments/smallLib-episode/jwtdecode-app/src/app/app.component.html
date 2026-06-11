@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <h1>
+    JWT decoed with <span class="ng-title">Angular</span>
+  </h1>
+  <textarea
+    rows="10"
+    cols="50"
+    [(ngModel)]="jwt"
+    (ngModelChange)="changeOnTextArea($event)"
+  ></textarea>
+  <p>
+    {{jwt_decode}}
+  </p>
+</div>

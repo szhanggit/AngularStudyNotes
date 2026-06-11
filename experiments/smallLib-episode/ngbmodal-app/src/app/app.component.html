@@ -1,0 +1,29 @@
+<button type="button" routerLink="/navbasic">ngbNav</button>
+<button type="button" routerLink="/template">ngTemplateOutlet</button>
+<button type="button" routerLink="/modelbasic">Basic Model</button>
+<button type="button" routerLink="/">Home</button>
+
+<router-outlet></router-outlet>
+
+<div>
+    <br />
+    <button class="btn btn-primary" (click)="openModal()">Open Modal</button>
+</div>
+
+<div>
+    <br />
+    <button class="btn btn-primary" (click)="letUsSubmit(content)">Submit</button>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-content modal-filled">
+        <div class="modal-body p-4 bg-success">
+            <div class="text-center">
+                <!-- <i class="dripicons-checkmark h1"></i>
+                <h4 class="mt-2">Done!</h4> -->
+                <p class="mt-3">Merchant SKU created successfully.</p>
+                <!-- <button type="button" class="btn btn-light my-2" (click)="modal.dismiss('Cross click')">OK</button> -->
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</ng-template><!-- /.modal -->

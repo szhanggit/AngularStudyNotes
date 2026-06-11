@@ -1,0 +1,81 @@
+cd D:\Study\AngularStudyNotes\experiments
+ng new template-app --routing
+
+
+
+
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap@12.1.2 --force
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css" into angular.json
+
+
+cd D:\Study\AngularStudyNotes\experiments\template-app
+ng generate c navbasicex
+ng generate c templateoutlet
+
+Reference:
+https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap
+https://snyk.io/advisor/npm-package/@ng-bootstrap/ng-bootstrap
+https://ng-bootstrap.github.io/#/components/nav/api#NgbNavItem
+
+
+
+http://localhost:4200/
+http://localhost:4200/navbasic
+http://localhost:4200/template
+
+-------------------------------------------------------------------
+ng generate component ModalContent
+ng generate component ModalBasic
+ng generate class Model/Merchant
+
+
+
+
+https://ng-bootstrap.github.io/#/components/modal/examples
+
+
+
+
+
+<ngb-modal-backdrop style="z-index: 1055;" aria-hidden="true" class=".app-session-modal-backdrop modal-backdrop fade show"></ngb-modal-backdrop>
+https://weblog.west-wind.com/posts/2016/sep/14/bootstrap-modal-dialog-showing-under-modal-background
+
+
+
+
+
+Todo:
+Model with form:
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\merchant-sku\detail\model\edit-merchant-sku-name\edit-merchant-sku-name.component.ts
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\merchant-sku\detail\detail.component.ts
+  openEditMerchantSkuName(){
+    this.modalService.open(EditMerchantSkuNameComponent).result.then((result) => {
+        console.log('Closed with: ${result}');
+      }, (reason) => {
+        console.log("Dismissed ${this.getDismissReason(reason)}");
+      });
+
+
+
+
+Form:
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\merchant-sku\detail\model\download-remaining-voucher-details\download-remaining-voucher-details.component.ts
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\merchant-sku\detail\model\edit-additional-info\edit-additional-info.component.ts
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\inventory\approval-list\approval-list.component.ts
+--------------
+
+
+Confirm popup:
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\inventory\set-cost-for-merchant-sku\set-cost-for-merchant-sku.component.html
+
+on Row Click:
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\inventory\approval-list\approval-list.component.html
+<tr *ngFor="let item of approval_list;" (click)="onRowClick(item)">
+
+
+modal-basic:    model is a template.
+modal-content:  model is a component.

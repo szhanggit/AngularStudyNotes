@@ -1,0 +1,113 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\claim-manager\claim-manager.service.ts
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\permission\check-user-permission.service.ts
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+The `jwt-decode` library is a JavaScript library used to decode JSON Web Tokens (JWT) without validating the signature. It extracts the payload data, which can be useful for obtaining user information or other data stored in the token.
+
+Here's a step-by-step guide on how to use `jwt-decode` in an Angular application:
+
+### Step-by-Step Example
+
+1. **Install the `jwt-decode` Library**: Use npm to install the library.
+2. **Import and Use the `jwt-decode` Library**: Import the library into your component or service and use it to decode a JWT.
+
+#### Step 1: Install the `jwt-decode` Library
+
+Open your terminal and run the following command to install the `jwt-decode` library:
+
+```bash
+npm install jwt-decode
+```
+
+#### Step 2: Import and Use the `jwt-decode` Library
+
+Now, create a service or component where you want to decode the JWT.
+
+#### Example in an Angular Service
+
+1. **Create a Service**: Generate a service using Angular CLI (if you don't have one).
+   ```bash
+   ng generate service auth
+   ```
+
+2. **Import `jwt-decode` and Decode JWT**: In your service, import the library and use it to decode a JWT.
+
+#### auth.service.ts
+
+```typescript
+import { Injectable } from '@angular/core';
+import jwt_decode from 'jwt-decode';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  constructor() {}
+
+  // Method to decode JWT
+  decodeToken(token: string): any {
+    try {
+      const decodedToken = jwt_decode(token);
+      return decodedToken;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+}
+```
+
+#### Usage in a Component
+
+Now, you can use this service in any of your components to decode a JWT.
+
+#### app.component.ts
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  decodedToken: any;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    const token = 'your-jwt-token-here';
+    this.decodedToken = this.authService.decodeToken(token);
+    console.log(this.decodedToken);
+  }
+}
+```
+
+### Explanation
+
+1. **Install `jwt-decode`**: The library is installed using npm.
+
+2. **AuthService**:
+   - Import `jwt_decode` from `jwt-decode`.
+   - Create a method `decodeToken` that takes a JWT string, decodes it, and returns the decoded token. If decoding fails, it catches the error and logs it.
+
+3. **AppComponent**:
+   - Inject `AuthService` into the component.
+   - On initialization (`ngOnInit`), call the `decodeToken` method with a JWT and store the result in a component property.
+
+### Output
+
+When you run your Angular application, the decoded JWT payload will be logged to the console by the `AppComponent`.
+
+### Additional Notes
+
+- **Security**: `jwt-decode` only decodes the JWT and does not verify its signature. Always validate the token on the server side to ensure its integrity and authenticity.
+- **Payload**: The decoded token contains the payload data, which typically includes user information and claims.
+
+By following these steps, you can easily decode JWTs in your Angular application using the `jwt-decode` library. This can be useful for extracting user information and other data stored in the token.

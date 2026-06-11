@@ -1,0 +1,26 @@
+cd C:\AngularStudyNotes\experiments\smallLib-episode
+ng new jwtdecode-app --routing
+
+cd jwtdecode-app
+
+ng serve -o
+npm install jwt-decode
+npm install @types/jwt-decode
+
+ng generate service auth
+
+
+[(ngModel)]="jwt"       import { FormsModule } from '@angular/forms';
+https://stackoverflow.com/questions/38892771/cant-bind-to-ngmodel-since-it-isnt-a-known-property-of-input
+
+import { jwtDecode } from "jwt-decode";
+https://stackoverflow.com/questions/77431535/jwt-decode-this-expression-is-not-callable-with-typscript
+
+
+Sandbox:
+https://codesandbox.io/p/sandbox/jwt-decode-angular-vhylw?file=%2Fsrc%2Fapp%2Fapp.component.html%3A14%2C7
+
+
+
+src\app\core\service\security\claim-manager\claim-manager.service.ts
+const modResOp = jwt_decode(localStorage.getItem("amm")) as ModResOpModel;

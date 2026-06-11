@@ -1,0 +1,136 @@
+The `ngx-toastr` library is an Angular library that provides a simple way to display toast notifications in your Angular applications. Toast notifications are non-intrusive messages that appear on the screen to provide feedback to the user.
+
+### Step-by-Step Example
+
+1. **Install the `ngx-toastr` Library**: Use npm to install the library along with the required `@angular/animations` package.
+2. **Import and Configure the `ToastrModule`**: Import `ToastrModule` in your Angular module and configure it.
+3. **Use the `ToastrService` in a Component**: Inject the `ToastrService` into your component and use it to show toast notifications.
+
+#### Step 1: Install the `ngx-toastr` Library
+
+Open your terminal and run the following commands to install `ngx-toastr` and `@angular/animations`:
+
+```bash
+npm install ngx-toastr
+npm install @angular/animations
+```
+
+#### Step 2: Import and Configure the `ToastrModule`
+
+Add `BrowserAnimationsModule` and `ToastrModule` to your app module.
+
+##### app.module.ts
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule, // Required for toastr animations
+    ToastrModule.forRoot() // ToastrModule added
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### Step 3: Use the `ToastrService` in a Component
+
+Inject the `ToastrService` into a component and use it to show different types of toast notifications.
+
+##### app.component.ts
+
+```typescript
+import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  constructor(private toastr: ToastrService) {}
+
+  showSuccess() {
+    this.toastr.success('Hello world!', 'Success');
+  }
+
+  showError() {
+    this.toastr.error('Something went wrong.', 'Error');
+  }
+
+  showInfo() {
+    this.toastr.info('Here is some information.', 'Info');
+  }
+
+  showWarning() {
+    this.toastr.warning('This is a warning.', 'Warning');
+  }
+}
+```
+
+##### app.component.html
+
+```html
+<div style="text-align:center">
+  <h1>
+    Welcome to Toastr Demo!
+  </h1>
+  <button (click)="showSuccess()">Show Success</button>
+  <button (click)="showError()">Show Error</button>
+  <button (click)="showInfo()">Show Info</button>
+  <button (click)="showWarning()">Show Warning</button>
+</div>
+```
+
+### Explanation
+
+1. **Install `ngx-toastr` and `@angular/animations`**: The `ngx-toastr` library depends on Angular animations, so both packages need to be installed.
+
+2. **Import and Configure `ToastrModule`**:
+   - Import `BrowserAnimationsModule` from `@angular/platform-browser/animations`.
+   - Import `ToastrModule` from `ngx-toastr`.
+   - Add `BrowserAnimationsModule` to the `imports` array to enable animations.
+   - Add `ToastrModule.forRoot()` to the `imports` array to configure the Toastr module with default settings.
+
+3. **Use the `ToastrService`**:
+   - Inject `ToastrService` into the component's constructor.
+   - Use methods like `success`, `error`, `info`, and `warning` to display different types of toast notifications.
+
+### Additional Configuration
+
+You can customize the behavior and appearance of toasts by passing an options object to the `forRoot` method in the `ToastrModule` configuration:
+
+##### app.module.ts (Custom Configuration)
+
+```typescript
+@NgModule({
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000, // Duration before toast disappears
+      positionClass: 'toast-top-right', // Position of the toast
+      preventDuplicates: true, // Prevent duplicate toasts
+      closeButton: true, // Show close button
+    })
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### Conclusion
+
+The `ngx-toastr` library provides a simple and flexible way to display toast notifications in Angular applications. By following these steps, you can easily integrate and use toast notifications to improve user feedback in your application. Customize the configuration as needed to fit the design and behavior of your application.

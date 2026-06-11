@@ -1,0 +1,7 @@
+cd C:\AngularStudyNotes\experiments\smallLib-episode
+ng new cookieservice-app --routing
+
+
+
+ng serve -o
+npm install ngx-cookie-service

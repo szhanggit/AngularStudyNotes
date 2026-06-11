@@ -1,0 +1,131 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\security\coockie-manager\cookie-manager.service.ts
+----------------------------------------------
+
+The `ngx-cookie-service` library is an Angular library that provides an easy way to work with cookies in an Angular application. It allows you to set, get, and delete cookies in a simple and consistent manner.
+
+### Step-by-Step Example
+
+1. **Install the `ngx-cookie-service` Library**: Use npm to install the library.
+2. **Import and Provide the `CookieService`**: Import the `CookieService` in your Angular module and provide it.
+3. **Use the `CookieService` in a Component or Service**: Inject the `CookieService` into your component or service and use it to manage cookies.
+
+#### Step 1: Install the `ngx-cookie-service` Library
+
+Open your terminal and run the following command to install the `ngx-cookie-service` library:
+
+```bash
+npm install ngx-cookie-service
+```
+
+#### Step 2: Import and Provide the `CookieService`
+
+Add `CookieService` to the providers array in your app module.
+
+##### app.module.ts
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { CookieService } from 'ngx-cookie-service';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [CookieService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### Step 3: Use the `CookieService` in a Component
+
+Inject the `CookieService` into a component and use it to set, get, and delete cookies.
+
+##### app.component.ts
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'cookie-demo';
+
+  constructor(private cookieService: CookieService) { }
+
+  ngOnInit(): void {
+    // Set a cookie
+    this.cookieService.set('TestCookie', 'Hello, World!');
+
+    // Get the cookie
+    const myCookie = this.cookieService.get('TestCookie');
+    console.log('TestCookie:', myCookie);
+
+    // Check if a cookie exists
+    const cookieExists = this.cookieService.check('TestCookie');
+    console.log('TestCookie exists:', cookieExists);
+
+    // Delete the cookie
+    this.cookieService.delete('TestCookie');
+
+    // Confirm deletion
+    const cookieDeleted = this.cookieService.check('TestCookie');
+    console.log('TestCookie exists after deletion:', cookieDeleted);
+  }
+}
+```
+
+#### app.component.html
+
+```html
+<div>
+  <h1>Cookie Demo</h1>
+  <button (click)="setCookie()">Set Cookie</button>
+  <button (click)="getCookie()">Get Cookie</button>
+  <button (click)="deleteCookie()">Delete Cookie</button>
+</div>
+```
+
+### Explanation
+
+1. **Import Statements**: Import the `CookieService` from `ngx-cookie-service`.
+
+   ```typescript
+   import { CookieService } from 'ngx-cookie-service';
+   ```
+
+2. **Provide the Service**: Add `CookieService` to the providers array in your `AppModule`.
+
+   ```typescript
+   providers: [CookieService]
+   ```
+
+3. **Inject and Use the Service**: Inject `CookieService` in your component's constructor and use its methods:
+   - **Set a Cookie**: `this.cookieService.set('TestCookie', 'Hello, World!');`
+   - **Get a Cookie**: `const myCookie = this.cookieService.get('TestCookie');`
+   - **Check if a Cookie Exists**: `const cookieExists = this.cookieService.check('TestCookie');`
+   - **Delete a Cookie**: `this.cookieService.delete('TestCookie');`
+
+### Methods of `CookieService`
+
+- **set(name: string, value: string, expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'Strict' | 'None')**:
+  Sets a cookie with the specified name and value, with optional parameters for expiration date, path, domain, secure flag, and sameSite attribute.
+
+- **get(name: string)**: Returns the value of the specified cookie.
+
+- **check(name: string)**: Checks if a cookie with the specified name exists.
+
+- **delete(name: string, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'Strict' | 'None')**: Deletes the specified cookie with optional parameters for path, domain, secure flag, and sameSite attribute.
+
+- **deleteAll(path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'Strict' | 'None')**: Deletes all cookies with optional parameters for path, domain, secure flag, and sameSite attribute.
+
+By following these steps and using the `CookieService` methods, you can effectively manage cookies in your Angular application.

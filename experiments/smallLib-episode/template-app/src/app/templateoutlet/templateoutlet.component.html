@@ -1,0 +1,30 @@
+<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+<div class="row">
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  </div>
+  
+  <!-- Columns are always 50% wide, on mobile and desktop -->
+  <div class="row">
+    <div class="col-6">
+      <div>
+        <div>Hello World!</div>
+        <ng-container *ngTemplateOutlet="list"></ng-container>
+      </div>
+    </div>
+    <div class="col-6">.col-6</div>
+  </div>
+
+  <ng-template #list>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngIf="1>2; else notLoading">
+            <div class="product-speeding-wheel"></div>
+        </ng-container>
+  
+        <ng-template #notLoading>
+            <div>Not Loading</div>
+        </ng-template>
+  
+    </div>
+  </ng-template>

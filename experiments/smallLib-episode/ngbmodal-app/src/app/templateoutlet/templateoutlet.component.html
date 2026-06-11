@@ -1,0 +1,76 @@
+<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+  <div class="row">
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  </div>
+  
+  <!-- Columns are always 50% wide, on mobile and desktop -->
+  <div class="row">
+    <div class="col-6">
+      <div>
+        <div>Hello World!</div>
+        <ng-container *ngTemplateOutlet="list"></ng-container>
+      </div>
+    </div>
+    <div class="col-6">.col-6</div>
+  </div>
+
+  <ng-template #list>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngIf="1>2; else notLoading">
+            <div class="product-speeding-wheel"></div>
+        </ng-container>
+  
+        <ng-template #notLoading>
+            <div>Not Loading</div>
+        </ng-template>
+  
+    </div>
+  </ng-template>
+
+
+<!------------------------------------------------------------------------------------------------>
+
+
+<ng-template #personalInfoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modalLabel">Personal information</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mt-1">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <h5>{{modalModel.name}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <h5>{{modalModel.email}}</h5>
+        </div>
+      </div>
+    </div>
+    <dl class="row mt-1">
+      <dt class="col-3">Account name</dt>
+      <dd class="col-9">{{modalModel.userName}}</dd>
+      <dt class="col-3">Business units</dt>
+      <dd class="col-9">{{modalModel.tenant}}</dd>
+      <dt class="col-3">Application</dt>
+      <dd class="col-9">{{modalModel.application}}</dd>
+    </dl>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+
+
+<div>
+  <br />
+  <button class="btn btn-primary" (click)="openModal()">Open View Child Modal</button>
+</div>
