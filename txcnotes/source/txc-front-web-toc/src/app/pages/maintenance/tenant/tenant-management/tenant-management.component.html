@@ -1,0 +1,26 @@
+<ng-progress #progressBar></ng-progress>
+<app-page-title [breadcrumbItems]="pageTitle" title="Tenant Management"></app-page-title>
+<div class="row">
+    <div class="col-12">
+        <p class="text-muted font-16">
+            You may use this page to view, add and edit tenants.
+        </p>
+    </div>
+</div>
+
+<div class="row mt-3">
+<div class="col-4">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchKeyword" />
+        <span class="input-group-text" id="ImgBtnMagnifier">
+            <i class='uil uil-search-alt'></i></span>
+        </div>
+    </div>
+    <div class="col-8">
+        <button class="btn btn-info rounded-pill ms-2 float-end" routerLink="/maintenance/tenant" *ngIf="enabledCreate">Add</button>
+        <button class="btn btn-light rounded-pill float-end" (click)="searchKeyword = ''">Reset</button>
+    </div>
+</div>
+<app-tenant-list [filterKeyword]="searchKeyword"></app-tenant-list>
+
+<ngbd-toast-global></ngbd-toast-global>

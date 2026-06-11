@@ -1,0 +1,31 @@
+<ng-progress #progressBar></ng-progress>
+<div class="fn-container">
+    <div class="row mt-2">
+        <div class="col-lg-6 col-sm-12">
+            <div class="control-block">
+                <div class="lbl form-label">AD Account / Email address</div>
+                <span *ngIf="searching">Searching...</span>
+                <div class="input-group">
+                    <input class="form-control" type="text" (keyup)="onSerachKeyUp($event)" [(ngModel)]="search" [disabled]="searching" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <img src="../../../assets/icons/search.png" class="magnifier" (click)="searchUser()" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row my-2">
+        <div class="col-lg-3 col-sm-12">
+            <button type="button" class="btn form-control" id="btnCreate" [class.btn-info]="userFound"
+                [class.btn-disabled]="!userFound" [disabled]="!userFound" (click)="addNewUser()">
+                Add
+            </button>
+        </div>
+    </div>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

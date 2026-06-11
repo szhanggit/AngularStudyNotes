@@ -1,0 +1,71 @@
+.ng-cbo-bu{
+  text-align: left;
+}
+.fn-container{
+  height: 100%;
+}
+
+.grid{
+  height: 100%;
+}
+
+.search-controls
+{
+  text-align: right;
+
+  .search-box, .view-all-box{
+      display: inline-block;
+      vertical-align: top;
+  }
+
+  .view-all-box{
+      margin: 0 0 0 10px;
+      width:350px;
+
+      .label, .view-all{
+          display: inline-block;
+          vertical-align: top;
+      }
+
+      .label{
+          padding: 8px 14px 0 0;
+          vertical-align: middle;
+      }
+
+      .view-all{
+          width: 200px;
+      }
+
+  }
+
+  .search-box{
+
+      .magnifier, .search{
+          vertical-align: top;
+          display: inline-block;
+          border:solid #d1d1d1 1px;
+      }
+
+      .magnifier{
+          border-right: none;
+          width: 30px;
+          padding: 7px 2px 3px 3px;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+      }
+      .search{
+          border-left: none;
+          width:300px;
+          height: 31px;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+          padding: 0 1px 1px 1px;
+          input[type='text']{
+              border:none !important;
+              padding-bottom: 0px !important;
+              margin: 0px !important;
+          }
+
+      }
+  }
+}

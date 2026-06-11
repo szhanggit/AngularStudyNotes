@@ -1,0 +1,186 @@
+<app-page-title [breadcrumbItems]="pageTitle" title="User Management"></app-page-title>
+
+
+<div class="row">
+  <div class="col-12">
+    <p class="text-muted font-16">
+      You may use this page to add users to Ticket Xpress Operation Center account, as well as manage their
+      permission to specific business unit. Using the option below, you will be able to specify the business unit
+      of access each
+      user receives.
+    </p>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-4">
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="filterRequest.searchKey" placeholder="Search" />
+      <span class="input-group-text" id="ImgBtnMagnifier" (click)="filterUsers()"><i
+          class='uil uil-search-alt'></i></span>
+    </div>
+  </div>
+  <div class="col-8">
+    <button class="btn btn-info rounded-pill ms-2 float-end" routerLink="/maintenance/add-user" *ngIf="enabledCreate">Add
+      users</button>
+    <button class="btn btn-light rounded-pill float-end" (click)="clearFilters()">Reset</button>
+  </div>
+</div>
+
+
+<div class="row mt-3">
+  <div class="col">
+    <select2 [data]="tenants" [(ngModel)]="filterRequest.tenantId" (ngModelChange)="setRolesRef()"
+      placeholder={{buDefaultPlaceHolder}}>
+    </select2>
+  </div>
+
+  <div class="col">
+    <select2 [data]="applications" [(ngModel)]="filterRequest.appId" (ngModelChange)="setRolesRef()"
+      placeholder="All applications">
+    </select2>
+  </div>
+
+  <div class="col">
+    <select2 [data]="roles" [(ngModel)]="filterRequest.roleId" (ngModelChange)="filterUsers()" placeholder="All roles"
+      multiple="true">
+    </select2>
+  </div>
+
+  <div class="col">
+    <select2 [data]="roleStatus" [(ngModel)]="filterRequest.roleStatus" (ngModelChange)="filterUsers()"
+      placeholder="All role status">
+    </select2>
+  </div>
+
+  <div class="col">
+    <select2 [data]="userStatus" [(ngModel)]="filterRequest.userStatus" (ngModelChange)="filterUsers()"
+      placeholder="All user status">
+    </select2>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">User access list</h4>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <ag-grid-angular class="ag-theme-alpine user-mgmt-grid" [rowData]="usersData" [columnDefs]="userMgmtCols"
+              [gridOptions]="userMgmtGridOptions" (gridReady)="onGridRead($event)"></ag-grid-angular>
+          </div>
+        </div>
+        <div class="d-flex flex-row-reverse">
+          <div class="p-2"><a [routerLink]="" (click)="next()" class="btn btn-info">NEXT</a></div>
+          <div class="p-2"><a [routerLink]="" (click)="previous()" class="btn btn-info">PREV</a></div>
+          <div class="p-2">{{endRow}}</div>
+          <div class="p-2">TO</div>
+          <div class="p-2">{{startRow}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #personalInfoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modalLabel">Personal information</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mt-1">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <h5>{{modalModel.name}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <h5>{{modalModel.email}}</h5>
+        </div>
+      </div>
+    </div>
+    <dl class="row mt-1">
+      <dt class="col-3">Account name</dt>
+      <dd class="col-9">{{modalModel.userName}}</dd>
+      <dt class="col-3">Country</dt>
+      <dd class="col-9">{{modalModel.ldapUser.country}}</dd>
+      <dt class="col-3">Department</dt>
+      <dd class="col-9">{{modalModel.ldapUser.department}}</dd>
+      <dt class="col-3">Job title</dt>
+      <dd class="col-9">{{modalModel.ldapUser.title}}</dd>
+      <dt class="col-3">Business units</dt>
+      <dd class="col-9">{{modalModel.tenant}}</dd>
+      <dt class="col-3">Application</dt>
+      <dd class="col-9">{{modalModel.application}}</dd>
+    </dl>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">OK</button>
+  </div>
+</ng-template>
+
+<ng-template #blockUnblockModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="modalModel.userStatus == 1">Block user</h4>
+    <h4 class="modal-title" *ngIf="modalModel.userStatus == 2">Unblock user</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mt-1">
+      <div class="col-12">
+        <p *ngIf="modalModel.userStatus == 1">Are you sure you want to block
+          "<strong>{{modalModel.email}}</strong>"? Blocked user will no longer be able to access the assigned
+          application.</p>
+        <p *ngIf="modalModel.userStatus == 2">Are you sure you want to unblock
+          "<strong>{{modalModel.email}}</strong>"?</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modalModel = null;modal.close('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary"
+      (click)="blockUnblockUser(modalModel.userId, modalModel.userStatus);modal.close('Close click')"
+      *ngIf="modalModel.userStatus == 1">Block</button>
+    <button type="button" class="btn btn-primary"
+      (click)="blockUnblockUser(modalModel.userId, modalModel.userStatus);modal.close('Close click')"
+      *ngIf="modalModel.userStatus == 2">Unblock</button>
+  </div>
+</ng-template>
+
+<ng-template #editHistoryModal let-modal id="">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit history</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row mt-1">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <h5>{{modalModel.name}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <h5>{{modalModel.email}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-12">
+        <ag-grid-angular class="ag-theme-alpine" [rowData]="editHistoryData" [columnDefs]="editHistoryCols"
+          [gridOptions]="editHistoryGridOptions" (gridReady)="onGridRead($event)" style="width: 100%; height: 500px"></ag-grid-angular>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

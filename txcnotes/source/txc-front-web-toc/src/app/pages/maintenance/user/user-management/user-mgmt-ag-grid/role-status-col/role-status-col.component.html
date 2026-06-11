@@ -1,0 +1,8 @@
+<div *ngFor="let role of roles">
+    <span *ngIf="role.roleStatus == 1">Active</span>
+    <span *ngIf="role.roleStatus == 2">Inactive</span>
+    <span *ngIf="role.roleStatus == 3">Expired</span>
+    <br>
+    <span *ngIf="role.roleExpired != null">{{role.roleActive | date}} - {{role.roleExpired | date}}</span>
+    <span *ngIf="role.roleExpired == null">{{role.roleActive | date}} - indefinite</span>
+</div>

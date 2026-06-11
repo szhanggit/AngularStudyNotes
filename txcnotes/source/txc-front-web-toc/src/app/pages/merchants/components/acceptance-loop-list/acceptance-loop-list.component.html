@@ -1,0 +1,117 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">        
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <button type="button" class="btn btn-primary rounded-pill" [routerLink]="['../create']">Create Acceptance Loop</button>
+                </div>  
+                <h3 class="page-title">Acceptance Loop List</h3>
+                        
+            </div>
+        </div>
+    </div>
+    <div class="row card">
+<div class="col-12">
+    <div class="row mt-2">
+        <div class="col-4">
+            <div class="input-group input-group-prefix-icon mb-1">            
+                <input type="text" class="form-control" placeholder="Search" #search [(ngModel)]="searchTerm" (keyup)="onSearchChange()">
+                <span class="mdi mdi-magnify search-icon"></span>
+            </div>
+        </div>
+        <div class="col-8">
+            
+                <div class="row justify-content-end">
+                    <div class="d-flex justify-content-end col-2">
+                        <span class="text-secondary align-self-center font-12">Display</span>
+                    </div>
+                    <div class="d-flex justify-content-end col-2">
+                        <select name="pageSize" class="form-select font-12" [(ngModel)]="pageSize" (change)="pageChange()">
+                            <option selected="20">20</option>
+                            <option [ngValue]="40">40</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-start col-1 font-12">
+                        <span class="text-secondary align-self-center">list</span>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+        <table class="table table-striped table-centered table-sm mt-2">
+            <thead>
+            <tr>
+                <th>
+                    Acceptance Loop Name / Description
+                </th>
+                <th>
+                    Aavailable Merchants
+                </th>
+                <th>
+                    Aavailable Shop
+                </th>
+                <th>
+                    Creator
+                </th>
+                <th>
+                    Create time
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let acceptanceLoop of acceptanceLoopList.items ; index as i">
+                <td>
+                    {{ acceptanceLoop.code }}
+                    <p class="text-muted">{{acceptanceLoop.description}}</p>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link rounded-pill" *ngFor="let merchant of acceptanceLoop.acceptanceLoopMerchants">
+                        {{merchant.merchant[0].name}}
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link rounded-pill" *ngFor="let merchant of acceptanceLoop.acceptanceLoopMerchants">
+                        {{getAvailableShop(merchant)}}
+                    </button>
+                </td>
+                <td>
+                    {{ acceptanceLoop.createdBy }}
+                </td>
+                <td>
+                    {{ acceptanceLoop.createdOn | date : 'yyyy/MM/dd' }}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link" (click)="edit(acceptanceLoop)"><i class="mdi mdi-pencil"></i></button>
+                    
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-6">
+                <span class="text-secondary font-12">
+                    Displaying page {{ pageIndex }} of {{ pageCount }}, 
+                    items {{ itemStart }} to {{ itemEnd }} of {{ acceptanceLoopList.totalCount }}
+                </span>
+            </div>
+            <div class="col-6">
+                <div class="float-end font-12">
+                    <ngb-pagination [collectionSize]="acceptanceLoopList.totalCount" [(page)]="pageIndex" (pageChange)="pageChange()"
+                        [pageSize]="pageSize" class="pagination-rounded">
+                        <ng-template ngbPaginationPrevious>
+                            <i class="uil-angle-left"></i>
+                        </ng-template>
+                        <ng-template ngbPaginationNext>
+                            <i class="uil-angle-right"></i>
+                        </ng-template>
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+</div>
+    </div>
+</div>

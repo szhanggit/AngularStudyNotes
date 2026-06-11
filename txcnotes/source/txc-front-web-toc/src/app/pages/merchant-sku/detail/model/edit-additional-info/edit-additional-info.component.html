@@ -1,0 +1,62 @@
+<form id="form-container" class="needs-validation was-validated" [ngClass]="{'was-validated': isFormInvalid}" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="modal-header">
+        <h4 class="modal-title text-center w-100">Edit Additional Info</h4>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button> -->
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12">
+                <div class="mb-3">
+                    <label for="txtskuMOQ" class="form-label">SKU MOQ <i class="mdi mdi-information-outline" placement="top" ngbTooltip="Default tooltip"></i></label>
+                    <input type="number" id="txtskuMOQ" class="form-control" formControlName="skuMOQ">
+                </div>                        
+            </div>
+            <div class="col-xl-12 col-lg-12 col-sm-12">
+                <div class="mb-3" formArrayName="costs">
+                    
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-sm-2 col-4">
+                            <label for="txtvalue" class="form-label">Set Default</label>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-sm-10 col-8">
+                            <label for="txtvalue" class="form-label">Cost Value</label>
+                        </div>
+                    </div>
+                    <div [formGroup]="formGroupCtrl(ct)" *ngFor="let ct of costs.controls; index as idx" class="row pb-3">
+                        <div class="col-xl-2 col-lg-2 col-sm-2 col-4 text-center ">
+                            <input type="radio" name="defaultCostValue" class="form-check-input" [checked]="form.get('defaultCost').value ==idx" [value]="idx" required (change)="changeDefaultValue($event)">
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-sm-10 col-8">
+                            <div class="row">
+                            <div class="col-xl-10 col-lg-10 col-sm-10 col-8">
+                                <input type="number" id="txtvalue" class="form-control" formControlName="costValue" required>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-sm-2 col-4">
+                                <i class="mdi mdi-trash-can deleteIcon" (click)="deleteCost(idx)" *ngIf="form.get('defaultCost').value !=idx"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-sm-2">
+                            
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-sm-12">
+                            <button type="button" class="btn btn-light btn-sm" (click)="addCost()"><i class="mdi mdi-plus me-1"></i>Add more cost value</button>
+                        </div>
+                    </div>
+                </div>                        
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row w-100">
+            <div class="col-xl-6 col-lg-6 col-sm-6">
+                <button type="button" class="btn btn-light rounded-pill w-100" (click)="activeModal.close('Close click')">Cancel</button>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-sm-6">
+                <button type="button" class="btn btn-primary rounded-pill w-100" type="submit">Save</button>
+            </div>
+        </div>
+      </div>
+    </form>

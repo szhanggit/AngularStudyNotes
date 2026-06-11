@@ -1,0 +1,284 @@
+<app-page-title [breadcrumbItems]="pageTitle" [title]="title"></app-page-title>
+
+<ng-progress #progressBar></ng-progress>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="detailsFormGroup" (submit)="OnSubmit()">
+                    <div class="details__container">
+                        <div class="row align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="name" class="form-label details__container__label">Tenant Name</label>
+                                <input type="text"
+                                    class="form-control details__container__control"
+                                    [ngClass]="{
+                                        'is-valid' : !f.name.invalid,
+                                        'is-invalid': f.name.invalid
+                                    }"
+                                    formControlName="name" />
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.name.invalid && f.name.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Tenant is required!">
+                                        Tenant is required
+                                    </div>
+                                    <div *ngIf="f.name.invalid && f.name.errors?.alreadyExists"
+                                        class="invalid-feedback"
+                                        title="Tenant already exists!">
+                                        {{ f.name.value }} already exists!
+                                    </div>
+                                    <div *ngIf="f.name.invalid && f.name.errors?.minlength"
+                                        class="invalid-feedback"
+                                        title="Tenant name must be at least 2 characters!">
+                                        Tenant name must be at least 2 characters!
+                                    </div>
+                                    <div *ngIf="f.name.invalid && f.name.errors?.maxlength"
+                                        class="invalid-feedback"
+                                        title="Tenant name must be less than 100 characters!">
+                                        Tenant name must be less than 100 characters!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+                                <label for="country" class="form-label details__container__label">Country</label>
+                                <select name="country"
+                                    class="form-select is-valid"
+                                    [ngClass]="{
+                                        'is-valid' : !f.countryCode.invalid,
+                                        'is-invalid': f.countryCode.invalid
+                                    }"
+                                    formControlName="countryCode"
+                                    (change)="OnCountryCodeChanged()">
+                                    <option selected value="">Select Country</option>
+                                    <option *ngFor="let countryModel of references.countries" [value]="countryModel.countryCode">
+                                        {{ countryModel.country }}
+                                    </option>
+                                </select>
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.countryCode.invalid && f.countryCode.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Country is required!">
+                                        Please select a country
+                                    </div>
+                                    <div *ngIf="f.countryCode.invalid && f.countryCode.errors?.minlength"
+                                        class="invalid-feedback"
+                                        title="Country code must be at least 2 characters!">
+                                        Country code must be at least 2 characters!
+                                    </div>
+                                    <div *ngIf="f.countryCode.invalid && f.countryCode.errors?.maxlength"
+                                        class="invalid-feedback"
+                                        title="Country code must be less than 100 characters!">
+                                        Country code must be less than 100 characters!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+                                <label for="currencySymbol" class="form-label details__container__label">Currency Symbol</label>
+                                <input type="text"
+                                    class="form-control"
+                                    [ngClass]="{
+                                        'is-valid' : !f.currencySymbol.invalid,
+                                        'is-invalid': f.currencySymbol.invalid
+                                    }"
+                                    formControlName="currencySymbol" />
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.currencySymbol.invalid && f.currencySymbol.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Currency Symbol is required!">
+                                        Currency Symbol is required
+                                    </div>
+                                    <div *ngIf="f.currencySymbol.invalid && f.currencySymbol.errors?.maxlength"
+                                        class="invalid-feedback"
+                                        title="Currency Symbol must be less than 5 characters!">
+                                        Currency Symbol must be less than 5 characters!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+                                <label for="language" class="form-label details__container__label">Preferred Language</label>
+                                <select name="language"
+                                    class="form-select"
+                                    [ngClass]="{
+                                        'is-valid' : !(f.language.invalid && f.language.errors?.required),
+                                        'is-invalid': f.language.invalid && f.language.errors?.required
+                                    }"
+                                    formControlName="language">
+                                    <option selected value="">Select Language</option>
+                                    <option *ngFor="let languageModel of references.languages" [value]="languageModel.language">
+                                        {{ languageModel.language }}
+                                    </option>
+                                </select>
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.language.invalid && f.language.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Preferred Language is required!">Please select a preferred language</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <label for="timezone" class="form-label details__container__label">Time Zone</label>
+                                <select name="timezone"
+                                    class="form-select"
+                                    [ngClass]="{
+                                        'is-valid' : !f.timezone.invalid,
+                                        'is-invalid': f.timezone.invalid
+                                    }"
+                                    formControlName="timezone">
+                                    <option selected value="">Select Time Zone</option>
+                                    <option *ngFor="let timezoneModel of references.timeZones" [value]="timezoneModel.timeZone">
+                                        {{ timezoneModel.utcOffset }}
+                                    </option>
+                                </select>
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.timezone.invalid && f.timezone.errors?.required"
+                                        class="invalid-feedback"
+                                        title="timezone is required!">
+                                        Please select a time zone
+                                    </div>
+                                    <div *ngIf="f.timezone.invalid && f.timezone.errors?.maxlength"
+                                        class="invalid-feedback"
+                                        title="Time zone must be less than 100 characters!">
+                                        Time zone must be less than 100 characters!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <label for="timeFormat" class="form-label details__container__label">Time Format</label>
+                                <select name="country"
+                                    class="form-select"
+                                    [ngClass]="{
+                                        'is-valid' : !f.timeFormat.invalid,
+                                        'is-invalid': f.timeFormat.invalid
+                                    }"
+                                    formControlName="timeFormat">
+                                    <option selected value="">Select Time Format</option>
+                                    <option *ngFor="let timeFormatModel of references.timeFormats" [value]="timeFormatModel.timeFormatId">
+                                        {{ timeFormatModel.timeFormat }}
+                                    </option>
+                                </select>
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.timeFormat.invalid && f.timeFormat.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Time format is required!">
+                                        Please select a time format
+                                    </div>
+                                    <div *ngIf="f.timeFormat.invalid && f.timeFormat.errors?.maxlength"
+                                        class="invalid-feedback"
+                                        title="Time format must be less than 20 characters!">
+                                        Time format must be less than 20 characters!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+                                <label for="companyTaxType" class="form-label details__container__label">Company Tax Type</label>
+                                <div class="control">
+                                    <div class="form-check form-check-inline mb-2">
+                                        <input name="companyTaxType" class="form-check-input" type="radio" [value]="true" formControlName="companyTaxType">
+                                        <label class="form-check-label" for="companyTaxType">Before Tax</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-2">
+                                        <input name="companyTaxType" class="form-check-input" type="radio" [value]="false" formControlName="companyTaxType">
+                                        <label class="form-check-label" for="companyTaxType">After Tax</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+                                <label for="companyTaxRate" class="form-label details__container__label">Company Tax Rate %</label>
+                                <input type="number"
+                                    class="form-control"
+                                    formControlName="companyTaxRate"
+                                    [ngClass]="{
+                                        'is-valid' : !f.companyTaxRate.invalid,
+                                        'is-invalid': f.companyTaxRate.invalid
+                                    }"
+                                    (change)="onChangeCompanyTaxRate()" />
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.companyTaxRate.invalid && f.companyTaxRate.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Company Tax Rate is required!">Company Tax Rate is required
+                                    </div>
+                                    <div *ngIf="f.companyTaxRate.invalid && f.companyTaxRate.errors?.min"
+                                        class="invalid-feedback"
+                                        title="Company Tax Rate is required!">
+                                        Company Tax Rate must be greater than 0!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mb-3">
+                                <label for="effectivityDate" class="form-label details__container__label">Tax Effectivity Date</label>
+                                <input type="date" name="date"
+                                    class="form-control"
+                                    [ngClass]="{
+                                        'is-valid' : !(f.effectivityDate.invalid && (f.effectivityDate.errors?.required || f.effectivityDate.errors?.futureDateValidator)),
+                                        'is-invalid': f.effectivityDate.invalid && (f.effectivityDate.errors?.required || f.effectivityDate.errors?.futureDateValidator)
+                                    }"
+                                    min="{{ currentDate | date:'YYYY-MM-dd' }}"
+                                    formControlName="effectivityDate">
+                                <div *ngIf="domLoaded" class="required-field">
+                                    <div *ngIf="f.effectivityDate.invalid && f.effectivityDate.errors?.required"
+                                        class="invalid-feedback"
+                                        title="Tax Effectivity date is required!">Please pick an effectivity date</div>
+                                    <div *ngIf="f.effectivityDate.invalid && f.effectivityDate.errors?.futureDateValidator"
+                                        class="invalid-feedback"
+                                        title="Effectivity date must be greater than the current date!">Effectivity date must be greater than the current date</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details__logocontainer">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <label for="logo" class="form-label details__container__label">Logo</label>
+                                <input type="file"
+                                    class="form-control" id="fileLogo"
+                                    (change)="onFileChange($event)"
+                                    accept="image/*"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <img [src]="logo" class="details__container__logo img-thumbnail" *ngIf="logo" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end mb-3">
+                                <button type="button" id="btnCancel"
+                                    class="btn btn-light btn-md rounded-pill"
+                                    routerLink="/maintenance/tenant-management">
+                                    Back to List
+                                </button>
+                                <button type="button" id="btnReset"
+                                    *ngIf="!editMode"
+                                    class="btn btn-warning btn-md rounded-pill ms-2"
+                                    (click)="resetForm()">
+                                    Reset
+                                </button>
+                                <button type="submit"
+                                    class="btn btn-info btn-md rounded-pill ms-2"
+                                    [disabled]="detailsFormGroup.invalid || !detailsFormGroup.dirty" *ngIf="enabledUpdate">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

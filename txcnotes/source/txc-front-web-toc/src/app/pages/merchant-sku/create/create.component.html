@@ -1,0 +1,175 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <!-- <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Icons</a></li>
+                    <li class="breadcrumb-item active">Unicons</li>
+                </ol> -->
+            </div>
+            <h4 class="page-title">Create Merchant SKU</h4>
+        </div>
+    </div>
+</div>
+<form id="form-container" [formGroup]="form" (ngSubmit)="onSubmit(content)">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-4">Basic Information</h4>
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3 autocomplete">
+                            <label for="txtmerchant" class="form-label">Merchant <span class="text-danger"><strong>*</strong></span></label>
+                            <input type="text" id="txtmerchant" class="form-control" [ngClass]="{'is-invalid': isFormInvalid && form.controls.merchant.invalid}" formControlName="merchant" [ngbTypeahead]="search" [inputFormatter]="formatter"
+                            [resultFormatter]="formatter" [editable]='false'>
+                            <small *ngIf="searching" class="form-text text-muted">searching...</small>
+                            <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+                        </div>                        
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtmerchantSKU" class="form-label">Merchant SKU <span class="text-danger"><strong>*</strong></span></label>
+                            <input type="text" id="txtmerchantSKU" class="form-control" [ngClass]="{'is-invalid': isFormInvalid && form.controls.merchantSKU.invalid}" formControlName="merchantSKU">
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtmerchantSKUName" class="form-label">Merchant SKU Name <span class="text-danger"><strong>*</strong></span></label>
+                            <input type="text" id="txtmerchantSKUName" class="form-control" [ngClass]="{'is-invalid': isFormInvalid && form.controls.merchantSKUName.invalid}" formControlName="merchantSKUName">
+                        </div>                        
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtskuMOQ" class="form-label">SKU MOQ <i class="mdi mdi-information-outline" placement="top" ngbTooltip="Default tooltip"></i></label>
+                            <input type="number" id="txtskuMOQ" class="form-control" formControlName="skuMOQ">
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-4">Cost <span class="text-danger"><strong>*</strong></span></h4>
+
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-sm-12">
+                        <div class="mb-3" formArrayName="costs">
+                            
+                            <div class="row">
+                                <div class="col-xl-2 col-lg-2 col-sm-2 col-4">
+                                    <label for="txtvalue" class="form-label">Set Default</label>
+                                </div>
+                                <div class="col-xl-10 col-lg-10 col-sm-10 col-8">
+                                    <label for="txtvalue" class="form-label">Cost Value</label>
+                                </div>
+                            </div>
+                            <div [formGroup]="formGroupCtrl(ct)" *ngFor="let ct of costs.controls; index as idx" class="row pb-3">
+                                <div class="col-xl-2 col-lg-2 col-sm-2 col-4 text-center ">
+                                    <input type="radio" name="defaultCostValue" class="form-check-input"
+                                    [ngClass]="{'is-invalid': isFormInvalid && form.get('defaultCost').invalid}"
+                                     [checked]="form.get('defaultCost').value ==idx" [value]="idx" required (change)="changeDefaultValue($event)">
+                                </div>
+                                <div class="col-xl-10 col-lg-10 col-sm-10 col-8">
+                                    <div class="row">
+                                    <div class="col-xl-10 col-lg-10 col-sm-10 col-8">
+                                        <input type="number" id="txtvalue" class="form-control" [ngClass]="{'is-invalid': isFormInvalid && formGroupCtrl(ct).controls.costValue.invalid}" formControlName="costValue">
+                                    </div>
+                                    <div class="col-xl-2 col-lg-2 col-sm-2 col-4">
+                                        <i class="mdi mdi-trash-can deleteIcon" (click)="deleteCost(idx)" *ngIf="form.get('defaultCost').value !=idx"></i>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-2 col-lg-2 col-sm-2">
+                                    
+                                </div>
+                                <div class="col-xl-10 col-lg-10 col-sm-12">
+                                    <button type="button" class="btn btn-light btn-sm" (click)="addCost()"><i class="mdi mdi-plus me-1"></i>Add more cost value</button>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-4">Watermark rules</h4>
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtreplenishmentQuantity" class="form-label">Replenishment Quantity</label>
+                            <input type="text" id="txtreplenishmentQuantity" class="form-control" formControlName="replenishmentQuantity">
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtInstocklowwatermark" class="form-label">Instock low watermark <i class="mdi mdi-information-outline"></i></label>
+                            <input type="text" id="txtInstocklowwatermark" class="form-control" formControlName="instockLowWatermark">
+                        </div>                        
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtInstockhighwatermark" class="form-label">Instock high watermark <i class="mdi mdi-information-outline"></i></label>
+                            <input type="text" id="txtInstockhighwatermark" class="form-control" formControlName="instockHighWatermark">
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtCachelowwatermark" class="form-label">Cache low watermark <i class="mdi mdi-information-outline"></i></label>
+                            <input type="text" id="txtCachelowwatermark" class="form-control" formControlName="cacheLowWatermark">
+                        </div>                        
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtCachehighwatermark" class="form-label">Cache high watermark <i class="mdi mdi-information-outline"></i></label>
+                            <input type="text" id="txtCachehighwatermark" class="form-control" formControlName="cacheHighWatermark">
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-end">
+        <button type="button" class="btn btn-outline-dark rounded-pill" (click)="form.reset()">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill ms-1" type="submit">Create</button>
+    </div>
+</div>
+</form>
+
+<ng-template #content let-modal>
+        <div class="modal-content modal-filled">
+            <div class="modal-body p-4 bg-success">
+                <div class="text-center">
+                    <!-- <i class="dripicons-checkmark h1"></i>
+                    <h4 class="mt-2">Done!</h4> -->
+                    <p class="mt-3">Merchant SKU created successfully.</p>
+                    <!-- <button type="button" class="btn btn-light my-2" (click)="modal.dismiss('Cross click')">OK</button> -->
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+</ng-template><!-- /.modal -->

@@ -1,0 +1,8 @@
+<div>
+  <span *ngIf="superadminadminusersData.roleStatus == 1">Active</span>
+  <span *ngIf="superadminadminusersData.roleStatus == 2">Inactive</span>
+  <span *ngIf="superadminadminusersData.roleStatus == 3">Expired</span>
+  <br>
+  <span *ngIf="superadminadminusersData.roleExpired != null">{{superadminadminusersData.roleActive | date}} - {{superadminadminusersData.roleExpired | date}}</span>
+  <span *ngIf="superadminadminusersData.roleExpired == null">{{superadminadminusersData.roleActive | date}} - indefinite</span>
+</div>

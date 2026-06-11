@@ -1,0 +1,425 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value must be less than 100 characters!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="detailsFormGroup" (submit)="OnSubmit()">
+    <div class="bg-white rounded px-3 py-2">
+        <span class="text-dark font-16"><strong>Basic Info</strong></span>
+
+        <div class="row">
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="productName" class="form-label font-14">Product Name <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                        'is-invalid': f.productName.invalid
+                    }" formControlName="productName" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productName.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productNameTip="ngbTooltip" (click)="toggleTooltipWithContext(productNameTip, f.productName)"
+                        [disableTooltip]="!f.productName.invalid" />
+                    <div class="font-12 mt-1" *ngIf="selectedType.key === 4">
+                        <div>Must add <span>&#123;</span>FV<span>&#125;</span> tag in product name for dynamic product.</div>
+                        <div>Sample Edenred Super Voucher $<span>&#123;</span>FV<span>&#125;</span></div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="productName" class="form-label font-14">Product Description <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                        'is-invalid': f.productDescription.invalid
+                    }" formControlName="productDescription" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productDescription.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productDescriptionTip="ngbTooltip" (click)="toggleTooltipWithContext(productDescriptionTip, f.productDescription)"
+                        [disableTooltip]="!f.productDescription.invalid" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="productCode" class="form-label font-14">Product Code <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f.productCode.invalid
+                    }" formControlName="productCode" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productCodeTip="ngbTooltip" (click)="toggleTooltipWithContext(productCodeTip, f.productCode)"
+                        [disableTooltip]="!f.productCode.invalid" />
+                </div>
+                <div class="col-6">
+                    <label for="externalCode" class="form-label font-14">External Code</label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f.externalProductCode.invalid
+                    }" formControlName="externalProductCode" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.externalProductCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #externalProductCodeTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(externalProductCodeTip, f.externalProductCode)"
+                        [disableTooltip]="!f.externalProductCode.invalid" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6" *ngIf="productCustomizationSvc.isGlobal(selectedTenant)">
+                    <label for="merchantAcquirer" class="form-label font-14">Merchant Acquirer</label>
+                    <select name="merchantAcquirer" class="form-select">
+                        <option [value]="merchantAcquirer.key" *ngFor="let merchantAcquirer of merchantAcquirers">{{
+                            merchantAcquirer.value }}</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="productIssuer" class="form-label font-14">Product Issuer <span
+                            class="text-danger">*</span></label>
+                    <div class="row">
+                        <div class="col-6">
+                            <select name="resellerModel" class="form-select">
+                                <option selected [value]="0">Reseller Model</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control font-14" [ngClass]="{
+                                'is-invalid': f.productIssuer.invalid
+                            }" formControlName="productIssuer" triggers="manual" [ngbTooltip]="tipContent"
+                                [tooltipClass]="f.productIssuer.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                                #productIssuerTip="ngbTooltip"
+                                (click)="toggleTooltipWithContext(productIssuerTip, f.productIssuer)"
+                                [disableTooltip]="!f.productIssuer.invalid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" *ngIf="productCustomizationSvc.isTaiwan(selectedTenant)">
+                    <label for="productTag" class="form-label font-14">Product Tag </label>
+                    <select name="productTag" class="form-select">
+                        <option [value]="productTag" *ngFor="let productTag of productTags">{{ productTag }}</option>
+
+                    </select>
+                </div>
+                <div class="col-6" *ngIf="productCustomizationSvc.isIndia(selectedTenant)">
+                    <label for="productCategory" class="form-label font-14">Product Category</label>
+                    <select name="productCategory" class="form-select">
+                        <option [value]="productCategory" *ngFor="let productCategory of productCategories">{{
+                            productCategory }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="brand" class="form-label font-14 text-secondary">Brand for this product</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search-addon">
+                                <i class="mdi mdi-magnify"></i>
+                            </span>
+                        </div>
+                        <input id="typeahead-custom" type="text" class="form-control font-14" placeholder="Search brand"
+                            formControlName="brand" [ngbTypeahead]="searchBrand" [inputFormatter]="formatter"
+                            [resultTemplate]="brandResults" #instance="ngbTypeahead" />
+                        <ng-template #brandResults let-r="result" let-t="term">
+                            <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + r['flag']"
+                                class="me-1" style="width: 16px">
+                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-6 mt-3" *ngIf="f.brand.value.name" (click)="f.brand.setValue({name: '', flag: ''})"
+                    (mouseout)="brandOnHover = false">
+                    <div class="dashed d-flex justify-content-center p-3" [class.hover]="brandOnHover"
+                        (mouseenter)="brandOnHover = true">
+                        <div class="d-flex flex-column text-center">
+                            <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + f.brand.value.flag"
+                                class="img-thumbnail">
+                            <span class="text-secondary mt-2 font-14"><strong>Brand name: {{ f.brand.value.name
+                                    }}</strong></span>
+                            <span class="text-secondary font-12">{{ f.brand.value.flag }}</span>
+                        </div>
+                        <div class="d-flex flex-column text-center show-on-hover" *ngIf="brandOnHover">
+                            <span class="font-20">
+                                <i class="uil-trash"></i>
+                            </span>
+                            <span class="font-14">
+                                Delete file
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="bg-white rounded px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Available merchant for this product? </strong><span
+                class="text-danger">*</span></span>
+
+        <div class="row">
+            <div class="row my-2">
+                <div class="col-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search-addon">
+                                <i class="mdi mdi-magnify"></i>
+                            </span>
+                        </div>
+                        <input id="typeahead-custom" type="text" class="form-control font-14"
+                            placeholder="Search merchant and add it" formControlName="availableMerchants"
+                            [ngbTypeahead]="searchMerchant" [inputFormatter]="formatter"
+                            [resultTemplate]="merchantResults" (focus)="focusMerchant$.next($any($event).target.value)"
+                            (click)="clickMerchant$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                        <ng-template #merchantResults let-r="result" let-t="term">
+                            <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + r['flag']"
+                                class="me-1" style="width: 16px">
+                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                        </ng-template>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary btn-light" type="button" (click)="addMerchant()">
+                                <i class="m-2 dripicons-plus"></i>Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4 text-left text-secondary">
+                            <span class="font-12"><strong>Merchant</strong></span>
+                        </div>
+                        <div class="col-4 text-left text-secondary">
+                            <span class="font-12"><strong>Shops</strong></span>
+                        </div>
+                        <div class="col-4 text-center text-secondary" *ngIf="availableMerchants.length">
+                            <span class="font-12"><strong>Actions</strong></span>
+                        </div>
+                        <hr class="my-2">
+                    </div>
+                    <ng-container #withAvailableMerchants *ngIf="availableMerchants.length; else noAvailableMerchants">
+                        <div class="row" *ngFor="let merchant of availableMerchants; let index = index">
+                            <div class="col-4 text-left text-primary pt-2">
+                                <span class="font-14">{{ merchant.name }}</span>
+                            </div>
+                            <div class="col-4 text-left text-primary pt-2 cursor-pointer"
+                                (click)="openModal(shopModal)">
+                                <span class="font-14">All (N shops)</span>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button class="btn btn-light font-16" (click)="availableMerchants.splice(index,1)">
+                                    <i class="uil-trash"></i>
+                                </button>
+                            </div>
+                            <hr class="my-2">
+                        </div>
+                    </ng-container>
+                    <ng-template #noAvailableMerchants>
+                        <div class="row font-12">
+                            <span class="text-center text-danger">
+                                Available merchant is mandatory
+                            </span>
+                            <hr class="my-2">
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Voucher Number Rule</strong></span>
+        <div class="row mt-3">
+            <div class="col-1"></div>
+            <div class="col-2">
+                <span class="font-12"><strong>Rule Name</strong></span>
+            </div>
+            <div class="col-2">
+                <span class="font-12"><strong>Program</strong></span>
+            </div>
+            <div class="col-1">
+                <span class="font-12"><strong>Require Expiry Date</strong></span>
+            </div>
+            <div class="col-2">
+                <span class="font-12"><strong>Pin Code Type</strong></span>
+            </div>
+            <div class="col-1">
+                <span class="font-12"><strong>Has Multiple Barcode</strong></span>
+            </div>
+            <div class="col-1">
+                <span class="font-12"><strong>Show Code Type / Display Text</strong></span>
+            </div>
+            <div class="col-1">
+                <span class="font-12"><strong>On Demand</strong></span>
+            </div>
+            <div class="col-1">
+                <span class="font-12"><strong>Vendor Code / Order Number</strong></span>
+            </div>
+            <hr class="my-2">
+        </div>
+
+        <ng-container *ngIf="availableMerchants.length; else selectAvailableMerchant">
+            <div class="row" *ngFor="let voucherRule of voucherRules">
+                <div class="col-1 text-center pt-2">
+                    <input name="inlineRadioOptions" class="form-check-input" type="radio"
+                        [value]="voucherRule.selected">
+                </div>
+                <div class="col-2">
+                    <div class="text-secondary">
+                        <span class="font-14">{{ voucherRule.ruleName }}</span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="font-12">{{ voucherRule.createdBy }}</span>
+                    </div>
+                </div>
+                <div class="col-2 text-secondary">
+                    <span class="font-14">{{ voucherRule.programName }}</span>
+                </div>
+                <div class="col-1 text-secondary">
+                    <span class="font-14">{{ voucherRule.requireExpDate }}</span>
+                </div>
+                <div class="col-2 text-secondary">
+                    <span class="font-14">{{ voucherRule.pinCodeType }}</span>
+                </div>
+                <div class="col-1 text-secondary">
+                    <span class="font-14">{{ voucherRule.hasMultipleBarcode }}</span>
+                </div>
+                <div class="col-1 text-secondary">
+                    <div>
+                        <span class="font-14">{{ voucherRule.showCodeType }}</span>
+                    </div>
+                    <div>
+                        <span class="font-14">{{ voucherRule.displayText }}</span>
+                    </div>
+                </div>
+                <div class="col-1 text-secondary">
+                    <div class="font-14"><strong>{{ voucherRule.onDemand }}</strong></div>
+                    <span class="font-14">{{ voucherRule.onDemandBy }}</span>
+                </div>
+                <div class="col-1 text-secondary">
+                    <span class="font-14">{{ voucherRule.vendorCode }}</span>
+                </div>
+                <hr class="my-2">
+            </div>
+        </ng-container>
+        <ng-template #selectAvailableMerchant>
+            <div class="row font-12">
+                <span class="text-center text-danger">
+                    Select available merchant above to have related voucher number rule info
+                </span>
+                <hr class="my-2">
+            </div>
+        </ng-template>
+    </div> -->
+
+    <div class="bg-white rounded px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Additional information</strong></span>
+        <div class="row my-3">
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14">Note for internal used (Operation)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.operationNotes.invalid
+                }" formControlName="operationNotes" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.operationNotes.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #operationNotesTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(operationNotesTip, f.operationNotes)"
+                    [disableTooltip]="!f.operationNotes.invalid"></textarea>
+            </div>
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14 text-secondary">Note for internal used
+                    (Sales)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.salesNotes.invalid
+                }" formControlName="salesNotes" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.salesNotes.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #salesNotesTip="ngbTooltip" (click)="toggleTooltipWithContext(salesNotesTip, f.salesNotes)"
+                    [disableTooltip]="!f.salesNotes.invalid"></textarea>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14 text-secondary">Note for internal used
+                    (Customer
+                    service)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.customerServiceNotes.invalid
+                }" formControlName="customerServiceNotes" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.customerServiceNotes.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #customerServiceNotesTip="ngbTooltip" (click)="toggleTooltipWithContext(customerServiceNotesTip, f.customerServiceNotes)"
+                    [disableTooltip]="!f.customerServiceNotes.invalid"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<ng-template #shopModal let-modal>
+    <div class="modal-body">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>Shops</strong></span>
+        </div>
+
+        <div class="my-3 position-relative" id="stopIssueTimeContainer">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="search-addon">
+                        <i class="mdi mdi-magnify"></i>
+                    </span>
+                </div>
+                <input id="typeahead-custom" type="text" class="form-control font-14" placeholder="Search shops" />
+                <ng-template #brandResults let-r="result" let-t="term">
+                    <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + r['flag']" class="me-1"
+                        style="width: 16px">
+                    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                </ng-template>
+            </div>
+
+            <div>
+                <ngx-simplebar style="max-height: 250px;">
+                    <table class="table table-centered shop-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck1">
+                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </th>
+                                <th class="font-12">
+                                    <strong>Shop Name</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let shop of shops">
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck1">
+                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </td>
+                                <td class="font-12">
+                                    {{ shop }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ngx-simplebar>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close('Close click')">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-primary w-100 rounded-pill font-12"
+                    (click)="modal.close('Close click')">Save</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

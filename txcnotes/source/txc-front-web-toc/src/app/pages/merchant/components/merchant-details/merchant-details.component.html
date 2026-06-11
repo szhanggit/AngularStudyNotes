@@ -1,0 +1,414 @@
+<div class="merchant-details">
+    <div class="row mt-3">
+        <div class="col-6">
+            <span class="text-secondary font-22"><strong>{{ merchant?.identityCode | titlecase  }}</strong></span>
+            <span class="text-dark font-22 mx-2"><strong>{{ merchant?.merchantName | titlecase }}</strong></span>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-3">
+            <div class="font-16">
+                Status: {{ merchant?.status ? 'Active' : 'Inactive' }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-container *ngTemplateOutlet="merchantDetails"></ng-container>
+<ng-container *ngTemplateOutlet="shop"></ng-container>
+<ng-container *ngTemplateOutlet="contract"></ng-container>
+<ng-container *ngTemplateOutlet="sku"></ng-container>
+
+<ng-template #contract>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn rounded-circle btn-sm" [class]="contractCollapsed ? 'btn-light' : 'btn-secondary'" (click)="mdCollapse.toggle()"
+                    [attr.aria-expanded]="!contractCollapsed" aria-controls="collapseExample">
+                    <i [class]="contractCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>Contract</strong>
+                </span>
+            </div>
+            <div class="col-6">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToCreateContract()" *ngIf="showCreateContract && !showContractIntro && !showContractManually">Create contract</button>
+                </div>
+            </div>
+        </div>
+        <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="contractCollapsed">
+            <div class="row">
+                <div class="col-12" *ngIf="showContractIntro">
+            <div class="alert alert-success" role="alert">
+                <div class="row">
+                    <div class="col-1">
+                        <!-- <i class="mdi mdi-file-sign contract-icon"></i> -->
+                        <img class="w-100" src="assets/images/contract-into-icon.png">
+                    </div>
+                    <div class="col-11">
+                        <h4 class="alert-heading">
+                            Updated!
+                            <button type="button" class="btn-close float-end" (click)="onIntroDismiss()"></button>
+                        </h4>
+                        
+                        <p>The content of contract is updated! Now you can define more details based on merchant’s commercial term, payment term, price option, etc.</p>
+                        <button class="btn btn-primary font-12" (click)="navigateToCreateContract()" *ngIf="showCreateContract">Create contract</button>
+                    </div>
+                </div>
+              </div>
+                </div>
+                <div class="col-12 text-center" *ngIf="showContractManually && !showContractIntro">
+                    <p class="fs-3">You can manually create contract to define the commercial terms.</p>
+                    <button class="btn btn-primary font-12" (click)="navigateToCreateContract()" *ngIf="showCreateContract">Create contract</button>
+                </div>
+            <div class="col-12" [hidden]="showContractManually">
+                <div class="col-12" *ngIf="showListContract">
+
+                <ul ngbNav #nav="ngbNav" class="nav nav-tabs nav-bordered mb-3">
+                    <li ngbNavItem>
+                      <a ngbNavLink>Valid contracts</a>
+                      <ng-template ngbNavContent>
+                            <app-contract-list [valid]="true" [merchant]="merchant" (hasList) ="showIntro($event)"></app-contract-list>
+                      </ng-template>
+                    </li>
+                    <li ngbNavItem>
+                      <a ngbNavLink>Expired contracts</a>
+                      <ng-template ngbNavContent>
+                        <app-contract-list [valid]="false" [merchant]="merchant"></app-contract-list>
+                      </ng-template>
+                    </li>
+                  </ul>
+                  <div [ngbNavOutlet]="nav"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #sku>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn rounded-circle btn-secondary btn-sm" [class]="skuCollapsed ? 'btn-light' : 'btn-secondary'" (click)="mdCollapse.toggle()"
+                    [attr.aria-expanded]="!skuCollapsed" aria-controls="collapseExample">
+                    <i [class]="skuCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>SKU</strong>
+                </span>
+            </div>
+        </div>
+        <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="skuCollapsed">
+            
+            <div class="alert alert-success" role="alert" *ngIf="showskuIntro">
+                <div class="row">
+                    <div class="col-1">
+                        <!-- <i class="mdi mdi-clipboard-list-outline sku-icon"></i> -->
+                        <img class="w-100" src="assets/images/sku-into-icon.png">
+                    </div>
+                    <div class="col-11">
+                        <h4 class="alert-heading">
+                            NEW!
+                            <button type="button" class="btn-close float-end" (click)="showskuIntro = !showskuIntro"></button>
+                        </h4>
+                        
+                        <p>SKU is new concept  in TOC, With this SKU. With SKU, you can better manage inventory.</p>
+                        <p>SKU can only create under a selected contract. <strong> Go to "Contract" section above to create the first contract!</strong></p>
+                        
+                    </div>
+                </div>
+
+        </div>
+    </div>
+    </div>
+</ng-template>
+
+<ng-template #merchantDetails>
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn rounded-circle btn-sm" [class]="merchantDetailsCollapsed ? 'btn-light' : 'btn-secondary'" (click)="mdCollapse.toggle()"
+                    [attr.aria-expanded]="!merchantDetailsCollapsed" aria-controls="collapseExample">
+                    <i [class]="merchantDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>Merchant details & contact info</strong>
+                </span>
+            </div>
+            <div class="col-6">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToUpdateMerchant()">Edit merchant details</button>
+                </div>
+            </div>
+        </div>
+        <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="merchantDetailsCollapsed">
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Basic Info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant name</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.merchantName | titlecase }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'GL'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant acquirer</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.merchantAcquireId || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Program</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.programId }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Product issuer</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.issuerType | issuertype }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant internal code</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.identityCode }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant external code</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.externalCode || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'TW'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Category</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.categoryId }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Description</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.description || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant !== 'TW' && tenant !== 'GR'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Support consumer scan</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.needConsumerScan ? 'Yes' : 'No' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'SG'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant UEN</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.invoiceRegisterNumber || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>System & Security</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Security key</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.securityKey | titlecase }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Same key with shop</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.sameKeyWithShop ? 'Yes' : 'No' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Notification Merchant</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.notificationMerchantCode | titlecase }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'TW'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">TX1 merchant UID</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.tX1MerchantUID || '--' | titlecase }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2" *ngIf="tenant === 'TW'">
+                <div>
+                    <span class="font-16"><strong>Reimbursement</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Invoice number</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.invoiceRegisterNumber | titlecase }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Tax type</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.reimbursementTaxType | reimbursementtaxtype }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Settlement frequency</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.autoCreateReimbursementIntervalType | autocreatereimbursement }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Settlement date</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.autoCreateReimbursementDay | autocreatereimbursementday }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Reimbursement type</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.reimbursementType | reimbursementtype }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Auto create reimbursement</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.isAutoCreateReimbursement ? 'Yes' : 'No' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant auto type</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.merchantAutoType | merchantautotype }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-1 mb-2">
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Merchant contact info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant's address</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.address.detailAddressLine || '--' }}
+                            </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Main contact</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.mainContact || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Main phone number</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.mainPhone || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant's Email</div>
+                            <div class="col-6 font-14">
+                                <div *ngFor="let emailAddress of merchant?.merchantContactEmailList">
+                                    <strong>{{ emailAddress || '--' }} </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-1 mb-2">
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Edenred contact info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">MAM Email</div>
+                            <div class="col-6 font-14"><strong>{{ merchant?.mamEmail || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Other internal Email</div>
+                            <div class="col-6 font-14">
+                                <div *ngFor="let emailAddress of merchant?.edenredContactEmailList">
+                                    <strong>{{ emailAddress || '--' }} </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #shop>
+    <app-shop-list [merchant]="merchant"></app-shop-list>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>
+

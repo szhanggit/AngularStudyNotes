@@ -1,0 +1,27 @@
+<div class="fn-container">
+  <div class="title">
+      <div class="col">
+          Super admin list
+      </div>
+      <div class="col search-controls">
+          <!-- <div class="search-box">
+              <div class="magnifier">
+                  <img src="../../../assets/icons/search.png" />
+              </div>
+              <div class="search">
+                  <input type="text" placeholder="Search" />
+              </div>
+          </div> -->
+      </div>
+  </div>
+  <div class="grid">
+      <!-- <app-grid
+          [grid-context]="gridContext"
+          [pagination-model]="paginationModel"
+          (setCurrentPage)="onSetCurrentPage($event)">
+      </app-grid> -->
+      <ag-grid-angular class="ag-theme-alpine user-mgmt-grid" [rowData]="superadminusersData" [columnDefs]="superadminMgmtCols"
+      [gridOptions]="superadminMgmtGridOptions" (gridReady)="onGridRead($event)"></ag-grid-angular>
+  </div>
+
+</div>
