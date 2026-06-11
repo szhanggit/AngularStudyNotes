@@ -1,0 +1,19 @@
+In this case, all of the components are in the unloaded modules.
+Although MessageService has been registered in already loaded message.module, yet csportal.module has not been loaded yet.
+In order to use MessageService, need to manually register it in csportal.module.
+---------------------------------------------------------------------------------------
+ng generate module message
+ng g c message --module message.module
+
+
+
+Why is there problem to use unsaved.guard.ts?
+It is a service. Before use it, need to register it in the module.
+Then import it in product-routing.module.ts.
+
+
+
+---------------------------------------------------------------------------------------
+
+message.service.ts needs to be defined in message.module.ts.
+Do not need to be defined in csportal.module.ts or product.module.ts one more time!
