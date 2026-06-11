@@ -1,0 +1,23 @@
+<!-- topbar -->
+<app-topbar (settingsButtonClicked)="onSettingsButtonClicked()" (mobileMenuButtonClicked)="onToggleMobileMenu()"
+    [hideLogo]="false" cssClasses="topnav-navbar topnav-navbar-dark" layoutType="detached">
+</app-topbar>
+
+<div class="container-fluid">
+    <div class="wrapper">
+        <!-- left sidebar -->
+        <app-left-side-bar [includeUserProfile]="true" [hideLogo]="true" navClasses="left-side-menu-detached">
+        </app-left-side-bar>
+
+        <div class="content-page">
+            <div class="content">
+                <!-- content-->
+                <router-outlet></router-outlet>
+            </div>
+
+            <!-- footer-->
+            <app-footer></app-footer>
+        </div>
+    </div>
+
+</div>

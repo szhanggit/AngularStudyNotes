@@ -1,0 +1,35 @@
+.nav-user .account-user-avatar {
+    top: 0px;
+    left: -7px;
+}
+
+.profile-dropdown{
+    min-width: 216px !important;
+}
+.notification-list, .notify-item {
+    padding: 0 !important;
+
+}
+
+.not-item{    
+    .cursor-pointer{
+        cursor: pointer;
+    }
+    .item:first-child{
+        border-top:none;
+    }
+    .item{
+        color:#000;
+        padding: 12px 5px 12px 7px;
+        border-top: 0.5px solid rgb(145, 145, 145);
+
+        .email{
+            font-size: 14px;
+        }
+
+        .role{
+            color: #6D7787;
+            font-size:12px;
+        }
+    }
+}

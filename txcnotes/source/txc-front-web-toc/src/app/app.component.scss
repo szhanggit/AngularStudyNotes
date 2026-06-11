@@ -1,0 +1,36 @@
+:host::ng-deep .input-group-prefix-icon {
+    .form-control {
+        padding-left: 40px;
+    }
+
+    .mdi {
+        position: absolute;
+        z-index: 4;
+        font-size: 20px;
+        line-height: 38px;
+        left: 10px;
+        top: 0;
+    }
+}
+
+.loading-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1002;
+}
+
+.spinner-grow {
+    position: absolute;
+    margin: auto;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 3rem;
+    height: 3rem;
+}

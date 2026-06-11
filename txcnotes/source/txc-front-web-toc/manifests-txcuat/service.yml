@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    namespace: txcuat
+    name: txc-front-web-toc-svc
+    labels:
+        app: txc-front-web-toc
+        tier: backend
+spec:
+    type: ClusterIP
+    ports:
+    - port: 80
+    selector:
+        app: txc-front-web-toc
+        tier: backend

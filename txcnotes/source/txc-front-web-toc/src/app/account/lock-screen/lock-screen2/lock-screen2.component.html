@@ -1,0 +1,63 @@
+<app-account2-layout>
+
+    <!-- User pic with title-->
+    <div class="text-center w-75 m-auto">
+        <img src="assets/images/users/avatar-1.jpg" height="64" alt="user-image" class="rounded-circle shadow">
+        <h4 class="text-dark-50 text-center mt-3 fw-bold">Hi ! Michael </h4>
+        <p class="text-muted mb-4">Enter your password to access the admin.</p>
+    </div>
+
+    <!-- form -->
+    <form name="lock-screen-form2" [formGroup]="lockScreenForm2" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" type="password" required id="password" placeholder="Enter your password"
+                minlength="4" formControlName="password"
+                [ngClass]="{'is-invalid': formSubmitted && formValues.password.invalid}">
+
+            <div *ngIf="formSubmitted && formValues.password.invalid" class="invalid-feedback">
+
+                <div *ngIf="formValues.password.errors?.required">
+                    Password is required.
+                </div>
+                <div *ngIf="formValues.password.errors?.minlength">
+                    Password length must be greater than 3.
+                </div>
+
+            </div>
+        </div>
+        <div class="mb-0 text-center d-grid">
+            <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Log In </button>
+        </div>
+        <!-- social-->
+        <div class="text-center mt-4">
+            <p class="text-muted font-16">Authentication in with</p>
+            <ul class="social-list list-inline mt-3">
+                <li class="list-inline-item">
+                    <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                            class="mdi mdi-facebook"></i></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                            class="mdi mdi-google"></i></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                            class="mdi mdi-twitter"></i></a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                            class="mdi mdi-github"></i></a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <!-- end form-->
+
+    <!-- Footer-->
+    <footer class="footer footer-alt">
+        <p class="text-muted">Not you? return <a [routerLink]="['../login2']" class="text-muted ms-1"><b>Sign In</b></a>
+        </p>
+    </footer>
+
+</app-account2-layout>
