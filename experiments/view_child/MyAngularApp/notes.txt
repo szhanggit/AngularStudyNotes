@@ -1,0 +1,37 @@
+cd D:\Study\AngularStudyNotes\experiments\view_child
+ng new viewchild-app --routing
+
+ng generate component cpcolor-parent --module app.module
+
+ng generate component cptheme --module app.module
+ng generate component number-parent --module app.module
+ng generate component number --module app.module
+
+ng generate component stopwatch --module app.module
+ng generate component stopwatch-parent --module app.module
+
+ng generate component ui-element --module app.module
+
+ng generate directive cpcolor --module app.module
+
+
+
+
+https://www.concretepage.com/angular-2/angular-2-viewchild-example
+
+stopwatch component acts like a control in stopwatch-parent component.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
