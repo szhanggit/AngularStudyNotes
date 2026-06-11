@@ -1,0 +1,21 @@
+<div class="modal-header border-bottom-0">
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <span class="text-center text-dark bold font-18"> Operation History </span>
+  </div>
+  <div class="row m-3 font-14">
+    <app-table
+      [tableModel]="historyTableModel"
+      [greyHeader]="true"
+      [isStripedTable]="false"
+    ></app-table>
+  </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

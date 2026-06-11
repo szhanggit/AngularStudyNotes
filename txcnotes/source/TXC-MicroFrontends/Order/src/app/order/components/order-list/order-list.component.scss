@@ -1,0 +1,57 @@
+.order-list {
+
+    .nav-link.active {
+        color: #0d8aff;
+        font-weight: 700;
+        background-color: #f2f4f8!important;
+    }
+    
+    .input-group-prefix-icon>.input-group-text {
+        background-color: transparent;
+    }
+
+    .search-icon>.input-group-text {
+        border-right-width: 0px;
+    }
+
+    .search-icon>.form-control {
+        border-left-width: 0px;
+    }
+
+    .mr-2{
+        margin-right: 0.75rem;
+    }
+
+    .ml-2 {
+        margin-left: 0.75rem;
+    }
+
+    .status-badge {
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 12px;
+        color: rgba(46, 49, 55, 1);
+        background: #D5D8DD;
+    }
+    .failed {
+        background: rgba(255, 89, 120, 0.1);
+        color: #FF5978;
+    }
+    .published {
+        background: rgba(152, 246, 219, 1);
+    }
+    .under-review {
+        background: rgba(254, 251, 178, 1);
+    }
+    .approved-ft {
+        background: rgba(220, 246, 145, 1);
+    }
+    .approved{
+        background: rgba(176, 239, 255, 1);
+    }
+    .rejected {
+        background: rgba(255, 89, 120, 1);
+        color: white;
+    }
+}

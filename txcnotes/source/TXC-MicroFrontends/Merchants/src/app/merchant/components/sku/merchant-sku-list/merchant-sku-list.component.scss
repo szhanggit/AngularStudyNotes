@@ -1,0 +1,19 @@
+.btn-light {
+    background-color: #D5D8DD;
+}
+
+
+.btn-sm.rounded-circle {
+    padding: 0;
+
+    [class^=uil-]:before,
+    [class*=" uil-"]:before {
+        font-size: 2rem;
+    }
+}
+
+hr {
+    height: 1px !important;
+    background: #D5D8DD !important;
+    opacity: 1 !important;
+}

@@ -1,0 +1,134 @@
+<div class="bg-white rounded-3 px-3 py-2 my-2">
+    <div class="row">
+        <div class="col-6">
+            <button class="btn rounded-circle btn-sm" [class]="vnrListCollapsed ? 'btn-light' : 'btn-secondary'"
+                (click)="collapse()" [attr.aria-expanded]="!vnrListCollapsed" aria-controls="collapseExample">
+                <i [class]="vnrListCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>Voucher number rule</strong>
+            </span>
+        </div>
+        <div class="col-6" *ngIf="!isMerchantViewer || isMerchantEditor">
+            <div class="float-end" [hidden]="!voucherNumberRuleList.length && !vnrListCollapsed">
+                <button class="btn btn-primary font-12 px-4" (click)="navigateToCreateVNR()">Create voucher number
+                    rule</button>
+            </div>
+        </div>
+    </div>
+    <div #vnrListCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="vnrListCollapsed">
+        <div class="row">
+            <ng-container *ngTemplateOutlet="list"></ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #list>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngIf="voucherNumberRuleList.length; else nodata">
+            <ng-container *ngTemplateOutlet="table"></ng-container>
+            <!-- <ng-container *ngTemplateOutlet="pagination"></ng-container> -->
+        </ng-container>
+        <ng-template #nodata>
+            <div class="text-center">
+                <span class="text-secondary" *ngIf="!isMerchantViewer || isMerchantEditor">
+                    <button class="btn btn-primary font-12 px-4" (click)="navigateToCreateVNR()">Create voucher number
+                        rule</button>
+                </span>
+            </div>
+
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #table>
+    <table class="table table-striped table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col">{{ program.isEdenred ? 'Rule Name' : 'Rule Name / Program' }}</th>
+                <th scope="col" *ngIf="program.isEdenred">Prefix</th>
+                <th scope="col" *ngIf="!program.isEdenred">Require Expiry Date</th>
+                <th scope="col" *ngIf="program.isEdenred">Type</th>
+                <th scope="col" *ngIf="program.isEdenred">Length</th>
+                <th scope="col">Barcode Type</th>
+                <th scope="col">Display Text</th>
+                <th scope="col" *ngIf="!program.isEdenred && tenant == 'TW'">Multipart Barcode</th>
+                <!-- removing temporarily only - uncomment when implementing TPC -->
+                <!-- <th scope="col" *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">On Demand</th>
+                <th scope="col" *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">Vendor</th> -->
+                <th scope="col" *ngIf="tenant == 'IN'">PIN Type</th>
+                <th scope="col">Creator / Created Time</th>
+                <th scope="col" *ngIf="!isMerchantViewer || isMerchantEditor">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let voucherNumberRule of voucherNumberRuleList; let index = index">
+                <td>
+                    <div [ngClass]="{'bold': !program.isEdenred}">{{ voucherNumberRule.ruleName }}</div>
+                    <div *ngIf="!program.isEdenred" class="font-12">{{ program.name }}</div>
+                </td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberPrefix }}</td>
+                <td *ngIf="!program.isEdenred">{{ voucherNumberRule.requestExpiryDate | yesNo }}</td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberType | voucherNumberType }}</td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberLength }}</td>
+                <td>{{ voucherNumberRule.barcodeType.description || '--' }}</td>
+                <td>{{ (voucherNumberRule.distVoucherNumUnderBarcode | yesNo) || voucherNumberRule.displayText }}</td>
+                <td *ngIf="!program.isEdenred && tenant == 'TW'">{{ voucherNumberRule.hasMultipleBarcode | yesNo }}</td>
+                <!-- removing temporarily only - uncomment when implementing TPC -->
+                <!-- <td *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">{{ voucherNumberRule.onDemand }}</td>
+                <td *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">
+                    {{ voucherNumberRule.vendorCode && voucherNumberRule.vendorName ? voucherNumberRule.vendorCode
+                    + ' - ' + voucherNumberRule.vendorName : voucherNumberRule.vendorName ? voucherNumberRule.vendorName
+                    : '--' }}
+                </td> -->
+                <td *ngIf="tenant == 'IN'">{{ voucherNumberRule.pinType?.description || '--' }}</td>
+                <td>
+                    <div>{{ voucherNumberRule.createdBy }}</div>
+                    <div>{{ voucherNumberRule.createdDateTime | date : 'yyyy/MM/dd hh:mm:ss a' }}</div>
+                </td>
+                <td *ngIf="!isMerchantViewer || isMerchantEditor">
+                    <ng-container>
+                        <div class="btn-wrapper" [ngbTooltip]="removeButtonTooltipContent" [disableTooltip]="!voucherNumberRule.isUsed">
+                            <button class="btn" [disabled]="voucherNumberRule.isUsed">
+                                <i class="uil-trash" (click)="openDeleteConfirmationModal(voucherNumberRule, index)"></i>
+                            </button>
+                        </div>
+                        <button class="btn"
+                            (click)="navigateToEditVNR(voucherNumberRule.voucherNumberRuleId)">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #removeButtonTooltipContent>This VNR has already linked to the group SKU, so it cannot be deleted.</ng-template>
+
+<!-- <ng-template #pagination>
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ shopService.page }} of {{ pageCount }}, items {{ itemStart }} to {{ itemEnd }} of
+                {{
+                (total$ | async)! }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end font-12">
+                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="shopService.page"
+                    [pageSize]="shopService.pageSize" class="pagination-rounded">
+                    <ng-template ngbPaginationPrevious>
+                        <i class="uil-angle-left"></i>
+                    </ng-template>
+                    <ng-template ngbPaginationNext>
+                        <i class="uil-angle-right"></i>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</ng-template> -->
+
+<ngbd-toast-global></ngbd-toast-global>

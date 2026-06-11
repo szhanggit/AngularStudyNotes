@@ -1,0 +1,21 @@
+.btn-sm.rounded-circle {
+    padding: 0;
+
+    &.btn-light {
+        background-color: #D5D8DD;
+    }
+
+    [class^=uil-]:before, [class*=" uil-"]:before {
+        font-size: 2rem !important;
+    }
+}
+
+
+.btn:disabled, .btn.disabled {
+    border: none;
+}
+
+.btn-wrapper {
+    display: inline-block;
+    white-space: nowrap;
+}

@@ -1,0 +1,74 @@
+<div class="modal-body px-5">
+  <div class="row flex-column" [formGroup]="exportForm">
+    <div class="col text-center mb-3">
+      <span class="font-18 modal-title">Export Delivery Details</span>
+    </div>
+    <div class="col mb-1">
+      <span>Delivery type</span>
+    </div>
+    <div class="col mb-3">
+      <select2
+        formControlName="deliveryType"
+        class="font-12 w-100"
+        [data]="deliveryTypes"
+        resultMaxHeight="500px"
+        placeholder="Select"
+      >
+      </select2>
+    </div>
+
+    <ng-container *ngIf="tab === 2 || orderMode === orderModes.API">
+      <div class="col mb-1">
+        <span>Date Range</span>
+      </div>
+      <div class="col mb-1">
+        <app-date-picker
+          [isUTC]="true"
+          [disabled]="isDatePickerDisabled"
+          (datePickerValues)="datePickerValues($event)"
+          [type]="rangeDatePicker"
+        ></app-date-picker>
+      </div>
+      <div class="col mb-3">
+        <div class="form-check">
+          <input
+            formControlName="isAllDate"
+            [checked]="isAllDate?.value"
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="allAvailableDates"
+            (change)="toggleAllAvailableDates($event)"
+          />
+          <label class="form-check-label" for="allAvailableDates">
+            All available dates
+          </label>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="col mb-2">
+      <div class="row">
+        <div class="col-6">
+          <button
+            type="button"
+            class="btn btn-secondary w-100 rounded-pill font-12"
+            (click)="onCancelClicked()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="col-6">
+          <button
+            [disabled]="!exportForm.valid"
+            type="submit"
+            class="btn btn-primary w-100 rounded-pill font-12"
+            (click)="onExportClicked()"
+          >
+            Export
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

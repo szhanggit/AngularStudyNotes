@@ -1,0 +1,229 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Max length is {{ formControl.errors.maxlength.requiredLength }}
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.alreadyExists">
+        {{ formControl.value }} already exists!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="shopFormGroup" (submit)="OnSubmit()">
+    <div class="row my-3">
+        <div class="col-6">
+            <span class="font-22 text-dark bold">
+                {{ isEdit ? 'Edit Shop' : 'Create Shop' }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 d-flex justify-content-end">
+                    <div class="align-self-center mt-2">
+                        <label for="statusDropdown" class="form-label">Status</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <select name="filter" id="statusDropdown" class="form-select font-14" formControlName="status">
+                        <option selected [value]="0">Inactive</option>
+                        <option selected [value]="1">Active</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Basic Info
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="shopName">Shop name <span class="text-danger bold">*</span></label>
+                                <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.name.invalid && f.name.dirty
+                                }" formControlName="name" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.name.invalid && f.name.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #nameTip="ngbTooltip" (click)="toggleTooltipWithContext(nameTip, f.name)"
+                                    [disableTooltip]="!(f.name.invalid && f.name.dirty)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-2" *ngIf="tenant === 'SG'">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="subsidiaryUen">Subsidiary UEN <span class="text-danger bold">*</span></label>
+                                <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.subsidiaryUen.invalid && f.subsidiaryUen.dirty
+                                }" formControlName="subsidiaryUen" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.subsidiaryUen.invalid && f.subsidiaryUen.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #subsidiaryUenTip="ngbTooltip" (click)="toggleTooltipWithContext(subsidiaryUenTip, f.subsidiaryUen)"
+                                    [disableTooltip]="!(f.subsidiaryUen.invalid && f.subsidiaryUen.dirty)">
+                            </div>
+                            <div class="col-6">
+                                <label for="subsidiaryName">Subsidiary name <span class="text-danger bold">*</span></label>
+                                <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.subsidiaryName.invalid && f.subsidiaryName.dirty
+                                }" formControlName="subsidiaryName" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.subsidiaryName.invalid && f.subsidiaryName.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #subsidiaryNameTip="ngbTooltip" (click)="toggleTooltipWithContext(subsidiaryNameTip, f.subsidiaryName)"
+                                    [disableTooltip]="!(f.subsidiaryName.invalid && f.subsidiaryName.dirty)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="externalCode">Shop external code <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.externalCode.invalid && f.externalCode.dirty
+                        }" formControlName="externalCode" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.externalCode.invalid && f.externalCode.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #externalCodeTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(externalCodeTip, f.externalCode)"
+                            [disableTooltip]="!(f.externalCode.invalid && f.externalCode.dirty)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label for="internalCode">Shop internal code</label>
+                        <input type="text" formControlName="identityCode" class="form-control font-14 text-secondary"
+                            [ngClass]="{
+                            'is-invalid': f.identityCode.invalid
+                        }" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.identityCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #identityCodeTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(identityCodeTip, f.identityCode)"
+                            [disableTooltip]="!f.identityCode.invalid">
+                        <div class="form-check mt-2" *ngIf="!isEdit">
+                            <input type="checkbox" class="form-check-input" id="sameExternalCode"
+                                formControlName="sameExternalCode">
+                            <label class="form-check-label font-14" for="sameExternalCode">Same as external code</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="shopNumber">Shop phone number</label>
+                        <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.contactPhone.invalid
+                        }" formControlName="contactPhone" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.contactPhone.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #contactPhoneTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(contactPhoneTip, f.contactPhone)"
+                            [disableTooltip]="!f.contactPhone.invalid">
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="securityKey">Security key</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="securityKey">
+                            <div class="input-group-append" *ngIf="!hideGenerateSecKey">
+                                <button type="button" class="btn btn-outline-secondary" (click)="generateSecurityKey()">
+                                    <i class='uil uil-sync'></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" *ngIf="!(loading$ | async)">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3" formGroupName="address">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Shop Address
+                        </span>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="countryId">Country</label>
+                        <select2 [data]="countriesSelect2Data" formControlName="countryId" placeholder="Select"
+                            displaySearchStatus="hidden" resultMaxHeight="500px">
+                        </select2>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="countryId">State</label>
+                        <select2 [data]="statesOrProvincesSelect2Data" formControlName="stateOrProvinceId"
+                            placeholder="Select" displaySearchStatus="hidden" resultMaxHeight="500px">
+                        </select2>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="countryId">City</label>
+                        <select2 [data]="citiesSelect2Data" formControlName="cityId" placeholder="Select"
+                            displaySearchStatus="hidden" resultMaxHeight="500px">
+                        </select2>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="disctrict">District</label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="district">
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="merchantName">Detailed Address</label>
+                        <input type="text" class="form-control font-14 text-secondary"
+                            formControlName="detailAddressLine">
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="merchantName">Post code</label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="postcode">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" *ngIf="!isEdit">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Add this shop to existing acceptance loop
+                        </span>
+                    </div>
+                    <app-acceptance-loop-list [merchantId]="merchantId" [showNote]="false" [allowSelect]="true" (selectedItem)="onALSelectChanged($event)"></app-acceptance-loop-list>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row my-2">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                                (click)="navigateToMerchantDetails(false)">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                                [disabled]="shopFormGroup.invalid || (actionLoading$ | async) || (isEdit && !shopFormGroup.dirty)">{{ (actionLoading$ | async) ?
+                                'Loading ...' : isEdit ? 'Save' : 'Create' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ngbd-toast-global></ngbd-toast-global>

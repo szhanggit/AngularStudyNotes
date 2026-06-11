@@ -1,0 +1,20 @@
+<ng-container>
+  <span *ngIf="shop.address?.detailAddressLine">
+    {{ shop.address?.detailAddressLine || "--" }},
+  </span>
+  <span *ngIf="shop.address?.district">
+    {{ shop.address?.district || "--" }},
+  </span>
+  <span *ngIf="shop.address?.cityId">
+    {{ shop.address?.cityId || 0 | dictionarypipe : cities }},
+  </span>
+  <span *ngIf="shop.address?.stateOrProvinceId">
+    {{
+      shop.address?.stateOrProvinceId || 0 | dictionarypipe : statesOrProvinces
+    }},
+  </span>
+  <span *ngIf="shop.address?.postcode">{{ shop.address?.postcode }} </span>
+  <span *ngIf="shop.address?.countryId">
+    {{ shop.address?.countryId || 0 | dictionarypipe : countries }}
+  </span>
+</ng-container>

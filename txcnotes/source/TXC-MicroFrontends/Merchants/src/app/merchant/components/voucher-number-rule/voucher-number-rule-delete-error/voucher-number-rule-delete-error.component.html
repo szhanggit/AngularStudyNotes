@@ -1,0 +1,21 @@
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <span class="font-18 text-dark bold text-center">
+                Not allowed to delete
+            </span>
+        </div>
+        <div class="row mt-2">
+            <span class="text-secondary text-center font-14">
+                {{errorMessage}}
+            </span>
+        </div>
+        <div class="row mt-3 text-center px-5">
+            <div class="px-5">
+                <button class="btn btn-primary font-12 w-100 rounded-pill" (click)="activeModal.close()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

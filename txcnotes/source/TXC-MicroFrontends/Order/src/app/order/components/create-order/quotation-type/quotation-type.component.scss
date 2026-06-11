@@ -1,0 +1,32 @@
+@import "../../../../../styles/variables";
+.card-body {
+    border: 1.2px solid $grey;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $dark-grey;
+    padding: 20px 12px !important;
+
+    &.active,
+    &:hover {
+        color: $light-blue !important;
+        border: 1.2px solid $light-blue !important;
+        cursor: pointer;
+    }
+
+    &.active {
+        vertical-align: top;
+
+        &.padding-alignment {
+            text-align: left;
+            // padding: 3rem !important;
+        }
+
+        label {
+            color: $dark-grey;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 400;
+        }
+    }
+}

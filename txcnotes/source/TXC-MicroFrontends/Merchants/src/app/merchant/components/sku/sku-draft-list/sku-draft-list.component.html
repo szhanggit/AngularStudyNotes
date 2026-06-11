@@ -1,0 +1,54 @@
+<table class="table table-sm table-top mb-0" *ngIf="skuList && skuList.length > 0">
+    <thead>
+        <tr class="font-12">
+            <th>#</th>
+            <th>SKU Name</th>
+            <th>SKU Code</th>
+            <th>SKU Type</th>
+            <th>Face Value</th>
+            <th>{{costscheme == 1 ? "Cost %" : "Cost with Tax"}}</th>
+            <th *ngIf="costscheme == ContractSchemeEnum.Fixed">Cost without Tax</th>
+            <th>Cost Valid Period</th>
+            <th>Voucher Number Rule</th>
+            <th>Vendor SKU</th>
+            <th *ngIf="showAction">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container  *ngFor="let sku of skuListFormatted; index as i">
+            <tr class="font-14">
+                <td attr.rowspan="{{sku.SKUCosts.length}}">{{ i + 1 }}</td>
+                <td attr.rowspan="{{sku.SKUCosts.length}}">{{ sku.skuName  }}</td>
+                <td attr.rowspan="{{sku.SKUCosts.length}}">{{ sku.skuNumber }}</td>
+                <td>{{ sku.SKUCosts[0].skuTypeText }}</td>
+                <td>{{ sku.SKUCosts[0].faceValueWithTax  === null ? "NA" : sku.SKUCosts[0].faceValueWithTax}}</td>
+                <td>
+                    <div>{{ getCostWithTax(sku.SKUCosts[0].costWithTax) }}</div>
+                    <div *ngIf="utilityService.checkValidSKUStatus(sku.SKUCosts[0].skuTypeText)">({{ sku.SKUCosts[0].faceValueWithTax | costCalculation: sku.SKUCosts[0].costWithTax }})</div>
+                </td>
+                <td *ngIf="costscheme == ContractSchemeEnum.Fixed">{{ skuService.getCostWithoutTax(sku.SKUCosts[0].costWithTax) }}</td>
+                <td>{{ sku.SKUCosts[0].validstartDate | txcLocalDateTime | date : "yyyy/MM/dd" }} - <br> {{ sku.SKUCosts[0].validEndDate | txcLocalDateTime | date : "yyyy/MM/dd" }}</td>
+                <td>{{ sku.SKUCosts[0].voucherNumberRuleText }}</td>
+                <td>{{ "NA" }}</td>
+                <td width="10%" attr.rowspan="{{sku.SKUCosts.length}}" *ngIf="showAction">
+                    <i class="mdi mdi-trash-can-outline font-20 me-2" (click)="removeSKU(i)"></i>
+                    <i class="mdi mdi-pencil font-20" (click)="navigateToSkuAdd(i)"></i>
+                </td>
+            </tr>
+            <ng-container *ngFor="let skucost of sku.SKUCosts; first as isFirst;">
+                <tr *ngIf="!isFirst">
+                    <td>{{ skucost.skuTypeText }}</td>
+                    <td>{{ skucost.faceValueWithTax }}</td>
+                    <td>
+                        <div>{{ getCostWithTax(skucost.costWithTax) }}</div>
+                        <div *ngIf="utilityService.checkValidSKUStatus(skucost.skuTypeText)">({{ skucost.faceValueWithTax | costCalculation: skucost.costWithTax }})</div>
+                    </td>
+                    <td  *ngIf="costscheme == ContractSchemeEnum.Fixed">{{ skuService.getCostWithoutTax(skucost.costWithTax) }}</td>
+                    <td>{{ skucost.validstartDate | txcLocalDateTime | date : "yyyy/MM/dd" }} - <br> {{ skucost.validEndDate | txcLocalDateTime | date : "yyyy/MM/dd" }}</td>
+                    <td>{{ skucost.voucherNumberRuleText }}</td>
+                    <td>{{ "NA" }}</td>
+                </tr>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>

@@ -1,0 +1,254 @@
+<ng-template #tipContent let-formControl="formControl" let-message="message">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+      This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+      Entered value must be at least 2 characters!
+    </ng-container>
+  
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min &&  formControl !== f.facevalue ">
+      Entered value should be minimum value {{ formControl.errors?.min?.min }} !
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min && formControl === f.facevalue">
+      Entered value should be greater than 0!
+    </ng-container>
+  
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.allowDecimal">
+      {{formControl.errors?.msg}}
+    </ng-container>
+  
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidPhoneNumber">
+      Please enter valid phone number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.allowAlphanumericWithChinese">
+      Please enter valid characters
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+      Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.stringWithOnlyWhiteSpace">
+      Value should not contain only White spaces!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+      Entered value is valid
+    </ng-container>
+  </ng-template>
+  
+  <form [formGroup]="formGroup" (keydown.enter)="$event.preventDefault()">
+      <div class="row">
+          <div class="col-12">
+              <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                  <div class="row">
+                      <div class="col-12 mb-3">
+                          <span class="font-16 text-dark bold">
+                              SKU basic info
+                          </span>
+                      </div>
+  
+                      <div class="col-6 mb-2">
+                          <label for="name">SKU name <span class="text-danger bold">*</span></label>
+                          <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                              'is-invalid': f.name.invalid && f.name.dirty
+                          }" formControlName="name" triggers="manual" [ngbTooltip]="tipContent"
+                              [tooltipClass]="(f.name.invalid && f.name.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                              #nameTip="ngbTooltip"
+                              (click)="toggleTooltipWithContext(nameTip, f.name)"                            
+                              [disableTooltip]="!(f.name.invalid && f.name.dirty)">
+                      </div>                 
+                      <div class="col-6 mb-2">
+                          <label for="number">SKU code<span class="text-danger bold">*</span></label>
+                          <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                              'is-invalid': f.number.invalid && f.number.dirty
+                          }" formControlName="number" triggers="manual" [ngbTooltip]="tipContent"
+                              [tooltipClass]="(f.number.invalid && f.number.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                              #numberTip="ngbTooltip"
+                              (click)="toggleTooltipWithContext(numberTip, f.number)"
+                              (blur)="checkExistingSKU(f.number.value, 'number')"
+                              [disableTooltip]="!(f.number.invalid && f.number.dirty)">
+                      </div>
+  
+                      <div class="col-6 mb-2">
+                          <label for="type">SKU type <span class="text-danger bold">*</span></label>
+                          <select class="form-select font-14 text-secondary" [ngClass]="{
+                              'is-invalid': f.type.invalid && f.type.dirty
+                          }" formControlName="type" triggers="manual" [ngbTooltip]="tipContent"
+                              [tooltipClass]="(f.type.invalid && f.type.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                              #typeTip="ngbTooltip"
+                              (click)="toggleTooltipWithContext(typeTip, f.type)"
+                              [disableTooltip]="!(f.type.invalid && f.type.dirty)" (change)="OnSkuTypeSelectionChanged(f.type.value)">
+                              <option selected value="">Select</option>
+                              <option *ngFor="let item of skuTypeList" [value]="item.value">{{ item.text }}</option>
+                          </select>
+                      </div>
+  
+                      <div class="col-6 mb-2">
+                          <label for="vnr">Voucher number rule <span class="text-danger bold">*</span></label>
+                          <select class="form-select font-14 text-secondary" [ngClass]="{
+                              'is-invalid': f.vnr.invalid && f.vnr.dirty
+                          }" formControlName="vnr" triggers="manual" [ngbTooltip]="tipContent"
+                              [tooltipClass]="(f.vnr.invalid && f.vnr.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                              #vnrTip="ngbTooltip"
+                              (click)="toggleTooltipWithContext(vnrTip, f.vnr)"
+                              [disableTooltip]="!(f.vnr.invalid && f.vnr.dirty)">
+                              <option selected value="">Select</option>
+                              <option *ngFor="let item of vnrList" [value]="item.voucherNumberRuleId">{{ item.ruleName }}</option>
+                          </select>
+                          <span class="font-12">Go to merchant details page to create voucher number rule if needed.</span>
+                      </div>                    
+                      <div class="col-6 mb-2" *ngIf="f.facevalue.IsDisplay" >
+                          <label for="facevalue">Face value <span class="text-danger bold">*</span></label>
+                          <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                              'is-invalid': f.facevalue.invalid && f.facevalue.dirty
+                          }" formControlName="facevalue" triggers="manual" [ngbTooltip]="tipContent" 
+                              [tooltipClass]="(f.facevalue.invalid && f.facevalue.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                              #facevalueTip="ngbTooltip"  (ngModelChange)="tenant== 'IN' ? costPercentageValueCalculate(f.facevalue.value,0) : false"
+                              (click)="toggleTooltipWithContext(facevalueTip, f.facevalue)"
+                              [disableTooltip]="!(f.facevalue.invalid && f.facevalue.dirty)">
+                              
+                      </div>
+                     <div class="col-6 mb-2"  *ngIf="f.multiplier.IsDisplay" >
+                      <ng-container>
+                          <label for="multiplier">Multiplier <span class="text-danger bold">*</span></label>
+                          <input type="number" class="form-control font-14 text-secondary" [ngClass]="{
+                              'is-invalid': f.multiplier.invalid && f.multiplier.dirty
+                          }" formControlName="multiplier" triggers="manual" [ngbTooltip]="tipContent"
+                              [tooltipClass]="(f.multiplier.invalid && f.multiplier.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                              #multiplierTip="ngbTooltip"
+                              (click)="toggleTooltipWithContext(multiplierTip, f.multiplier)"
+                              [disableTooltip]="!(f.multiplier.invalid && f.multiplier.dirty)">
+                      </ng-container>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-12">
+              <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                  <div class="row">
+                      <div class="col-12 mb-3">
+                          <span class="font-16 text-dark bold">
+                              Cost & Period
+                          </span>
+                          <span *ngIf="isEdit" class="float-end text-decoration-underline font-12">                        
+                              <a href="javascript:void(0);" (click)="ShowExpiredCostDetails(expiredCostContentModalRef);">View expired cost & period</a>
+                          </span>
+                      </div>
+  
+                      <div [formGroup]="formGroupCtrl(ct)" *ngFor="let ct of costs.controls; index as idx" class="row">
+                          <ng-container *ngIf="this.f.costs.controls[idx].value.isActive">
+                          <div class="col-3 mb-2">
+                              <label for="contractName">Contract</label><br> 
+                <span> {{isEdit === false ? contract.contractName : ct.value.contractName}} </span><br> 
+                <small>{{ct.value.contractNumber}}</small>                          
+                          </div>
+                          <div class="mb-2" [ngClass]="{
+                              'col-4': contract.costSchemeId == 1, 'col-2' : contract.costSchemeId == 2
+                          }"> 
+                              <label for="cost">{{contract.costSchemeId == 1 ? "Cost %" : "Cost with Tax"}} <span class="text-danger bold">*</span></label>
+                              <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                  'is-invalid': formGroupCtrl(ct).controls.cost.invalid && formGroupCtrl(ct).controls.cost.dirty
+                              }" formControlName="cost" triggers="manual" [ngbTooltip]="tipContent"
+                                  [tooltipClass]="(formGroupCtrl(ct).controls.cost.invalid && formGroupCtrl(ct).controls.cost.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                  #costTip="ngbTooltip"
+                                  (input)="onCostChanged(idx)"
+                                  (click)="toggleTooltipWithContext(costTip, formGroupCtrl(ct).controls.cost)"                               
+                                  [disableTooltip]="!(formGroupCtrl(ct).controls.cost.invalid && formGroupCtrl(ct).controls.cost.dirty)"/>    
+                                  
+                                  <div class="mb-2" *ngIf="contract.costSchemeId == CostSchema[0].value  && f.type.value== SkuTypeEnum.ValueBased && tenant== 'IN' ">Cost: {{CostValuePercntage}}  </div>    
+                          </div>
+  
+                          <div class="col-2 mb-2" *ngIf="contract.costSchemeId == 2">
+                              <label for="costwithouttax">Cost without Tax</label>
+                              <input type="text" class="form-control font-14 text-secondary" formControlName="costwithouttax" triggers="manual" [ngbTooltip]="tipContent"/>
+                             
+                          </div>
+  
+                         
+  
+                          <div class="col-4 mb-2">
+                              <label for="period">Cost valid period<span class="text-danger bold">*</span></label>
+                              <div class="{{!(formGroupCtrl(ct).controls.isFuturePeriod.value)  ? 'd-flex' : ''}}" >
+                              <span *ngIf="!(formGroupCtrl(ct).controls.isFuturePeriod.value)" 
+                              class="mt-1 mt-1 me-2 d-flex"> From {{ (formGroupCtrl(ct).controls.validStartDate.value |  date:'yyyy/MM/dd') }} to </span>
+  
+                              <lib-date-picker
+                              (datePickerValues)="onDateSelectionChange($event, ct, idx)" 
+                              formControlName="period" 
+                              [displayMonths]="2" 
+                              [type]="!(formGroupCtrl(ct).controls.isFuturePeriod.value) ?    'simple' : 'range'" 
+                              [disablePastDates]="true"
+                              [writeFullObject]="false">
+  
+                              </lib-date-picker>
+                          </div>
+  
+  
+                         
+  
+                      </div>
+                          <div class="col-1 d-flex align-items-center" *ngIf="(formGroupCtrl(ct).controls.isFuturePeriod.value) && 
+                          !this.f.costs.controls[idx].value.costSkuId">
+                              <i class="uil-trash font-20 m-auto" (click)="removeCost(idx)"></i>
+                          </div>
+  
+                      </ng-container>
+                      </div>
+                      <div class="col-12 text-center">
+                          <button class="btn btn-primary btn-sm mt-2" (click)="addCost()">Add cost & period</button>
+                      </div>
+  
+                  </div>
+              </div>
+          </div>
+  
+          <div class="col-12">
+              <div class="row my-2">
+                  <div class="col-9">
+                  </div>
+                  <div class="col-3">
+                      <div class="row">
+                          <div class="col-6">
+                              <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" (click)="OnCancel('SKUUpdated','')">Back</button>
+                          </div>
+                          <div class="col-6">
+                              <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                                  [disabled]="formGroup.invalid" (click)="OnSubmit()">{{ isEdit ? 'Save' : 'Add' }}</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </form>
+  
+  <ng-template #expiredCostContentModalRef let-modal>
+      <div class="modal-header border-bottom-0 text-dark">
+          <h4 class="modal-title text-center w-100" id="modal-basic-title">Expired cost & period</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body text-dark">
+          <ng-container *ngIf="expiredCostModelData.length>0; else noExpiredCostData">
+              <div class="table-responsive" style="max-height: 455px;">
+                  <table class="table table-borderless table-sm text-dark">
+                      <thead class="align-text-top">
+                      <th class="col-5">Contract Name /<br> Contract Number</th>
+                      <th class="col-2">Cost</th>
+                      <th class="col-5">Cost valid period</th>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let element of expiredCostModelData">
+                              <td>{{element.skuCostContract.contractName}}<br><small>{{element.skuCostContract.contractNumber}}</small></td>
+                              <td>{{ (element.skuCostContract.contractCostScheme.id==1) ? element.costWithTax + '%' : element.costWithTax }}</td>
+                              <td>{{element.validStartDate | txcLocalDateTime | date: 'YYYY/MM/dd'}} - {{element.validEndDate |txcLocalDateTime | date: 'YYYY/MM/dd'}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </ng-container>
+          <ng-template #noExpiredCostData>
+              <p class="text-center">No expired cost & period data found!</p>
+          </ng-template>
+      </div>
+  </ng-template>
+  
+  <ngbd-toast-global></ngbd-toast-global>
+  

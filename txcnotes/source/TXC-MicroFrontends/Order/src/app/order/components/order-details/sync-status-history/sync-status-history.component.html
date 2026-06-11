@@ -1,0 +1,23 @@
+<div class="modal-body">
+    <div class="row mt-3">
+        <span class="text-center text-dark bold font-18"> {{ eventType }} sync status history </span>
+    </div>
+    <div class="row m-3 font-14">
+        <app-table
+            [tableModel]="syncTableModel"
+            [isStripedTable]="false"
+            [showScrollInsideTable]="showScrollInsideTable"
+        ></app-table>
+    </div>
+    <div class="row mb-2">
+        <div class="col-5"></div>
+        <div class="col-2">
+            <button
+                class="btn btn-secondary rounded-pill w-100 p-1 font-12"
+                (click)="activeModal.close()"
+            >Close</button>
+        </div>
+        <div class="col-5"></div>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>
