@@ -1,0 +1,121 @@
+http://localhost:4200/products/product/batch-update-product-combo
+
+
+...
+Batch update product combo
+
+
+
+-----------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'products',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.productPath,
+      exposedModule: './products.module'
+    }).then(m => m.ProductsModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/batch-update-product-combo',
+    component: ProductComboBatchUpdateComponent
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\master-product\master-product-product-combo\product-combo-batch-update\product-combo-batch-update.component.html
+
+
+-----------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\master-product\master-product-product-combo\product-combo-batch-update\product-combo-batch-update.component.ts
+  onSaveClick() {
+    const batchUpdateComboListItems = this.batchUpdateComboList.map(item => ({
+      masterProductId: item.masterProductId,
+      childProductId: item.childProductId
+    }));
+    const list: Array<UpdateProductComboListItem> = [];
+    list.push(...batchUpdateComboListItems);
+    const body: BatchUpdateProductComboRequest = { updateProductComboList: list };
+    this.masterProductApiService.batchUpdateProductCombo(body).subscribe({
+......
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\master-product-api.service.ts
+  batchUpdateProductCombo(body: BatchUpdateProductComboRequest): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/BatchCombo`;
+    return this.http.put(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

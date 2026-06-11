@@ -1,0 +1,503 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/8583
+
+D:\Git\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'products',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.productPath,
+      exposedModule: './products.module'
+    }).then(m => m.ProductsModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+
+
+  {
+    path: ':id',
+    component: MainProductDetailsComponent,
+    canActivate: [PageAuthorizationGuard]
+  }
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\main-product-details.component.html
+
+
+-------------------------------------------------------------------------------------------------------------------------
+MathService:
+      this.productPrice.customerFeePrepaidWithTax =
+        this._mathService.divideAndToPercentage(
+          this.productPrice?.sellingPricePrepaidWithTax,
+          this.merchantSKUData.faceValueWithTax,
+          4
+        ) ?? 0;
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\math.service.ts
+  /**
+   * Divide and transform to percentage value, and round it to the specified decimal places.
+   * @param dividend a number as dividend
+   * @param divisor a number as divisor
+   * @param decimalPlaces decimal places to keep after rounding. the default value is 2.
+   * @returns percentage value rounded to the specified decimal places. Some special cases:
+   * 1. undifined if divisor is null or 0
+   * 2. NaN if divisor or/and dividend is NaN, but divideAndToPercentage(NaN, 0) would return undifined due to 1
+   */
+  divideAndToPercentage(dividend: number, divisor: number | undefined | null, decimalPlaces: number = 2): number | undefined {
+    return divisor == null || (divisor != null && divisor === 0) ? undefined :
+      Number(Math.round(parseFloat((dividend / divisor) + 'e' + (decimalPlaces + 2))) + 'e-' + decimalPlaces);
+  }
+
+
+
+
+TenantConfigService:
+this.selectedTenantUTC = tenantConfigService.fetchLocalTimeFromUTC();
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\tenant-config.service.ts
+  fetchLocalTimeFromUTC() {
+    let selectedTenantUTC!: string;
+    const tenantFromLocalStorage = localStorage.getItem('tenant');
+    if (tenantFromLocalStorage) {
+      return JSON.parse(tenantFromLocalStorage).currentUTCOffset;
+    }
+    return selectedTenantUTC;
+  }
+
+
+
+ProgramService:
+                                this._programService
+                                  .getProgramById(
+                                    this.merchantDetails.programId
+                                  )
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\program.service.ts
+  // get program by Id query and using graphql endpoint
+  getProgramById(id: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = { query:
+      `query {
+          programs (
+              where: { id: { eq: ${id}} }
+          ) {
+              items {
+                  id
+                  name
+                  displayName
+                  isEdenred
+              }
+          }
+      }`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+VoucherNumberRuleService:
+                                        this._voucherNumberRuleService
+                                          .getSpecificVoucherNumberRule(
+                                            this.merchantId,
+                                            this.merchantSKUData
+                                              ?.voucherNumberRule
+                                              .voucherNumberRuleId
+                                          )
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\voucher-number-rule.service.ts
+  getSpecificVoucherNumberRule(
+    merchantId: number | undefined,
+    voucherNumberRuleId: number | undefined
+  ) {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query {
+        voucherNumberRules(
+            where: { 
+                voucherNumberRuleId: { eq: ${voucherNumberRuleId} },
+                merchantId: { eq: ${merchantId} }
+            }
+            order: { voucherNumberRuleId: DESC }
+            take: 20
+            skip: 0
+        ) {
+            totalCount
+            items {
+                merchantId
+                voucherNumberRuleId
+                ruleName
+                voucherNumberPrefix
+                voucherNumberType
+                voucherNumberLength
+                barcodeType {
+                    id
+                    description
+                },
+                voucherGenerator {
+                    id
+                    description
+                },
+                barcodeType {
+                    id
+                    description
+                }
+                createdBy
+                createdDateTime
+                algorithmId
+                distVoucherNumUnderBarcode
+                generatedBy
+                algorithmId
+                requestExpiryDate
+                hasMultipleBarcode
+                onDemand
+                pinType {
+                    id
+                    description
+                }
+                contractSKU {
+                    id
+                }
+                vendor {
+                    vendorCode
+                    name
+                    id
+                }
+            }
+        }
+    }`
+    }
+
+
+
+TemplateService:
+this.templateService.getTagValuesByTagId(tag.tagId!)
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+  getTagValuesByTagId(tagId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{tagValueByTagId(tagId: ${tagId}) 
+          { tagValueId, tagId,
+            htmlValue,
+            textValue,
+            isDefault,
+            applyConditions { name, applyConditionId }
+          }
+        }`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+SkuService:
+                  // get sku data
+                  this._skuService
+                    .getSKUbySKUId(this.product?.skuId!)
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\sku.service.ts
+  getSKUbySKUId(skuId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{ contractSKUDetails(where: { id:{eq: ${skuId}}})
+        { items
+          { id, skuName, skuNumber, faceValueWithTax, faceValueWithoutTax, multiplier, merchantGroupId,
+            skuType { id value } 
+            voucherNumberRule { voucherNumberRuleId ruleName onDemand vendorId } 
+            contractSKUCosts { id, costWithTax, costWithoutTax, validStartDate, validEndDate, 
+              skuCostContract { contractId, contractName, contractNumber, costSchemeId, startDate, endDate, merchantId, merchant { name } } } } }}`,
+    };
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+MerchantService:
+                            this._merchantService
+                              .getMerchantByGroupId(
+                                this.merchantSKUData.merchantGroupId
+                              )
+
+
+                            this._merchantService
+                              .getMerchantById(this.merchantId, true)
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\merchant.service.ts
+  // will retrieve specific merchant: MerchantInfo?MerchantId={value}, method: get
+  getMerchantById(merchantId: number, isEdit = false): Observable<GetMerchantResponse> {
+    const url = `${this._getURL()}api/MerchantInfo?MerchantId=${merchantId}${!isEdit ? '&Status=1': ''}`;
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.get(url, { headers }) as Observable<GetMerchantResponse>;
+  }
+
+  getMerchantByGroupId(merchantGroupId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = { query : 
+      `query {
+        merchants(where : {merchantGroupId : {eq : ${merchantGroupId}}}){
+            items{
+                merchantId
+                merchantName:name
+                programId
+                identityCode
+            }
+        }
+      }`
+    };
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+DictionaryService:
+            // Dictionary data api
+            this._dictionaryService
+              .getDictionaryItemsByCategory('ProductReminder')
+              .pipe(takeUntil(this.componentDestroyed$))
+              .subscribe(
+                (res) => (this.reminders = JSON.parse(res.data).dictionaries)
+              );
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\dictionary.service.ts
+  // get dictionary items by category using graphql endpoint
+  getDictionaryItemsByCategory(category: string): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{dictionaries (where: { category: { eq: "${category}"}}) { dictionaryId name displayName }}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+MediaService:
+                                              this.mediaService
+                                                .getMediaById(
+                                                  this.walletImageData
+                                                    .walletImage
+                                                )
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\media.service.ts
+  // get media by id using graphql endpoint
+  getMediaById(id: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{ mediaById(mediaId: ${id}) { account, blobName, fileContentType, fileName, height, keyword, mediaId, nodeUrl, type, width }}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+BrandService:
+            this.brandService
+              .getBrandsByBrandID(this.product?.brandId!)
+              .pipe(takeUntil(this.componentDestroyed$))
+              .subscribe((res) => {
+                let brandsArray = JSON.parse(res.data);
+                brandsArray?.brands?.items.length
+                  ? (this.product.brandName =
+                      brandsArray?.brands?.items[0].brandName)
+                  : (this.product.brandName = '');
+              });
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\brand.service.ts
+  getBrandsByBrandID(brandId: number) : Observable<BaseResponse>{
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query : `query{brands(skip: 0, take: 1, where:{id:{eq:${brandId}}}){items{id,brandName,createdBy,createdOn,mediaId,status}}}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, {headers}) as Observable<BaseResponse>;
+  }
+
+
+
+
+AcceptanceLoopService
+                                this._acceptanceLoopService
+                                  .getAcceptanceLoopsAggregationByMerchantGroupId(
+                                    this.merchantSKUData.merchantGroupId
+                                  )
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\acceptance-loop.service.ts
+  public getAcceptanceLoopsAggregationByMerchantGroupId(merchantGroupId: number, 
+    skip?: number, take?: number, acceptanceLoopId: number = 0): Observable<BaseResponse> {
+
+  const url = `${this._getURL()}api/GraphQL/Query`;
+  const skipClause = skip ? `, skip: ${skip}` : '';
+  const takeClause = take ? `, take: ${take}` : '';
+  const acceptanceLoopIdClause = acceptanceLoopId === 0 ?
+    "":
+   `,{ acceptanceLoopId: { eq: ${acceptanceLoopId} } }`
+
+  const body = { query: 
+    `query {
+      acceptanceLoopsAggregation( 
+        where: {
+          and: [
+            { merchantGroupId: { eq: ${merchantGroupId} } } ${acceptanceLoopIdClause}
+          ]
+        }
+        order: { createdOn: DESC } 
+        ${skipClause}
+        ${takeClause}
+      ) {
+        totalCount
+        items {            
+          acceptanceLoopId
+          code
+          description
+          status
+          createdBy
+          createdOn
+          lastUpdatedOn
+          isDefault
+          products
+          {
+            totalCount
+          }        
+          merchantAggregation
+          {
+            acceptanceLoopMerchantId
+            merchantId
+            merchantName
+            selectedShopCount
+            availableShopCount
+            selectedShopCount
+            merchantShopCount
+            status
+            merchantActiveShopCount
+            merchantInactiveShopCount
+          }
+        }
+      }
+    }`
+  }
+  const headers = new HttpHeaders().append('loading-indicator', 'none');
+  return this.http.post(url, body,{ headers }) as Observable<BaseResponse>;
+}
+
+
+
+
+
+
+ProductService:
+this._productService.getProduct(parseInt(params.id));
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+  getProduct(id: number, reset = false, product: Product | undefined = undefined): void {
+    const url = `https://${environment.apiUrl}api/Product/GetById?ProductId=${id}`;
+    if (reset && product) {
+      const removeIndex = this.state.products.findIndex(product => product.productId === id);
+      this.state.products.splice(removeIndex, 1);
+      this.setState({products: [...this.state.products, product], selectedProductId: id});
+      return;
+    }
+    this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }).subscribe((res: any) => {
+      this.setState({products: [...this.state.products, res.data.productBasicInfo as Product], selectedProductId: id});
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

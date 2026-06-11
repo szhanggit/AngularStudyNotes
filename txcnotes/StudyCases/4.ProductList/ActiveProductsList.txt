@@ -1,0 +1,215 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'products',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.productPath,
+      exposedModule: './products.module'
+    }).then(m => m.ProductsModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: '',
+    component: ProductListComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\product-list\product-list.component.html
+
+
+
+
+
+
+
+---------------------------------------------------------
+Duplicated.PNG
+<ng-template #duplicateModal let-modal>
+    <div class="modal-body px-5">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>Duplicate product</strong></span>
+        </div>
+
+        <div class="my-3 position-relative font-14" id="stopIssueTimeContainer">
+            <div class="row">
+                <div class="col-12">
+                    You are duplicating below product,
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-6">Product Name</div>
+                <div class="col-6"><strong>{{ duplicateProduct.productName }}</strong></div>
+            </div>
+            <div class="row my-1">
+                <div class="col-6">Product type</div>
+                <div class="col-6"><strong>{{ duplicateProduct.productType | producttype }}</strong></div>
+            </div>
+            <div class="row my-1">
+                <div class="col-6">Product code</div>
+                <div class="col-6"><strong>{{ duplicateProduct.productCode }}</strong></div>
+            </div>
+            <hr class="my-16">
+            <form [formGroup]="duplicateFormGroup">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="productName" class="form-label">Product name <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" [ngClass]="{
+                        'is-invalid': f.productName.invalid && f.productName.dirty
+                    }" formControlName="productName" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.productName.invalid && f.productName.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #productNameTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(productNameTip, f.productName)"
+                            [disableTooltip]="!(f.productName.invalid && f.productName.dirty)">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-12">
+                        <label for="productName" class="form-label">Product code <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" [ngClass]="{
+                            'is-invalid': f.productCode.invalid && f.productCode.dirty
+                        }" formControlName="productCode" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.productCode.invalid && f.productCode.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #productCodeTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(productCodeTip, f.productName)"
+                            [disableTooltip]="!(f.productCode.invalid && f.productCode.dirty)">
+                        <ng-container *ngIf="f.productCode?.invalid && f.productCode.errors?.alreadyExists">
+                            <span class="text-danger font-12">
+                                {{ f.productCode.value }} already exists!
+                            </span>
+                        </ng-container>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="closeModal()">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="(checkingProductCode$ | async) || duplicateFormGroup.invalid" (click)="modal.close('Create')">Create</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+
+-------------------------------------------------------
+UnfinishedDrafts.jpeg
+
+
+
+
+
+
+<ng-template #draftTable let-products="products">
+    <table class="table table-centered mt-2">
+        <thead>
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Code</th>
+                <th scope="col">Created On</th>
+                <th scope="col">Creator</th>
+                <th scope="col" *ngIf="isProductEditor">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let draft of drafts$ | async; index as i">
+                <td scope="row" class="word-break">
+                    {{ draft.productName || '--' }}
+                </td>
+                <td>
+                    {{ draft.productCode || '--' }}
+                </td>
+                <td>
+                    <div>{{ draft.createTime | date: 'M/d/yyyy'}}</div>
+                    <div>{{ draft.createTime | date: 'hh:mm:ss a':'UTC' + selectedTenantUTC }}</div>
+                </td>
+                <td>
+                    {{ draft.creator || '--'}}
+                </td>
+                <td *ngIf="isProductEditor">
+                    <button class="btn font-22" (click)="deleteDraft(draft.wizardKey)">
+                        <i class="uil-trash"></i>
+                    </button>
+                    <button class="btn mx-2 font-22" (click)="navigateToCreateProductDraft(draft.wizardKey)">
+                        <i class="mdi mdi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

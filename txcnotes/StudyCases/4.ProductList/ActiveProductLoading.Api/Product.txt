@@ -1,0 +1,347 @@
+https://api-staging.txc.edenred.net/gateway/api/Product?Type=0&MerchantAcquirerId=0&Status=true&RowCount=20&PageNumber=1&SortBy=created_on&SortDirection=DESC
+
+Type=0&MerchantAcquirerId=0&Status=true&RowCount=20&PageNumber=1&SortBy=created_on&SortDirection=DESC
+
+{
+    "data": {
+        "productDtos": [
+            {
+                "productId": 8587,
+                "productCode": "rrrrrrrrrr",
+                "productName": "sdfsfsdf",
+                "skuId": 12695,
+                "productType": 1,
+                "createdBy": "stzhang",
+                "createdOn": "2023-12-15T06:14:23.003Z",
+                "status": 1,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8586,
+                "productCode": "TESTPB",
+                "productName": "TEST_PB",
+                "skuId": 12330,
+                "productType": 1,
+                "createdBy": "msioson",
+                "createdOn": "2023-12-05T14:14:44.3Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8585,
+                "productCode": "MS_TW_PB",
+                "productName": "MS_TW_PB",
+                "skuId": 12329,
+                "productType": 1,
+                "createdBy": "msioson",
+                "createdOn": "2023-11-30T01:09:26.507Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8584,
+                "productCode": "TSPB1001",
+                "productName": "TestSample PB Voucher",
+                "skuId": 12328,
+                "productType": 1,
+                "createdBy": "dnapoles",
+                "createdOn": "2023-11-24T03:37:21.217Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8583,
+                "productCode": "TSVDFV10000",
+                "productName": "${FV}TestSample DFV Vaoucher 1000",
+                "skuId": 12311,
+                "productType": 4,
+                "createdBy": "dnapoles",
+                "createdOn": "2023-11-24T03:27:35.903Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8582,
+                "productCode": "TSSB1000",
+                "productName": "TestSample SB Voucher",
+                "skuId": 12313,
+                "productType": 3,
+                "createdBy": "dnapoles",
+                "createdOn": "2023-11-24T03:24:53.407Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8581,
+                "productCode": "TSV010000",
+                "productName": "TestSample Voucher DN0001",
+                "skuId": 12310,
+                "productType": 2,
+                "createdBy": "dnapoles",
+                "createdOn": "2023-11-24T03:23:24.403Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8580,
+                "productCode": "TSPB1000",
+                "productName": "TestSample PB Voucher",
+                "skuId": 12328,
+                "productType": 1,
+                "createdBy": "dnapoles",
+                "createdOn": "2023-11-24T03:19:51.003Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8579,
+                "productCode": "JSV001",
+                "productName": "Joni_SuperVoucher",
+                "skuId": 12319,
+                "productType": 8,
+                "createdBy": "jabinsay",
+                "createdOn": "2023-11-22T07:08:26.72Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8578,
+                "productCode": "JSCV001",
+                "productName": "Joni_SmartChoiceVoucher",
+                "skuId": 12318,
+                "productType": 5,
+                "createdBy": "jabinsay",
+                "createdOn": "2023-11-22T07:05:11.3Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8577,
+                "productCode": "J3PSBV001",
+                "productName": "Joni_3rdParty_SmartBookletVoucher",
+                "skuId": 12317,
+                "productType": 3,
+                "createdBy": "jabinsay",
+                "createdOn": "2023-11-22T06:01:40.503Z",
+                "status": 1,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8576,
+                "productCode": "FV001",
+                "productName": "Joni_3rdParty_DynamicFaceValue ${FV}",
+                "skuId": 12316,
+                "productType": 4,
+                "createdBy": "jabinsay",
+                "createdOn": "2023-11-22T05:50:46.91Z",
+                "status": 1,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8575,
+                "productCode": "J3PVB001",
+                "productName": "Joni_3rdParty_ValueBased",
+                "skuId": 12315,
+                "productType": 2,
+                "createdBy": "jabinsay",
+                "createdOn": "2023-11-22T05:38:15.613Z",
+                "status": 1,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8574,
+                "productCode": "JoniTest",
+                "productName": "Joni_3rdParty_ProductBased",
+                "skuId": 12314,
+                "productType": 1,
+                "createdBy": "jabinsay",
+                "createdOn": "2023-11-22T05:32:49.123Z",
+                "status": 1,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8573,
+                "productCode": "test_aar_sv_1120",
+                "productName": "test_aar_sv_1120",
+                "skuId": 12309,
+                "productType": 8,
+                "createdBy": "awang",
+                "createdOn": "2023-11-20T03:13:25.913Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8567,
+                "productCode": "TestPOS_PB",
+                "productName": "TestPOS_PB",
+                "skuId": 11387,
+                "productType": 1,
+                "createdBy": "msioson",
+                "createdOn": "2023-11-07T03:15:53.523Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8561,
+                "productCode": "hsunet2000",
+                "productName": "hsunet2000",
+                "skuId": 11386,
+                "productType": 2,
+                "createdBy": "hhsu",
+                "createdOn": "2023-11-02T03:51:01.9Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8557,
+                "productCode": "VerifyVoucher_VB",
+                "productName": "VerifyVoucher_VB",
+                "skuId": 7289,
+                "productType": 2,
+                "createdBy": "msioson",
+                "createdOn": "2023-10-26T15:17:34.817Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8556,
+                "productCode": "BLKA0001STWPETER",
+                "productName": "BLACK_COFFEE_SMALL_STW_PETER",
+                "skuId": 9422,
+                "productType": 1,
+                "createdBy": "ptactacan",
+                "createdOn": "2023-10-25T07:24:08.7Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8555,
+                "productCode": "coffee_booklet001",
+                "productName": "Coffee x10",
+                "skuId": 9423,
+                "productType": 3,
+                "createdBy": "hhsu",
+                "createdOn": "2023-10-12T10:18:36.6Z",
+                "status": 1,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            }
+        ],
+        "totalCount": 3114
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\product-list\product-list.component.ts
+this.products$ = productSvc.products$;
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+  get products$() { return this._products$.asObservable(); }
+
+
+
+  constructor(private http: HttpClient,
+    private readonly _authorizationLibraryService: AuthorizationLibraryService,
+    private readonly _graphqlApiService: GraphqlApiService) {
+    super(INITIAL_STATE);
+    this._search$.pipe(
+      tap(() => this._loading$.next(true)),
+      debounceTime(200),
+      switchMap(() => this._getProducts()),			<==================================================
+      delay(200),
+      tap(() => this._loading$.next(false))
+    ).subscribe((res: GetProductsResp) => {
+      if (res.data) {
+        this._products$.next(res.data.productDtos);
+        this._total$.next(res.data.totalCount);
+      } else {
+        this._products$.next([]);
+        this._total$.next(0);
+      }
+    });
+
+    this._search$.next();
+  }
+
+
+
+
+
+
+
+  private _getProducts(): Observable<GetProductsResp> {
+    const { pageSize, page, searchTerm, status, productType } = this._state;
+    if (status === 3) {
+      return of([] as any);
+    }
+    const url = `https://${environment.apiUrl}api/Product${searchTerm ? '?Keyword=' : ''}${searchTerm ? searchTerm + '&' : '?'}Type=${productType}&MerchantAcquirerId=${this.createdBy}&Status=${status > 1 ? false : true}&RowCount=${pageSize}&PageNumber=${page}&SortBy=${this.sortBy}&SortDirection=${this.sortDir}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<GetProductsResp>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

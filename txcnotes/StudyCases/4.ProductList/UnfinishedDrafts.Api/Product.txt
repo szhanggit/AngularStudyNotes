@@ -1,0 +1,195 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/ProductWizard?RowCount=20&PageNumber=1
+
+
+RowCount=20&PageNumber=1
+
+
+{
+    "data": {
+        "totalCount": 985,
+        "productWizardSummaryList": [
+            {
+                "wizardKey": "3E1EF2E8-42AF-498A-B1F4-5785D3890EA1",
+                "productCode": null,
+                "productName": null,
+                "creator": "zchia",
+                "createTime": "2023-12-23T06:08:43.093Z",
+                "updateTime": "2023-12-23T06:08:43.093Z"
+            },
+            {
+                "wizardKey": "D3273F8F-1A29-466F-97E6-1BC1CBEF45C9",
+                "productCode": "lkjlkjlj76",
+                "productName": "lkjlkj",
+                "creator": "stzhang",
+                "createTime": "2023-12-21T10:59:27.19Z",
+                "updateTime": "2023-12-21T11:03:30.58Z"
+            },
+            {
+                "wizardKey": "DFD010A2-17B0-4AFF-9BF9-6C21BF9E0D2A",
+                "productCode": null,
+                "productName": null,
+                "creator": "jgao",
+                "createTime": "2023-12-20T09:47:43.337Z",
+                "updateTime": "2023-12-20T09:47:43.337Z"
+            },
+            {
+                "wizardKey": "032F407C-3710-4567-9F36-A95A97CA7D0C",
+                "productCode": null,
+                "productName": null,
+                "creator": "jgao",
+                "createTime": "2023-12-20T09:33:24.08Z",
+                "updateTime": "2023-12-20T09:33:24.08Z"
+            },
+            {
+                "wizardKey": "6C9842BE-E334-40A1-93E0-0C64C8C559F6",
+                "productCode": "oooohhhhhhhh",
+                "productName": "jklj",
+                "creator": "stzhang",
+                "createTime": "2023-12-15T04:19:37.31Z",
+                "updateTime": "2023-12-15T04:26:27.103Z"
+            },
+            {
+                "wizardKey": "85C3B353-B66B-47B8-972D-5C5929F0D9DE",
+                "productCode": null,
+                "productName": null,
+                "creator": "stzhang",
+                "createTime": "2023-12-13T19:23:35.9Z",
+                "updateTime": "2023-12-13T19:23:35.9Z"
+            },
+            {
+                "wizardKey": "0190EC3D-AAA7-496F-9734-F0E43AD518B6",
+                "productCode": null,
+                "productName": null,
+                "creator": "stzhang",
+                "createTime": "2023-12-13T19:23:35.84Z",
+                "updateTime": "2023-12-13T19:23:35.84Z"
+            },
+            {
+                "wizardKey": "4E05210A-AC7D-49FE-8497-A2B32078097F",
+                "productCode": null,
+                "productName": null,
+                "creator": "hhsu",
+                "createTime": "2023-12-13T10:22:49.9Z",
+                "updateTime": "2023-12-13T10:22:49.9Z"
+            },
+            {
+                "wizardKey": "52F80689-A527-4F29-A94E-CC47BE66AF24",
+                "productCode": null,
+                "productName": null,
+                "creator": "stzhang",
+                "createTime": "2023-12-09T09:04:32.87Z",
+                "updateTime": "2023-12-09T09:04:32.87Z"
+            },
+            {
+                "wizardKey": "E9750426-627A-499F-9EE2-81602A8E78D2",
+                "productCode": null,
+                "productName": null,
+                "creator": "bwen",
+                "createTime": "2023-12-04T01:15:47.797Z",
+                "updateTime": "2023-12-04T01:15:47.797Z"
+            },
+            {
+                "wizardKey": "995C8637-3CA9-43FA-89EA-07082951A5B4",
+                "productCode": null,
+                "productName": null,
+                "creator": "dnapoles",
+                "createTime": "2023-11-24T03:10:01.223Z",
+                "updateTime": "2023-11-24T03:10:01.223Z"
+            },
+            {
+                "wizardKey": "FC48A84E-40AF-47B7-80A4-2E813D90C574",
+                "productCode": null,
+                "productName": null,
+                "creator": "dnapoles",
+                "createTime": "2023-11-22T07:43:10.82Z",
+                "updateTime": "2023-11-22T07:43:10.82Z"
+            },
+            {
+                "wizardKey": "0002365A-5EAC-45F3-AEDB-95A4CCD1E4FF",
+                "productCode": "test1",
+                "productName": "test",
+                "creator": "jabinsay",
+                "createTime": "2023-11-22T06:59:15.317Z",
+                "updateTime": "2023-11-22T06:59:16.8Z"
+            },
+            {
+                "wizardKey": "87E3F989-D1EB-4AA3-B157-D96C0C01C99C",
+                "productCode": "TSV00001",
+                "productName": "Test SV 00001",
+                "creator": "dnapoles",
+                "createTime": "2023-11-22T06:47:35.37Z",
+                "updateTime": "2023-11-22T06:47:35.727Z"
+            },
+            {
+                "wizardKey": "5E6C8AC8-F1AA-428B-81E9-D54143160AD4",
+                "productCode": null,
+                "productName": null,
+                "creator": "dnapoles",
+                "createTime": "2023-11-22T06:40:08.3Z",
+                "updateTime": "2023-11-22T06:40:08.3Z"
+            },
+            {
+                "wizardKey": "FDC548AD-C95C-46D2-AA00-6D2F7F771EED",
+                "productCode": "J3PSV001",
+                "productName": "Joni_3rdParty_SuperVoucer",
+                "creator": "jabinsay",
+                "createTime": "2023-11-22T06:03:07.397Z",
+                "updateTime": "2023-11-22T06:03:08.793Z"
+            },
+            {
+                "wizardKey": "21B761E9-3DC9-4F77-912C-A1734096BDA1",
+                "productCode": "J3PSCV001",
+                "productName": "Joni_3rdParty_SmartChoiceVoucher",
+                "creator": "jabinsay",
+                "createTime": "2023-11-22T06:02:13.193Z",
+                "updateTime": "2023-11-22T06:02:15.27Z"
+            },
+            {
+                "wizardKey": "D0347968-5707-4D6B-BC8E-2EC4FF13A423",
+                "productCode": null,
+                "productName": null,
+                "creator": "jabinsay",
+                "createTime": "2023-11-22T05:44:34.09Z",
+                "updateTime": "2023-11-22T05:44:34.09Z"
+            },
+            {
+                "wizardKey": "5FDD8D6E-4DAA-4F1A-AB02-356BCC4E8BE5",
+                "productCode": null,
+                "productName": null,
+                "creator": "jabinsay",
+                "createTime": "2023-11-22T05:29:18.117Z",
+                "updateTime": "2023-11-22T05:29:18.117Z"
+            },
+            {
+                "wizardKey": "58AD234F-E894-40AA-AE3A-DCE7EA5E7E53",
+                "productCode": null,
+                "productName": null,
+                "creator": "jabinsay",
+                "createTime": "2023-11-22T05:28:55.207Z",
+                "updateTime": "2023-11-22T05:28:55.207Z"
+            }
+        ]
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\product-list\product-list.component.ts
+    this.drafts$ = draftSvc.drafts$;
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\draft.service.ts
+  private _getDrafts(): Observable<BaseResponse> {
+    const { pageSize, page } = this._state;
+    const url = `https://${environment.apiUrl}api/Product/ProductWizard?RowCount=${pageSize}&PageNumber=${page}`;
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.get(url, { headers }) as Observable<GetProductsResp>;
+  }
+
+
+
+

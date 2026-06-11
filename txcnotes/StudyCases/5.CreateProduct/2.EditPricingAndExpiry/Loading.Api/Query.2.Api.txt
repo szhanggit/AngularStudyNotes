@@ -1,0 +1,87 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"\n      query {\n        expirationPolicyByGeneratorEnum (\n          generatorEnums : [8]\n          order: [{ type: ASC  },{ validPeriod: ASC  }]         \n        ) {\n            id\n            name\n            displayName\n            validPeriod\n            type\n            productVoucherGenerator\n          }\n      }"}
+
+
+
+{
+    "data": "{\"expirationPolicyByGeneratorEnum\":[{\"id\":1,\"name\":\"NoExpireDate\",\"displayName\":\"NoExpireDate\",\"validPeriod\":null,\"type\":1,\"productVoucherGenerator\":11},{\"id\":8,\"name\":\"FixEndOfDay\",\"displayName\":\"FixEndOfDay\",\"validPeriod\":null,\"type\":2,\"productVoucherGenerator\":15},{\"id\":26,\"name\":\"ThirdPartyFixEndOfDay\",\"displayName\":\"ThirdParty FixEndOfDay\",\"validPeriod\":null,\"type\":6,\"productVoucherGenerator\":8},{\"id\":18,\"name\":\"ThirdPartyWithinEndOf1MonthsExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 1 Months Expired After Activation\",\"validPeriod\":1,\"type\":6,\"productVoucherGenerator\":8},{\"id\":19,\"name\":\"ThirdPartyWithinEndOf2MonthsExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 2 Months Expired After Activation\",\"validPeriod\":2,\"type\":6,\"productVoucherGenerator\":8},{\"id\":20,\"name\":\"ThirdPartyWithinEndOf3MonthsExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 3 Months Expired After Activation\",\"validPeriod\":3,\"type\":6,\"productVoucherGenerator\":8},{\"id\":21,\"name\":\"ThirdPartyWithinEndOf4MonthsExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 4 Months Expired After Activation\",\"validPeriod\":4,\"type\":6,\"productVoucherGenerator\":8},{\"id\":22,\"name\":\"ThirdPartyWithinEndOf5MonthsExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 5 Months Expired After Activation\",\"validPeriod\":5,\"type\":6,\"productVoucherGenerator\":8},{\"id\":23,\"name\":\"ThirdPartyWithinEndOf6MonthsExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 6 Months Expired After Activation\",\"validPeriod\":6,\"type\":6,\"productVoucherGenerator\":8},{\"id\":25,\"name\":\"ThirdPartyWithinEndOf12MonthExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within End Of 12 Months Expired After Activation\",\"validPeriod\":12,\"type\":6,\"productVoucherGenerator\":8},{\"id\":49,\"name\":\"ThirdPartyWithin49DaysExpiredAfterActivation\",\"displayName\":\"Flexible Date Deferred Within 49 Days Expired After Activation\",\"validPeriod\":49,\"type\":8,\"productVoucherGenerator\":8},{\"id\":42,\"name\":\"ChildFlexibleDateDependsOnMasterExpiry\",\"displayName\":\"Child Flexible Date Deferred More Than Master Expiry Date\",\"validPeriod\":null,\"type\":9,\"productVoucherGenerator\":8}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\expiry-scheme-selector\expiry-scheme-selector.component.ts
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if(id){
+      this.productSvc.getExpiryPolicyType(id).subscribe(value => { 
+        const policy = JSON.parse(value.data).products.items[0];
+        this.expiryType = policy?.isFixedExpiryPolicy ?  ExpiryTypeEnum.FIXED : ExpiryTypeEnum.FLEXIBLE;
+        this.getExpirationPolicies(this.expiryType)
+      })
+    } else {
+      this.isFixedExpiryPolicy$.subscribe(value => {
+        this.expiryType = value ? ExpiryTypeEnum.FIXED : ExpiryTypeEnum.FLEXIBLE;
+        this.getExpirationPolicies(this.expiryType);
+      })
+    }
+  }
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product-api.service.ts
+
+
+  getExpirationPolicies(generatorEnums: string = '[0,1,2,4,8]') {
+    const query = `
+      query {
+        expirationPolicyByGeneratorEnum (
+          generatorEnums : ${generatorEnums}
+          order: [{ type: ASC  },{ validPeriod: ASC  }]         
+        ) {
+            id
+            name
+            displayName
+            validPeriod
+            type
+            productVoucherGenerator
+          }
+      }`;
+    return this.graphqlApiService.postQuery(query);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

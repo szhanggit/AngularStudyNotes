@@ -1,0 +1,56 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/ProductWizard
+
+
+{"productType":1,"productId":0}
+
+
+
+
+{
+    "data": "BDF7C55E-8A0D-4B35-A7AF-09284D8FD914",
+    "message": "Success",
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.ts
+
+  updateProductWizard(step: number, body: any, saveProgress: boolean): void {
+    const stepName = PRODUCT_CONSTANTS.PRODUCT_STEPS[this.step - 1];
+
+    this.productWizardService.updateProductWizard(this.wizardKey, step, body).pipe(takeUntil(this.destroyed$)).subscribe(
+      res => {
+        if (!res.success) {
+          this.toast.showDanger(`Error in updating product wizard step - ${stepName}. Please try again later.`);
+        } else {
+          if (!saveProgress) {
+            this.addStep();
+          }
+        }
+      },
+      () => {
+        this.toast.showDanger(`Error in updating product wizard step - ${stepName}. Please try again later.`);
+        this.productWizardService.loading$.next(false);
+      },
+      () => {
+        this.productWizardService.loading$.next(false);
+      });
+
+  }
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product-wizard.service.ts
+
+  updateProductWizard(key: string, step: number, values: any, showLoadingIndicator: boolean = false) {
+    const url = `https://${environment.apiUrl}api/Product/ProductWizard`;
+    let body: ProductWizardRequest = new ProductWizardRequest(key, step, values, this._textEditorService);
+
+    if (step === 4 && body.productWizardDto.productWizardStepFour?.productTemplateList) {
+      body.productWizardDto.productWizardStepFour.productTemplateList = values.updatedProductTemplateList;
+    }
+
+    const headers = new HttpHeaders().append('loading-indicator', showLoadingIndicator ? 'on' : 'none');
+    return this.http.put(url,  body, { headers }) as Observable<BaseResponse>;
+  }

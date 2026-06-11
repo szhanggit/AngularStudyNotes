@@ -1,0 +1,110 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/create?key=6C9842BE-E334-40A1-93E0-0C64C8C559F6&isDraft=true
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/create',
+    component: CreateProductComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.html
+
+    <app-product-combo *ngIf="step === 2 && masterVoucherKeys.includes(selectedType.key)">
+    </app-product-combo>
+    <app-product-pricing *ngIf="step === 2 && !masterVoucherKeys.includes(selectedType.key) || step === 3 && masterVoucherKeys.includes(selectedType.key)" 
+        [wizardKey]="wizardKey"
+        [selectedTenant]="selectedTenant" 
+        [selectedType]="selectedType" 
+        [selectedMerchant]="selectedMerchant"
+        [selectedSKU]="selectedSKU"
+        [merchantProgram]="merchantProgram"
+        [pricingFormGroup]="pricingFormGroup"
+        [expirySchemeList]="expirySchemeList"
+        [toast]="toast"
+        [isFixedExpiryPolicy$]="isFixedExpiryPolicy$"
+        (expiryPolicyIdListChanged)="OnExpiryListChanged($event)"
+        (expiryPolicyTypeChanged)="OnExpiryPolicyTypeChanged($event)">
+    </app-product-pricing>
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-combo\product-combo.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\product-pricing.component.html
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\expiry-scheme-selector\expiry-scheme-selector.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

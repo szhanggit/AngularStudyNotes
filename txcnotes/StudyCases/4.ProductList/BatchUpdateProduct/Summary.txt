@@ -1,0 +1,158 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/batch-update-product
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'products',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.productPath,
+      exposedModule: './products.module'
+    }).then(m => m.ProductsModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/batch-update-product',
+    component: BatchUpdateProductComponent
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\batch-update-product\batch-update-product.component.html
+
+
+
+<angular-editor>
+npm install ngx-quill    (Quill rich text editor)
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\batch-update-product\batch-update-product.component.ts
+  save() {
+    this.errorMessageList = [];
+    const footnote = this.updateProductFormGroup.get('htmlContent')?.value;
+    const footnoteContent = footnote.trim().replace(/&#10;/g, '').replaceAll('</li>', '</li>\r\n');;
+    const body: UpdateBatchFootnoteRequest = {
+      productIdList: this.confirmProductList.map(e => e.productId),
+      footnote: footnoteContent,
+      textValue: this.htmlContentText,
+      applyToOrder: false
+    };
+    this.toggleConstainerGroup(this.CONTAINER_NAME_COMFIRM);
+    this.masterProductApiService.updateBatchFootnote(body).subscribe({
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\master-product-api.service.ts
+  updateBatchFootnote(body: UpdateBatchFootnoteRequest): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/BatchFootnote`;
+    return this.http.put(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

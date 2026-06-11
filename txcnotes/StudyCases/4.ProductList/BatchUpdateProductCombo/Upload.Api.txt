@@ -1,0 +1,25 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\master-product\master-product-product-combo\product-combo-batch-update\product-combo-batch-update.component.ts
+
+  private uploadFile(file: File) {
+    this.masterProductApiService.uploadBatchUpdateProductCombo(file).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.batchUpdateComboList = res.data.items;
+        }
+      },
+      error: (err) => {
+        this.toast.showDanger(this.ERROR_MSG_INVALID_FILE_CONTENT);
+      },
+      complete: () => { }
+    });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\master-product-api.service.ts
+  uploadBatchUpdateProductCombo(file: File): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/UploadBatchUpdateProductCombo`;
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(url, formData) as Observable<BaseResponse>;
+  }
