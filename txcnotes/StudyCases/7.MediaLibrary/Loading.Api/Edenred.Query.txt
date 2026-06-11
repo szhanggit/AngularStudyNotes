@@ -1,0 +1,60 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query\n      {\n        media(where: {and: {keyword: {contains: \"\"}, type: {eq: 1}}}) {\n            items {\n                mediaId\n                fileName\n                fileContentType\n                nodeUrl\n                account\n                blobName\n                type\n                width\n                height\n                keyword\n            }\n        }\n    }"}
+
+
+
+{
+    "data": "{\"media\":{\"items\":[{\"mediaId\":2,\"fileName\":\"84c69624-d7c2-44e3-8ffe-ca11e79c4b3e\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/84c69624-d7c2-44e3-8ffe-ca11e79c4b3e.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/84c69624-d7c2-44e3-8ffe-ca11e79c4b3e.png\",\"type\":1,\"width\":\"180\",\"height\":\"180\",\"keyword\":\"W_Adora\"},{\"mediaId\":3,\"fileName\":\"f2b060c2-8935-436f-8ddd-fc9a6bd3575e\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/f2b060c2-8935-436f-8ddd-fc9a6bd3575e.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/f2b060c2-8935-436f-8ddd-fc9a6bd3575e.png\",\"type\":1,\"width\":\"180\",\"height\":\"180\",\"keyword\":\"W_Dive\"},{\"mediaId\":4,\"fileName\":\"d306fed3-6428-4da9-a33b-8b40cd18c44e\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/d306fed3-6428-4da9-a33b-8b40cd18c44e.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/d306fed3-6428-4da9-a33b-8b40cd18c44e.png\",\"type\":1,\"width\":\"180\",\"height\":\"180\",\"keyword\":\"W_Move\"},{\"mediaId\":6,\"fileName\":\"c2e36963-8116-457e-9062-018725137f9d\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/c2e36963-8116-457e-9062-018725137f9d.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/c2e36963-8116-457e-9062-018725137f9d.jpg\",\"type\":1,\"width\":\"198\",\"height\":\"60\",\"keyword\":\"TXPMobileLogo\"},{\"mediaId\":1095,\"fileName\":\"8bf6588e-d2eb-4f2e-ad74-98cab7506396\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/8bf6588e-d2eb-4f2e-ad74-98cab7506396.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/8bf6588e-d2eb-4f2e-ad74-98cab7506396.png\",\"type\":1,\"width\":\"283\",\"height\":\"96\",\"keyword\":\"tx-EDM-logo\"},{\"mediaId\":1109,\"fileName\":\"4009f6a7-a646-4a4b-95ac-31fec96ff85d\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/4009f6a7-a646-4a4b-95ac-31fec96ff85d.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/4009f6a7-a646-4a4b-95ac-31fec96ff85d.jpg\",\"type\":1,\"width\":\"640\",\"height\":\"251\",\"keyword\":\"colt_logo_teal_jpg\"},{\"mediaId\":1111,\"fileName\":\"2843f5b4-c536-400b-a9f5-9662367df6f8\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/2843f5b4-c536-400b-a9f5-9662367df6f8.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/2843f5b4-c536-400b-a9f5-9662367df6f8.png\",\"type\":1,\"width\":\"1382\",\"height\":\"906\",\"keyword\":\"acelogo\"},{\"mediaId\":1112,\"fileName\":\"1e02613e-30a7-4dd3-b5cf-74c486849701\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/1e02613e-30a7-4dd3-b5cf-74c486849701.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/1e02613e-30a7-4dd3-b5cf-74c486849701.jpg\",\"type\":1,\"width\":\"180\",\"height\":\"60\",\"keyword\":\"GR-logo\"},{\"mediaId\":2221,\"fileName\":\"ca0537dc-8bfc-4296-9737-4225694f4239\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/ca0537dc-8bfc-4296-9737-4225694f4239.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/ca0537dc-8bfc-4296-9737-4225694f4239.png\",\"type\":1,\"width\":\"700\",\"height\":\"700\",\"keyword\":\"Logo_Tktxpress_Small_logo\"},{\"mediaId\":2227,\"fileName\":\"7b5fe668-a380-4691-8cb4-5a27bdaa67ff\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/7b5fe668-a380-4691-8cb4-5a27bdaa67ff.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/7b5fe668-a380-4691-8cb4-5a27bdaa67ff.png\",\"type\":1,\"width\":\"1615\",\"height\":\"1076\",\"keyword\":\"thankyou new\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\media-library\media-library-list\media-library-list.component.ts
+import { MediaService } from 'src/app/system/services/media.service';
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\services\media.service.ts
+  constructor(private http: HttpClient,
+    private readonly _tenantConfigService: TenantConfigService,
+    private readonly _authorizationLibraryService: AuthorizationLibraryService) { 
+      this._search$.pipe(
+        switchMap(() => this.getMediaList())
+
+
+
+
+  private getMediaList(): Observable<BaseResponse> {
+    const { category, searchTerm } = this._state;
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = {
+      query: `query
+      {
+        media(where: {and: {keyword: {contains: "${searchTerm}"}, type: {eq: ${category}}}}) {
+            items {
+                mediaId
+                fileName
+                fileContentType
+                nodeUrl
+                account
+                blobName
+                type
+                width
+                height
+                keyword
+            }
+        }
+    }`};
+
+    return this.http.post(url, data, {
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant())
+    }) as Observable<BaseResponse>;
+  }
+
+
+

@@ -1,0 +1,294 @@
+https://api-staging.txc.edenred.net/gateway/api/Product?Type=0&MerchantAcquirerId=0&Status=false&RowCount=20&PageNumber=1&SortBy=created_on&SortDirection=DESC
+
+
+
+Type=0&MerchantAcquirerId=0&Status=false&RowCount=20&PageNumber=1&SortBy=created_on&SortDirection=DESC
+
+
+
+{
+    "data": {
+        "productDtos": [
+            {
+                "productId": 8588,
+                "productCode": "kjkjhhjh",
+                "productName": "kjhkjh",
+                "skuId": 12711,
+                "productType": 1,
+                "createdBy": "stzhang",
+                "createdOn": "2023-12-26T10:57:57.19Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8572,
+                "productCode": "cake001",
+                "productName": "hsunet lemon cake",
+                "skuId": 12300,
+                "productType": 1,
+                "createdBy": "hhsu",
+                "createdOn": "2023-11-15T05:51:48.207Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8571,
+                "productCode": "1699868651",
+                "productName": "StevenLuVoucher1699868651",
+                "skuId": 12234,
+                "productType": 1,
+                "createdBy": "slu",
+                "createdOn": "2023-11-13T09:45:55.8Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8570,
+                "productCode": "1699868071",
+                "productName": "StevenLu test voucher Nov13",
+                "skuId": 12285,
+                "productType": 1,
+                "createdBy": "slu",
+                "createdOn": "2023-11-13T09:35:40.307Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8569,
+                "productCode": "TestPOSDFV",
+                "productName": "TestPOS${FV}",
+                "skuId": 11390,
+                "productType": 4,
+                "createdBy": "msioson",
+                "createdOn": "2023-11-08T11:12:03.1Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8568,
+                "productCode": "PETYYMMDD05",
+                "productName": "寵物公園3000元即享券(餘額型)",
+                "skuId": 9403,
+                "productType": 2,
+                "createdBy": "rblanco",
+                "createdOn": "2023-11-08T07:16:34.807Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8566,
+                "productCode": "1_SortingTest",
+                "productName": "1_SortingTest",
+                "skuId": 6218,
+                "productType": 1,
+                "createdBy": "jhuang",
+                "createdOn": "2023-11-06T06:06:42.293Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8565,
+                "productCode": "9_SortingTest",
+                "productName": "9_SortingTest",
+                "skuId": 6218,
+                "productType": 1,
+                "createdBy": "jhuang",
+                "createdOn": "2023-11-06T06:06:24.603Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8564,
+                "productCode": "a_SortingTest",
+                "productName": "a_SortingTest",
+                "skuId": 6218,
+                "productType": 1,
+                "createdBy": "jhuang",
+                "createdOn": "2023-11-06T06:04:21.413Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8563,
+                "productCode": "z_SortingTest",
+                "productName": "z_SortingTest",
+                "skuId": 6218,
+                "productType": 1,
+                "createdBy": "jhuang",
+                "createdOn": "2023-11-06T06:03:53.803Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8562,
+                "productCode": "Nov061101",
+                "productName": "7-11 test Nov06 001",
+                "skuId": 6218,
+                "productType": 1,
+                "createdBy": "slu",
+                "createdOn": "2023-11-06T03:02:03.4Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8560,
+                "productCode": "TC56VerifyVoucher",
+                "productName": "TC56VerifyVoucher",
+                "skuId": 2132,
+                "productType": 1,
+                "createdBy": "msioson",
+                "createdOn": "2023-10-27T03:42:18.717Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8559,
+                "productCode": "TC55VerifyVoucher",
+                "productName": "TC55VerifyVoucher",
+                "skuId": 2132,
+                "productType": 1,
+                "createdBy": "msioson",
+                "createdOn": "2023-10-27T03:34:07.013Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8558,
+                "productCode": "TC54VerifyVoucher",
+                "productName": "TC54VerifyVoucher",
+                "skuId": 2132,
+                "productType": 1,
+                "createdBy": "msioson",
+                "createdOn": "2023-10-27T03:24:27.113Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8552,
+                "productCode": "ServiceMerchant1",
+                "productName": "ServiceMerchant",
+                "skuId": 10871,
+                "productType": 1,
+                "createdBy": "rliang",
+                "createdOn": "2023-09-26T01:33:21.403Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8551,
+                "productCode": "09191359",
+                "productName": "stevenlu_duplicate_09191359",
+                "skuId": 10924,
+                "productType": 1,
+                "createdBy": "slu",
+                "createdOn": "2023-09-19T06:01:27.813Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8550,
+                "productCode": "Sep191113",
+                "productName": "StevenLu_duplicate_DAN06001",
+                "skuId": 10887,
+                "productType": 1,
+                "createdBy": "slu",
+                "createdOn": "2023-09-19T03:16:34.26Z",
+                "status": 0,
+                "generatedBy": "ThirdParty",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8546,
+                "productCode": "JerryTEstTEMP081702",
+                "productName": "JerryTEstTEMP081702",
+                "skuId": 7888,
+                "productType": 1,
+                "createdBy": "jyu",
+                "createdOn": "2023-08-17T03:06:46.663Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8545,
+                "productCode": "RG__US35137_DFV_PC",
+                "productName": "{FV}RG__US35137_DFV",
+                "skuId": 9648,
+                "productType": 4,
+                "createdBy": "rogamboa",
+                "createdOn": "2023-08-15T12:51:34.403Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            },
+            {
+                "productId": 8544,
+                "productCode": "RG_VB_PC_US35137",
+                "productName": "RG_VB_US35137",
+                "skuId": 9645,
+                "productType": 2,
+                "createdBy": "rogamboa",
+                "createdOn": "2023-08-15T12:47:54.01Z",
+                "status": 0,
+                "generatedBy": "Edenred",
+                "merchantAcquirerId": null
+            }
+        ],
+        "totalCount": 651
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.ts
+private readonly _productService: ProductService,
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+
+  constructor(private http: HttpClient,
+    private readonly _authorizationLibraryService: AuthorizationLibraryService,
+    private readonly _graphqlApiService: GraphqlApiService) {
+    super(INITIAL_STATE);
+    this._search$.pipe(
+      tap(() => this._loading$.next(true)),
+      debounceTime(200),
+      switchMap(() => this._getProducts()),
+
+
+  private _getProducts(): Observable<GetProductsResp> {
+    const { pageSize, page, searchTerm, status, productType } = this._state;
+    if (status === 3) {
+      return of([] as any);
+    }
+    const url = `https://${environment.apiUrl}api/Product${searchTerm ? '?Keyword=' : ''}${searchTerm ? searchTerm + '&' : '?'}Type=${productType}&MerchantAcquirerId=${this.createdBy}&Status=${status > 1 ? false : true}&RowCount=${pageSize}&PageNumber=${page}&SortBy=${this.sortBy}&SortDirection=${this.sortDir}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<GetProductsResp>;
+  }
+
+

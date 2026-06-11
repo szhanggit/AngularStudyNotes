@@ -1,0 +1,57 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query {\n      clientHistoryByClientId(clientID:3546\n        order:{id:DESC}) {\n          id\n          clientName\n          createdOn\n          createdBy\n          status\n    }\n  }"}
+
+
+
+{
+    "data": "{\"clientHistoryByClientId\":[{\"id\":2237,\"clientName\":\"IN Client Fri, 8 Sep 20231694168089452\",\"createdOn\":\"2023-12-27T04:55:26.92Z\",\"createdBy\":\"stzhang\",\"status\":0},{\"id\":2224,\"clientName\":\"IN Client Fri, 8 Sep 20231694168089452\",\"createdOn\":\"2023-09-15T06:39:36.273Z\",\"createdBy\":\"pmhamunkar\",\"status\":0},{\"id\":2170,\"clientName\":\"IN Client Fri, 8 Sep 20231694168089452\",\"createdOn\":\"2023-09-08T10:14:51.063Z\",\"createdBy\":\"sjoshi\",\"status\":0}]}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-history-list\client-history-list.component.ts
+// It is fetched the client history list by client id
+  getClientHistoryListData(): void{
+    const clientIdFromRoute = this._route.snapshot.params.id;
+    this.clientId = clientIdFromRoute ? Number.parseInt(clientIdFromRoute) : 0; 
+
+    this._client.getClientHistoryByClientId(this.clientId).subscribe((response:BaseResponse)=>{      
+      if(response.success){ 
+        if(JSON.parse(response.data).clientHistoryByClientId.length == 0)
+        {
+          return;
+        }        
+        let data = JSON.parse(response.data).clientHistoryByClientId;        
+        if(data.length > 0){
+          console.log(data);
+          this.clientHistoryList = data;                      
+        }
+      }
+    })
+    
+  }
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+
+  // Get the client history list by client id
+  getClientHistoryByClientId(clientId:number): Observable<BaseResponse> {
+    
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = { query: `query {
+      clientHistoryByClientId(clientID:${clientId}
+        order:{id:DESC}) {
+          id
+          clientName
+          createdOn
+          createdBy
+          status
+    }
+  }`
+    };
+    return this.http.post(url, data , { headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) }) as Observable<BaseResponse>;
+  }

@@ -1,0 +1,27 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/ProductWizard
+
+
+{"wizardKey":"BDF7C55E-8A0D-4B35-A7AF-09284D8FD914","wizardStep":4,"productWizardDto":{"wizardKey":"BDF7C55E-8A0D-4B35-A7AF-09284D8FD914","productWizardStepFour":{"productTemplateList":[{"tagValueList":[{"contentTagId":6,"tagId":6,"tagName":"{PRODUCT_NAME}","value":";lk;lk","textValue":null},{"contentTagId":9,"tagId":9,"tagName":"{FOOTNOTE}","value":"&lt;b&gt;sdfsdf&lt;/b&gt;","textValue":"sdfsdf"},{"contentTagId":11,"tagId":11,"tagName":"{BANNER_IMAGE}","value":"1021","textValue":null},{"contentTagId":12,"tagId":12,"tagName":"{ProductDescription}","value":"","textValue":null},{"contentTagId":13,"tagId":13,"tagName":"{Greetings}","value":"","textValue":""},{"contentTagId":14,"tagId":14,"tagName":"{EmailSubject}","value":"","textValue":null}],"templateTagValue":[],"templateType":1,"templateSubType":1,"templateVersionId":24,"templateId":7,"templateName":"2015Number","languageId":66,"defaultlanguageId":66}],"addToWallet":true,"hexColor":"","fontSize":0,"pointX":0,"pointY":0,"walletStatus":1,"walletImage":null,"walletDescription":""}}}
+
+
+
+{"data":1,"message":"Success","success":true}
+
+------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.ts
+  updateProductWizard(step: number, body: any, saveProgress: boolean): void {
+    const stepName = PRODUCT_CONSTANTS.PRODUCT_STEPS[this.step - 1];
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product-wizard.service.ts
+
+  updateProductWizard(key: string, step: number, values: any, showLoadingIndicator: boolean = false) {
+    const url = `https://${environment.apiUrl}api/Product/ProductWizard`;
+    let body: ProductWizardRequest = new ProductWizardRequest(key, step, values, this._textEditorService);
+
+    if (step === 4 && body.productWizardDto.productWizardStepFour?.productTemplateList) {
+      body.productWizardDto.productWizardStepFour.productTemplateList = values.updatedProductTemplateList;
+    }
+
+    const headers = new HttpHeaders().append('loading-indicator', showLoadingIndicator ? 'on' : 'none');
+    return this.http.put(url,  body, { headers }) as Observable<BaseResponse>;
+  }

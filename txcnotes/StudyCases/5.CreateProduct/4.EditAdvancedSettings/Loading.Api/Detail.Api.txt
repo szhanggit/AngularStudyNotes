@@ -1,0 +1,164 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/ProductWizard/Detail?WizardKey=BDF7C55E-8A0D-4B35-A7AF-09284D8FD914
+
+
+WizardKey=BDF7C55E-8A0D-4B35-A7AF-09284D8FD914
+
+
+
+{
+    "data": {
+        "wizardKey": "BDF7C55E-8A0D-4B35-A7AF-09284D8FD914",
+        "productWizardStepOne": {
+            "programId": 308,
+            "productType": 1,
+            "productName": "kjhkjh",
+            "productDescription": "kjhkjh",
+            "productCode": "kjkjhhjh",
+            "externalProductCode": "kjhkhkhkh",
+            "productIssuer": 0,
+            "voucherIssuerId": null,
+            "productTag": 4,
+            "brandId": 9,
+            "skuId": 12711,
+            "acceptanceLoopId": 3557,
+            "isDeferredChild": false,
+            "isCartVersion": false,
+            "productCategory": 0,
+            "operationNote": "jlkjlj",
+            "salesNote": "lkjlj",
+            "customerServiceNote": "lkjlj",
+            "canTopup": false,
+            "canIssue": false,
+            "stopIssueTime": null,
+            "multipleSelectionType": 0,
+            "pinCodeType": 0,
+            "pinCodeLength": 0,
+            "canExtend": false,
+            "extensionSchemeId": 0,
+            "maxExtendTimes": 0,
+            "extensionEndDate": null,
+            "sameAsValidEndDateOnContract": false,
+            "issueMerchant": 0
+        },
+        "productWizardStepTwo": null,
+        "productWizardStepThree": {
+            "sellingPricePrepaid": 63.8095,
+            "sellingPricePrepaidWithTax": 67.0,
+            "sellingPricePostpaid": 84.7619,
+            "sellingPricePostpaidWithTax": 89.0,
+            "customerFeePrepaid": null,
+            "customerFeePrepaidWithTax": null,
+            "customerFeePostpaid": null,
+            "customerFeePostpaidWithTax": null,
+            "faceValue": null,
+            "cost": null,
+            "multiplier": 0,
+            "expiryPolicyIdList": [
+                8
+            ],
+            "fixExpiryDate": "2023-12-31T15:59:59Z",
+            "isFixedExpiryPolicy": true
+        },
+        "productWizardStepFour": {
+            "productTemplateList": [
+                {
+                    "templateType": 1,
+                    "templateSubType": 1,
+                    "defaultlanguageId": 66,
+                    "templateId": 7,
+                    "templateName": "2015Number",
+                    "templateVersionId": 24,
+                    "languageId": 66,
+                    "tagValueList": [
+                        {
+                            "contentTagId": 6,
+                            "tagName": "{PRODUCT_NAME}",
+                            "value": ";lk;lk",
+                            "textValue": null
+                        },
+                        {
+                            "contentTagId": 9,
+                            "tagName": "{FOOTNOTE}",
+                            "value": "&lt;b&gt;sdfsdf&lt;/b&gt;",
+                            "textValue": "sdfsdf"
+                        },
+                        {
+                            "contentTagId": 11,
+                            "tagName": "{BANNER_IMAGE}",
+                            "value": "1021",
+                            "textValue": null
+                        },
+                        {
+                            "contentTagId": 12,
+                            "tagName": "{ProductDescription}",
+                            "value": "",
+                            "textValue": null
+                        },
+                        {
+                            "contentTagId": 13,
+                            "tagName": "{Greetings}",
+                            "value": "",
+                            "textValue": ""
+                        },
+                        {
+                            "contentTagId": 14,
+                            "tagName": "{EmailSubject}",
+                            "value": "",
+                            "textValue": null
+                        }
+                    ]
+                }
+            ],
+            "addToWallet": true,
+            "walletStatus": 1,
+            "walletImage": null,
+            "walletDescription": "",
+            "hexColor": "",
+            "fontSize": 0,
+            "pointX": 0.0,
+            "pointY": 0.0
+        },
+        "productWizardStepFive": {
+            "productConditionDto": {
+                "reminderId": 320,
+                "reversalLimitId": 2,
+                "preAuthorizationExpiryInterval": 0,
+                "preAuthorizationExpiryUnit": 0,
+                "minRedeemQuantity": 1,
+                "maxIssuingQuantity": 10,
+                "useTimeControl": 0,
+                "useTimeControlInterval": 0
+            },
+            "productExternalPropertyList": []
+        }
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.ts
+this.productWizardService.getProductWizard(wizardKey).pipe(takeUntil(this.destroyed$)).subscribe(
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product-wizard.service.ts
+
+  getProductWizard(wizardKey: string, showLoadingIndicator: boolean = false) {
+    const url = `https://${environment.apiUrl}api/Product/ProductWizard/Detail?WizardKey=${wizardKey}`;
+    const headers = new HttpHeaders().append('loading-indicator', showLoadingIndicator ? 'on' : 'none');
+    return this.http.get(url, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+

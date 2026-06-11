@@ -1,0 +1,12 @@
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\role-management\role-management.component.html
+                      <ag-grid-angular class="ag-theme-alpine user-mgmt-grid" [rowData]="rolesData" [columnDefs]="roleMgmtCols"
+                        [gridOptions]="roleMgmtGridOptions" (gridReady)="onGridRead($event)"></ag-grid-angular>
+
+ag-Grid is a popular JavaScript data grid library, and ag-Grid-Angular is a specific implementation of ag-Grid for Angular applications. The library is designed to be highly customizable and feature-rich, making it easy to create powerful data grids in Angular applications.
+
+
+在Admin User Management按一条记录后会怎么样？ Nothing will happen.
+
+https://ng-bootstrap.github.io/#/components/accordion/overview
+https://themewagon.com/themes/free-bootstrap-4-angular-7-admin-dashboard-template-architect-ui-angular-pro/
+https://ng-bootstrap.github.io/#/components/carousel/examples

@@ -1,0 +1,11 @@
+select top(100) * from product.tb_p_product where is_master = 1
+
+
+select top(100) * from [order].tb_ob_order_basic
+select top(100) * from quotation.tb_q_quotation where quotation_number = '202312074426'
+select top(100) * from quotation.tb_qp_quotation_product where quotation_id = 1050
+select top(100) * from product.tb_p_product_version where product_version_id = 1044
+select top(100) * from product.tb_p_product where product_id = 6
+
+
+select top(100) * from quotation.tb_q_quotation where quotation_number = '202209012111'

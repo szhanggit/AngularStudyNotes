@@ -1,0 +1,31 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+
+{"query":"query{\n              clientByID(clientID:3546) {\n                clientName\n                businessTypeId\n                businessType {\n                  displayName\n                }\n                description       \n                securityKey\n                securityAlgorithm\n                identityCode\n                invoiceTitle\n                invoiceRegisterNumber\n                mandatoryAutoBilling\n                enableStatusSubscription\n                statusProviderId    \n                salesEmail\n                clientContact(status: true) {clientContactId, position, name, email, mobileNumber}\n                addressId\n                address {\n                addressId\n                countryId\n                 country {\n                 displayName\n                }\n                provinceId       \n                state {\n                  displayName\n                }\n                cityId\n                city {\n                  displayName\n                }\n                district\n                detailAddressLine\n                postCode\n                 }\n                       memo\n                       status\n                 \n                }\n              }\n           "}
+
+
+
+
+{
+    "data": "{\"clientByID\":[{\"clientName\":\"IN Client Fri, 8 Sep 20231694168081585\",\"businessTypeId\":93,\"businessType\":[{\"displayName\":\"B2B2C\"}],\"description\":\"string\",\"securityKey\":\"*************393\",\"securityAlgorithm\":1,\"identityCode\":\"700000000001302\",\"invoiceTitle\":\"string\",\"invoiceRegisterNumber\":\"string\",\"mandatoryAutoBilling\":true,\"enableStatusSubscription\":true,\"statusProviderId\":2621134,\"salesEmail\":\"dasd@email.com\",\"clientContact\":[{\"clientContactId\":1808,\"position\":\"23 !@ $ ????1232\",\"name\":\"IN 123 !@ $ ????IN 123 !@ $ ?\",\"email\":\"Test@edenred.com\",\"mobileNumber\":\"8992222\"}],\"addressId\":389718,\"address\":[{\"addressId\":389718,\"countryId\":10,\"country\":[{\"displayName\":\"Taiwan\"}],\"provinceId\":13,\"state\":[{\"displayName\":\"Taipei City\"}],\"cityId\":40,\"city\":[{\"displayName\":\"Taipei City\"}],\"district\":\"string\",\"detailAddressLine\":\"string\",\"postCode\":\"932344\"}],\"memo\":\"string\",\"status\":1}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-details\client-details.component.ts
+this._client.getClientDetailsById(this.clientId,this.tenant).subscribe((response:BaseResponse)=>{ 
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+    getClientDetailsById(clientId:number,tenant:string): Observable<BaseResponse> 
+    {
+      const url = `${this._getURL()}api/GraphQL/Query`;
+      let data: any
+      let qrycommonContactDataFetch="clientContact(status: true) {clientContactId, position, name, email, mobileNumber}"
+
+

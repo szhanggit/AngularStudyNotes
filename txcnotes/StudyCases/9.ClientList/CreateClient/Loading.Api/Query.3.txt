@@ -1,0 +1,65 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+Payload:
+{,…}
+query
+: 
+"query{\n      communicationVendorsByMessageTypeId(messageTypeId:2 where:{isActive:{eq:true}})\n      {\n          providerCode\n          name\n          isDefaultVendorForTenant\n          vendorCode\n      }\n  }"
+
+
+
+{
+    "data": "{\"communicationVendorsByMessageTypeId\":[{\"providerCode\":\"C80FC\",\"name\":\"IN\",\"isDefaultVendorForTenant\":false,\"vendorCode\":\"SMS_INFOBIP\"},{\"providerCode\":\"4FA00\",\"name\":\"Express SMS\",\"isDefaultVendorForTenant\":false,\"vendorCode\":\"SMS_SMSEXPRESS\"},{\"providerCode\":\"77D86\",\"name\":\"SolutionInfini\",\"isDefaultVendorForTenant\":true,\"vendorCode\":\"SMS_SINFINI\"},{\"providerCode\":\"CBD33\",\"name\":\"NetcoreSMS\",\"isDefaultVendorForTenant\":false,\"vendorCode\":\"SMS_NETCORE\"},{\"providerCode\":\"6DC05\",\"name\":\"SGSms_UAT\",\"isDefaultVendorForTenant\":false,\"vendorCode\":\"SMS_SGSMS\"}]}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-form\client-form.component.ts
+    this.clientService.getServiceProviderForDropdown(MESSAGETYPES.EMAIL).subscribe((data : BaseResponse)=>{
+      if(data.success){        
+        this.emailProviderList = JSON.parse(data.data).communicationVendorsByMessageTypeId;
+        if(!this.isEdit)
+        {
+          this.defaultEmailProvider=this.emailProviderList.filter(x=>x.isDefaultVendorForTenant)[0].providerCode;
+          this.f.emailProviderCode.setValue(this.defaultEmailProvider);
+        }
+        
+      }
+    });
+
+    this.clientService.getServiceProviderForDropdown(MESSAGETYPES.SMS).subscribe((data : BaseResponse)=>{
+      if(data.success){        
+        this.smsProviderList = JSON.parse(data.data).communicationVendorsByMessageTypeId;
+        if(!this.isEdit)
+        {
+          this.defaultSmsProvider=this.smsProviderList.filter(x=>x.isDefaultVendorForTenant)[0].providerCode;
+          this.f.smsProviderCode.setValue(this.defaultSmsProvider);
+        }
+        
+      }
+    });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+  //Get email and SMS service provider
+  getServiceProviderForDropdown(messageType : number = 0): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    
+    const data = { query: `query{
+      communicationVendorsByMessageTypeId(messageTypeId:${messageType} where:{isActive:{eq:true}})
+      {
+          providerCode
+          name
+          isDefaultVendorForTenant
+          vendorCode
+      }
+  }`};
+   
+    return this.http.post(url, data , { 
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) 
+    }) as Observable<BaseResponse>;
+  }

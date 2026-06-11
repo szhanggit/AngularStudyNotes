@@ -1,0 +1,92 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{\n      dictionaries(\n          where: {\n              category: {eq: \"BusinessType\"}\n              \n          }\n      ){\n          dictionaryId,\n          displayName\n      }\n    }"}
+
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":91,\"displayName\":\"B2B-CM\"},{\"dictionaryId\":92,\"displayName\":\"B2B-PP\"},{\"dictionaryId\":93,\"displayName\":\"B2B2C\"},{\"dictionaryId\":94,\"displayName\":\"B2B2E-indirect\"},{\"dictionaryId\":275,\"displayName\":\"B2B2E-direct\"},{\"dictionaryId\":354,\"displayName\":\"B2B-PP-LINE POINTS\"},{\"dictionaryId\":355,\"displayName\":\"B2B-CM-SME PORTAL\"},{\"dictionaryId\":518,\"displayName\":\"B2E (KA)-Online\"},{\"dictionaryId\":519,\"displayName\":\"B2B-B2E-SME PORTAL\"}]}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-form\client-form.component.ts
+  bindDropDown():void{
+    this.clientService.getDictionaryForDropdown("BusinessType").subscribe((data : BaseResponse)=>{
+      if(data.success){
+        this.businessTypeList = JSON.parse(data.data).dictionaries;
+      }
+    });
+    this.clientService.getDictionaryForDropdown("Country").subscribe((data : BaseResponse)=>{
+      if(data.success){
+        this.countryList = JSON.parse(data.data).dictionaries;
+      }
+    });
+    if(this.clientFormGroup.contains('voucherIssuer')){
+      this.clientService.getDictionaryForDropdown("VoucherIssuer").subscribe((data : BaseResponse)=>{
+        if(data.success){
+          this.voucherIssuerList = JSON.parse(data.data).dictionaries;
+        }
+      });
+    }
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+
+getDictionaryForDropdown(category : string = "", parent_id : number = 0): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+
+    let parentIdClause = parent_id > 0 ? `parentId: {eq: ${parent_id}}` : "";
+
+    const data = { query: `query{
+      dictionaries(
+          where: {
+              category: {eq: "${category}"}
+              ${parentIdClause}
+          }
+      ){
+          dictionaryId,
+          displayName
+      }
+    }`};
+   
+    return this.http.post(url, data , { 
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) 
+    }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

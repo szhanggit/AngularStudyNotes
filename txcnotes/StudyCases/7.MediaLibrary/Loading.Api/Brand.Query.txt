@@ -1,0 +1,61 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query\n      {\n        media(where: {and: {keyword: {contains: \"\"}, type: {eq: 4}}}) {\n            items {\n                mediaId\n                fileName\n                fileContentType\n                nodeUrl\n                account\n                blobName\n                type\n                width\n                height\n                keyword\n            }\n        }\n    }"}
+
+
+{
+    "data": "{\"media\":{\"items\":[{\"mediaId\":2457,\"fileName\":\"5bbcfbeb-8991-432e-9f95-aa2cabdc59d7\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/5bbcfbeb-8991-432e-9f95-aa2cabdc59d7.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/5bbcfbeb-8991-432e-9f95-aa2cabdc59d7.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"7-ELEVEN\"},{\"mediaId\":2458,\"fileName\":\"559aa889-422e-42c5-b385-e12d96fda08d\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/559aa889-422e-42c5-b385-e12d96fda08d.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/559aa889-422e-42c5-b385-e12d96fda08d.png\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"carrefour\"},{\"mediaId\":2459,\"fileName\":\"098080ff-ee9f-4f83-9c01-2be8fe35cff8\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/098080ff-ee9f-4f83-9c01-2be8fe35cff8.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/098080ff-ee9f-4f83-9c01-2be8fe35cff8.jpg\",\"type\":4,\"width\":\"1250\",\"height\":\"450\",\"keyword\":\"SOGO\"},{\"mediaId\":2460,\"fileName\":\"bd28aa7b-bb0b-4c11-92c0-f5039fcb935e\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/bd28aa7b-bb0b-4c11-92c0-f5039fcb935e.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/bd28aa7b-bb0b-4c11-92c0-f5039fcb935e.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-85度c\"},{\"mediaId\":2461,\"fileName\":\"5d4b736e-886b-431e-8ae0-c7e355c81dd6\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/5d4b736e-886b-431e-8ae0-c7e355c81dd6.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/5d4b736e-886b-431e-8ae0-c7e355c81dd6.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-711\"},{\"mediaId\":2462,\"fileName\":\"59fdaf83-36e2-468f-ba83-b24bb46ab104\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/59fdaf83-36e2-468f-ba83-b24bb46ab104.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/59fdaf83-36e2-468f-ba83-b24bb46ab104.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-bigcity遠東巨城\"},{\"mediaId\":2463,\"fileName\":\"781eb236-910c-40ef-8097-b66ebe6c1dda\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/781eb236-910c-40ef-8097-b66ebe6c1dda.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/781eb236-910c-40ef-8097-b66ebe6c1dda.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-books博客來\"},{\"mediaId\":2464,\"fileName\":\"6a985fe4-e37f-4641-97c6-966248ea8dab\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/6a985fe4-e37f-4641-97c6-966248ea8dab.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/6a985fe4-e37f-4641-97c6-966248ea8dab.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-c4家樂福\"},{\"mediaId\":2465,\"fileName\":\"00f5a9ac-bc71-434b-a415-2e42c7d65256\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/00f5a9ac-bc71-434b-a415-2e42c7d65256.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/00f5a9ac-bc71-434b-a415-2e42c7d65256.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-cama\"},{\"mediaId\":2466,\"fileName\":\"d0ef3b01-c5d9-4872-8169-382adb06dc16\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/d0ef3b01-c5d9-4872-8169-382adb06dc16.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/d0ef3b01-c5d9-4872-8169-382adb06dc16.jpg\",\"type\":4,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"logo-eslite誠品生活\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\media-library\media-library-list\media-library-list.component.ts
+import { MediaService } from 'src/app/system/services/media.service';
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\services\media.service.ts
+  constructor(private http: HttpClient,
+    private readonly _tenantConfigService: TenantConfigService,
+    private readonly _authorizationLibraryService: AuthorizationLibraryService) { 
+      this._search$.pipe(
+        switchMap(() => this.getMediaList())
+
+
+
+
+  private getMediaList(): Observable<BaseResponse> {
+    const { category, searchTerm } = this._state;
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = {
+      query: `query
+      {
+        media(where: {and: {keyword: {contains: "${searchTerm}"}, type: {eq: ${category}}}}) {
+            items {
+                mediaId
+                fileName
+                fileContentType
+                nodeUrl
+                account
+                blobName
+                type
+                width
+                height
+                keyword
+            }
+        }
+    }`};
+
+    return this.http.post(url, data, {
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant())
+    }) as Observable<BaseResponse>;
+  }

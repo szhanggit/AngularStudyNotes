@@ -1,0 +1,148 @@
+src\app\products\pipes\product-type.pipe.ts
+Create a pipe.
+--------------------------------------------------
+@viewchild@ViewChild(NgbdToastGlobal) toast!: NgbdToastGlobal;
+--------------------------------------------------
+    this.duplicateFormGroup = this._formBuilder.group({
+      productId: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.maxLength(100)]),
+      productType: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.maxLength(100)]),
+      productName: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.maxLength(100)]),
+      productCode: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.maxLength(100)]),
+    });
+--------------------------------------------------
+  navigateToCreateProductDraft(wizardKey: string) {
+    this.router.navigate(['/products/product/create'],
+      {
+        queryParams: {
+          key: wizardKey,
+          isDraft: true
+        }
+      });
+  }
+--------------------------------------------------
+this.toast.showDanger('Error in duplicating product. Please try again later.');
+--------------------------------------------------
+const modalRef = this._modalSvc.open(content, { size: 'md', backdrop: 'static', centered: true });
+const modalRef = this._modalSvc.open(ConfirmationModalComponent, { size: 'md', backdrop: 'static', centered: true });
+modal.close('Close click')
+modal.close('Create')
+--------------------------------------------------
+.pipe(takeUntil(this.destroyed$))
+--------------------------------------------------
+(click)="toggleTooltipWithContext(productNameTip, f.productName)"
+--------------------------------------------------
+this.productSvc.refresh();
+  refresh() {
+    this._search$.next();
+  }
+--------------------------------------------------
+this.merchantAcquirersSelect2Data = [{ value: 0, label: 'All merchant acquirers' }, ...this.merchantAcquirers.map((dictionary: Dictionary) => { return { value: dictionary.dictionaryId, label: dictionary.displayName } })];
+--------------------------------------------------
+src\app\products\services\product.service.ts
+product.service.ts
+  handleError(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(() => {
+      return errorMessage;
+    });
+  }
+--------------------------------------------------
+localStorage.setItem('tenant', JSON.stringify(tenant));
+const tenantFromLocalStorage = localStorage.getItem('tenant');
+--------------------------------------------------
+https://www.positronx.io/understand-angular-change-detection-strategy/
+  ngAfterViewInit(): void {
+    if (history.state?.isCreated) {
+      this.toast.showSuccess('You have successfully created a new product!');
+      this.productSvc.status = 2;
+    }
+    if (history.state?.isBatchUpdatedCombo) {
+      this.toast.showSuccess('Batch update product combo successful!');
+      this.productSvc.status = 1;
+    }
+    this.cdr.detectChanges();
+  }
+--------------------------------------------------
+TicketOperationCenterShell\src\app\shared\guards\business-unit.guard.ts
+--------------------------------------------------
+Shared-Library\projects\authorization-library\src\guards\page-authorization.guard.ts
+How the path checking works.
+--------------------------------------------------
+??????
+Products\src\app\products\components\create-product\product-type\product-type.component.ts
+  selectType(productType: ProductType) {
+    if (productType.key === this.selectedType.key) {
+      return;
+    }
+    this.selectedType = productType;
+    this.selectedType.isChild = false;
+
+    this.productSelectedEvent.emit(productType);
+  }
+--------------------------------------------------
+Products\src\app\products\components\create-product\create-product.component.html
+Parent component/Child component
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+
+
+
+
+
+
+
+GraphQL tutorial with Angular
+Micro frontend dig in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

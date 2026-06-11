@@ -1,0 +1,80 @@
+Go to each project run:
+npm i --force
+
+Go to compile shared library.
+Go inside of Shared-Library and >npm i --force
+
+D:\git\TXC-MicroFrontends\Shared-Library\projects\component-library
+ng build component-library
+D:\git\TXC-MicroFrontends\Shared-Library\projects\authorization-library
+ng build Authorization-Library 
+
+D:\E\eVoucher\Git\TXC-MicroFrontends\Shared-Library\dist\authorization-library
+>npm pack
+D:\E\eVoucher\Git\TXC-MicroFrontends\Shared-Library\dist\component-library
+>npm pack
+
+
+D:\git\TXC-MicroFrontends\BatchProcessor
+D:\git\TXC-MicroFrontends\TicketOperationCenterShell
+D:\git\TXC-MicroFrontends\Products
+D:\git\TXC-MicroFrontends\Order
+D:\git\TXC-MicroFrontends\Merchants
+D:\git\TXC-MicroFrontends\Inventory
+D:\git\TXC-MicroFrontends\Clients
+D:\git\TXC-MicroFrontends\Voucher
+npm install paste D:\git\TXC-MicroFrontends\Shared-Library\dist\component-library\component-library-0.0.1.tgz --force
+npm install paste D:\git\TXC-MicroFrontends\Shared-Library\dist\authorization-library\authorization-library-0.0.4.tgz --force
+
+
+
+cd TicketOperationCenterShell
+
+npm run start/ng serve
+
+ 
+
+cd Products/Merchants
+
+npm run start/ng serve 
+
+------------------------------
+Solution: 
+>cd D:\git\TXC-MicroFrontends\Shared-Library
+>npm i --force
+Reinstall CLI: (https://blog.51cto.com/u_9427273/6410221)
+>npm uninstall -g @angular/cli
+>npm cache clean --force
+>npm install -g @angular/cli
+
+
+Error: Could not find the '@angular-devkit/build-angular:ng-packagr' builder's node package.
+https://cloud.tencent.com/developer/ask/sof/106351778
+https://www.cnblogs.com/longkui-site/p/17750723.html
+https://blog.csdn.net/treeping/article/details/125732407
+
+
+@angular-devkit/build-angular <error>
+https://blog.csdn.net/kkkloveyou/article/details/102845181
+------------------------------
+Run the while thing:
+hi Steven, we dont run the remote independently, right now we just want it to be integrated on TicketOperationShell
+
+
+
+cd TicketOperationCenterShell
+npm run start/ng serve
+ 
+cd Products/Merchants
+npm run start/ng serve 
+ 
+to run on local
+(ng serve             //compile the project
+ ng serve -o          //compile and start the server)
+
+
+
+
+
+
+

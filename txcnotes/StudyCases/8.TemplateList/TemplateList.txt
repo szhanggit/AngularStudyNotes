@@ -1,0 +1,20 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/system/template-list
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'system',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.systemPath,
+      exposedModule: './system.module'
+    }).then(m => m.SystemModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\system-routing.module.ts
+{ path: 'template-list', component: TemplateListComponent }
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\template\template-list\template-list.component.html
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\template\template-list\template-list-table\template-list-table.component.html

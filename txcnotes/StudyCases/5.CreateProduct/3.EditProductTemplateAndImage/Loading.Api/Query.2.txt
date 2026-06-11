@@ -1,0 +1,50 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{dictionaries (where: { category: { eq: \"ProductReminder\"}}) { dictionaryId name displayName }}"}
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":320,\"name\":\"1.即時\",\"displayName\":\"\"},{\"dictionaryId\":321,\"name\":\"2.5分鐘\",\"displayName\":\"此序號狀態非即時。請提醒客戶：補序號狀態須以現場店家可否兌換為主。\"},{\"dictionaryId\":322,\"name\":\"3.1小時\",\"displayName\":\"此序號狀態非即時。請提醒客戶：補序號狀態須以現場店家可否兌換為主。\"},{\"dictionaryId\":323,\"name\":\"4.1日\",\"displayName\":\"此序號狀態非即時。請提醒客戶：補序號狀態須以現場店家可否兌換為主。\"},{\"dictionaryId\":324,\"name\":\"5.1日以上\",\"displayName\":\"此序號狀態非即時。請提醒客戶：補序號狀態須以現場店家可否兌換為主。\"},{\"dictionaryId\":325,\"name\":\"6.無核銷資料\",\"displayName\":\"查詢此序號狀態請與品牌廠商客服聯絡。\"}]}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.ts
+  ngOnInit(): void {
+    this.productWizardService.loading$.next(false);
+
+    this.getProductByWizard();
+    if (this.selectedTenant === 'GL') {
+      this._dictionaryService.getDictionaryItemsByCategory('VoucherIssuer').pipe(takeUntil(this.destroyed$)).subscribe(		<======================================
+        res => {
+          this.merchantAcquirers = JSON.parse(res.data).dictionaries;
+        }
+      )
+    }
+    if (this.selectedTenant === 'TW' || this.selectedTenant === 'IN') {
+      if (this.detailsFormGroup.controls['brandName'].value === '') {
+        this.detailsFormGroup.controls['brandName'].setErrors({ 'required': true });
+      } else {
+        this.detailsFormGroup.controls['brandName'].setErrors(null);
+      }
+    }
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\dictionary.service.ts
+
+  // get dictionary items by category using graphql endpoint
+  getDictionaryItemsByCategory(category: string): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{dictionaries (where: { category: { eq: "${category}"}}) { dictionaryId name displayName }}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }

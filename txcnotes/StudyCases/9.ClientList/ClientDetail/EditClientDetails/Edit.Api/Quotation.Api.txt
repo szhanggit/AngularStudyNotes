@@ -1,0 +1,38 @@
+https://api-staging.txc.edenred.net/gateway/api/Quotation?pageSize=20&pageIndex=0&clientCode=700000000001303&keyword=&status=32&validAt=undefined
+
+
+pageSize=20&pageIndex=0&clientCode=700000000001303&keyword=&status=32&validAt=undefined
+
+
+
+
+{"Message":null,"IsSuccess":true,"TotalCount":0,"Data":[]}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\quotation-list\quotation-list.component.ts
+  getData(pageIndex : number = 0, pageSize : number = 20, clientIdentityCode : string,keyword:string="",status:number, validAt : string){
+    this.quotationService.getQuotationList(pageIndex,pageSize,clientIdentityCode,keyword,status,validAt)
+    .subscribe((response:BaseResponseQ)=>{   
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\quotation.service.ts
+
+  getQuotationList(pageIndex : number = 0, pageSize : number = 20, clientIdentityCode : string ,keyword:string="",status:number, validAt : string): 
+   Observable<BaseResponseQ> {   
+    let queryParams = new HttpParams();
+   queryParams = queryParams.append('pageSize', pageSize);
+   queryParams = queryParams.append('pageIndex', pageIndex);
+   queryParams = queryParams.append('clientCode', clientIdentityCode);
+   queryParams = queryParams.append('keyword', keyword);
+   queryParams = queryParams.append('status', 32);   
+   queryParams = queryParams.append('validAt', validAt); 
+   let url = `${this._getURL()}api/Quotation`; 
+   return this.http.get(url, {headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()), params: queryParams }) as Observable<BaseResponseQ>;
+  }
+
+
+

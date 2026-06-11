@@ -1,0 +1,268 @@
+https://api-staging.txc.edenred.net/gateway/api/Template?status=1&sub_type=2&PageNumber=1&RowCount=10
+
+
+status=1&sub_type=2&PageNumber=1&RowCount=10
+
+
+
+{
+    "data": {
+        "templateDtos": [
+            {
+                "templateVersionId": 1635,
+                "templateId": 388,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "Ruby120102",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "",
+                "subject1": "",
+                "content1": "{ShortUrlAuthCode}{PRODUCT_NAME}{VOUCHER_NUMBER}{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-12-01T01:40:18.06Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-12-01T01:40:18.06Z"
+            },
+            {
+                "templateVersionId": 1633,
+                "templateId": 386,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "Ruby1201",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 2,
+                "description": "",
+                "subject1": "",
+                "content1": "{ShortUrlAuthCode}{PRODUCT_NAME}{VOUCHER_NUMBER}{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-12-01T01:37:24.98Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-12-01T01:37:24.98Z"
+            },
+            {
+                "templateVersionId": 1631,
+                "templateId": 385,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "RubyMultiLangSMS1127",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 4,
+                "description": "SMS Barcode 2015 + footnote TEST!!!",
+                "subject1": "",
+                "content1": "{Name}{SMSGreetings}{PRODUCT_NAME}，請於 {END_DATE} 前開啟下方完整券樣（密碼{ShortUrlAuthCode}）至櫃台兌換。{ShortUrl} raymark edit$$splitter$$",
+                "subject2": "",
+                "content2": "P2$$splitter$$ {SMSGreetings} {SerialNumber} {FixFootnote}",
+                "subject3": "",
+                "content3": "P3 {ClientOrderNumber} {PRODUCT_NAME}",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-11-30T07:38:22.813Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-11-30T07:38:22.813Z"
+            },
+            {
+                "templateVersionId": 1616,
+                "templateId": 383,
+                "languageId": 66,
+                "defaultLanguage": 66,
+                "templateName": "PETER TEST SMS IN SV",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "PETER TEST SMS IN SV",
+                "subject1": null,
+                "content1": "{SMSGreetings}Ticket Xpress???:  {PRODUCT_NAME}  ??:{VOUCHER_NUMBER}  ????:{END_DATE}?  {ShortUrl}  {ShortUrlAuthCode}",
+                "subject2": null,
+                "content2": null,
+                "subject3": null,
+                "content3": null,
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-11-24T00:21:29.807Z",
+                "lastModifiedBy": null,
+                "lastModifiedOn": null
+            },
+            {
+                "templateVersionId": 1369,
+                "templateId": 356,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "SmsTemp09122023",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "",
+                "subject1": "",
+                "content1": "{ShortUrlAuthCode}{PRODUCT_NAME}SMS Data{VOUCHER_NUMBER}{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-09-12T13:47:46.067Z",
+                "lastModifiedBy": "Marvin.SIOSON",
+                "lastModifiedOn": "2023-09-12T13:47:46.067Z"
+            },
+            {
+                "templateVersionId": 1366,
+                "templateId": 353,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "Alvin_SMS_TW_#1",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "Test is just a test for sms template taiwan",
+                "subject1": "",
+                "content1": "{SMSGreetings} Hi$$splitter$$",
+                "subject2": "",
+                "content2": "{SMSGreetings} This$$splitter$$",
+                "subject3": "",
+                "content3": "{SMSGreetings} is Test",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-08-23T02:31:51.793Z",
+                "lastModifiedBy": "Alvin.BERNARDO",
+                "lastModifiedOn": "2023-08-23T02:31:51.793Z"
+            },
+            {
+                "templateVersionId": 1362,
+                "templateId": 250,
+                "languageId": 66,
+                "defaultLanguage": 66,
+                "templateName": "2017 小網券SMS",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 127,
+                "description": "2017小網券SMS 標準版_edit",
+                "subject1": "",
+                "content1": "{Name}{SMSGreetings}{PRODUCT_NAME}，請於 {END_DATE} 前開啟下方完整券樣（密碼{ShortUrlAuthCode}）至櫃台兌換。{ShortUrl} raymark edit",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-07-18T02:37:58.59Z",
+                "lastModifiedBy": "pedroza.raymark",
+                "lastModifiedOn": "2023-07-18T02:37:58.59Z"
+            },
+            {
+                "templateVersionId": 1358,
+                "templateId": 350,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "SMS_ThreePart",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "SMS_ThreePart",
+                "subject1": "",
+                "content1": "p1$$splitter$$",
+                "subject2": "",
+                "content2": "P2$$splitter$$",
+                "subject3": "",
+                "content3": "P3",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-05-18T03:39:22.013Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-05-18T03:39:22.013Z"
+            },
+            {
+                "templateVersionId": 1356,
+                "templateId": 269,
+                "languageId": 66,
+                "defaultLanguage": 66,
+                "templateName": "2018多網券母券_標準版_無效期",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 2,
+                "description": "",
+                "subject1": "",
+                "content1": "{PRODUCT_NAME}{Name}{SMSGreetings}{PRODUCT_NAME}，本券{END_DATE}，請開啟下方完整券樣（密碼{ShortUrlAuthCode}）領取票券。{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-05-10T08:23:45.547Z",
+                "lastModifiedBy": "Steven.LU",
+                "lastModifiedOn": "2023-05-10T08:23:45.547Z"
+            },
+            {
+                "templateVersionId": 1351,
+                "templateId": 346,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "StevenLu test SMS",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 2,
+                "description": "QA SMS testing",
+                "subject1": "",
+                "content1": "{STORE_URL}{PRODUCT_NAME}{FV}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-04-18T07:03:41.623Z",
+                "lastModifiedBy": "Steven.LU",
+                "lastModifiedOn": "2023-04-18T07:03:41.623Z"
+            }
+        ],
+        "totalCount": 72
+    },
+    "message": "sucess",
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\services\template.service.ts
+
+
+
+  constructor(private http: HttpClient, private readonly _authorizationLibraryService: AuthorizationLibraryService,) { 
+    this._search$.pipe(
+      tap(() => this._loading$.next(true)),
+      debounceTime(200),
+      switchMap(() => this._getTemplateList()),
+
+
+
+
+  private _getTemplateList(): Observable<GetTemplateList> {
+    const { pageSize, page, searchTerm, status, subType } = this._state;
+    const url = `${this.getURL()}api/Template${status ? '?status=' : ''}${status ? status : '?'}${subType ? '&sub_type=' + subType : ''}${page ? '&PageNumber=' + page : ''}${pageSize ? '&RowCount=' + pageSize: ''}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<GetTemplateList>;
+  }

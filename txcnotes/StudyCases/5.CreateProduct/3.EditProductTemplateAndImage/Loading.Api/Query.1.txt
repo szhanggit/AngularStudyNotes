@@ -1,0 +1,29 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{ mediaById(mediaId: 1021) { account, blobName, fileContentType, fileName, height, keyword, mediaId, nodeUrl, type, width }}"}
+
+
+
+{
+    "data": "{\"mediaById\":[{\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/01bd833e-f852-4eee-b5ff-3d78b86af672.jpg\",\"fileContentType\":\"image/jpeg\",\"fileName\":\"01bd833e-f852-4eee-b5ff-3d78b86af672\",\"height\":\"500\",\"keyword\":\"HLF03014\",\"mediaId\":1021,\"nodeUrl\":\"https://esg-txc-cdn-edgio-d.azureedge.net/txc-tw/staging/media-library/01bd833e-f852-4eee-b5ff-3d78b86af672.jpg\",\"type\":3,\"width\":\"500\"}]}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.ts
+this._mediaService.getMediaById(Number.parseInt(value)).pipe(takeUntil(this.destroyed$)).subscribe(
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\media.service.ts
+
+  // get media by id using graphql endpoint
+  getMediaById(id: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{ mediaById(mediaId: ${id}) { account, blobName, fileContentType, fileName, height, keyword, mediaId, nodeUrl, type, width }}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }

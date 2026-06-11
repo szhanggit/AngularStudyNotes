@@ -1,0 +1,21 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/system/media-library
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'system',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.systemPath,
+      exposedModule: './system.module'
+    }).then(m => m.SystemModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\system-routing.module.ts
+{ path: 'media-library', component: MediaLibraryListComponent },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\media-library\media-library-list\media-library-list.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\media-library\view-media\view-media.component.html
+

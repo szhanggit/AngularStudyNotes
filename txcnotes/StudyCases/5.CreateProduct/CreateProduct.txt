@@ -1,0 +1,129 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/create
+0.CreateProduct.PNG
+  {
+    path: 'product/create',
+    component: CreateProductComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.html
+
+<app-product-type *ngIf="step < 1 && !isDraft" [selectedType]="selectedType" [selectedTenant]="selectedTenant" (productSelectedEvent)="OnProductSelected($event)"></app-product-type>
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-type\product-type.component.html
+
+
+---------------------------------------------------------------------------------------------------------------
+Product Details(Basic Info)	1.1.ProductDetails.jpeg
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/create?key=297F3633-1117-4B7F-852E-9E011C783426&isDraft=true
+    <app-product-details *ngIf="step === 1" 
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [brandList]="brandList"
+        [merchantAcquirers]="merchantAcquirers"
+        [selectedMerchant]="selectedMerchant"
+        [isMonoMerchant]="isMonoMerchant"
+        [selectedMerchantGroupId]="selectedMerchantGroupId"
+        [merchantProgram]="merchantProgram"
+        [selectedSKU]="selectedSKU"
+        [skuList]="skuList"
+        [selectedAcceptanceLoop]="selectedAcceptanceLoop"
+        [acceptanceLoopList]="acceptanceLoopList"
+        [acceptanceLoopPage]="acceptanceLoopPage"
+        [shopCount]="shopCount"
+        [voucherNumberRuleList]="voucherNumberRuleList"
+        [vnrErrorMessage]="vnrErrorMessage"
+        [detailsFormGroup]="detailsFormGroup"
+        [toast]="toast"
+        [stepsReached]="stepsReached"
+        (merchantSKUChanged)="OnMerchantChanged($event)"
+        (acceptanceLoopPaginationChanged)="OnAcceptanceLoopPaginationChanged($event)">
+    </app-product-details>
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+Pricing & Expiry	2.PricingAndExpiry.PNG
+    <app-product-combo *ngIf="step === 2 && masterVoucherKeys.includes(selectedType.key)">
+    </app-product-combo>
+    <app-product-pricing *ngIf="step === 2 && !masterVoucherKeys.includes(selectedType.key) || step === 3 && masterVoucherKeys.includes(selectedType.key)" 
+        [wizardKey]="wizardKey"
+        [selectedTenant]="selectedTenant" 
+        [selectedType]="selectedType" 
+        [selectedMerchant]="selectedMerchant"
+        [selectedSKU]="selectedSKU"
+        [merchantProgram]="merchantProgram"
+        [pricingFormGroup]="pricingFormGroup"
+        [expirySchemeList]="expirySchemeList"
+        [toast]="toast"
+        [isFixedExpiryPolicy$]="isFixedExpiryPolicy$"
+        (expiryPolicyIdListChanged)="OnExpiryListChanged($event)"
+        (expiryPolicyTypeChanged)="OnExpiryPolicyTypeChanged($event)">
+    </app-product-pricing>
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
+Product Template & Image	3.1.ProductTemplateAndImage.jpeg
+    <app-product-template #productTemplate *ngIf="step === 3 && !masterVoucherKeys.includes(selectedType.key) || step === 4 && masterVoucherKeys.includes(selectedType.key)" 
+        [templateFormGroup]="templateFormGroup"
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [voucherNumberRuleList]="voucherNumberRuleList"
+        [emailVersionTemplateTags]="emailVersionTemplateTags"
+        [smsVersionTemplateTags]="smsVersionTemplateTags"
+        [productTemplateList]="productTemplateList"
+        [toast]="toast"
+        (templateChanged)="OnTemplateChanged($event)"
+        (templateLanguageChanged)="OnProductTemplateLanguageChanged($event)"
+        (templateLanguageRemoved)="OnProductTemplateLanguageRemoved($event)">
+    </app-product-template>
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
+Advanced Settings	4.AdvancedSettings.PNG
+    <app-product-properties *ngIf="step === 4 && !masterVoucherKeys.includes(selectedType.key) || step === 5 && masterVoucherKeys.includes(selectedType.key)" 
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [selectedExternalProperties]="currentExternalProperties" 
+        [advanceSettingsFormGroup]="advanceSettingsFormGroup"
+        (onExternalPropertiesChanged)="OnExternalPropertyChanged($event)">
+    </app-product-properties>
+
+
+--------------------------------------------------------------------------------------------------------------
+Review & Confirm	5.ReviewAndConfirm.jpeg
+    <app-product-review *ngIf="step === 5 && !masterVoucherKeys.includes(selectedType.key) || step === 6 && masterVoucherKeys.includes(selectedType.key)"
+        [wizardKey]="wizardKey"
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [detailsFormGroup]="detailsFormGroup"
+        [merchantAcquirers]="merchantAcquirers"
+        [selectedMerchant]="selectedMerchant"
+        [isMonoMerchant]="isMonoMerchant"
+        [selectedSKU]="selectedSKU"
+        [selectedAcceptanceLoop]="selectedAcceptanceLoop"
+        [acceptanceLoopList]="acceptanceLoopList"
+        [shopCount]="shopCount"
+        [merchantProgram]="merchantProgram"
+        [voucherNumberRuleList]="voucherNumberRuleList"
+        [pricingFormGroup]="pricingFormGroup"
+        [expirySchemeList]="expirySchemeList"
+        [templateFormGroup]="templateFormGroup"
+        [emailVersionTemplateTags]="emailVersionTemplateTags"
+        [smsVersionTemplateTags]="smsVersionTemplateTags"
+        [productTemplateList]="productTemplateList"
+        [selectedExternalProperties]="currentExternalProperties" 
+        [advanceSettingsFormGroup]="advanceSettingsFormGroup"
+        [toast]="toast"
+        (editStep)="OnStepChanged($event)"
+        (stepHasIssue)="OnStepHasIssue($event)"
+        (stepRemoveIssue)="OnStepRemoveIssue($event)">
+    </app-product-review>
+
+

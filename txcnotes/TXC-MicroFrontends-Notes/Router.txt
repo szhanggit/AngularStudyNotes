@@ -1,0 +1,46 @@
+https://angular.io/api/router/Router
+
+
+Chapter25.0\notes.txt
+constructor(messageService: MessageService, router: Router) {
+	messageService.messages.subscribe(m => this.lastMessage = m);
+	router.events.pipe(filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel)).subscribe(e => { this.lastMessage = null; });
+}
+
+class Router {
+	events: Observable<Event>
+}
+
+---------------------------------------------------
+
+Navigating in Code:
+
+import { ActivatedRoute, Router } from "@angular/router";
+router: Router
+
+this.router.navigateByUrl("/");
+
+navigateByUrl(url, extras) This method navigates to the specified URL. The result of the method is
+a Promise, which resolves with true when the navigation is successful
+and false when it is not and which is rejected when there is an error.
+
+
+this.router.navigate['/student', 1234];
+
+class Router {
+	navigateByUrl(url: string | UrlTree, extras: NavigationBehaviorOptions = {...}): Promise<boolean>,
+	navigate(commands: any[], extras: NavigationExtras = { skipLocationChange: false }): Promise<boolean>
+}
+---------------------------------------------------
+
+activeRoute: ActivatedRoute to get url segment information.
+
+ngOnInit() {
+    this._Activatedroute.paramMap.subscribe(params => { 
+       this.service.getProduct(+params.get('id')) 
+          .subscribe((product: Product) => this.product = product);
+    });
+  }
+
+
+

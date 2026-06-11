@@ -1,0 +1,34 @@
+https://api-staging.txc.edenred.net/gateway/api/Client
+
+
+PUT
+{"ClientId":3546,"clientName":"IN Client Fri, 8 Sep 20231694168089452","invoiceRegisterNumber":"ssddd","voucherIssuerId":null,"businessTypeId":93,"status":0,"securityAlgorithm":2,"logoMediaId":null,"bannerMediaId":null,"mandatoryAutoBilling":true,"invoiceTitle":"ada","subURL":null,"emailProviderCode":null,"emailSenderName":null,"emailSenderAddress":null,"applyEmailSubject":null,"smsProviderCode":null,"smsSenderName":null,"smsEntityId":null,"salesEmail":"test@email.com","memo":"stringl;lk;k;k","description":"string","detailAddressLine":"string","district":"string","cityId":40,"stateOrProvinceId":13,"postcode":"86432","countryId":10,"addressStatus":1,"statusSubscriptionEnabled":true,"statusProviderId":9799536,"longitude":null,"latitude":null,"createClientContacts":[],"updateClientContacts":[{"clientContactId":1810,"email":"dsdff@email.com","mobileNo":"93744664","name":"dsdd","position":"rtesd","isActive":true,"isUpdated":false}],"emailHeaderMediaId":null,"emailFooterMediaId":null}
+
+
+{"data":{"clientId":3546},"message":"Success","success":true}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-edit\client-edit.component.ts
+  //Update the client request
+  onSubmit():void{
+    if(!this.editSubmitted){
+      this.editSubmitted = true;
+      let clientUpdateRequest =   this.clientService.SetClientRequestPayload( this.clientFormGroup,this.clientForm,this.clientId);
+      this.clientService.update(clientUpdateRequest).subscribe((data : BaseResponse)=>{
+        if(data.success){    
+          setTimeout(() => { let message = data.message;
+          this.toast.showSuccess("client details updated successfully.");}, 1000);
+          this.navToClientDetail("clientUpdated");
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+  update(data : ClientCreateRequest): Observable<BaseResponse>{
+    const url = `${this._getURL()}api/Client`;
+    const headers : HttpHeaders = this._authorizationLibraryService.getAMMHeaders(
+      this._tenantConfigService.getTenant());
+    return this.http.put(url, data , {headers}) as Observable<BaseResponse>;
+  }
+
+

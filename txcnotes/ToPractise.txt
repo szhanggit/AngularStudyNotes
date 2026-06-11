@@ -1,0 +1,4 @@
+Build a product list page.(get a list of products from server, and display them in paging)
+Call GraphQL.
+Build a shared library.
+

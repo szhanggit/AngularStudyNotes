@@ -1,0 +1,23 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/clients/edit/3545
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'clients',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.clientPath,
+      exposedModule: './client.module'
+    }).then(m => m.ClientModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\client-routing.module.ts
+  {
+    path: 'edit/:id',
+    component : ClientEditComponent,
+   canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-edit\client-edit.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-form\client-form.component.html

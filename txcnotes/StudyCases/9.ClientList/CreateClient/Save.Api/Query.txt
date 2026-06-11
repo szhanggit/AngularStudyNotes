@@ -1,0 +1,100 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+Payload:
+{"query":"query{\n        client(\n          skip: 0 \n          take: 20 \n          where: {\n            and: [\n              { or: [\n                  { clientName: { contains: \"\" } },\n                  { invoiceRegisterNumber: { contains: \"\" } },\n                  { identityCode: { contains: \"\" } }\n              ]},\n              \n            ]\n          }\n          order: { id: DESC}\n            ){\n            totalCount\n            items{\n                id,\n                clientName,\n                identityCode,\n                voucherIssuerId,\n                \n                status,\n                invoiceRegisterNumber\n            }\n        }\n      }"}
+
+
+Response:
+{
+    "data": "{\"client\":{\"totalCount\":1476,\"items\":[{\"id\":3551,\"clientName\":\"Jlisf\",\"identityCode\":\"700000000001308\",\"voucherIssuerId\":null,\"status\":0,\"invoiceRegisterNumber\":\"98708088\"},{\"id\":3550,\"clientName\":\"naomie staging client\",\"identityCode\":\"700000000001307\",\"voucherIssuerId\":null,\"status\":1,\"invoiceRegisterNumber\":\"88888888\"},{\"id\":3549,\"clientName\":\"dsadsadsddffff\",\"identityCode\":\"700000000001306\",\"voucherIssuerId\":null,\"status\":0,\"invoiceRegisterNumber\":\"42\"},{\"id\":3548,\"clientName\":\"dasdffasdd\",\"identityCode\":\"700000000001305\",\"voucherIssuerId\":null,\"status\":0,\"invoiceRegisterNumber\":\"dsadddd\"},{\"id\":3547,\"clientName\":\"test121\",\"identityCode\":\"700000000001304\",\"voucherIssuerId\":null,\"status\":0,\"invoiceRegisterNumber\":\"Test121\"},{\"id\":3546,\"clientName\":\"IN Client Fri, 8 Sep 20231694168089452\",\"identityCode\":\"700000000001303\",\"voucherIssuerId\":null,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3545,\"clientName\":\"IN Client Fri, 8 Sep 20231694168081585\",\"identityCode\":\"700000000001302\",\"voucherIssuerId\":400,\"status\":1,\"invoiceRegisterNumber\":\"string\"},{\"id\":3544,\"clientName\":\"IN Client Thu, 7 Sep 20231694087635750\",\"identityCode\":\"700000000001301\",\"voucherIssuerId\":null,\"status\":1,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3543,\"clientName\":\"IN Client Thu, 7 Sep 20231694087433618\",\"identityCode\":\"700000000001300\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3542,\"clientName\":\"IN Client Thu, 7 Sep 20231694086865686\",\"identityCode\":\"700000000001299\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3541,\"clientName\":\"IN Client_UpdateSecurityKey Thu, 7 Sep 20231694086362263\",\"identityCode\":\"700000000001298\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3540,\"clientName\":\"IN Client_UpdateSecurityKey Thu, 7 Sep 20231694086005634\",\"identityCode\":\"700000000001297\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3539,\"clientName\":\"IN Client_UpdateSecurityKey Thu, 7 Sep 20231694084017896\",\"identityCode\":\"700000000001296\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3538,\"clientName\":\"IN Client_UpdateSecurityKey Thu, 7 Sep 20231694083943130\",\"identityCode\":\"700000000001295\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3537,\"clientName\":\"IN 123 !@  ????Thu, 7 Sep 20231694074543828\",\"identityCode\":\"700000000001294\",\"voucherIssuerId\":null,\"status\":0,\"invoiceRegisterNumber\":\"dfgg\"},{\"id\":3536,\"clientName\":\"IN 123 !@ $ ????Thu, 7 Sep 20231694074542879\",\"identityCode\":\"700000000001293\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"dfgg\"},{\"id\":3535,\"clientName\":\"IN 123 !@ $ ????Thu, 7 Sep 20231694074541642\",\"identityCode\":\"700000000001292\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"dfgg\"},{\"id\":3534,\"clientName\":\"IN Client Thu, 7 Sep 20231694074538781\",\"identityCode\":\"700000000001291\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"ssddd\"},{\"id\":3533,\"clientName\":\"IN 123 !@ $ ????Thu, 7 Sep 20231694074537656\",\"identityCode\":\"700000000001290\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"dfgg\"},{\"id\":3532,\"clientName\":\"IN 123 !@ ???? Thu, 7 Sep 20231694074530731\",\"identityCode\":\"700000000001289\",\"voucherIssuerId\":400,\"status\":0,\"invoiceRegisterNumber\":\"dfgg\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-list\client-list.component.ts
+  getData(){
+    this.clientService.getAll(this.itemStart-1, this.pageSize, this.searchTerm, this.selectVoucherIssuer)
+    .subscribe((response:BaseResponse)=>{
+      if(response.success){      
+        this.clientList = JSON.parse(response.data).client.items;
+        this.totalCount = JSON.parse(response.data).client.totalCount;
+      }
+    });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+
+
+
+
+    getAll(pageIndex : number = 0, pageSize : number = 20, searchTerm : string = "", iVoucherIssuerId:number|null): Observable<BaseResponse> {
+      let url = `${this._getURL()}api/GraphQL/Query`;
+      let strVoucherIssuerWhere: string = iVoucherIssuerId != null ? `{ voucherIssuerId: { eq: ${iVoucherIssuerId} } },`: "";
+      let strInvoiceRegisterNumber: string = this._tenantConfigService.getTenant().name == 'TW' ? `{ invoiceRegisterNumber: { contains: "${searchTerm}" } },`: "";
+      let strVoucherIssuerSelect: string = this._tenantConfigService.getTenant().name == 'GL' ? "voucherIssuer{ displayName }": "";
+
+      const data = { query: `query{
+        client(
+          skip: ${pageIndex} 
+          take: ${pageSize} 
+          where: {
+            and: [
+              { or: [
+                  { clientName: { contains: "${searchTerm}" } },
+                  ${strInvoiceRegisterNumber}
+                  { identityCode: { contains: "${searchTerm}" } }
+              ]},
+              ${strVoucherIssuerWhere}
+            ]
+          }
+          order: { id: DESC}
+            ){
+            totalCount
+            items{
+                id,
+                clientName,
+                identityCode,
+                voucherIssuerId,
+                ${strVoucherIssuerSelect}
+                status,
+                invoiceRegisterNumber
+            }
+        }
+      }`};
+   
+      return this.http.post(url, data , { 
+        headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) 
+      }) as Observable<BaseResponse>;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

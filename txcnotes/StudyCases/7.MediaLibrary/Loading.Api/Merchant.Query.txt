@@ -1,0 +1,57 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query\n      {\n        media(where: {and: {keyword: {contains: \"\"}, type: {eq: 2}}}) {\n            items {\n                mediaId\n                fileName\n                fileContentType\n                nodeUrl\n                account\n                blobName\n                type\n                width\n                height\n                keyword\n            }\n        }\n    }"}
+
+
+
+{
+    "data": "{\"media\":{\"items\":[{\"mediaId\":8,\"fileName\":\"b1f604f1-a678-4952-a47f-04e230711b79\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/b1f604f1-a678-4952-a47f-04e230711b79.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/b1f604f1-a678-4952-a47f-04e230711b79.png\",\"type\":2,\"width\":\"123\",\"height\":\"448\",\"keyword\":\"1\"},{\"mediaId\":1084,\"fileName\":\"6d551379-afd6-49a5-8910-fd557e536093\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/6d551379-afd6-49a5-8910-fd557e536093.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/6d551379-afd6-49a5-8910-fd557e536093.jpg\",\"type\":2,\"width\":\"750\",\"height\":\"288\",\"keyword\":\"Carrefour\"},{\"mediaId\":1094,\"fileName\":\"b45348f2-bc04-46ee-a2fa-590577d811f4\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/b45348f2-bc04-46ee-a2fa-590577d811f4.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/b45348f2-bc04-46ee-a2fa-590577d811f4.png\",\"type\":2,\"width\":\"245\",\"height\":\"47\",\"keyword\":\"7-ELEVEN\"},{\"mediaId\":1110,\"fileName\":\"8e246831-4583-4552-8461-cda793fb675d\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/8e246831-4583-4552-8461-cda793fb675d.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/8e246831-4583-4552-8461-cda793fb675d.jpg\",\"type\":2,\"width\":\"474\",\"height\":\"126\",\"keyword\":\"Myer Logo 2017\"},{\"mediaId\":1113,\"fileName\":\"128a1bd8-65ea-4b95-9f18-1d039e13289e\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/128a1bd8-65ea-4b95-9f18-1d039e13289e.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/128a1bd8-65ea-4b95-9f18-1d039e13289e.jpg\",\"type\":2,\"width\":\"240\",\"height\":\"111\",\"keyword\":\"Vendor_AmazonCN-logo\"},{\"mediaId\":1114,\"fileName\":\"7751ed69-3dd7-40a3-9b96-ab6a8f8adf7e\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/7751ed69-3dd7-40a3-9b96-ab6a8f8adf7e.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/7751ed69-3dd7-40a3-9b96-ab6a8f8adf7e.jpg\",\"type\":2,\"width\":\"320\",\"height\":\"160\",\"keyword\":\"Vendor_DangdangCN-logo\"},{\"mediaId\":2201,\"fileName\":\"304165db-ecca-4ae6-ae3b-998e22de0fa9\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/304165db-ecca-4ae6-ae3b-998e22de0fa9.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/304165db-ecca-4ae6-ae3b-998e22de0fa9.jpg\",\"type\":2,\"width\":\"422\",\"height\":\"397\",\"keyword\":\"GV\"},{\"mediaId\":2247,\"fileName\":\"2c351d83-b260-41b4-927d-927fbc6d5570\",\"fileContentType\":\"image/png\",\"nodeUrl\":\"/txc-tw/staging/media-library/2c351d83-b260-41b4-927d-927fbc6d5570.png\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/2c351d83-b260-41b4-927d-927fbc6d5570.png\",\"type\":2,\"width\":\"2400\",\"height\":\"2400\",\"keyword\":\"familymart\"},{\"mediaId\":2260,\"fileName\":\"b2edd84c-e5fa-43bd-9e4f-d526e651e4a5\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/b2edd84c-e5fa-43bd-9e4f-d526e651e4a5.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/b2edd84c-e5fa-43bd-9e4f-d526e651e4a5.jpg\",\"type\":2,\"width\":\"1040\",\"height\":\"1040\",\"keyword\":\"LINE_OAP_P3_cst_10804\"},{\"mediaId\":2411,\"fileName\":\"e9dbdd56-21c0-49dc-adab-fd7d4b0123eb\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/e9dbdd56-21c0-49dc-adab-fd7d4b0123eb.jpeg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/e9dbdd56-21c0-49dc-adab-fd7d4b0123eb.jpeg\",\"type\":2,\"width\":\"1200\",\"height\":\"900\",\"keyword\":\"C:\\\\Users\\\\jzhu\\\\Downloads\\\\a\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\media-library\media-library-list\media-library-list.component.ts
+import { MediaService } from 'src/app/system/services/media.service';
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\services\media.service.ts
+  constructor(private http: HttpClient,
+    private readonly _tenantConfigService: TenantConfigService,
+    private readonly _authorizationLibraryService: AuthorizationLibraryService) { 
+      this._search$.pipe(
+        switchMap(() => this.getMediaList())
+
+
+
+
+  private getMediaList(): Observable<BaseResponse> {
+    const { category, searchTerm } = this._state;
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = {
+      query: `query
+      {
+        media(where: {and: {keyword: {contains: "${searchTerm}"}, type: {eq: ${category}}}}) {
+            items {
+                mediaId
+                fileName
+                fileContentType
+                nodeUrl
+                account
+                blobName
+                type
+                width
+                height
+                keyword
+            }
+        }
+    }`};
+
+    return this.http.post(url, data, {
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant())
+    }) as Observable<BaseResponse>;
+  }

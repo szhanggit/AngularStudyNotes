@@ -1,0 +1,279 @@
+https://api-staging.txc.edenred.net/gateway/api/Template?status=1&PageNumber=1&RowCount=10
+
+
+
+status=1&PageNumber=1&RowCount=10
+
+
+
+{
+    "data": {
+        "templateDtos": [
+            {
+                "templateVersionId": 1635,
+                "templateId": 388,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "Ruby120102",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "",
+                "subject1": "",
+                "content1": "{ShortUrlAuthCode}{PRODUCT_NAME}{VOUCHER_NUMBER}{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-12-01T01:40:18.06Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-12-01T01:40:18.06Z"
+            },
+            {
+                "templateVersionId": 1634,
+                "templateId": 387,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "Ruby120102",
+                "type": 1,
+                "subType": 1,
+                "status": 1,
+                "version": 1,
+                "description": "",
+                "subject1": "SUBJ",
+                "content1": "{ShortUrlAuthCode}{PRODUCT_NAME}{VOUCHER_NUMBER}{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-12-01T01:39:46.573Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-12-01T01:39:46.573Z"
+            },
+            {
+                "templateVersionId": 1633,
+                "templateId": 386,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "Ruby1201",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 2,
+                "description": "",
+                "subject1": "",
+                "content1": "{ShortUrlAuthCode}{PRODUCT_NAME}{VOUCHER_NUMBER}{ShortUrl}",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-12-01T01:37:24.98Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-12-01T01:37:24.98Z"
+            },
+            {
+                "templateVersionId": 1631,
+                "templateId": 385,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "RubyMultiLangSMS1127",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 4,
+                "description": "SMS Barcode 2015 + footnote TEST!!!",
+                "subject1": "",
+                "content1": "{Name}{SMSGreetings}{PRODUCT_NAME}，請於 {END_DATE} 前開啟下方完整券樣（密碼{ShortUrlAuthCode}）至櫃台兌換。{ShortUrl} raymark edit$$splitter$$",
+                "subject2": "",
+                "content2": "P2$$splitter$$ {SMSGreetings} {SerialNumber} {FixFootnote}",
+                "subject3": "",
+                "content3": "P3 {ClientOrderNumber} {PRODUCT_NAME}",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-11-30T07:38:22.813Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-11-30T07:38:22.813Z"
+            },
+            {
+                "templateVersionId": 1623,
+                "templateId": 384,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "RubyMultiLang1127",
+                "type": 1,
+                "subType": 1,
+                "status": 1,
+                "version": 2,
+                "description": "",
+                "subject1": "{Greetings} EN",
+                "content1": "<p>\r\n\t{Greetings}</p>\r\n<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"MsoNormalTable1\" style=\"border-style: solid; border-color: rgb(218, 215, 203); border-collapse: collapse; margin: 0px auto; max-width: 624px;\" width=\"624\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"40\" /></td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"564\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<span style=\"font-size:18px;font-family:microsoft jhenghei,'微軟正黑體',Arial;text-align:justify;text-justify:distribute;\">{PRODUCT_DESCRIPTION}</span></td>\r\n\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td align=\"center\" bgcolor=\"#f6f5f3\" colspan=\"3\" height=\"10\" style=\"padding:0\">\r\n\t\t\t\t<img class=\"CToWUd\" height=\"6\" src=\"http://www.edenred.com.tw/images/txpline.gif\" style=\"margin-top:0;display:block;width:100%;\" width=\"624\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"564\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<span style=\"font-size:14px;font-family:microsoft jhenghei,'微軟正黑體',Arial;text-align:justify;text-justify:distribute;\">{PRODUCT_NAME}</span></td>\r\n\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td align=\"center\" bgcolor=\"#f6f5f3\" valign=\"middle\">\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td class=\"rwd\" height=\"240\" width=\"240\">\r\n\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"rwd\" width=\"240\">\r\n\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"220\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" bgcolor=\"#ffffff\" style=\"padding:10px\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"CToWUd a6T\" height=\"200\" src=\"{BANNER_IMAGE}\" tabindex=\"0\" width=\"200\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t<td class=\"rwd\" width=\"240\">\r\n\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"240\">\r\n\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"220\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"padding:1px\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-color: rgb(0, 105, 178);\" width=\"220\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" bgcolor=\"#ffffff\" class=\"QRimg\" style=\"background:#FFFFFF;padding:10px 0 5px\r\n0;mso-padding-alt:5px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{BARCODE}</p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" bgcolor=\"#0069b2\" style=\"height:2em\" valign=\"middle\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<font color=\"#ffffff\" size=\"2\" style=\"font-family:microsoft jhenghei,'微軟正黑體',Arial;\">序　號　效　期</font></td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" bgcolor=\"#ffffff\" style=\"height:2em\" valign=\"middle\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<font style=\"color: rgb(0, 105, 178); font-stretch: normal; font-size: 1.2em; line-height: 1.2; font-family: TrebuchetMS, Verdana; padding: 6px;\">{END_DATE}</font></td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#f6f5f3\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td align=\"center\" bgcolor=\"#ffffff\" colspan=\"3\" style=\"padding:0\">\r\n\t\t\t\t<img class=\"CToWUd\" height=\"129\" src=\"http://www.edenred.com.tw/images/txp2015note.jpg\" style=\"margin-top:0;display:block;width:100%;height:auto;\" width=\"624\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#ffffff\" valign=\"top\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#ffffff\" valign=\"top\">\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"564\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t<td class=\"Notice\">\r\n\t\t\t\t\t\t\t\t<ul>\r\n\t\t\t\t\t\t\t\t\t<li>\r\n\t\t\t\t\t\t\t\t\t\t門市資訊：<a href=\"{STORE_URL}\">{STORE_URL}</a></li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t{FOOTNOTE}</p>\r\n\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t{FixFootnote}</p>\r\n\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t{CSURL}</p>\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"40\" /></td>\r\n\t\t\t<td bgcolor=\"#ffffff\">\r\n\t\t\t\t<img class=\"space\" height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<p>\r\n\t{Client_logo_header}{Client_logo_footer}</p>\r\n<style type=\"text/css\">\r\n*{box-sizing:border-box;}\r\n\r\ntable.MsoNormalTable {mso-style-name:\"Table Normal\"; mso-tstyle-rowband-size:0; mso-tstyle-colband-size:0; mso-style-noshow:yes; mso-style-parent:\"\"; mso-padding-alt:0in 5.4pt 0in 5.4pt; mso-para-margin:1pt; mso-para-margin-bottom:.0001pt; mso-pagination:widow-orphan;}\r\n.Notice table td{font-family:microsoft jhenghei,'微軟正黑體',Arial;text-justify:distribute;}\r\n.adbanner{max-width:624px;margin:0  auto;}\r\n.adbanner  img{display:block;width:100%;height:auto}\r\n@media only screen and  (max-device-width: 480px) {\r\n\ttable[width=\"480\"]{width:100%!important;}\r\n\ttable[width=\"624\"]{width:100%!important;display:block;}\r\n\timg.space{width:10px!important;height:10px!important;display:block;}\r\n\t*[width=\"624\"]{width:100%!important;}\r\n\t*[width=\"480\"]{width:100%!important;}\r\n\ttd[width=\"240\"]{display:block;}\r\n\ttable[width=\"220\"]{margin:auto!important}\r\n\ttable{width:100%!important;margin:0 auto!important;border-collapse:collapse;}\r\n\t.rwd{padding:0 auto!important;text-align:center;margin:auto!important}\r\n\t.QRimg img{width:110px;height:auto;margin-top:10px}\r\n\r\n\t}</style>",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-11-27T03:06:29.8Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-11-27T03:06:29.8Z"
+            },
+            {
+                "templateVersionId": 1616,
+                "templateId": 383,
+                "languageId": 66,
+                "defaultLanguage": 66,
+                "templateName": "PETER TEST SMS IN SV",
+                "type": 2,
+                "subType": 2,
+                "status": 1,
+                "version": 1,
+                "description": "PETER TEST SMS IN SV",
+                "subject1": null,
+                "content1": "{SMSGreetings}Ticket Xpress???:  {PRODUCT_NAME}  ??:{VOUCHER_NUMBER}  ????:{END_DATE}?  {ShortUrl}  {ShortUrlAuthCode}",
+                "subject2": null,
+                "content2": null,
+                "subject3": null,
+                "content3": null,
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-11-24T00:21:29.807Z",
+                "lastModifiedBy": null,
+                "lastModifiedOn": null
+            },
+            {
+                "templateVersionId": 1612,
+                "templateId": 192,
+                "languageId": 66,
+                "defaultLanguage": 66,
+                "templateName": "RubyEMAIL_Test",
+                "type": 1,
+                "subType": 1,
+                "status": 1,
+                "version": 10,
+                "description": "Test v3",
+                "subject1": "RubyEMAIL_Test {EmailSubject}",
+                "content1": "<p>\r\n\t{Greetings} v3<br />\r\n\t<br />\r\n\t<span style=\"color: rgb(255, 255, 255); font-family: &quot;Open Sans&quot;, Arial, Helvetica, sans-serif; font-size: 10.53px; background-color: rgb(238, 49, 36);\">&nbsp;{Name},{Greetings} and {BANNER_IMAGE}</span></p>\r\n<p>\r\n\t<strong style=\"color: rgb(100, 101, 103); font-family: &quot;microsoft jhenghei&quot;, 微軟正黑體, Arial; font-size: 16px;\">Brand logo</strong></p>\r\n<div>\r\n\t1:</div>\r\n<div>\r\n\t{{Brand_Logo}}</div>\r\n<div>\r\n\t2</div>\r\n<div>\r\n\t{Brand_Logo}</div>\r\n<div>\r\n\t&nbsp;</div>\r\n<div>\r\n\t&nbsp;</div>\r\n<div>\r\n\tClient logo header</div>\r\n<div>\r\n\t{Client_logo_header}</div>\r\n<div>\r\n\t{Client_logo_footer}</div>\r\n<div>\r\n\t&nbsp;</div>\r\n<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"624\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"40\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"564\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t{PRODUCT_DESCRIPTION}</td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td align=\"center\" colspan=\"3\" height=\"10\">\r\n\t\t\t\t<img height=\"6\" src=\"http://www.edenred.com.tw/images/txpline.gif\" style=\"margin-top:0px;width:661.992px;\" width=\"624\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"564\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t{PRODUCT_NAME}</td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td align=\"center\">\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"480\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td height=\"240\">\r\n\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"240\">\r\n\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"220\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"200\" src=\"{BANNER_IMAGE}\" tabindex=\"0\" width=\"200\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"240\">\r\n\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"220\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"220\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{BARCODE}</p>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"height:26px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t序　號　效　期</td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\" style=\"height:26px;\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{END_DATE}</td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td align=\"center\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"220\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t\t\t\t\t</tbody>\r\n\t\t\t\t\t\t\t\t</table>\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"220\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td align=\"center\" colspan=\"3\">\r\n\t\t\t\t<img height=\"129\" src=\"http://www.edenred.com.tw/images/txp2015note.jpg\" style=\"margin-top:0px;width:661.992px;height:auto;\" width=\"624\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"564\">\r\n\t\t\t\t\t<tbody>\r\n\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<ul>\r\n\t\t\t\t\t\t\t\t\t<li>\r\n\t\t\t\t\t\t\t\t\t\t門市資訊：<a href=\"{STORE_URL}\">{STORE_URL}</a></li>\r\n\t\t\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t{FOOTNOTE}</p>\r\n\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t{FixFootnote}</p>\r\n\t\t\t\t\t\t\t\t<p>\r\n\t\t\t\t\t\t\t\t\t{CSURL}</p>\r\n\t\t\t\t\t\t\t</td>\r\n\t\t\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t\t\t\t</tr>\r\n\t\t\t\t\t</tbody>\r\n\t\t\t\t</table>\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"20\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"40\" /></td>\r\n\t\t\t<td>\r\n\t\t\t\t<img height=\"10\" src=\"http://www.edenred.com.tw/images/spacer.gif\" width=\"30\" /></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<p>\r\n\t{Client_logo_header}{Client_logo_footer}</p>",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-11-20T01:51:13.603Z",
+                "lastModifiedBy": "rblanco",
+                "lastModifiedOn": "2023-11-20T01:51:13.603Z"
+            },
+            {
+                "templateVersionId": 1606,
+                "templateId": 355,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "TestEmailTemplate09122023",
+                "type": 1,
+                "subType": 1,
+                "status": 1,
+                "version": 2,
+                "description": "",
+                "subject1": "{EmailSubject}",
+                "content1": "<meta charset=\"utf-8\" />\r\n<meta content=\"telephone=no\" name=\"format-detection\" />\r\n<meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\" />\r\n<title></title>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>\r\n\t\t\t\t{Name}{Greetings}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#f0f1f1; margin:0 auto; padding:0;color:#777;font-size:14px; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"width:70px; text-align:left; vertical-align:middle; padding:15px 15px 15px 15px\">\r\n\t\t\t\t<img alt=\"\" src=\"https://txp.rs/images/edenred/TX-New100.png\" style=\"max-width:100px; height:auto; margin:0px;\" /></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center; padding:0px 0px 20px 0px;\">\r\n\t\t\t\t<img alt=\"\" src=\"{BANNER_IMAGE_FV}\" style=\"width:100%; height:auto;\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center;padding:0px 30px 20px 30px;font-size:24px;\">\r\n\t\t\t\t{PRODUCT_NAME}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center; padding-bottom:5px; max-width:300px; height:auto;\">\r\n\t\t\t\t{BARCODE}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-size:16px; border-top:1px solid #333;font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr style=\"border-bottom:1px solid #eee;\">\r\n\t\t\t<td style=\"width:70px; color:#777; vertical-align:top; padding:15px 0 10px 15px;\">\r\n\t\t\t\t商品描述</td>\r\n\t\t\t<td style=\"text-align:lift; vertical-align:top; padding:15px 15px 10px 15px;\">\r\n\t\t\t\t{ProductDescription}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\">\r\n\t\t\t\t<hr color=\"#eee\" size=\"1\" style=\"margin:0;\" width=\"100%\" />\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr style=\"border-bottom:1px solid #eee;\">\r\n\t\t\t<td style=\"width:70px; color:#777; vertical-align:top; padding:10px 0 10px 15px;\">\r\n\t\t\t\t兌換期間至</td>\r\n\t\t\t<td style=\"text-align:left; vertical-align:top;padding:10px 15px;\">\r\n\t\t\t\t{END_DATE}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\">\r\n\t\t\t\t<hr color=\"#eee\" size=\"1\" style=\"margin:0;\" width=\"100%\" />\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr style=\"border-bottom:1px solid #eee;\">\r\n\t\t\t<td colspan=\"2\" style=\"width:70px; color:#777; vertical-align:top; padding:15px 0 0 15px;\">\r\n\t\t\t\t注意事項</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"font-size:14px; padding:0px 15px 0px 15px\">\r\n\t\t\t\t<p>\r\n\t\t\t\t\t{FOOTNOTE}</p>\r\n\t\t\t\t<p>\r\n\t\t\t\t\t{FixFootnote}</p>\r\n\t\t\t\t<ul style=\"padding-left:15px;\">\r\n\t\t\t\t</ul>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\">\r\n\t\t\t\t<hr color=\"#eee\" size=\"1\" style=\"margin:0;\" width=\"100%\" />\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr style=\"border-bottom:1px solid #eee;\">\r\n\t\t\t<td colspan=\"2\" style=\"width:70px; color:#777; vertical-align:top; padding:10px 0 0 15px;\">\r\n\t\t\t\t門市查詢</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"padding:10px 15px;\">\r\n\t\t\t\t<a href=\"{STORE_URL}\" style=\"color:#2a6caf; word-break:break-all; \">{STORE_URL}</a></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\">\r\n\t\t\t\t<hr color=\"#eee\" size=\"1\" style=\"margin:0;\" width=\"100%\" />\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#f0f1f1; margin:0 auto; padding:0;color:#777;font-size:14px; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:30px 20px 0 20px\">\r\n\t\t\t\t<img alt=\"\" src=\"https://txp.rs/images/edenred/tx-logo.png\" style=\"max-width:75px; height:auto; margin:5px;\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"vertical-align:middle; padding:20px 20px; line-height:20px;\">\r\n\t\t\t\t{CSURL}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<p>\r\n\t&nbsp;</p>",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-09-12T13:10:51.477Z",
+                "lastModifiedBy": "US-40307",
+                "lastModifiedOn": "2023-09-12T13:10:51.477Z"
+            },
+            {
+                "templateVersionId": 1605,
+                "templateId": 348,
+                "languageId": 67,
+                "defaultLanguage": 67,
+                "templateName": "RubyMultiLang2",
+                "type": 1,
+                "subType": 1,
+                "status": 1,
+                "version": 3,
+                "description": "",
+                "subject1": "{EmailSubject} EN",
+                "content1": "<p>\r\n\t&nbsp;</p>\r\n<meta charset=\"utf-8\" />\r\n<meta content=\"telephone=no\" name=\"format-detection\" />\r\n<meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\" />\r\n<title></title>\r\n<link href=\"https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i\" rel=\"stylesheet\" />\r\n<style type=\"text/css\">\r\n* {\r\n        word-wrap: break-word;\r\n        word-break: break-all;\r\n        font-family: Montserrat, 'PingFangTC', 'Microsoft JhengHei' !important;\r\n        font-wieght: 400;\r\n    }\r\n\r\n    .CodeContent {\r\n        font-size: 0px;\r\n        line-height: 0px;\r\n    }\r\n\r\n    .CodeContent img {\r\n        width: 350px;\r\n        height: auto;\r\n        max-width: 100%;\r\n    }</style>\r\nEN<br />\r\n<p>\r\n\t{BANNER_IMAGE_FV}</p>\r\n<p>\r\n\t{{Brand_Logo}}</p>\r\n<p>\r\n\t{Brand_Logo}</p>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"padding:10px 15px;\">\r\n\t\t\t\t{Name}{Greetings}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#f0f1f1; margin:0 auto; padding:0;color:#777;font-size:14px; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px;\">\r\n\t\t\t\t<div style=\"display:flex; align-content:flex-start; align-items:center;\">\r\n\t\t\t\t\t<img alt=\"\" src=\"https://edtwimage.azureedge.net/mwvcusmz0031/banner/logo-edenred.svg\" style=\"width:auto; height:auto; max-width:120px; max-height:40px;\" /></div>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center; padding:10px 0px 0px 0px\">\r\n\t\t\t\t<img alt=\"\" src=\"{BANNER_IMAGE}\" style=\"width:100%; height:auto;\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center;padding:20px 15px;font-size:18px;\">\r\n\t\t\t\t{PRODUCT_NAME}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"CodeContent\" style=\"text-align:center; padding:0px;\">\r\n\t\t\t\t<img src=\"https://media.ticketxpress.com.tw/Handlers/Code128Handler.ashx?scale=2&amp;code={VOUCHER_NUMBER}\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center; font-size:12px; text-decoration:none; color:#333; padding:20px 15px;\">\r\n\t\t\t\t序號：{VOUCHER_NUMBER}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-size:16px; border-top:1px solid #333;font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"width:90px; color:#777; vertical-align:top; padding:10px 0px 10px 15px; font-size:14px; border-bottom:1px solid #eee;\">\r\n\t\t\t\t商品描述：</td>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px 10px 5px; font-size:14px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t{ProductDescription}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"color:#777; vertical-align:top; padding:10px 0px 10px 15px; font-size:14px; border-bottom:1px solid #eee;\">\r\n\t\t\t\t兌換期間至：</td>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px 10px 5px; font-size:14px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t{END_DATE}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"color:#777; vertical-align:top; padding:10px 15px;font-size:14px;\">\r\n\t\t\t\t注意事項：</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"font-size:14px; padding:0px 15px 10px 15px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t<p>\r\n\t\t\t\t\t{FOOTNOTE}</p>\r\n\t\t\t\t<p>\r\n\t\t\t\t\t{FixFootnote}</p>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"color:#777; vertical-align:top; padding:10px 15px;font-size:14px;\">\r\n\t\t\t\t門市查詢：</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"font-size:14px; padding:0px 15px 10px 15px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t<a href=\"{STORE_URL}\" style=\"color:#2a6caf; word-break:break-all; \">{STORE_URL}</a></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#f0f1f1; margin:0 auto; padding:0;color:#777;font-size:14px; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px;\">\r\n\t\t\t\t<div style=\"display:flex; align-content:flex-start; align-items:center;\">\r\n\t\t\t\t\t<img alt=\"\" src=\"https://edtwimage.azureedge.net/mwvcusmz0031/banner/logo-edenred.svg\" style=\"width:auto; height:auto; max-width:120px; max-height:35px;\" /></div>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"vertical-align:middle; padding:0px 15px 10px 15px; line-height:150%; font-size:14px;\">\r\n\t\t\t\t{CSURL}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<p>\r\n\t&nbsp;</p>",
+                "subject2": "",
+                "content2": "",
+                "subject3": "",
+                "content3": "",
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": "2023-05-05T07:14:32.45Z",
+                "lastModifiedBy": "US-40307",
+                "lastModifiedOn": "2023-05-05T07:14:32.45Z"
+            },
+            {
+                "templateVersionId": 1604,
+                "templateId": 222,
+                "languageId": 66,
+                "defaultLanguage": 66,
+                "templateName": "value based_小網券Barcode 128_production setting",
+                "type": 1,
+                "subType": 1,
+                "status": 1,
+                "version": 2,
+                "description": "value based_小網券Barcode 128",
+                "subject1": "{EmailSubject}",
+                "content1": "<meta charset=\"utf-8\" />\r\n<meta content=\"telephone=no\" name=\"format-detection\" />\r\n<meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\" />\r\n<title></title>\r\n<link href=\"https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i\" rel=\"stylesheet\" />\r\n<style type=\"text/css\">\r\n* {\r\n\t\tword-wrap: break-word;\r\n\t\tword-break: break-all;\r\n\t\tfont-family: Montserrat, 'PingFangTC', 'Microsoft JhengHei' !important;\r\n\t\tfont-weight: 400;\r\n\t}\r\n\r\n\t.CodeContent {\r\n\t\tfont-size: 0px;\r\n\t\tline-height: 0px;\r\n\t}\r\n\r\n\t.CodeContent img {\r\n\t\twidth: 350px;\r\n\t\theight: auto;\r\n\t\tmax-width: 100%;\r\n\t}</style>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif; font-size:14px;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"padding:10px 15px;\">\r\n\t\t\t\t{Name}{Greetings}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#f0f1f1; margin:0 auto; padding:0;color:#777;font-size:14px; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px;\">\r\n\t\t\t\t<div style=\"display:flex; align-content:flex-start; align-items:center;\">\r\n\t\t\t\t\t<img alt=\"\" src=\"https://edtwimage.azureedge.net/mwvcusmz0031/banner/logo-edenred.svg\" style=\"width:auto; height:auto; max-width:120px; max-height:40px;\" /></div>\r\n\t\t\t</td>\r\n\t\t\t<td style=\"text-align:right; padding:10px 15px 10px 5px; color:red; font-size: 14px; font-weight:bold;\">\r\n\t\t\t\t餘額：$ <span id=\"balance\">&nbsp;</span></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center; padding:10px 0px 0px 0px\">\r\n\t\t\t\t<img alt=\"\" src=\"{BANNER_IMAGE}\" style=\"width:100%; height:auto;\" /></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center;padding:20px 15px;font-size:18px;\">\r\n\t\t\t\t{PRODUCT_NAME}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td class=\"CodeContent\" style=\"text-align:center; padding:0px;\">\r\n\t\t\t\t{BARCODE128}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:center; font-size:12px; text-decoration:none; color:#333; padding:20px 15px;\">\r\n\t\t\t\t序號：{VOUCHER_NUMBER}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#fff;color:#333; margin:0 auto; font-size:16px; border-top:1px solid #333;font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"width:90px; color:#777; vertical-align:top; padding:10px 0px 10px 15px; font-size:14px; border-bottom:1px solid #eee;\">\r\n\t\t\t\t商品描述：</td>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px 10px 5px; font-size:14px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t{ProductDescription}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"color:#777; vertical-align:top; padding:10px 0px 10px 15px; font-size:14px; border-bottom:1px solid #eee;\">\r\n\t\t\t\t兌換期間至：</td>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px 10px 5px; font-size:14px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t{END_DATE}</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"color:#777; vertical-align:top; padding:10px 15px;font-size:14px;\">\r\n\t\t\t\t注意事項：</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"font-size:14px; padding:0px 15px 10px 15px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t<p>\r\n\t\t\t\t\t{FOOTNOTE}</p>\r\n\t\t\t\t<p>\r\n\t\t\t\t\t{FixFootnote}</p>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"color:#777; vertical-align:top; padding:10px 15px;font-size:14px;\">\r\n\t\t\t\t門市查詢：</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td colspan=\"2\" style=\"font-size:14px; padding:0px 15px 10px 15px;border-bottom:1px solid #eee;\">\r\n\t\t\t\t<a href=\"{STORE_URL}\" style=\"color:#2a6caf; word-break:break-all; \">{STORE_URL}</a></td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:750px;background-color:#f0f1f1; margin:0 auto; padding:0;color:#777;font-size:14px; font-family: 'Raleway',微軟正黑體, 'Microsoft JhengHei', sans-serif;\" width=\"100%\">\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td style=\"text-align:left; vertical-align:middle; padding:10px 15px;\">\r\n\t\t\t\t<div style=\"display:flex; align-content:flex-start; align-items:center;\">\r\n\t\t\t\t\t<img alt=\"\" src=\"https://edtwimage.azureedge.net/mwvcusmz0031/banner/logo-edenred.svg\" style=\"width:auto; height:auto; max-width:120px; max-height:35px;\" /></div>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td style=\"vertical-align:middle; padding:0px 15px 10px 15px; line-height:150%; font-size:14px;\">\r\n\t\t\t\t{CSURL}</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>",
+                "subject2": "",
+                "content2": "",
+                "subject3": null,
+                "content3": null,
+                "attachmentTemplateVersionId": 0,
+                "createdBy": null,
+                "createdOn": null,
+                "lastModifiedBy": "US-40307",
+                "lastModifiedOn": null
+            }
+        ],
+        "totalCount": 316
+    },
+    "message": "sucess",
+    "success": true
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\services\template.service.ts
+
+
+
+  constructor(private http: HttpClient, private readonly _authorizationLibraryService: AuthorizationLibraryService,) { 
+    this._search$.pipe(
+      tap(() => this._loading$.next(true)),
+      debounceTime(200),
+      switchMap(() => this._getTemplateList()),
+
+
+
+
+  private _getTemplateList(): Observable<GetTemplateList> {
+    const { pageSize, page, searchTerm, status, subType } = this._state;
+    const url = `${this.getURL()}api/Template${status ? '?status=' : ''}${status ? status : '?'}${subType ? '&sub_type=' + subType : ''}${page ? '&PageNumber=' + page : ''}${pageSize ? '&RowCount=' + pageSize: ''}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<GetTemplateList>;
+  }

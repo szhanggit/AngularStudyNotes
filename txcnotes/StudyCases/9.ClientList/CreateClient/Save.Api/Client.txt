@@ -1,0 +1,60 @@
+https://api-staging.txc.edenred.net/gateway/api/Client
+
+
+
+Payload:
+{"ClientId":0,"clientName":"Jlisf","invoiceRegisterNumber":"98708088","voucherIssuerId":null,"businessTypeId":"92","status":0,"securityAlgorithm":"1","logoMediaId":null,"bannerMediaId":null,"mandatoryAutoBilling":true,"invoiceTitle":"lkjljljk","subURL":null,"emailProviderCode":null,"emailSenderName":null,"emailSenderAddress":null,"applyEmailSubject":null,"smsProviderCode":null,"smsSenderName":null,"smsEntityId":null,"salesEmail":"Wlkj@edenred.com","memo":".,m.m.","description":"lkjlj","detailAddressLine":",m,m","district":",.m","cityId":"280","stateOrProvinceId":"277","postcode":",m,m","countryId":"7","addressStatus":1,"statusSubscriptionEnabled":false,"statusProviderId":null,"longitude":null,"latitude":null,"createClientContacts":[],"updateClientContacts":[],"emailHeaderMediaId":null,"emailFooterMediaId":null}
+
+
+Response:
+{
+    "data": {
+        "clientId": 3551,
+        "clientCode": "700000000001308",
+        "securityKey": "5C374DD0A849EB95"
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-create\client-create.component.ts
+
+  //Create Client API Invoke
+  onSubmit():void{
+    let clientCreateRequest =   this.clientService.SetClientRequestPayload( this.clientFormGroup,this.clientForm,this.INACTIVE);
+      this.clientService.create(clientCreateRequest).subscribe((data : BaseResponse)=>{
+        if(data.success){
+          this.backToList(this.navCreateClient);
+        }
+      },
+      (err : HttpErrorResponse)=>{
+        if(err.error.data instanceof Array){
+          for (let index = 0; index < err.error.data.length; index++) {
+            this.toast?.showDanger(err.error.data[index]);          
+          }
+        }
+        else{
+          this.toast?.showDanger(err.error.message);
+        }
+      });
+  }
+}
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+  create(data : ClientCreateRequest): Observable<BaseResponse>{
+    const url = `${this._getURL()}api/Client`;
+    const headers : HttpHeaders = this._authorizationLibraryService.getAMMHeaders(
+      this._tenantConfigService.getTenant());
+    return this.http.post(url, data, {headers}) as Observable<BaseResponse>;
+  }
+

@@ -1,0 +1,66 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+Payload:
+{,…}
+query
+: 
+"query{\n      dictionaries(\n          where: {\n              category: {eq: \"Country\"}\n              \n          }\n      ){\n          dictionaryId,\n          displayName\n      }\n    }"
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":6,\"displayName\":\"China\"},{\"dictionaryId\":7,\"displayName\":\"Hongkong\"},{\"dictionaryId\":8,\"displayName\":\"Korea\"},{\"dictionaryId\":9,\"displayName\":\"Singapore\"},{\"dictionaryId\":10,\"displayName\":\"Taiwan\"}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-form\client-form.component.ts
+  bindDropDown():void{
+    this.clientService.getDictionaryForDropdown("BusinessType").subscribe((data : BaseResponse)=>{
+      if(data.success){
+        this.businessTypeList = JSON.parse(data.data).dictionaries;
+      }
+    });
+    this.clientService.getDictionaryForDropdown("Country").subscribe((data : BaseResponse)=>{
+      if(data.success){
+        this.countryList = JSON.parse(data.data).dictionaries;
+      }
+    });
+    if(this.clientFormGroup.contains('voucherIssuer')){
+      this.clientService.getDictionaryForDropdown("VoucherIssuer").subscribe((data : BaseResponse)=>{
+        if(data.success){
+          this.voucherIssuerList = JSON.parse(data.data).dictionaries;
+        }
+      });
+    }
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\services\client.service.ts
+
+getDictionaryForDropdown(category : string = "", parent_id : number = 0): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+
+    let parentIdClause = parent_id > 0 ? `parentId: {eq: ${parent_id}}` : "";
+
+    const data = { query: `query{
+      dictionaries(
+          where: {
+              category: {eq: "${category}"}
+              ${parentIdClause}
+          }
+      ){
+          dictionaryId,
+          displayName
+      }
+    }`};
+   
+    return this.http.post(url, data , { 
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant()) 
+    }) as Observable<BaseResponse>;
+  }

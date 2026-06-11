@@ -1,0 +1,33 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/create?key=297F3633-1117-4B7F-852E-9E011C783426&isDraft=true
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/create',
+    component: CreateProductComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\create-product.component.html
+
+    <app-product-properties *ngIf="step === 4 && !masterVoucherKeys.includes(selectedType.key) || step === 5 && masterVoucherKeys.includes(selectedType.key)" 
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [selectedExternalProperties]="currentExternalProperties" 
+        [advanceSettingsFormGroup]="advanceSettingsFormGroup"
+        (onExternalPropertiesChanged)="OnExternalPropertyChanged($event)">
+    </app-product-properties>
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-properties\product-properties.component.html
+
+
+
+
+
+
+
+
+
+
+
+

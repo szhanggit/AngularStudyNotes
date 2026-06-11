@@ -1,0 +1,57 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query\n      {\n        media(where: {and: {keyword: {contains: \"\"}, type: {eq: 3}}}) {\n            items {\n                mediaId\n                fileName\n                fileContentType\n                nodeUrl\n                account\n                blobName\n                type\n                width\n                height\n                keyword\n            }\n        }\n    }"}
+
+
+
+{
+    "data": "{\"media\":{\"items\":[{\"mediaId\":7,\"fileName\":\"a7f20e70-ecf1-44a5-a1db-59f0d6b01b95\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/a7f20e70-ecf1-44a5-a1db-59f0d6b01b95.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/a7f20e70-ecf1-44a5-a1db-59f0d6b01b95.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"TPS99004\"},{\"mediaId\":9,\"fileName\":\"820db90b-daf9-4ab9-9144-389834a256f9\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/820db90b-daf9-4ab9-9144-389834a256f9.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/820db90b-daf9-4ab9-9144-389834a256f9.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"BDJ01002\"},{\"mediaId\":10,\"fileName\":\"0eca093b-1bf2-4038-b508-4b67c4b90996\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/0eca093b-1bf2-4038-b508-4b67c4b90996.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/0eca093b-1bf2-4038-b508-4b67c4b90996.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"HDZ03002\"},{\"mediaId\":11,\"fileName\":\"5fe553c0-0ead-47e6-a14c-b81848ff26a0\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/5fe553c0-0ead-47e6-a14c-b81848ff26a0.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/5fe553c0-0ead-47e6-a14c-b81848ff26a0.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"HDZ03004\"},{\"mediaId\":12,\"fileName\":\"471f2487-8f1f-47c5-82b5-c262fc02dcc4\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/471f2487-8f1f-47c5-82b5-c262fc02dcc4.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/471f2487-8f1f-47c5-82b5-c262fc02dcc4.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"KFC06021\"},{\"mediaId\":13,\"fileName\":\"9128b54f-68d0-4551-9795-b8700adcc2bb\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/9128b54f-68d0-4551-9795-b8700adcc2bb.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/9128b54f-68d0-4551-9795-b8700adcc2bb.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"KFC06035\"},{\"mediaId\":14,\"fileName\":\"b5d3ea69-41d1-4cd7-80c8-294fbb0a6f66\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/b5d3ea69-41d1-4cd7-80c8-294fbb0a6f66.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/b5d3ea69-41d1-4cd7-80c8-294fbb0a6f66.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"MOS03060\"},{\"mediaId\":16,\"fileName\":\"c771ce0e-0c48-47be-ad8f-faa8d294f73a\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/c771ce0e-0c48-47be-ad8f-faa8d294f73a.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/c771ce0e-0c48-47be-ad8f-faa8d294f73a.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"WWH06073\"},{\"mediaId\":17,\"fileName\":\"9581e7aa-d890-4f0f-bf03-bfa926ae0ffb\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/9581e7aa-d890-4f0f-bf03-bfa926ae0ffb.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/9581e7aa-d890-4f0f-bf03-bfa926ae0ffb.jpg\",\"type\":3,\"width\":\"624\",\"height\":\"220\",\"keyword\":\"KFC06021\"},{\"mediaId\":18,\"fileName\":\"b8898fb7-15f2-4466-b869-d1f97bc9b87a\",\"fileContentType\":\"image/jpeg\",\"nodeUrl\":\"/txc-tw/staging/media-library/b8898fb7-15f2-4466-b869-d1f97bc9b87a.jpg\",\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/b8898fb7-15f2-4466-b869-d1f97bc9b87a.jpg\",\"type\":3,\"width\":\"500\",\"height\":\"500\",\"keyword\":\"VIS003001\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\components\media-library\media-library-list\media-library-list.component.ts
+import { MediaService } from 'src/app/system/services/media.service';
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\System\src\app\system\services\media.service.ts
+  constructor(private http: HttpClient,
+    private readonly _tenantConfigService: TenantConfigService,
+    private readonly _authorizationLibraryService: AuthorizationLibraryService) { 
+      this._search$.pipe(
+        switchMap(() => this.getMediaList())
+
+
+
+
+  private getMediaList(): Observable<BaseResponse> {
+    const { category, searchTerm } = this._state;
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const data = {
+      query: `query
+      {
+        media(where: {and: {keyword: {contains: "${searchTerm}"}, type: {eq: ${category}}}}) {
+            items {
+                mediaId
+                fileName
+                fileContentType
+                nodeUrl
+                account
+                blobName
+                type
+                width
+                height
+                keyword
+            }
+        }
+    }`};
+
+    return this.http.post(url, data, {
+      headers: this._authorizationLibraryService.getAMMHeaders(this._tenantConfigService.getTenant())
+    }) as Observable<BaseResponse>;
+  }

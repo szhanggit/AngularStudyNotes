@@ -1,0 +1,27 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/clients/details?clientId=3545&identityCode=700000000001302
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'clients',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.clientPath,
+      exposedModule: './client.module'
+    }).then(m => m.ClientModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\client-routing.module.ts
+  {
+    path : 'details',
+    component : ClientDetailsComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\client-details\client-details.component.html
+<button class="btn btn-primary rounded-pill float-end font-12 px-4" *ngIf="true" >+ Create quotation</button>   //This button will not do anything.
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Clients\src\app\client\components\quotation-list\quotation-list.component.html

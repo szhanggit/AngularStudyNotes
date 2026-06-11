@@ -1,0 +1,53 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"\n      query {\n        templates(where:\n          {\n              and: [\n                  {status: { eq: 1}}\n                  {type: { eq: 1}}\n                  {subType: { eq: 1}}\n                  {templateName: {contains: \"2015Number\"}}\n                  \n              ]\n          },\n          skip: 0,\n          take: 10\n        )\n        {\n          items {\n              templateId\n              templateName\n              type\n              defaultLanguage\n          }\n        }\n      }"}
+
+
+
+{
+    "data": "{\"templates\":{\"items\":[{\"templateId\":7,\"templateName\":\"2015Number\",\"type\":1,\"defaultLanguage\":66}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+      debounceTime(1000),
+      switchMap(() => this.masterTemplateService.getTemplatesList(this.type, this.type, this.templateName)),
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\master-product-template.service.ts
+  getTemplatesList(type: TemplateType, subType: TemplateSubType, term: string = "", templateId: number = 0): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const templateNameCondition = term ? `{templateName: {contains: "${term}"}}` : "";
+    const templateIdCondition = templateId > 0 ? `templateId: { eq: ${templateId}}}` : "";
+
+    const body = {
+      query: `
+      query {
+        templates(where:
+          {
+              and: [
+                  {status: { eq: 1}}
+                  {type: { eq: ${type}}}
+                  {subType: { eq: ${subType}}}
+                  ${templateNameCondition}
+                  ${templateIdCondition}
+              ]
+          },
+          skip: 0,
+          take: 10
+        )
+        {
+          items {
+              templateId
+              templateName
+              type
+              defaultLanguage
+          }
+        }
+      }`
+    }
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
