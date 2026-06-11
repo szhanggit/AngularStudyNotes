@@ -1,0 +1,13 @@
+<p>merchant works!</p>
+<button type="button" routerLink="/merchants">Normal</button>
+<button type="button" routerLink="/merchants/swap">Swap</button>
+
+<div>
+    <span>First Start!!!</span><router-outlet></router-outlet><span>First End!!!</span>
+</div>
+<div>
+    <span>Second Start!!!</span><router-outlet name="left"></router-outlet><span>Second End!!!</span>
+</div>
+<div>
+    <span>Third Start!!!</span><router-outlet name="right"></router-outlet><span>Third End!!!</span>
+</div>

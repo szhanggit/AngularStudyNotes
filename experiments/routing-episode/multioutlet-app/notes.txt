@@ -1,0 +1,15 @@
+ng new multioutlet-app --routing
+cd multioutlet-app
+ng generate module order --route orders --module app.module
+ng generate module product --route products --module app.module
+ng generate module client --route clients --module app.module
+ng generate module csportal --route csportal --module app.module
+ng generate module merchant --route merchants --module app.module
+	cd D:\Study\AngularStudyNotes\experiments\multioutlet-app\src\app\merchant
+	ng generate c shop
+	ng generate c dobatchtransaction
+	ng generate c createmerchant
+
+
+C:\AngularStudyNotes\experiments\multioutlet-app\src\app\merchant\merchant.component.html
+C:\AngularStudyNotes\experiments\multioutlet-app\src\app\merchant\merchant-routing.module.ts
