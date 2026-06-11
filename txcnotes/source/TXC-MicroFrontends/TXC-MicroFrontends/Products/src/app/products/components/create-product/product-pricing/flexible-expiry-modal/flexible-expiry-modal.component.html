@@ -1,0 +1,55 @@
+<div class="modal-body font-14">
+    <div class="text-center">
+        <span class="font-18 text-dark" id="modalLabel"><strong>Select flexible expiry condition</strong></span>
+    </div>
+
+    <div class="my-3 position-relative" id="stopIssueTimeContainer">
+        <div class="row mb-4">
+            <div class="col-6">
+                <select2 [data]="expirySchemeFilterSelect2Data!" [(ngModel)]="selectedFilter" placeholder="Select"
+                    displaySearchStatus="hidden" resultMaxHeight="500px">
+                </select2>              
+            </div>
+        </div>
+
+        <div class="row font-12">
+            <div class="col-2 text-center font-14">
+                <input type="checkbox" class="form-check-input" id="customCheck1" #toggleCheckbox
+                    (change)="toggleAllCheckboxes(toggleCheckbox.checked)" [checked]="toggleCheckboxStatus">
+            </div>
+            <div class="col-5">
+                <strong>Expiry Date Type</strong>
+            </div>
+            <div class="col-5">
+                <strong>Expiry Condition</strong>
+            </div>
+            <hr class="my-2">
+        </div>
+        <ng-container>
+            <ngx-simplebar style="max-height: 250px; overflow-x: hidden;">
+                <div class="row" *ngFor="let expiryScheme of displayedExpirySchemes; let index = index">
+                    <div class="col-2 text-center">
+                        <input type="checkbox" class="form-check-input" id="customCheck1"
+                            [checked]="expiryScheme.checked" #checkbox
+                            (change)="toggleCheckboxCheck(expiryScheme)">
+                    </div>
+                    <div class="col-5">
+                        {{ expirationPolicyTypeEnum[expiryScheme.type] | stringSplitByCapitalLetter }}
+                    </div>
+                    <div class="col-5">
+                        {{ expiryScheme.displayName | stringSplitByCapitalLetter }}
+                    </div>
+                    <hr class="my-2">
+                </div>
+            </ngx-simplebar>
+        </ng-container>
+    </div>
+
+    <div class="row">
+        <div class="text-center">
+            <button type="button" class="btn btn-secondary rounded-pill font-12 px-3" (click)="closeModal(false)">Cancel</button>
+            <button type="button" class="btn btn-primary rounded-pill font-12 mx-2 px-3" (click)="closeModal(true)" [disabled]="!getSelectedSchemes().length">Confirm ({{
+                getSelectedSchemes().length }})</button>
+        </div>
+    </div>
+</div>

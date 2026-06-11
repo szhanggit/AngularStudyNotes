@@ -1,0 +1,514 @@
+<ng-container *ngTemplateOutlet="productDetails"></ng-container>
+<ng-container *ngTemplateOutlet="pricingContractExpiry"></ng-container>
+<ng-container *ngTemplateOutlet="productTemplateImage"></ng-container>
+<ng-container *ngTemplateOutlet="externalProperties"></ng-container>
+
+<ng-template #productDetails>
+    <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn btn-sm rounded-circle"
+                    [class]="productDetailsCollapsed ? 'btn-light' : 'btn-secondary'" (click)="pdCollapse.toggle()"
+                    [attr.aria-expanded]="!productDetailsCollapsed" aria-controls="collapseExample">
+                    <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">
+                    Product details
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12 px-4" (click)="jumpStep(1)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pdCollapse="ngbCollapse" class="mt-3" [(ngbCollapse)]="productDetailsCollapsed">
+            <!-- BASIC INFO -->
+            <div class="row font-14">
+                <div>
+                    <span class="font-16"><strong>Basic Info</strong></span>
+                </div>
+                <div class="row my-1">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product name</div>
+                            <div class="col-6 bold">{{ detailsControls.productName.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product code</div>
+                            <div class="col-6 bold">{{ detailsControls.productCode.value }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">External code</div>
+                            <div class="col-6 bold">{{ detailsControls.externalProductCode.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-3">Product Issuer</div>
+                            <div class="col-9 bold">{{ detailsControls.productIssuer.value | issuertype }} <span
+                                    *ngIf="detailsControls.resellerMerchantName.value"> - {{
+                                    detailsControls.resellerMerchantName.value.merchantName }} </span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-3">
+                        <div class="font-14">Product description</div>
+                    </div>
+                    <div class="col-9">
+                        <strong>{{ detailsControls.productDescription.value || '--' }}</strong>
+                    </div>
+                </div>
+                <div class="row mb-1" *ngIf="selectedTenant === 'TW'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product Tag</div>
+                            <div class="col-6 bold">{{ detailsControls.productTag.value | producttag }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" *ngIf="selectedTenant === 'TW'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Multiple selection type</div>
+                            <div class="col-6 bold">{{ detailsControls.multipleSelectionType.value |
+                                multipleselectiontype }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" *ngIf="selectedTenant === 'IN'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product Category</div>
+                            <div class="col-6 bold">{{ detailsControls.productCategory.value |
+                                productcategory }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" *ngIf="selectedTenant === 'GL'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Merchant Acquirer</div>
+                            <div class="col-6 bold">{{ detailsControls.voucherIssuerId.value |
+                                dictionarypipe : merchantAcquirers }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1" *ngIf="selectedTenant !== 'GR'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Available Brand</div>
+                            <div class="col-6 bold">{{
+                                detailsControls.brandName.value.brandName || '--' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Merchant & SKU -->
+            <div class="row my-2">
+                <div>
+                    <span class="font-16"><strong>Merchant & SKU</strong></span>
+                </div>
+                <ng-container *ngIf="selectedSKU && selectedMerchant && this.selectedSKU.contractSKUCosts.length">
+                    <app-merchant-sku [selectedSKU]="selectedSKU" [selectedMerchant]="selectedMerchant" [selectedType]="selectedType"
+                        [isMonoMerchant]="isMonoMerchant" [viewMode]="true">
+                    </app-merchant-sku>
+                </ng-container>
+            </div>
+
+            <!-- Acceptance Loop -->
+            <div class="row my-2">
+                <span class="font-16"><strong>Acceptance loop</strong></span>
+                <app-acceptance-loop-table [isReview]="true" [isMonoMerchant]="isMonoMerchant" 
+                    [acceptanceLoopList]="acceptanceLoopList" [shopCount]="shopCount"
+                    [merchantId]="selectedMerchant?.merchantId" [selectedMerchant]="selectedMerchant"
+                    [selectedAcceptanceLoopId]="detailsControls.acceptanceLoopId.value">
+                </app-acceptance-loop-table>
+            </div>
+
+            <!-- Voucher Number Rule -->
+            <div class="row my-2">
+                <span class="font-16"><strong>Voucher number rule</strong></span>
+                <app-voucher-number-rule-table [selectedSKU]="selectedSKU" [program]="merchantProgram"
+                    [voucherNumberRuleList]="voucherNumberRuleList">
+                </app-voucher-number-rule-table>
+            </div>
+
+            <!-- ADDITIONAL INFO -->
+            <div class="row my-2">
+                <div class="mb-2"><span class="font-16 mb-2"><strong>Additional information</strong></span></div>
+                <div class="row mb-1">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-3">Note for internal used (Operation)</div>
+                            <div class="col-9 bold">{{ detailsControls.operationNote.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-3">Note for internal used (Sales)</div>
+                            <div class="col-9 bold">{{ detailsControls.salesNote.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-3">Note for internal used (Customer service)</div>
+                            <div class="col-9 bold">{{ detailsControls.customerServiceNote.value || '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #pricingContractExpiry>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn btn-sm rounded-circle" (click)="pceCollapse.toggle()"
+                    [class]="pricingContractExpiryCollapsed ? 'btn-light' : 'btn-secondary'"
+                    [attr.aria-expanded]="!pricingContractExpiryCollapsed" aria-controls="collapseExample">
+                    <i [class]="pricingContractExpiryCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">Pricing & expiry</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12 px-4" (click)="jumpStep(2)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pceCollapse="ngbCollapse" class="mt-3" [(ngbCollapse)]="pricingContractExpiryCollapsed">
+            <!-- Default pricing -->
+            <div class="row mb-2">
+                <div class="row">
+                    <span class="font-16"><strong>Default pricing</strong></span>
+                    <hr class="my-2">
+                </div>
+                <!-- Product based & Smart Booklet -->
+                <ng-container
+                    *ngIf="selectedType.key === ProductType.ProductBased || selectedType.key === ProductType.SmartBooklet">
+                    <div class="row">
+                        <div class="col-4">Default selling price (prepaid with tax)</div>
+                        <div class="col-2 bold">{{
+                            parseFloat(pricingControls.sellingPricePrepaidWithTax.value).toFixed(4) }}</div>
+                        <div class="col-4">Default selling price (prepaid)</div>
+                        <div class="col-2 bold">{{ parseFloat(pricingControls.sellingPricePrepaid.value).toFixed(4) }}
+                        </div>
+                        <hr class="my-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-4">Default selling price (postpaid with tax)</div>
+                        <div class="col-2 bold">{{
+                            parseFloat(pricingControls.sellingPricePostpaidWithTax.value).toFixed(4) }}</div>
+                        <div class="col-4">Default selling price (postpaid)</div>
+                        <div class="col-2 bold">{{ parseFloat(pricingControls.sellingPricePostpaid.value).toFixed(4) }}
+                        </div>
+                        <hr class="my-2">
+                    </div>
+                </ng-container>
+                <!-- Value based -->
+                <ng-container *ngIf="selectedType.key === ProductType.ValueBased">
+                    <div class="row">
+                        <div class="col-4">Default selling price (prepaid with tax)</div>
+                        <div class="col-2 bold">{{
+                            parseFloat(pricingControls.sellingPricePrepaidWithTax.value).toFixed(4) }}</div>
+                        <div class="col-4">Default selling price (prepaid)</div>
+                        <div class="col-2 bold">{{ parseFloat(pricingControls.sellingPricePrepaid.value).toFixed(4) }}
+                        </div>
+                        <hr class="my-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-4 offset">Default selling price (prepaid %)</div>
+                        <div class="col-2 bold">{{
+                            parseFloat(pricingControls.customerFeePrepaidWithTax.value).toFixed(4) }}</div>
+                        <hr class="my-2">
+                    </div>
+                </ng-container>
+                <!-- Dynamic Face Value -->
+                <ng-container *ngIf="selectedType.key === ProductType.DynamicFaceValue">
+                    <div class="row">
+                        <div class="col-4">Default selling price (prepaid %)</div>
+                        <div class="col-2 bold">{{
+                            parseFloat(pricingControls.customerFeePrepaidWithTax.value).toFixed(4) }}</div>
+                        <hr class="my-2">
+                    </div>
+                </ng-container>
+            </div>
+            <!-- Expiry scheme -->
+            <div class="row mb-3">
+                <div class="mb-2">
+                    <span class="font-16"><strong>Expiry Scheme</strong></span>
+                </div>
+                <app-expiry-scheme *ngIf="merchantProgram" [merchantProgram]="merchantProgram"
+                    [fixExpiryDate]="fixExpiryDate"
+                    [selectedTenant]="selectedTenant" [expirySchemeList]="expirySchemeList"
+                    (stepHasIssue)="OnStepHasIssue($event)">
+                </app-expiry-scheme>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productTemplateImage>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn btn-sm rounded-circle" (click)="ptiCollapse.toggle()"
+                    [class]="productTemplateImageCollapsed ? 'btn-light' : 'btn-secondary'"
+                    [attr.aria-expanded]="!productTemplateImageCollapsed" aria-controls="collapseExample">
+                    <i [class]="productTemplateImageCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">Product template & image</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12 px-4" (click)="jumpStep(3)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #ptiCollapse="ngbCollapse" class="mt-3" [(ngbCollapse)]="productTemplateImageCollapsed">
+            <!-- Dynamic face value banner settings -->
+            <div class="row mt-3 mb-2" *ngIf="selectedType.key === ProductType.DynamicFaceValue">
+                <div class="col-8">
+                    <div class="bold font-16">Dynamic face value banner settings</div>
+                    <div class="row font-14 mt-2">
+                        <div class="col-6">
+                            Hex Color Code
+                        </div>
+                        <div class="col-6 bold">
+                            {{ templateControls.hexColor.value || '--' }}
+                        </div>
+                    </div>
+                    <div class="row font-14 my-2">
+                        <div class="col-6">
+                            Font size
+                        </div>
+                        <div class="col-6 bold">
+                            {{ templateControls.fontSize.value || '--' }}
+                        </div>
+                    </div>
+                    <div class="row font-14 my-2">
+                        <div class="col-6">
+                            Point X
+                        </div>
+                        <div class="col-6 bold">
+                            {{ templateControls.pointX.value || '--' }}
+                        </div>
+                    </div>
+                    <div class="row font-14 mb-2">
+                        <div class="col-6">
+                            Point Y
+                        </div>
+                        <div class="col-6 bold">
+                            {{ templateControls.pointY.value || '--' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Templates -->
+            <div class="row" *ngIf="getTemplateListFormGroup(0).controls['templateName'].value">
+                <div class="col-8">
+                    <div class="bold font-16">
+                        Voucher page design
+                    </div>
+                    <div class="row font-14">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">{{ getTemplateListFormGroup(0).controls['templateName'].value.templateName
+                                ?? getTemplateListFormGroup(0).controls['templateName'].value }}</div>
+                        </div>
+                        <div class="col-2">
+                            <a href="javascript:void(0)" class="text-primary" (click)="ShowPreview(1)">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2" *ngIf="getTemplateListFormGroup(1).controls['templateName'].value">
+                <div class="col-8">
+                    <div class="bold font-16">
+                        SMS design
+                    </div>
+                    <div class="row font-14">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">{{ getTemplateListFormGroup(1).controls['templateName'].value.templateName
+                                ?? getTemplateListFormGroup(1).controls['templateName'].value }}</div>
+                        </div>
+                        <div class="col-2">
+                            <a href="javascript:void(0)" class="text-primary" (click)="ShowPreview(2)">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Wallet Image -->
+            <div class="row mt-3 mb-2" *ngIf="templateControls.addToWallet.value">
+                <div class="col-8">
+                    <div class="bold font-16">Apple Wallet / Google Pay</div>
+                    <div class="row font-14 mt-2">
+                        <div class="col-6">
+                            Wallet Status
+                        </div>
+                        <div class="col-6 bold">
+                            {{ templateControls.walletStatus.value ? 'On' : 'Off' }}
+                        </div>
+                    </div>
+                    <div class="row font-14 my-2">
+                        <div class="col-6">
+                            Description shown on Apple Wallet / Google Pay
+                        </div>
+                        <div class="col-6 bold">
+                            {{ templateControls.walletDescription.value || '--' }}
+                        </div>
+                    </div>
+                    <div class="row font-14 mb-2" *ngIf="templateControls.walletImage?.value?.nodeUrl">
+                        <div class="col-6">
+                            Wallet Image
+                        </div>
+                        <div class="col-6 bold">
+                            <div *ngIf="templateControls.walletImage.value?.nodeUrl">
+                                <div class="dashed d-flex justify-content-center p-3">
+                                    <div class="d-flex flex-column text-center">
+                                        <img [src]="templateControls.walletImage.value?.nodeUrl"
+                                            [height]="templateControls.walletImage.value?.height"
+                                            [width]="templateControls.walletImage.value?.width" class="img-thumbnail">
+                                        <span class="text-secondary mt-2 font-14"><strong>{{
+                                                templateControls.walletImage.value?.keyword }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #externalProperties>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn btn-sm rounded-circle" (click)="epCollapse.toggle()"
+                    [class]="externalPropertiesCollapsed ? 'btn-light' : 'btn-secondary'"
+                    [attr.aria-expanded]="!externalPropertiesCollapsed" aria-controls="collapseExample">
+                    <i [class]="externalPropertiesCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title m-2">Advanced settings</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-outline-secondary font-12 px-4" (click)="jumpStep(4)">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #epCollapse="ngbCollapse" class="mt-3" [(ngbCollapse)]="externalPropertiesCollapsed">
+            <div class="row">
+                <div class="col-6">
+                    <div class="my-2 bold">
+                        Merchant Condition
+                    </div>
+                    <div class="font-14">
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Minimum redeem quantity</div>
+                            </div>
+                            <div class="col-6 bold">
+                                {{ advanceSettingsControls.minRedeemQuantity.value || '--' }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Maximum Issue Quantity</div>
+                            </div>
+                            <div class="col-6 bold">
+                                {{ advanceSettingsControls.maxIssuingQuantity.value || '--' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="my-2 bold">
+                        Redemption settings
+                    </div>
+                    <div class="font-14">
+                        <div class="row" *ngIf="selectedTenant === 'TW'">
+                            <div class="col-6">
+                                <div>Reminder</div>
+                            </div>
+                            <div class="col-6 bold">
+                                {{ advanceSettingsControls.reminderId.value |
+                                dictionarybynamepipe : reminders }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Reversal limit</div>
+                            </div>
+                            <div class="col-6 bold">
+                                {{ advanceSettingsControls.reversalLimitId.value |
+                                    reverselimitpipe : reversalLimits }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">Pre-authorization limit</div>
+                            <div class="col-6 bold">
+                                {{ advanceSettingsControls.preAuthorizationExpiryInterval.value }}
+                                {{ advanceSettingsControls.preAuthorizationExpiryUnit.value | intervalUnit }}
+                            </div>
+                        </div>
+                        <div class="row"
+                            *ngIf="selectedType.key === ProductType.ValueBased || selectedType.key === ProductType.DynamicFaceValue">
+                            <div class="col-6">Redemption Frequency</div>
+                            <div class="col-6 bold">
+                                {{ advanceSettingsControls.useTimeControl.value }} within
+                                {{ advanceSettingsControls.useTimeControlInterval.value }} days
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 mb-2">
+                <div class="bold">
+                    External Properties
+                </div>
+                <div class="row mt-3 mb-2 bold font-12">
+                    <div class="col-4 text-left">Property Name</div>
+                    <div class="col-4 text-left">Property Value</div>
+                    <div class="col-4 text-left">Description</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row font-14" *ngFor="let externalProperty of selectedExternalProperties;">
+                    <div class="col-4 text-left">{{ externalProperty.propertyName || '--' }}</div>
+                    <div class="col-4 text-left">{{ externalProperty.propertyValue || '--' }}</div>
+                    <div class="col-4 text-left">{{ externalProperty.description || '--' }}</div>
+                    <hr class="my-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

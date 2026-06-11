@@ -1,0 +1,111 @@
+<div class="modal-header">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true" (click)="closeModal()"></button>
+</div>
+
+
+<div class="modal-body" [formGroup]="formGroup">
+    <div class="container">
+        <div *ngIf="!isLoadSku">
+            <div class="row">
+                <span class="font-18 text-dark bold text-center">
+                    Edit contract period
+                </span>
+            </div>
+            <div class="row mt-2">
+                <span class="text-secondary font-14">
+                    Contract period
+                </span>
+                <span class="text-secondary font-14 ">
+                    <span *ngIf="!isFutureDate" class="mt-1 mt-1 me-2"> From {{contractDetails.startDate |
+                        date:'yyyy/MM/dd' }} to </span>
+                    <lib-date-picker
+                        (datePickerValues)="onDateSelectionChange($event)"
+                        formControlName="period" 
+                        [displayMonths]="2" 
+                        [type]="!isFutureDate ? 'simple' : 'range'" 
+                        [disablePastDates]="true"
+                        [writeFullObject]="false"
+                    >
+                    </lib-date-picker>
+                </span>
+            </div>
+        </div>
+
+        <div *ngIf="isLoadSku">
+            <div class="row">
+                <span class="font-18 text-dark bold text-center">
+                    Select SKU to apply new valid period
+                </span>
+            </div>
+            <div class="col-12  auto-overflow">
+                <table class="table table-sm table-centered mb-0">
+                    <thead>
+                        <tr class="font-12">
+                            <th><input type="checkbox" formControlName="allcheckboxchecked"  class="form-check-input" [(ngModel)]="allcheckboxchecked" (change)="updateSKUState($event)" />
+                            </th>
+                            <th>SKU Name </th>
+                            <th>SKU Code</th>
+                            <th>Cost</th>
+                            <th>Valid Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="font-14 bold" *ngFor="let sku of allSKUList;index as i"
+                            class="{{addDisableClass(sku.isDisable)}}"
+                            [ngClass]="{'text-danger' : sku.needRedErrorColor}">
+                            <td><input type="checkbox"  [(ngModel)]="sku.isSelected" (change)="updateMasterCheckboxState()" class="form-check-input"  name="chk_{{sku.skuName}}_{{i}}"  
+                        formControlName="isSKUSelected_{{i}}"
+                           /> 
+                            </td>
+                            <td>{{ sku.skuName }} </td>
+                            <td>{{ sku.skuNumber }}</td>
+                            <td>{{sku.cost}}</td>
+                            <td>{{sku.validStartDate | date :'yyyy/MM/dd' }} - {{ sku.validEndDate | date :'yyyy/MM/dd'
+                                }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 px-3" >
+            <button *ngIf="isLoadSku" class="btn btn-secondary font-12 w-100 rounded-pill" (click)="Back()">
+                Back
+            </button>
+        </div>
+        <div  *ngIf="!isLoadSku" class="col-6 px-3" >
+            <button class="btn btn-primary font-12 w-100 rounded-pill" 
+                (click)="renderSKUList()">
+                Next
+            </button>
+        </div>
+        <div class="col-6 px-3" >
+            <button *ngIf="isLoadSku" class="btn btn-primary rounded-4 fs-5 w-100" [ngClass]="{'disabled' : isContractCostBroundaryIssue}"
+                (click)="updateContractPeriod()">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #popup let-modal>
+    <div class="modal-header border-0 text-center d-block">
+        <h4 class="modal-title f-color">Edit contract period failed!</h4>
+    </div>
+    <div class="modal-body">
+        <p class="d-flex justify-content-between ">{{ popupMessageString }}</p>
+    </div>
+    <div class="modal-footer border-0 d-block">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12">
+                <div class="col-md-10 offset-md-3">
+                    <button type="button" class="btn btn-primary rounded-pill  fs-5 w-50"
+                        (click)="closePopup()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

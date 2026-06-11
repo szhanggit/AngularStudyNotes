@@ -1,0 +1,555 @@
+<ng-container *ngTemplateOutlet="productDetails"></ng-container>
+<ng-container *ngTemplateOutlet="productCombo"></ng-container>
+<ng-container *ngTemplateOutlet="pricingAndExpiry"></ng-container>
+<ng-container *ngTemplateOutlet="productTemplateImage"></ng-container>
+<ng-container *ngTemplateOutlet="advanceSetting"></ng-container>
+
+<ng-template #productDetails>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn ratio ratio-1x1 rounded-circle btn-secondary"
+                    (click)="toggleContainer('productDetailsCollapsed')" [attr.aria-expanded]="!productDetailsCollapsed"
+                    aria-controls="collapseExample">
+                    <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"
+                        style="font-size: 1.25em;"></i>
+                </button>
+                <span class="text-dark collapse-title m-2 bold">
+                    Product Details
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToStep(1)" *ngIf="isProductEditor">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productDetailsCollapsed">
+            <!-- BASIC INFO -->
+            <div class="row font-14">
+                <div>
+                    <span class="font-16"><strong>Basic Info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product name</div>
+                            <div class="col-6 bold">{{ productDetail?.productName ?? '' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product code</div>
+                            <div class="col-6 bold">{{ productDetail?.productCode ?? '' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">Product description</div>
+                            <div class="col-6 bold" *ngIf="isEdit">{{ productDetail?.description ? productDetail?.description : '--' }}</div>
+                            <div class="col-6 bold" *ngIf="!isEdit">{{ productDetail?.productDescription ? productDetail?.productDescription : '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant.name == TENANT_NAME_GL">
+                    <div class="col-6">
+                        <div class="row">
+                            <!-- Merchant acquirer (only for GL) -->
+                            <div class="col-6">Merchant acquirer</div>
+                            <div class="col-6 bold">{{ productDetail?.merchantAcquirer }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant.name == TENANT_NAME_IN && isSuperVoucher">
+                    <div class="col-6">
+                        <div class="row">
+                            <!-- Super voucher type (only for IN and supuer voucher) -->
+                            <div class="col-6">Super voucher type</div>
+                            <div class="col-6 bold">{{ productDetail?.superVoucherType ? productDetail?.superVoucherType : '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- AVAILABLE MERCHANT -->
+            <div class="row my-2">
+                <div>
+                    <h5>Merchant & SKU</h5>
+                </div>
+                <div class="row">
+                    <table class="table table-centered">
+                        <thead class="font-12 bold">
+                            <tr>
+                                <th scope="col" width="20%">Merchant Name</th>
+                                <th scope="col">SKU Name / <br /> SKU Code</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-14">
+                            <tr>
+                                <td>
+                                    <button type="text" class="btn btn-link px-0 py-0">{{ merchantName }}</button>
+                                </td>
+                                <td *ngIf="!isEdit">
+                                    <div class="bold">{{ productDetail?.productName ?? '' }}</div>
+                                    <div class="font-12">{{ productDetail?.productCode ?? '' }}</div>
+                                </td>
+                                <td *ngIf="isEdit">
+                                    <div class="bold">{{ productDetail?.contractSKU[0].skuName ?? '' }}</div>
+                                    <div class="font-12">{{ productDetail?.contractSKU[0].skuNumber ?? '' }}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- VOUCHER NUMBER RULE -->
+            <div class="row">
+                <div>
+                    <h5>Voucher Number Rule</h5>
+                </div>
+                <app-voucher-number-rule-table *ngIf="program" [selectedSKU]="undefined" [program]="program"
+                    [voucherNumberRuleList]="voucherNumberRuleList"
+                    [errorMessage]="ERROR_SHOWING_VNR"></app-voucher-number-rule-table>
+            </div>
+            <!-- ADDITIONAL INFO -->
+            <div class="row my-2">
+                <div class="col-12"><span class="font-16"><strong>Additional information</strong></span></div>
+
+                <div class="col-3">Note for internal used (Operation)</div>
+                <div class="col-9 bold">{{ productDetail?.operationNote ? productDetail?.operationNote : '--' }}</div>
+
+                <div class="col-3">Note for internal used (Sales)</div>
+                <div class="col-9 bold">{{ productDetail?.salesNote ? productDetail?.salesNote : '--' }}</div>
+
+                <div class="col-3">Note for internal used (Customer service)</div>
+                <div class="col-9 bold">{{ productDetail?.customerServiceNote ? productDetail?.customerServiceNote :
+                    '--' }}</div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productCombo>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn ratio ratio-1x1 rounded-circle btn-secondary"
+                    (click)="toggleContainer('productComboCollapsed')" [attr.aria-expanded]="!productComboCollapsed"
+                    aria-controls="collapseExample">
+                    <i [class]="productComboCollapsed ? 'uil-angle-down' : 'uil-angle-up'"
+                        style="font-size: 1.25em;"></i>
+                </button>
+                <span class="text-dark collapse-title m-2 bold">
+                    Product Combo
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToStep(2)" *ngIf="isProductEditor">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pcCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productComboCollapsed">
+            <!-- Product list for this combo -->
+            <div class="row my-2">
+                <div>
+                    <h5>Product list for this combo</h5>
+                </div>
+                <div class="row my-2">
+                    <table class="table table-centered">
+                        <thead class="font-12 bold">
+                            <tr *ngIf="isSmartChoiceVoucher">
+                                <th scope="col" width="5%"></th>
+                                <th scope="col" width="35%">Product Name</th>
+                                <th scope="col" width="20%">Product Code</th>
+                                <th scope="col" width="20%">Product Type</th>
+                                <th scope="col" width="15%">Face Value with Tax</th>
+                                <th *ngIf="isEdit" scope="col" width="5%">Status</th>
+                            </tr>
+                            <tr *ngIf="isSuperVoucher">
+                                <th scope="col" width="5%"></th>
+                                <th scope="col" width="30%">Product Name</th>
+                                <th scope="col" width="15%">Product Code</th>
+                                <th scope="col" width="15%">Product Type</th>
+                                <th scope="col" width="15%">Face Value with Tax</th>
+                                <th scope="col" width="15%">Brand Name</th>
+                                <th *ngIf="isEdit" scope="col" width="5%">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="isSmartChoiceVoucher" class="font-12">
+                            <tr *ngFor="let product of productInfoListDisplay; let i = index;">
+                                <td scope="col" width="5%">{{ i + 1 }}</td>
+                                <td scope="col" width="35%">{{ product.productName }}</td>
+                                <td scope="col" width="20%">{{ product.productCode }}</td>
+                                <td scope="col" width="20%">{{ product.productType | producttype }}</td>
+                                <td scope="col" width="15%">{{ product.faceValueWithTax }}</td>
+                                <td *ngIf="isEdit" scope="col" width="5%">
+                                    <label class="switch">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" [disabled]="true" [checked]="product.productCombo?.status === 1">
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="isSuperVoucher" class="font-12">
+                            <tr *ngFor="let product of productInfoListDisplay; let i = index;">
+                                <td scope="col" width="5%">{{ i + 1 }}</td>
+                                <td scope="col" width="30%">{{ product.productName }}</td>
+                                <td scope="col" width="15%">{{ product.productCode }}</td>
+                                <td scope="col" width="15%">{{ product.productType | producttype }}</td>
+                                <td scope="col" width="15%">{{ product.faceValueWithTax }}</td>
+                                <td scope="col" width="15%">{{ product.brandName }}</td>
+                                <td *ngIf="isEdit" scope="col" width="5%">
+                                    <label class="switch">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" [disabled]="true" [checked]="product.productCombo?.status === 1">
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="productInfoList.length > PRODUCT_LIST_DEFAULT_SIZE" class="row my-2">
+                        <div class="text-center">
+                            <button class="btn btn-outline-secondary font-12 px-4" (click)="toggleProductInfoList()">
+                                {{ productInfoListDisplay.length > PRODUCT_LIST_DEFAULT_SIZE ?
+                                "Collapse " : "Expand all lists "
+                                }}
+                                ({{productInfoList.length}})
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div>
+                    <h5 *ngIf="isSmartChoiceVoucher">Product sequence for this combo</h5>
+                    <h5 *ngIf="isSuperVoucher">Brand sequence for this combo</h5>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6">
+                        <table class="table table-centered">
+                            <thead class="font-12 bold">
+                                <tr *ngIf="isSmartChoiceVoucher">
+                                    <th scope="col" width="5%"></th>
+                                    <th scope="col" width="35%">Product Name</th>
+                                    <th scope="col" width="20%">Product Code</th>
+                                </tr>
+                                <tr *ngIf="isSuperVoucher">
+                                    <th scope="col" width="5%"></th>
+                                    <th scope="col" width="35%">Brand Name</th>
+                                    <th scope="col" width="20%">Child Product Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="isSmartChoiceVoucher" class="font-12">
+                                <tr *ngFor="let product of productSortedListDisplay; let i = index;">
+                                    <td scope="col" width="5%">{{ i + 1 }}</td>
+                                    <td scope="col" width="35%">{{ product.productName }}</td>
+                                    <td scope="col" width="20%">{{ product.productCode }}</td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="isSuperVoucher" class="font-12">
+                                <tr *ngFor="let brand of brandSortedListDisplay; let i = index;">
+                                    <td scope="col" width="5%">{{ i + 1 }}</td>
+                                    <td scope="col" width="30%">{{ brand.brandName }}</td>
+                                    <td scope="col" width="15%">{{ brand.quantity }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12">
+                        <div *ngIf="productSortedList.length > PRODUCT_SORTED_LIST_DEFAULT_SIZE" class="row my-2">
+                            <div *ngIf="isSmartChoiceVoucher" class="text-center">
+                                <button class="btn btn-outline-secondary font-12 px-4"
+                                    (click)="toggleProductSortedList()">
+                                    {{ productSortedListDisplay.length > PRODUCT_SORTED_LIST_DEFAULT_SIZE ?
+                                    "Collapse " : "Expand all lists "
+                                    }}
+                                    ({{productSortedList.length}})
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="brandSortedList.length > BRAND_SORTED_LIST_DEFAULT_SIZE" class="row my-2">
+                            <div *ngIf="isSuperVoucher" class="text-center">
+                                <button class="btn btn-outline-secondary font-12 px-4"
+                                    (click)="toggleBrandSortedList()">
+                                    {{ brandSortedListDisplay.length > BRAND_SORTED_LIST_DEFAULT_SIZE ?
+                                    "Collapse " : "Expand all lists "
+                                    }}
+                                    ({{brandSortedList.length}})
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #pricingAndExpiry>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn ratio ratio-1x1 rounded-circle btn-secondary"
+                    (click)="toggleContainer('pricingAndExpiryCollapsed')"
+                    [attr.aria-expanded]="!pricingAndExpiryCollapsed" aria-controls="collapseExample">
+                    <i [class]="pricingAndExpiryCollapsed ? 'uil-angle-down' : 'uil-angle-up'"
+                        style="font-size: 1.25em;"></i>
+                </button>
+                <span class="text-dark collapse-title m-2 bold">
+                    Pricing & expiry
+                </span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToStep(3)" *ngIf="isProductEditor">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #pcCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="pricingAndExpiryCollapsed">
+            <!-- SKU -->
+            <div class="row my-2">
+                <div>
+                    <h5>SKU</h5>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div>SKU Face Value (with tax)</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ productPricingAndExpiry?.faceValue }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div>SKU Face Value</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ faceValueWithoutTax }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div *ngIf="isSuperVoucher">SKU cost (%)</div>
+                                <div *ngIf="isSmartChoiceVoucher">SKU cost (with tax)</div>
+                            </div>
+                            <div class="col-6">
+                                <div *ngIf="isSuperVoucher" class="bold">{{ productPricingAndExpiry?.cost }} %</div>
+                                <div *ngIf="isSmartChoiceVoucher" class="bold">{{ productPricingAndExpiry?.cost }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6" *ngIf="isSmartChoiceVoucher">
+                        <div class="row">
+                            <div class="col-6">
+                                <div>SKU cost (without tax)</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ skuCostWithoutTax }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Default Pricing -->
+            <div class="row my-2">
+                <div>
+                    <h5>Default Pricing</h5>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Default Selling Price (prepaid with tax)</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ productPricingAndExpiry?.sellingPricePrepaidWithTax }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Default Selling Price (prepaid)</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ productPricingAndExpiry?.sellingPricePrepaid }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div *ngIf="isSmartChoiceVoucher">Default Selling Price (postpaid with tax)</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ productPricingAndExpiry?.sellingPricePostpaidWithTax }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div *ngIf="isSmartChoiceVoucher">Default Selling Price (postpaid)</div>
+                                <div *ngIf="isSuperVoucher">Default Selling Price (prepaid %)</div>
+                            </div>
+                            <div class="col-6">
+                                <div *ngIf="isSmartChoiceVoucher" class="bold">{{
+                                    productPricingAndExpiry?.sellingPricePostpaid }}</div>
+                                <div *ngIf="isSuperVoucher" class="bold">{{ sellingPricePrepaidPercentage }} %</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Expiry scheme -->
+            <div class="row my-2">
+                <div>
+                    <h5>Expiry scheme</h5>
+                </div>
+                <div class="row my-2">
+                    <table class="table table-centered">
+                        <thead class="font-12 bold">
+                            <tr>
+                                <th scope="col" width="5%"></th>
+                                <th scope="col" width="35%">Expiry Date Type</th>
+                                <th scope="col" width="60%">Expiry Condition</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-14">
+                            <tr *ngFor="let item of expirySchemeList; let index = index">
+                                <td class="col text-center">{{ index+1 }}</td>
+                                <td class="col">{{ ExpirationPolicyTypeEnum[item.type] | stringSplitByCapitalLetter }}
+                                </td>
+                                <td class="col">{{ item.displayName }}
+                                    <span
+                                        *ngIf="productExpiryDate && item.name.includes(KEYWORD_FIX_END_OF_DAY)">
+                                        ({{ productExpiryDate | date:'MM/dd/yyyy' }})
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productTemplateImage>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn ratio ratio-1x1 rounded-circle btn-secondary"
+                    (click)="toggleContainer('productTemplateCollapsed')"
+                    [attr.aria-expanded]="!productTemplateCollapsed" aria-controls="collapseExample">
+                    <i [class]="productTemplateCollapsed ? 'uil-angle-down' : 'uil-angle-up'"
+                        style="font-size: 1.25em;"></i>
+                </button>
+                <span class="text-dark collapse-title m-2 bold">Product template</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToStep(4)" *ngIf="isProductEditor">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #ptiCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productTemplateCollapsed">
+            <div class="row my-2">
+                <div class="col-6">
+                    <div class="bold">
+                        Voucher page design
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">{{ voucherTemplateName }}</div>
+                            <label class="form-label latest-version" *ngIf = "!this.voucherTemplate?.isCurrentVersion && voucherTemplateName != 'N/A'">(Latest version available)</label>
+                        </div>
+                        <div *ngIf="voucherTemplateName != 'N/A'" class="col-2">
+                            <a class="text-primary" style="cursor: pointer;"
+                                (click)="openPreview(TEMPLATE_SUBTYPE_VOUCHER)">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-6">
+                    <div class="bold">
+                        SMS design
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div>Template name</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="bold">{{ smsTemplateName }}</div>
+                            <label class="form-label latest-version" *ngIf = "!this.smsTemplate?.isCurrentVersion && smsTemplateName != 'N/A'">(Latest version available)</label>
+                        </div>
+                        <div *ngIf="smsTemplateName != 'N/A'" class="col-2">
+                            <a class="text-primary" style="cursor: pointer;"
+                                (click)="openPreview(TEMPLATE_SUBTYPE_SMS)">Preview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #advanceSetting>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-10">
+                <button class="btn ratio ratio-1x1 btn-secondary rounded-circle"
+                    (click)="toggleContainer('externalPropertiesCollapsed')"
+                    [attr.aria-expanded]="!externalPropertiesCollapsed" aria-controls="collapseExample">
+                    <i [class]="externalPropertiesCollapsed ? 'uil-angle-down' : 'uil-angle-up'"
+                        style="font-size: 1.25em;"></i>
+                </button>
+                <span class="text-dark collapse-title m-2 bold">Advance Setting</span>
+            </div>
+            <div class="col-2">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="navigateToStep(5)" *ngIf="isProductEditor">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #epCollapse="ngbCollapse" *ngIf="productAdvanceSettings?.productExternalPropertyList?.length !== 0" class="mt-1" [(ngbCollapse)]="externalPropertiesCollapsed">
+            <div class="row mt-3">
+                <div class="col-6">
+                    <div class="my-2">
+                        <h5>External Properties</h5>
+                    </div>
+                    <div class="row my-2">
+                        <table class="table table-centered">
+                            <thead class="font-12 bold">
+                                <tr>
+                                    <th scope="col" width="30%">Property Name</th>
+                                    <th scope="col" width="30%">Property Value</th>
+                                    <th scope="col" width="40%">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="font-14">
+                                <tr *ngFor="let item of productAdvanceSettings?.productExternalPropertyList">
+                                    <th scope="col" width="30%">{{ item.propertyName }}</th>
+                                    <th scope="col" width="30%">{{ item.propertyValue }}</th>
+                                    <th scope="col" width="40%">{{ item.description }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

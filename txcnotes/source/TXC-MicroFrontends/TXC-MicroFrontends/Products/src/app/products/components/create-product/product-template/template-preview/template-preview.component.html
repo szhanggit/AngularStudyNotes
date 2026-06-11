@@ -1,0 +1,110 @@
+<div class="bg-white rounded-3 px-3 py-2 my-3">
+    <h1 class="text-dark text-center font-16"><strong>Preview</strong></h1>
+    <ng-container *ngIf="templateType === 1; else smsPreview">
+        <ng-container *ngTemplateOutlet="emailPreview"></ng-container>
+    </ng-container>
+    <ng-template #smsPreview>
+        <div class="bold mb-1 mt-2">
+            ContentOne(<span class="text-danger">{{selectedTemplate.content1.length}}</span>):
+        </div>
+        <div class="font-14 text-secondary mb-2" [innerHTML]="selectedTemplate.content1 | safeHtml" *ngIf="selectedTemplate.content1"> 
+        </div>
+        <div class="bold mb-1">
+            ContentTwo(<span class="text-danger">{{selectedTemplate.content2.length}}</span>):
+        </div>
+        <div class="font-14 text-secondary mb-2" [innerHTML]="selectedTemplate.content2 | safeHtml" *ngIf="selectedTemplate.content2"> 
+        </div>
+        <div class="bold mb-1">
+            ContentThree(<span class="text-danger">{{selectedTemplate.content3.length}}</span>):
+        </div>
+        <div class="font-14 text-secondary mb-2" [innerHTML]="selectedTemplate.content3 | safeHtml" *ngIf="selectedTemplate.content3"> 
+        </div>
+    </ng-template>
+    <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-3">
+            <button class="btn btn-secondary font-12 w-100 rounded-pill" (click)="activeModal.close('cancel')">
+                Close
+            </button>
+        </div>
+        <div [class]="{'col-3': templateType === 1, 'col-6': templateType === 2}" *ngIf="!isCurrentVersion">
+            <button class="btn btn-primary font-12 w-100 rounded-pill" (click)="activeModal.close('applyLatestVersion')">
+                Apply latest version
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-template #emailPreview>
+    <div class="row font-14">
+        <div class="bg-white rounded-3" *ngIf="selectedTemplate.subject2 || selectedTemplate.content2; else previewPartOne">
+            <ul ngbNav #previewPartNav="ngbNav" [(activeId)]="previewPart" class="nav-tabs nav-bordered font-14">
+            
+                <li [ngbNavItem]="1" *ngIf="selectedTemplate.subject1 || selectedTemplate.content1">
+                    <a ngbNavLink [ngClass]="{'text-primary': previewPart === 1}">Part One</a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="previewPartOne"></ng-container>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="2" *ngIf="selectedTemplate.subject2 || selectedTemplate.content2">
+                    <a ngbNavLink [ngClass]="{'text-primary': previewPart === 2}">Part Two</a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="previewPartTwo"></ng-container>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="previewPartNav" class="py-2 mt-2"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #attachmentPreview>
+    <div class="row font-14 mt-2">
+        <div class="row font-14 mb-1">
+            <div class="bold mb-1">
+                Subject:
+            </div>
+            <div class="font-14 text-secondary mb-1">
+                {{ selectedTemplate.subject3 }}
+            </div>
+            <div class="bold mb-1">
+                Content:
+            </div>
+            <div class="font-14 text-secondary" [innerHTML]="selectedTemplate.content3 | safeHtml" *ngIf="selectedTemplate.content3"> 
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #previewPartOne>
+    <div class="row font-14 mb-1">
+        <div class="bold mb-1">
+            Subject:
+        </div>
+        <div class="font-14 text-secondary mb-1">
+            {{ selectedTemplate.subject1 }}
+        </div>
+        <div class="bold mb-1">
+            Content:
+        </div>
+        <div class="row">
+            <div class="font-14 text-secondary" [innerHTML]="sanitizeTemplate(selectedTemplate.content1)" *ngIf="selectedTemplate.content1"> 
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #previewPartTwo>
+    <div class="row font-14 mb-1">
+        <div class="bold mb-1">
+            Subject:
+        </div>
+        <div class="font-14 text-secondary mb-1">
+            {{ selectedTemplate.subject2 }}
+        </div>
+        <div class="bold mb-1">
+            Content:
+        </div>
+        <div class="font-14 text-secondary" [innerHTML]="selectedTemplate.content2 | safeHtml" *ngIf="selectedTemplate.content2"> 
+        </div>
+    </div>
+</ng-template>

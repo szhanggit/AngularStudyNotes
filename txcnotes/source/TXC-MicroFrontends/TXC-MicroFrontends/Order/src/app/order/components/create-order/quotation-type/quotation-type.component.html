@@ -1,0 +1,11 @@
+<div class="col-12" *ngFor="let orderType of selectOrderModes">
+    <div class="card text-center">
+        <div class="card-body text-center"
+            [ngClass]="{'active': orderType.key === selectedMode.key }"
+            (click)="selectType(orderType)">
+            <div
+                [ngClass]="{ 'text-primary': orderType.key === selectedMode.key }">
+                {{ orderType.value }}</div>
+        </div>
+    </div>
+</div>

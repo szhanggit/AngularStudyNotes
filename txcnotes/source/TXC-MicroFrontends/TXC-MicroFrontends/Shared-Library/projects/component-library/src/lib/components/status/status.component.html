@@ -1,0 +1,13 @@
+<ng-container *ngIf="status && statusEnum; else noData">
+  <span
+    class="bold font-12 default"
+    [style]="{
+      color: statusStyle?.textColor,
+      'background-color': statusStyle?.bgColor
+    }"
+  >
+    {{ statusEnum[status] || status }}
+  </span>
+</ng-container>
+
+<ng-template #noData> no status provided </ng-template>

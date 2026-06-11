@@ -1,0 +1,18 @@
+<div class="stepper">
+    <div class="multisteps-form">
+        <div class="row">
+            <div class="col-12 col-lg-8 ml-auto mr-auto mb-2">
+                <div class="multisteps-form__progress">
+                    <button class="multisteps-form__progress-btn"
+                        type="button"
+                        *ngFor="let stepTitle of stepTitles; let index = index"
+                        [class.active]="index + 1 === step"
+                        [class.pre-active]="stepsReached.includes(index + 1)"  
+                        [class.error]="stepsWithIssue.includes(index + 1)"
+                        [title]="stepTitle"
+                        (click)="jumpStep(index + 1)">{{ stepTitle }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<ng-container>
+    <div class="row title vertical-center">
+        <div class="col-10" (click)="collapse()">
+            <button class="btn ratio ratio-1x1 rounded-circle btn-secondary">
+                <i [class]="!sectionCollapsed ? 'uil-angle-down' : 'uil-angle-up'" style="font-size: 18px;"></i>
+            </button>
+            <span class="text-dark collapse-title mx-2 bold font-16">
+                {{TITLE}}
+            </span>
+        </div>
+        <div class="col-2">
+            <div class="float-end">
+                <button class="btn btn-primary font-12 rounded" (click)="onAddNewProductClick()">
+                    Add new product
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p class="my-2" *ngIf="sectionCollapsed && existProductList.length != 0">
+        You have existed {{existProductList.length}} products for this combo.
+    </p>
+
+    <div class="my-2" #sectionCollapse="ngbCollapse" [(ngbCollapse)]="sectionCollapsed">
+        <ng-container *ngIf="existProductList.length > 0">
+            <div class="table-wrapper">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col">{{TABLE_HEADER_PRODUCT_NAME}}
+                        <svg-controller *ngIf="getSortingStatus(TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-2">{{TABLE_HEADER_PRODUCT_CODE}}</div>
+                    <div class="col-2">{{TABLE_HEADER_PRODUCT_TYPE}}</div>
+                    <div class="col-2">{{TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX}}
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                    </div>
+                    <div class="col-1" *ngIf="isSuperVoucher">{{TABLE_HEADER_BRAND_NAME}}
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getSortingStatus(TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSorting(TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-1">{{TABLE_HEADER_STATUS}}</div>
+                </div>
+                <div class="row font-12 horizontal-rule vertical-center data-content"
+                    *ngFor="let product of existProductListDisplay; let index = index">
+                    <div class="col">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div class="col-2">{{ product.faceValueWithTax }}</div>
+                    <div class="col-1" *ngIf="isSuperVoucher">{{ product.brandName }}</div>
+                    <div class="col-1">
+                        <label class="switch font-18">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox"
+                                    [checked]="product.productCombo!.status === 1"
+                                    (change)="toggleProductStatus(product.productCombo!, product.productCombo!.status != 1, $event)">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div *ngIf="existProductList.length > PRODUCT_LIST_DEFAULT_SIZE"
+                    class="operation-content vertical-center">
+                    <button class="btn btn-outline-secondary font-12" (click)="toggleExistedProductList()">
+                        {{ existProductListDisplay.length > PRODUCT_LIST_DEFAULT_SIZE ?
+                        "Collapse " : "Expand all lists "
+                        }} ({{existProductList.length}})
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>

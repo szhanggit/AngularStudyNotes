@@ -1,0 +1,24 @@
+@import "../../../../../styles/variables";
+
+.alert-danger {
+    color: black;
+    border: 1.5px solid $red;
+    background: $red-bg-color;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    
+    ul {
+        margin-bottom: 0px !important;
+        li:not(:last-child){
+            margin-bottom: 5px;
+        }
+    }
+
+    .type {
+        font-weight: bold;
+    }
+
+    ul.list-style-none {
+        list-style-type: none;
+    }
+}

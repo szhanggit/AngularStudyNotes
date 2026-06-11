@@ -1,0 +1,672 @@
+<div class="container-fluid" *ngIf="selectedQuotation && order">
+    <!-- QA TOOLS -->
+  <div
+    class="row my-3"
+    *ngIf="
+      !hideQATools && orderDetailsState === editOrderDetailsType.ViewDetails
+    "
+  >
+    <app-view-form-accordion
+      [showEdit]="false"
+      [sectionCollapsed]="qaToolsCollapsed"
+      [sectionTitle]="
+        'QA Tools (this is for mocking order properties, to be removed on api integration)'
+      "
+    >
+      <app-form [formModel]="qaToolsFormModel" [hideTitle]="true"></app-form>
+    </app-view-form-accordion>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="row my-3">
+    <!-- TITLE -->
+    <div class="col-12 font-22 bold">
+      <ng-container [ngSwitch]="orderDetailsState">
+        <ng-container *ngSwitchCase="editOrderDetailsType.BasicInfo">
+          <span class="text-dark mr-1">Edit Basic Properties</span>
+          <ng-container *ngTemplateOutlet="orderName"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="editOrderDetailsType.SelectedProductList">
+          <span class="text-dark mr-1">Edit Selected Product List</span>
+          <ng-container *ngTemplateOutlet="orderName"></ng-container>
+        </ng-container>
+        <ng-container
+          *ngSwitchCase="editOrderDetailsType.SelectProductManually"
+        >
+          <span class="text-dark mr-1">Edit Product Details</span>
+          <ng-container *ngTemplateOutlet="orderName"></ng-container>
+        </ng-container>
+        <ng-container
+          *ngSwitchCase="editOrderDetailsType.DefaultDeliveryContent"
+        >
+          <span class="text-dark mr-1">Edit Default Delivery Content</span>
+          <ng-container *ngTemplateOutlet="orderName"></ng-container>
+        </ng-container>
+        <ng-container
+          *ngSwitchCase="editOrderDetailsType.ViewDirectDeliveryDetails"
+        >
+          <span class="text-dark mr-1">Direct Delivery Details</span>
+          <ng-container *ngTemplateOutlet="orderName"></ng-container>
+        </ng-container>
+        <ng-container
+          *ngSwitchCase="editOrderDetailsType.EditDeliveryContent"
+        >
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <span class="text-dark mr-1" *ngIf="order">{{
+            order.orderNumber
+          }}</span>
+          <ng-container *ngTemplateOutlet="orderName"></ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+    <!-- MENU BUTTONS -->
+    <div
+      class="col-12 mb-2"
+      *ngIf="
+        ![
+          editOrderDetailsType.ViewDirectDeliveryDetails, 
+          editOrderDetailsType.EditDeliveryContent
+        ].includes(orderDetailsState)
+      "
+    >
+      <div class="row">
+        <div class="col-6 pt-1">
+          <app-status [orderStatus]="orderStatus"></app-status>
+          <span class="vertical-divider mx-2"></span>
+          <span class="font-16 text-secondary fw-normal">{{
+            selectedOrderMode?.value
+          }}</span>
+        </div>
+        <div class="col-6">
+          <div class="float-end justify-content-center">
+            <span
+              ngbDropdown
+              *ngIf="
+                orderStatus === orderStatuses.Closed ||
+                orderStatus === orderStatuses.Published
+              "
+            >
+            <!-- ... BTN -->
+              <a
+                class="btn btn-secondary rounded-circle menu-circle remove-caret"
+                href="javascript:void(0)"
+                role="button"
+                id="dropdownLink"
+                ngbDropdownToggle
+              >
+                <i class="uil uil-ellipsis-h"></i>
+              </a>
+              <div
+                ngbDropdownMenu
+                aria-labelledby="dropdownLink"
+                class="dropdown-menu"
+              >
+                <!-- VIEW OPERATION HISTORY OPTION -->
+                <a ngbDropdownItem class="font-12" (click)="openHistoryModal()" *ngIf="canViewOrder"
+                  >View Operation History</a
+                >
+              </div>
+            </span>
+            <!-- DOWNLOAD FILE BTN -->
+            <button
+              *ngIf="
+                orderStatus === orderStatuses.Published &&
+                canDownloadFile
+              "
+              (click)="downloadExcelFile()"
+              class="btn btn-secondary rounded-pill px-3 mx-2 font-12"
+            >
+              Download
+            </button>
+            <!-- SEND FILE BTN -->
+            <button
+              *ngIf="
+                orderStatus === orderStatuses.Published &&
+                canSendFile &&
+                selectedOrderMode?.key !== orderModes.PaperVoucher
+              "
+              (click)="sendFile()"
+              class="btn btn-primary rounded-pill px-3 font-12"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERROR MESSAGES -->
+    <div class="col-12">
+      <div class="row mt-1 mb-0 font-14" *ngIf="failedErrorMessages.length">
+        <div class="col-12">
+          <div class="alert alert-danger">
+            <div>
+              <ng-container *ngFor="let errorMessage of failedErrorMessages">
+                <div>
+                  <span class="type">{{ errorMessage.type }}</span> :
+                  {{ errorMessage.description }}
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REJECTED/CLOSED MESSAGES -->
+    <div
+      class="col-12"
+      *ngIf="orderDetailsState === editOrderDetailsType.ViewDetails"
+    >
+      <div
+        class="row mt-1 mb-0 font-14"
+        *ngIf="
+          (orderStatus === orderStatuses.Rejected ||
+            orderStatus === orderStatuses.Closed) &&
+          statusMessages.length
+        "
+      >
+        <div class="col-12">
+          <div class="alert alert-danger pb-0">
+            <ul class="mb-0">
+              <li *ngFor="let statusMessage of statusMessages">
+                <div class="row pb-2">
+                  <div class="col-3">
+                    <span class="type"> {{ statusMessage.header }}: </span>
+                  </div>
+                  <div class="col-9">
+                    <span>{{ statusMessage.description }}</span>
+                    <span>{{ statusMessage.approver | titlecase }}</span>
+                    <span class="px-2 text-secondary">
+                      {{ statusMessage.approvalTime | txcLocalDateTime }}
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BODY CONTENT -->
+    <ng-container [ngSwitch]="orderDetailsState">
+      <!-- EDIT BASIC INFO -->
+      <ng-container *ngSwitchCase="editOrderDetailsType.BasicInfo">
+        <div class="col-12 mt-2">
+          <app-order-reference-details></app-order-reference-details>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-basic-info
+            [basicInfoFormGroup]="basicInfoFormGroup"
+          ></app-order-basic-info>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-settings
+            [settingsFormGroup]="settingsFormGroup"
+          ></app-order-settings>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-memo [memoFormGroup]="memoFormGroup"></app-order-memo>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-attachment
+            (fileEvent)="fileEvent($event, true)"
+            [attachmentFormGroup]="attachmentFormGroup"
+            [fieldsDefinition]="attachmentFieldsDefinition"
+          ></app-order-attachment>
+        </div>
+        <ng-container *ngTemplateOutlet="saveAndCancelButtons"></ng-container>
+      </ng-container>
+      <!-- SELECT PRODUCT LIST -->
+      <ng-container *ngSwitchCase="editOrderDetailsType.SelectedProductList">
+        <div class="col-12 mt-2">
+          <app-order-product-selection
+            [productList]="productList"
+            [editMode]="true"
+            (productListDirty)="isProductListDirty = $event"
+            (productSelectionChanged)="onProductSelectionChanged($event)"
+            (manualSelectProductClicked)="
+              onManualProductSelectionClicked($event)
+            "
+          ></app-order-product-selection>
+        </div>
+        <ng-container *ngTemplateOutlet="saveAndCancelButtons"></ng-container>
+      </ng-container>
+      <!-- SELECT SINGLE PRODUCT -->
+      <ng-container *ngSwitchCase="editOrderDetailsType.SelectProductManually">
+        <app-select-product
+          [quotationId]="selectedQuotation.id"
+          [editMode]="selectProductEditMode"
+          [product]="currentProduct"
+          [hideTitle]="true"
+          (manualSelectProductCancel)="onManualSelectProductCancelled()"
+          (manualSelectProductConfirmed)="
+            onManualSelectProductConfirmed($event)
+          "
+        >
+        </app-select-product>
+      </ng-container>
+      <!-- DEFAULT DELIVERY -->
+      <ng-container *ngSwitchCase="editOrderDetailsType.DefaultDeliveryContent">
+        <div class="col-12 mt-2">
+          <app-order-delivery-details
+            [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+            [productList]="productList"
+            [orderStep]="deliveryContentStep"
+            (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked()"
+          ></app-order-delivery-details>
+        </div>
+        <ng-container *ngTemplateOutlet="saveAndCancelButtons"></ng-container>
+      </ng-container>
+      <!-- PRODUCT TEMPLATE -->
+      <ng-container *ngSwitchCase="editOrderDetailsType.EditDeliveryContent">
+        <app-edit-delivery-content
+          [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+          (goBackToOrderWizard)="onGoBackToOrderDetails($event)"
+        ></app-edit-delivery-content>
+      </ng-container>
+      <!-- DIRECT DELIVERY -->
+      <ng-container
+        *ngSwitchCase="editOrderDetailsType.ViewDirectDeliveryDetails"
+      >
+        <div class="row">
+          <app-direct-delivery-list
+            [product]="selectedProduct"
+          ></app-direct-delivery-list>
+        </div>
+        <ng-container *ngTemplateOutlet="backButton"></ng-container>
+      </ng-container>
+      <!-- ORDER DETAILS -->
+      <ng-container *ngSwitchDefault>
+        <!-- REFERENCE PANEL -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            [showEdit]="false"
+            [sectionCollapsed]="orderReferenceCollapsed"
+            [sectionTitle]="'Reference details of this order'"
+          >
+            <app-order-reference-details
+              [viewMode]="true"
+            ></app-order-reference-details>
+          </app-view-form-accordion>
+        </div>
+        <!-- BASIC INFO PANEL -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            [sectionCollapsed]="basicPropertiesCollapsed"
+            [sectionTitle]="'Basic Properties'"
+            [showEdit]="
+              showEditBtn &&
+              (orderStatus === orderStatuses.Created ||
+                orderStatus === orderStatuses.Rejected)
+            "
+            [isPrimary]="true"
+            (editClicked)="
+              onOrderDetailsStateChange(editOrderDetailsType.BasicInfo)
+            "
+          >
+            <app-form [formModel]="basicInfoFormModel" [viewMode]="true">
+              <ng-container #dateContent dateContent>
+                {{ getComputedActivatedDate() }}</ng-container
+              >
+              <ng-container #selectContent selectContent>
+                {{ getNdaysFromPublishDate() }}</ng-container
+              >
+            </app-form>
+            <app-form
+              [formModel]="settingsFormModel"
+              [viewMode]="true"
+            ></app-form>
+            <app-form [formModel]="memoFormModel" [viewMode]="true"></app-form
+          ></app-view-form-accordion>
+        </div>
+        <!-- ATTACHMENT PANEL -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            [showEdit]="
+              showEditBtn &&
+              orderStatus !== orderStatuses.Publishing &&
+              orderStatus !== orderStatuses.Closed
+            "
+            [isPrimary]="true"
+            [sectionCollapsed]="attachmentCollapsed"
+            [editText]="'Upload file'"
+            [sectionTitle]="'Attachment'"
+            (editClicked)="
+              onOrderDetailsStateChange(editOrderDetailsType.Attachment)
+            "
+          >
+            <app-form
+              [formModel]="attachmentFormModel"
+              [disableAllInput]="
+                !(
+                  showEditBtn &&
+                  orderStatus !== orderStatuses.Publishing &&
+                  orderStatus !== orderStatuses.Closed
+                )
+              "
+              [hideTitle]="true"
+              (fileEventWithApi)="fileEvent($event)"
+            ></app-form>
+          </app-view-form-accordion>
+        </div>
+        <!-- PRODUCT LIST -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            (showChildProduct)="onShowChildProduct($event)"
+            [showChildProductToggle]="true"
+            [showEdit]="
+              (showEditBtn &&
+                (orderStatus === orderStatuses.Created ||
+                  orderStatus === orderStatuses.Rejected)) ||
+              (showActiveAllProductList &&
+                orderStatus === orderStatuses.Published)
+            "
+            [hasSecondaryButton]="showActiveAllProductList"
+            [isSecondaryButtonDisabled]="isActiveAllDisabled"
+            [editText]="showActiveAllProductList ? 'Select product' : 'Edit'"
+            [isPrimary]="true"
+            [sectionCollapsed]="productSelectionCollapsed"
+            [sectionTitle]="'Selected product list'"
+            (secondaryButtonClicked)="onActiveAllClicked()"
+            (editClicked)="
+              onOrderDetailsStateChange(
+                editOrderDetailsType.SelectedProductList
+              )
+            "
+            [disableChildToggle]="disableChildToggle"
+            [isShowChildProduct]="showChildProduct"
+          >
+            <app-product-selection-table
+              *ngIf="productList?.length"
+              [viewMode]="true"
+              [tableModel]="productSelectionTableModel"
+              [productList]="productList"
+              [orderStatus]="orderStatus"
+              [displaySearchBar]="true"
+              [showActionColumn]="
+                !(
+                  selectedOrderMode?.key === orderModes.PaperVoucher &&
+                  selectedTenant !== businessUnits.Taiwan
+                )
+              "
+              [disableEditOnTrustAccount]="!showTrustAccountActionBtn || !showEditBtn"
+              [isViewOnlyTrustAccount]="isViewOnlyTrustAccount"
+              [showChildProduct]="showChildProduct"
+              [showViewDirectDeliveryDetails]="
+                orderStatus === orderStatuses.Published
+              "
+              [enableForCreatorOnly]="isOrderEditor"
+              (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked()"
+              (directDeliveryDetailsClicked)="
+                onDirectDeliveryDetailsClicked($event)
+              "
+              (statusChanged)="onStatusChanged($event)"
+            >
+              <app-product-list-summary
+                [totalQuantities]="totalQuantities"
+                [estimatedTotal]="estimatedTotal"
+                [orderStatus]="orderStatus"
+              ></app-product-list-summary>
+            </app-product-selection-table>
+          </app-view-form-accordion>
+        </div>
+        <!-- DEFAULT DELIVERY -->
+        <div
+          class="col-12 mt-2"
+          *ngIf="selectedOrderMode?.key !== orderModes.PaperVoucher"
+        >
+          <ng-container
+            *ngTemplateOutlet="defaultDeliveryContent"
+          ></ng-container>
+        </div>
+        <!-- DISTRIBUTION -->
+        <div class="col-12 mt-2">
+          <ng-container *ngTemplateOutlet="distribution"></ng-container>
+        </div>
+        <!-- ACTION BUTTONS -->
+        <div class="col-12">
+          <div class="row my-3">
+            <div [class]="{'col-9': !isThreeButtons, 'col-6': isThreeButtons}"></div>
+            <div [class]="{'col-3': !isThreeButtons, 'col-6': isThreeButtons}">
+              <div class="row">
+                <!-- PLACEHOLDER FOR SPACING -->
+                <div [class]="{'col-6': !isThreeButtons || isThreeButtons && !showApproveBtn, 'col-3': isThreeButtons, 'col-9': isThreeButtons && !showRejectBtn}" 
+                  *ngIf="showPlaceholderBtn"></div>
+                <!-- CLOSE ORDER BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showCloseOrderBtn">
+                  <button
+                    class="btn rounded-pill w-100 p-1 font-12"
+                    [ngClass]="{'btn-danger': !showRejectBtn, 'btn-secondary': showRejectBtn}"
+                    (click)="closeOrder(closeModalEnum.Close)"
+                  >
+                    Close order
+                  </button>
+                </div>
+                <!-- REJECT BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showRejectBtn">
+                  <button
+                    class="btn btn-danger rounded-pill w-100 p-1 font-12"
+                    (click)="closeOrder(closeModalEnum.Reject)"
+                  >
+                    Reject
+                  </button>
+                </div>
+                <!-- APPROVE BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showApproveBtn">
+                  <button
+                    class="btn btn-success rounded-pill w-100 p-1 font-12"
+                    (click)="submitOrder(orderStatus)"
+                  >
+                    Approve
+                  </button>
+                </div>
+                <!-- SUBMIT BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showSubmitBtn">
+                  <button
+                    class="btn btn-primary rounded-pill w-100 p-1 font-12"
+                    (click)="submitOrder(orderStatus)"
+                  >
+                    {{
+                      orderStatus === orderStatuses.Failed
+                        ? "Republish"
+                        : "Submit"
+                    }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<!-- REUSABLE NG-TEMPLATES -->
+<!-- ORDER NAME -->
+<ng-template #orderName>
+  <span class="text-secondary mr-1"
+    >({{ basicInfoFormGroup.get("orderName")?.value }})</span
+  >
+  <ng-container *ngIf="orderDetailsState === editOrderDetailsType.ViewDetails">
+    <ng-container *ngIf="hideQATools; else hideQAToolsContent">
+      <a
+        href="javascript:void(0)"
+        class="font-12 fw-normal"
+        (click)="hideQATools = false"
+        >show qa tools (to be removed on api integration)</a
+      >
+    </ng-container>
+  </ng-container>
+  <ng-template #hideQAToolsContent>
+    <a
+      href="javascript:void(0)"
+      class="font-12 fw-normal"
+      (click)="hideQATools = true"
+      >hide qa tools (to be removed on api integration)</a
+    >
+  </ng-template>
+</ng-template>
+
+<!-- SAVE AND CANCEL BTNS -->
+<ng-template #saveAndCancelButtons>
+  <div class="row my-3">
+    <div class="col-9"></div>
+    <div class="col-3">
+      <div class="row">
+        <div class="col-6">
+          <button
+            class="btn btn-secondary rounded-pill w-100 p-1 font-12"
+            (click)="
+              onOrderDetailsStateChange(editOrderDetailsType.ViewDetails)
+            "
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="col-6">
+          <button
+            class="btn btn-primary rounded-pill w-100 p-1 font-12"
+            [disabled]="
+              (orderDetailsState === editOrderDetailsType.BasicInfo &&
+                (!basicPropertiesFormGroup.dirty ||
+                  basicPropertiesFormGroup.invalid)) ||
+              (orderDetailsState === editOrderDetailsType.SelectedProductList &&
+                (!isProductListDirty ||
+                  productSelectionErrorMessages.length ||
+                  !productList.length)) ||
+              (orderDetailsState ===
+                editOrderDetailsType.DefaultDeliveryContent &&
+                (!deliveryDetailsFormGroup.dirty ||
+                  deliveryDetailsFormGroup.invalid))
+            "
+            (click)="
+              onOrderDetailsStateChange(editOrderDetailsType.ViewDetails, true)
+            "
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- BACK BUTTON -->
+<ng-template #backButton>
+  <div class="row mt-4">
+    <div class="row p-0">
+      <div class="col-9"></div>
+      <div class="col-3 p-0">
+        <div class="row p-0">
+          <div class="col-8"></div>
+          <div class="col-4 p-0">
+            <button
+              class="btn btn-secondary rounded-pill w-100 p-1 font-12"
+              (click)="
+                onOrderDetailsStateChange(editOrderDetailsType.ViewDetails)
+              "
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- DEFAULT DELIVERY CONTENT -->
+<ng-template #defaultDeliveryContent>
+  <app-view-form-accordion
+    (showChildProduct)="onShowChildProduct($event)"
+    [showEdit]="
+      showEditBtn &&
+      orderStatus !== orderStatuses.UnderReview &&
+      orderStatus !== orderStatuses.Publishing &&
+      orderStatus !== orderStatuses.Closed
+    "
+    [isPrimary]="true"
+    [sectionCollapsed]="orderReferenceCollapsed"
+    [sectionTitle]="'Default delivery content'"
+    (editClicked)="
+      onOrderDetailsStateChange(editOrderDetailsType.DefaultDeliveryContent)
+    "
+  >
+    <ng-container
+      *ngIf="
+        selectedOrderMode?.key === orderModes.DirectNonAPI ||
+        selectedOrderMode?.key === orderModes.API
+      "
+    >
+      <app-form
+        [formModel]="deliveryDetailsFormModel"
+        [viewMode]="true"
+      ></app-form>
+    </ng-container>
+    <ng-container *ngIf="selectedOrderMode?.key === orderModes.IndirectNonAPI">
+      <span>No default delivery content for NonAPI indirect orders.</span>
+    </ng-container>
+  </app-view-form-accordion>
+</ng-template>
+
+<!-- DISTRIBUTION -->
+<ng-template #distribution>
+  <ng-container
+    *ngIf="
+      (selectedOrderMode?.key === orderModes.DirectNonAPI ||
+        selectedOrderMode?.key === orderModes.API) &&
+      orderStatus === orderStatuses.Published
+    "
+  >
+    <app-view-form-accordion
+      [sectionTitle]="'Distribution'"
+      [editText]="'Export'"
+      [showEdit]="false"
+      [showEditDropdown]="canExportDeliveryStatus"
+      [isPrimary]="true"
+      [dropdownItems]="dropdownItems"
+    >
+      <div class="row mt-3">
+        <div class="col-6">
+          <span class="font-16 mt-3"><strong>SMS</strong></span>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <a
+            class="text-primary text-decoration-underline cursor-pointer"
+            (click)="onSyncClicked(2)"
+            >Sync status & history</a
+          >
+        </div>
+      </div>
+      <app-table
+        [tableModel]="smsTableModel"
+        [greyHeader]="true"
+        [isStripedTable]="false"
+      ></app-table>
+      <div class="row mt-3">
+        <div class="col-6">
+          <span class="font-16 mt-3"><strong>Email</strong></span>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <a
+            class="text-primary text-decoration-underline cursor-pointer"
+            (click)="onSyncClicked(1)"
+            >Sync status & history</a
+          >
+        </div>
+      </div>
+      <app-table
+        [tableModel]="emailTableModel"
+        [greyHeader]="true"
+        [isStripedTable]="false"
+      ></app-table>
+    </app-view-form-accordion>
+  </ng-container>
+</ng-template>
+
+<!-- TOAST -->
+<ngbd-toast-global></ngbd-toast-global>

@@ -1,0 +1,19 @@
+.order-speeding-wheel {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    width: 63px;
+    height: 63px;
+    margin: 0 auto;
+    border: 4px solid rgb(217, 83, 79);
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: cssload-spin 500ms infinite linear;
+    -o-animation: cssload-spin 500ms infinite linear;
+    -ms-animation: cssload-spin 500ms infinite linear;
+    -webkit-animation: cssload-spin 500ms infinite linear;
+    -moz-animation: cssload-spin 500ms infinite linear;
+}

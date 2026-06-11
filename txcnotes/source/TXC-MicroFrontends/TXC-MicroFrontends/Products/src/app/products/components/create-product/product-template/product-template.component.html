@@ -1,0 +1,306 @@
+<ng-template #errorContent let-formControl="formControl">
+    <ng-container *ngIf="formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl.errors?.minlength">
+        Entered value must be {{ formControl.errors.minlength.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl.errors?.maxlength">
+        Entered value must be {{ formControl.errors.maxlength.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl.errors?.max">
+        Entered value exceeds the allowed number of characters!
+    </ng-container>
+    <ng-container *ngIf="formControl.errors?.min">
+        Negative numbers are not allowed!
+    </ng-container>
+    <ng-container *ngIf="formControl.errors?.invalidNumber">
+        Please enter valid number!
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="templateFormGroup">
+    <ng-container *ngTemplateOutlet="dynamicFaceValueSettings"></ng-container>
+    <ng-template #dynamicFaceValueSettings>
+        <div class="bg-white rounded-3 px-3 py-2 my-3" *ngIf="selectedType.key === 4">
+            <span class="text-dark font-16"><strong>Dynamic face value banner settings</strong></span>
+            <div class="row mt-2 mb-3">
+                <div class="col-6">
+                    <label for="hexColor" class="form-label">HEX color code</label>
+                    <input type="text" class="form-control" formControlName="hexColor" [ngClass]="{
+                        'is-invalid': f.hexColor.invalid && f.hexColor.dirty
+                    }">
+                    <div *ngIf="f.hexColor.invalid && f.hexColor.dirty" class="alert alert-danger mt-2 font-12 bold">
+                        <ng-container *ngTemplateOutlet="errorContent; context : {formControl: f.hexColor }">
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="fontSize" class="form-label">Font size</label>
+                    <input type="text" inputControl="number-only" class="form-control" formControlName="fontSize">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="pointX" class="form-label">Point X</label>
+                    <input type="text" inputControl="decimal-2" class="form-control" formControlName="pointX" [ngClass]="{
+                        'is-invalid': f.pointX.invalid && f.pointX.dirty
+                    }">
+                    <div *ngIf="f.pointX.invalid && f.pointX.dirty" class="alert alert-danger mt-2 font-12 bold">
+                        <ng-container *ngTemplateOutlet="errorContent; context : {formControl: f.pointX}">
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="pointY" class="form-label">Point Y</label>
+                    <input type="text" inputControl="decimal-2" class="form-control" formControlName="pointY" [ngClass]="{
+                        'is-invalid': f.pointY.invalid && f.pointY.dirty
+                    }">
+                    <div *ngIf="f.pointY.invalid && f.pointY.dirty" class="alert alert-danger mt-2 font-12 bold">
+                        <ng-container *ngTemplateOutlet="errorContent; context : {formControl: f.pointY }">
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16 mb-2"><strong>Product delivery template</strong></span>
+        <ul ngbNav #nav="ngbNav" [(activeId)]="templateService.type" class="nav-tabs nav-bordered font-14" (shown)="OnNavShown()" (navChange)="OnNavChanged()">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink [ngClass]="{'text-primary': templateService.type === 1}">Voucher Page Design</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="emailDesign"></ng-container>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink [ngClass]="{'text-primary': templateService.type === 2}">SMS Design</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="smsDesign"></ng-container>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="py-2 mt-2"></div>
+    </div>
+
+    <ng-template #emailDesign>
+        <div class="row font-14 mb-2" formArrayName="productTemplateList">
+            <div class="col-6" [formGroupName]="0">
+                <label for="emailTemplate" class="form-label">Voucher template</label>
+                <div class="row">
+                    <div class="col-12 email-template-container">
+                        <div class="input-group input-group-md input-group-prefix-icon search-icon">
+                            <span class="input-group-text"><span class="mdi mdi-magnify search-icon"></span></span>
+                            <input id="typeahead-custom" type="text" class="form-control font-14" [ngClass]="{
+                                'is-invalid': getTemplateListFormGroup(0).controls['templateName'].invalid && getTemplateListFormGroup(0).controls['templateName'].dirty
+                            }" placeholder="Enter template name" formControlName="templateName"
+                                [ngbTypeahead]="searchEmailTemplates" [inputFormatter]="templateFormatter"
+                                [resultTemplate]="templateResults" [focusFirst]="true"
+                                (focus)="focusTemplateName$.next($any($event).target.value)"
+                                (click)="clickTemplateName$.next($any($event).target.value)" #instance="ngbTypeahead"
+                                triggers="manual" (selectItem)="OnSelectTemplateDesign($event, 0)" (change)="OnTemplateTextboxChanged(0)"
+                                (keyup)="OnTemplateTextboxKeyup($event, 0)"
+                                >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div *ngIf="(templateService.loading$ | async) else showPreview">
+                        <div class="mt-3 loader"></div>
+                    </div>
+                    <ng-template #showPreview>
+                        <ng-container #showPreview *ngIf="selectedEmailTemplate">
+                            <div class="col-2 mt-4 d-flex justify-content-start align-items-center">
+                                <a href="javascript:void(0)" (click)="ShowPreview()">Preview</a>
+                            </div>
+                            <div class="col-8 mt-4 d-flex justify-content-start align-items-center">
+                                <a *ngIf="!selectedEmailTemplate.isCurrentVersion" href="javascript:void(0)" (click)="ShowLatestVersion(0)">Preview latest version</a>
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngTemplateOutlet="dynamicFields; context: {$implicit: 0}"></ng-container>
+    </ng-template>
+
+    <ng-template #smsDesign>
+        <div class="row font-14 mb-2" formArrayName="productTemplateList">
+            <div class="col-6" [formGroupName]="1">
+                <label for="smsTemplate" class="form-label">SMS template</label>
+                <div class="row">
+                    <div class="col-12 email-template-container">
+                        <div class="input-group input-group-md input-group-prefix-icon search-icon">
+                            <span class="input-group-text"><span class="mdi mdi-magnify search-icon"></span></span>
+                            <input id="typeahead-custom" type="text" class="form-control font-14" [ngClass]="{
+                                'is-invalid': getTemplateListFormGroup(1).controls['templateName'].invalid && getTemplateListFormGroup(1).controls['templateName'].dirty
+                            }" placeholder="Enter template name" formControlName="templateName"
+                                [ngbTypeahead]="searchEmailTemplates" [inputFormatter]="templateFormatter"
+                                [resultTemplate]="templateResults" [focusFirst]="true"
+                                (focus)="focusTemplateName$.next($any($event).target.value)"
+                                (click)="clickTemplateName$.next($any($event).target.value)" #instance="ngbTypeahead"
+                                triggers="manual" (selectItem)="OnSelectTemplateDesign($event, 1)" (change)="OnTemplateTextboxChanged(1)"
+                                (keyup)="OnTemplateTextboxKeyup($event, 1)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div *ngIf="(templateService.loading$ | async) else showPreview">
+                        <div class="loader mt-3"></div>
+                    </div>
+                    <ng-template #showPreview>
+                        <ng-container #showPreview *ngIf="selectedSMSTemplate">
+                            <div class="col-2 mt-4 d-flex justify-content-start align-items-center">
+                                <a href="javascript:void(0)" (click)="ShowPreview()">Preview</a>
+                            </div>
+                            <div class="col-8 mt-4 d-flex justify-content-start align-items-center">
+                                <a *ngIf="!selectedSMSTemplate.isCurrentVersion" href="javascript:void(0)" (click)="ShowLatestVersion(1)">Preview latest version</a>
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngTemplateOutlet="dynamicFields; context: {$implicit: 1}"></ng-container>
+    </ng-template>
+
+    <ng-template #dynamicFields let-index>
+        <ng-container formArrayName="productTemplateList">
+            <div *ngIf="(selectedEmailTemplate && templateService.type === 1)">
+                <div [formGroupName]="0">
+                    <div class="row font-14 mb-2" *ngIf="selectedEmailLanguage && !(emailLanguageLoading$ | async)">
+                        <div class="col-6 mb-2">
+                            <label for="languageId" class="form-label">Language</label>
+                            <select2 [data]="emailLanguagesSelect2Data" formControlName="templateVersionId"
+                                placeholder="Select" displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label for="applyLanguage" class="form-label">Apply Language?</label>
+                            <div class="form-check form-switch mt-1">
+                                <input #applyLanguage type="checkbox" id="applyLanguage" name="applyLanguage"
+                                    class="form-check-input" formControlName="applyLanguage">
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="!(templateService.loading$ | async)">
+                            <ng-container *ngFor="let templateTag of getCurrentTags(0)">
+                                <ng-container *ngIf="templateTag.category !== 1">
+                                    <app-template-tag [templateTag]="templateTag"
+                                        [templateFormGroup]="templateFormGroup" [index]="0" class="mb-3">
+                                    </app-template-tag>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [hidden]="!(selectedSMSTemplate && templateService.type === 2)">
+                <div [formGroupName]="1">
+                    <div class="row font-14 mb-2" *ngIf="selectedSMSLanguage  && !(smsLanguageLoading$ | async)">
+                        <div class="col-6 mb-2">
+                            <label for="languageId" class="form-label">Language</label>
+                            <select2 [data]="smsLanguagesSelect2Data" formControlName="templateVersionId" placeholder="Select"
+                                displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label for="applyLanguage" class="form-label">Apply Language?</label>
+                            <div class="form-check form-switch mt-1">
+                                <input #applyLanguage type="checkbox" id="applyLanguage" name="applyLanguage"
+                                    class="form-check-input" formControlName="applyLanguage">
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="!(templateService.loading$ | async)">
+                            <ng-container *ngFor="let templateTag of getCurrentTags(1)">
+                                <ng-container *ngIf="templateTag.category !== 1">
+                                    <app-template-tag [templateTag]="templateTag" [templateFormGroup]="templateFormGroup"
+                                        class="mb-3" [index]="1">
+                                    </app-template-tag>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+    </ng-template>
+
+    <ng-container *ngTemplateOutlet="ImageForAppleWalletOrGooglePay"></ng-container>
+    <ng-template #ImageForAppleWalletOrGooglePay>
+        <div class="bg-white rounded-3 px-3 py-2 my-3 font-14" *ngIf="f.addToWallet.value && !hideWalletImageSettings">
+            <span class="text-dark font-16"><strong>Apple Wallet / Google Pay</strong></span>
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="walletStatus" class="form-label">Wallet status
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" [checked]="1"
+                                formControlName="walletStatus">
+                        </div>
+                    </label>
+                </div>
+                <div class="col-6">
+                    <label for="descriptionWalletStatus" class="form-label">Description shown on Apple
+                        Wallet / Google Pay</label>
+                    <input type="text" class="form-control" formControlName="walletDescription"
+                        placeholder="Enter wallet description" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="templateTag">Wallet Image</label>
+                    <div *ngIf="f.walletImage.value?.nodeUrl; else searchMedia" (click)="removeMedia()"
+                        (mouseout)="mediaOnHover = false">
+                        <div class="dashed d-flex justify-content-center p-3" [class.hover]="mediaOnHover"
+                            (mouseenter)="mediaOnHover = true">
+                            <div class="d-flex flex-column text-center">
+                                <img [src]="f.walletImage.value?.nodeUrl" [height]="f.walletImage.value?.height"
+                                    [width]="f.walletImage.value?.width" class="img-thumbnail">
+                                <span class="text-secondary mt-2 font-14"><strong>{{
+                                        f.walletImage.value?.keyword |
+                                        titlecase }}</strong></span>
+                            </div>
+                            <div class="d-flex flex-column text-center show-on-hover pt-4" *ngIf="mediaOnHover">
+                                <span class="font-20">
+                                    <i class="uil-trash"></i>
+                                </span>
+                                <span class="font-14">
+                                    Delete file
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #searchMedia>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="walletImage"
+                            placeholder="Search from media library" [ngbTypeahead]="searchMediaImages"
+                            [inputFormatter]="mediaFormatter" [resultTemplate]="mediaResults" [focusFirst]="true"
+                            (focus)="focusMediaKeyword$.next($any($event).target.value)"
+                            (click)="clickMediaKeyword$.next($any($event).target.value)" 
+                            (selectItem)="OnMediaSelect()"
+                            (focusout)="checkMediaImageValue()"
+                            #instance="ngbTypeahead"
+                            triggers="manual">
+                        <ng-template #mediaResults let-r="result" let-t="term">
+                            <img [src]="r.nodeUrl" [alt]="r.keyword" width="100px" height="50px">
+                            <ngb-highlight [result]="r.keyword" [term]="t" class="ml-1"></ngb-highlight>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</form>
+
+<ng-template #templateResults let-r="result" let-t="term">
+    <ngb-highlight [result]="r.templateName ?? r" [term]="t"></ngb-highlight>
+</ng-template>

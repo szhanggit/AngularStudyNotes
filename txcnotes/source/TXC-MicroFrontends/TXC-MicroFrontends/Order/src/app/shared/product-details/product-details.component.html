@@ -1,0 +1,28 @@
+<div class="row mt-3 mx-3 text-secondary font-14">
+    <div class="row p-0">
+        <div class="col-12 text-dark font-16 mb-2 bold p-0">Product info</div>
+    </div>
+    <div class="row mb-1 p-0">
+        <div class="col-3 p-0">Product code</div>
+        <div class="col-9 p-0">
+        {{ product.productCode }}
+        </div>
+    </div>
+    <div class="row mb-1 p-0">
+        <div class="col-3 p-0">Product name</div>
+        <div class="col-9 p-0">
+        {{ product.productName }}
+        </div>
+    </div>
+    <div class="row mb-1 p-0">
+        <div class="col-3 p-0">Expiry Scheme</div>
+        <div class="col-9 p-0">
+        {{ product.expirySchemeText | stringSplitByCapitalLetter }}
+        </div>
+    </div>
+    <div class="row p-0">
+        <div class="col-12 p-0">
+        <hr class="mt-2 mb-0" />
+        </div>
+    </div>
+</div>

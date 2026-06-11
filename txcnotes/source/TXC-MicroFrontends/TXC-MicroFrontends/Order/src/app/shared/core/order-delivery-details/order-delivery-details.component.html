@@ -1,0 +1,20 @@
+<div class="mt-3">
+  <app-form
+    *ngIf="(selectedOrderMode.key !== orderTypes.IndirectNonAPI) as isIndirectNonAPI"
+    [formModel]="deliveryDetailsFormModel"
+    [disableAllInput]="!isIndirectNonAPI"
+    [isResetNeeded]="false"
+  ></app-form>
+  <div class="mt-2">
+    <app-order-product-selection
+      [productSelectionOnInitialState]="productSelectionOnInitialState"
+      [productSelectionErrorMessages]="productSelectionErrorMessages"
+      [productList]="productList"
+      [fromUpload]="fromUpload"
+      [orderStep]="orderStep"
+      [title]="title"
+      [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+      (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked($event)"
+    ></app-order-product-selection>
+  </div>
+</div>

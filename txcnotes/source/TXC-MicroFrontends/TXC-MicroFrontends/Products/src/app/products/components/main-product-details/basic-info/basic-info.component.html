@@ -1,0 +1,104 @@
+<div class="row" *ngIf="product">
+    <div>
+        <span class="font-16"><strong>Basic Info</strong></span>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product name</div>
+                <div class="col-6 font-14"><strong>{{ product?.productName }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product code</div>
+                <div class="col-6 font-14"><strong>{{ product?.productCode }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">External code</div>
+                <div class="col-6 bold"><strong>{{ product?.externalProductCode || '--' }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product Issuer</div>
+                <div class="col-6 font-14">
+                    <ng-container *ngIf="product?.productIssuer == 2; else otherThanResellerModel">
+                        <strong style="word-break: break-all;">{{ product?.productIssuer!.toString() | issuertype }} - {{ resellerMerchantName }}</strong>
+                    </ng-container>
+                    <ng-template #otherThanResellerModel>
+                        <ng-container *ngIf="product?.productIssuer; else nullIssuer">
+                            <strong>{{ product?.productIssuer!.toString() | issuertype }}</strong>
+                        </ng-container>
+                        <ng-template #nullIssuer>
+                            <strong>--</strong>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="font-14">Product description</div>
+        </div>
+        <div class="col-9">
+            <strong>{{ product?.description || '--' }}</strong>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isGlobal(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Merchant Acquirer</div>
+                <div class="col-6 font-14"><strong>{{ product?.voucherIssuerId! | dictionarypipe : merchantAcquirers }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isTaiwan(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product Tag</div>
+                <div class="col-6 font-14">
+                    <ng-container *ngIf="product.productTag; else noProductTag">
+                        <strong>{{ product?.productTag!.toString() | producttag }}</strong>
+                    </ng-container>
+                    <ng-template #noProductTag><strong>--</strong></ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isIndia(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product Category</div>
+                <div class="col-6 font-14"><strong>{{ product?.productCategory!.toString() | productcategory}}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isTaiwan(selectedTenant)">
+        <div class="col-6">
+            <div class="row" *ngIf="product?.multipleSelectionType">
+                <div class="col-6 font-14">Multiple selection type</div>
+                <div class="col-6 font-14"><strong>{{ product?.multipleSelectionType!.toString() | multipleselectiontype }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!productCustomizationService.isGlobalRewards(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Available Brand</div>
+                <div class="col-6 font-14">
+                    <strong>{{ product?.brandName || '--'}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

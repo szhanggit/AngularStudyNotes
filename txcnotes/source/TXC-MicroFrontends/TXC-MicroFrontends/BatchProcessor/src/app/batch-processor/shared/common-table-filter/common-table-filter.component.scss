@@ -1,0 +1,91 @@
+@import "../../../../styles/variables";
+
+::ng-deep {
+  .filter-controls {
+    .select2-container--default
+      .select2-selection--single
+      .select2-selection__placeholder {
+      color: $placeholder-grey !important;
+    }
+    .select2-container .select2-selection--single {
+      height: 34px !important;
+    }
+
+    .form-control {
+      height: 34px;
+    }
+  }
+
+  .range-datepicker {
+    button {
+      height: 34px;
+    }
+
+    input {
+      &::placeholder {
+        color: $placeholder-grey;
+      }
+    }
+  }
+}
+
+.input-group-prefix-icon > .input-group-text {
+  background-color: transparent;
+}
+
+.search-icon > .input-group-text {
+  border-right-width: 0px;
+}
+
+.search-icon > .form-control {
+  border-left-width: 0px;
+}
+
+.w-30 {
+  width: 29%;
+  margin-right: 1rem;
+}
+
+.w-10 {
+  width: 11%;
+}
+
+.w-40 {
+  width: 39%;
+}
+
+.search-reset {
+  display: block;
+  font-size: 16px;
+  color: $dark-grey;
+  cursor: pointer;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 13px;
+  padding-top: 7px;
+  z-index: 5;
+}
+
+.filter-control {
+  height: 34px;
+  &::placeholder {
+    color: $placeholder-grey;
+  }
+}
+
+.left-border {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+}
+
+.export-btn-wrapper {
+  position: relative;
+}
+
+.export-btn {
+  position: absolute;
+  top: 25px;
+}

@@ -1,0 +1,90 @@
+<div class="row g-0 mt-3">
+  <div class="card p-3">
+    <div class="row my-1">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-6">Total product quantity</div>
+          <div class="col-6 bold">{{ totalQuantities.productQuantity }}</div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="selectedOrderMode?.key as selectedOrderMode">
+      <ng-container
+        *ngIf="
+          selectedOrderMode !== orderModes.API as notApiOrderType;
+          else apiOrderType
+        "
+      >
+        <div class="row my-1" *ngIf="notApiOrderType; else apiOrderType">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">Total voucher quantity</div>
+              <div class="col-6 bold">
+                {{ totalQuantities.voucherQuantity }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="showEmailSmsQuantity">
+          <div class="row my-1">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6">Total Email quantity</div>
+                <div class="col-6 bold">
+                  {{ totalQuantities.emailQuantity }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row my-1">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6">Total SMS quantity</div>
+                <div class="col-6 bold">{{ totalQuantities.smsQuantity }}</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="row my-1" *ngIf="notApiOrderType; else apiOrderType">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-6">Estimated total price value</div>
+              <div class="col-6 bold">
+                {{ estimatedTotal | currency }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #apiOrderType>
+  <ng-container *ngIf="orderStatus === orderStatusEnum.Published">
+  <div class="row my-1">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6">Total issue quantity</div>
+        <div class="col-6 bold">{{ totalQuantities.issueQuantity }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-1">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6">Total Email issue quantity</div>
+        <div class="col-6 bold">{{ totalQuantities.emailIssueQuantity }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-1">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6">Total SMS issue quantity</div>
+        <div class="col-6 bold">{{ totalQuantities.smsIssueQuantity }}</div>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+</ng-template>

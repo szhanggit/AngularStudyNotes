@@ -1,0 +1,39 @@
+
+<div *ngIf="clientHistoryList.length>0">
+<ng-container>
+    <div class="client-details row">
+        <div class="row mt-3">
+             <div class="col-9">
+                <span class="text-dark font-22 mx-2"><strong>{{ clientHistoryList[0].clientName | titlecase }} <i class="text-muted mdi mdi-chevron-right"></i> Version History</strong>
+                </span>                
+            </div>          
+           
+    </div>  
+    </div>      
+</ng-container>
+<div class="bg-white p-2 rounded-3 px-3 py-2 my-2">
+    <div class="row">
+        <div class="col-12">            
+                <table class="table table-striped table-centered ">
+                    <thead>
+                        <tr class="font-12">                           
+                            <th>Versions</th>
+                            <th>Version Created Time</th> 
+                            <th>Operator</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="font-14 cursor-pointer" *ngFor="let client of clientHistoryList; let i = index" (click)="navigateToClientDetails(client.id,clientHistoryList.length -i)">
+                            <td>{{ clientHistoryList.length -i }}</td>                            
+                            <td>{{ client?.createdOn | date : 'MM/dd/yyyy hh:mm:ss a': 'UTC' + selectedTenantUTC}}</td> 
+                            <td>{{ client?.createdBy }}</td>                        
+                        </tr>
+                    </tbody>
+                </table>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

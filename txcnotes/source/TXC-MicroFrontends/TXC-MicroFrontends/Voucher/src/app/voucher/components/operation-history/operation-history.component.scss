@@ -1,0 +1,11 @@
+.table--min-height {
+    min-height: 480px;
+    max-height: 480px;
+    overflow-y: auto;
+}
+
+.no-data-content {
+    position: relative;
+    margin-top: 80px;
+    min-height: 360px;
+}

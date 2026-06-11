@@ -1,0 +1,12 @@
+<ng-container *ngIf="clientFormGroup">
+    <app-client-form 
+        [clientFormGroup]="clientFormGroup" 
+        [isEdit]="true" 
+        [tenant]="tenant" 
+        [clientDetailEdit]="clientDetailEdit" 
+        (onCancel)="onCancel()" 
+        (onSubmit)="onSubmit()"
+        [clientContactDetails]="clientContactDetails">
+    </app-client-form>
+</ng-container>
+<ngbd-toast-global></ngbd-toast-global>

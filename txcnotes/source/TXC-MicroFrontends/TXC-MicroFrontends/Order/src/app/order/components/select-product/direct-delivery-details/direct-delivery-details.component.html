@@ -1,0 +1,85 @@
+<div class="bg-white rounded-3 my-3 p-3">
+  <div class="row">
+    <div class="col-6">
+      <span class="font-16 text-dark bold mb-3"
+        >Direct delivery details <span class="text-danger">*</span></span
+      >
+    </div>
+    <div class="col-6 d-flex justify-content-end" *ngIf="tableRows.length">
+      <button
+        class="btn btn-secondary font-12 py-2 px-4 mx-2"
+        (click)="onBatchUploadClicked()"
+      >
+        Batch upload
+      </button>
+      <ng-container *ngIf="!fromUpload">
+        <ng-container *ngTemplateOutlet="addDeliveryDetailsButton">
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="!tableRows.length; else deliveryDetailsTable">
+    <div class="row my-3 font-14">
+      <div class="col-12 text-center">
+        <div class="text-secondary mb-3">
+          You can manually add delivery details or batch add list by uploading
+          an excel file.
+          <div>
+            <a
+              href="javascript:void(0)"
+              class="text-decoration-underline"
+              (click)="downloadTemplate($event)"
+              >Download delivery details template</a
+            >
+          </div>
+        </div>
+        <button
+          class="btn btn-secondary font-12 py-2 px-4 mx-2"
+          (click)="inputFile.click()"
+        >
+          Batch upload
+        </button>
+        <ng-container
+          *ngTemplateOutlet="addDeliveryDetailsButton"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="row">
+      <!-- on bottom of initial screen -->
+      <!-- error messages goes here -->
+      <app-error-message
+        *ngIf="deliveryDetailsErrorMessages.length"
+        [errorMessages]="deliveryDetailsErrorMessages"
+        [addHorizontalMargin]="false"
+      >
+      </app-error-message>
+    </div>
+  </ng-container>
+  <ng-template #deliveryDetailsTable>
+    <app-table
+      [tableModel]="deliveryDetailsTableModel"
+      [isStripedTable]="false"
+      (editClicked)="editClicked($event)"
+      (deleteClicked)="deleteClicked()"
+    ></app-table>
+  </ng-template>
+</div>
+
+<ng-template #addDeliveryDetailsButton>
+  <button
+    class="btn btn-primary font-12 py-2 px-4 mx-2"
+    (click)="openAddDeliveryDetailsModal()"
+  >
+    Add delivery details
+  </button>
+</ng-template>
+
+<input
+  #inputFile
+  type="file"
+  name="inputFile"
+  id="inputFile"
+  (change)="onFileSelected($event)"
+  hidden="true"
+  accept=".xls,.xlsx"
+/>

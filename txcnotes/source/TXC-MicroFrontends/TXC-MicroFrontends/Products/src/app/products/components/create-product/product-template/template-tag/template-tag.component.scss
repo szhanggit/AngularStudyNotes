@@ -1,0 +1,76 @@
+::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 41%;
+}
+
+.ml-1 {
+    margin-left: 1rem;
+}
+
+// image input
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+    pointer-events: none;
+    position: relative;
+
+    &.hover {
+        background: #D5D8DD;
+        opacity: 0.8;
+        border-radius: 4px;
+    }
+
+    .img-thumbnail {
+        height: auto;
+        width: 100%;
+        pointer-events: all;
+    }
+
+    .show-on-hover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background-color: #D5D8DD;
+        opacity: 0.8;
+        color: #000;
+    }
+}
+
+.rich-text {
+    white-space: pre-line;
+    background-color: white;
+    border: 1px solid var(--ct-input-border-color);
+    padding: 2px;
+    width: 100%;
+    height: 20rem;
+    resize: both;
+    overflow: auto;
+    resize: none;
+}
+
+angular-editor {
+    resize: none;
+}
+
+.view-table
+{
+    display:table !important;
+    width:100% !important;
+}
+
+.view-row
+{
+    display:table-row !important;
+}
+
+.view-row > div
+{
+    display: table-cell !important;
+    div {
+        width: 100%;
+    }
+}

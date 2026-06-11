@@ -1,0 +1,29 @@
+export interface ProductUpdateRequest {
+    productId?: number;
+    productCode: string;
+    externalProductCode: string;
+    skuId?: number;
+    brandId?: number;
+    acceptanceLoopId?: number;
+    productName: string;
+    description?: string;
+    isDeferredChild?: boolean;
+    isCartVersion?: boolean;
+    voucherIssuerId?: number;
+    productCategory: number;
+    productTag: number;
+    productIssuer: number;
+    pinCodeType?: number;
+    pinCodeLength?: number;
+    operationNote: string;
+    salesNote: string;
+    customerServiceNote: string;
+    canExtend: boolean;
+    extensionSchemeId?: number;
+    maxExtendTimes?: number;
+    extensionEndDate?: string;
+    sameAsContractEndDate: boolean;
+    lastUpdatedBy: string;
+    issueMerchant?: number;
+    multipleSelectionType?: number;
+}

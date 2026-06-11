@@ -1,0 +1,89 @@
+<div class="bg-white rounded-3" [formGroup]="templatePartFormGroup">
+  <app-form [formModel]="smsDesignFormModel"></app-form>
+  <div *ngIf="smsVoucherTemplate?.value" class="row template-part-container">
+    <div class="col-6">
+      <div class="d-flex flex-column">
+        <div class="row mt-2">
+          <div class="col-12">
+            <app-select
+              [selectModel]="templateParts"
+              formControlName="templatePart"
+            ></app-select>
+          </div>
+        </div>
+        <div formArrayName="parts">
+          <ng-container
+            *ngFor="let part of parts.controls; index as i; first as first"
+          >
+            <div class="row mt-2">
+              <div class="col-12">
+                <label
+                  >Part {{ i + 1 }} message
+                  <span *ngIf="first" class="text-danger">*</span></label
+                >
+                <textarea
+                  appRemoveTag
+                  (updatedValue)="updatedValueFromDirective($event, i)"
+                  (focus)="onFocus(i)"
+                  [class.invalid-input]="
+                    parts.controls[0]?.dirty &&
+                    parts.controls[0]?.invalid &&
+                    first
+                  "
+                  [formControl]="$any(part)"
+                  [id]="'part' + i"
+                  type="text"
+                  class="form-control font-14"
+                  [class.selected-part]="selectedPartIndex === i"
+                  appDeleteTag
+                  style="resize: none"
+                  [rows]="3"
+                ></textarea>
+                <small
+                  *ngIf="
+                    parts.controls[0]?.dirty &&
+                    parts.controls[0]?.invalid &&
+                    first
+                  "
+                  class="text-danger"
+                >
+                  Part 1 message is required
+                </small>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="d-flex flex-column">
+        <div class="mt-6">
+          <app-select
+            [selectModel]="tagCategories"
+            formControlName="tagCategory"
+          ></app-select>
+          <div class="tag-container">
+            <ng-container *ngFor="let tag of filteredTags">
+              <span
+                (click)="onTagSelect(tag)"
+                class="tags d-flex flex-column"
+                [class.selected-tag]="tag?.isSelected"
+              >
+                {{ tag.tagName }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mt-2">
+          <button
+            [disabled]="selectedTagValue === ''"
+            (click)="onInsertTag()"
+            class="btn btn-secondary font-12 px-4 insert-tag-btn"
+          >
+            Insert tag to the message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

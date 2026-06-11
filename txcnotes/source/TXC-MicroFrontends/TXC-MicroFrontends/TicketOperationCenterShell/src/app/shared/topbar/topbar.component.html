@@ -1,0 +1,101 @@
+<!-- Topbar Start -->
+<div class="navbar-custom" [class]="cssClasses">
+    <div [class]="hideLogo ? '' : 'container-fluid'">
+        <!-- LOGO -->
+        <a routerLink="/" class="topnav-logo" *ngIf="!hideLogo">
+            <span class="topnav-logo-lg">
+                <img src="assets/images/logo-light.png" alt="" height="16">
+            </span>
+            <span class="topnav-logo-sm">
+                <img src="assets/images/logo_sm_dark.png" alt="" height="16">
+            </span>
+        </a>
+
+        <ul class="list-unstyled topbar-menu float-end mb-0">
+            <li class="dropdown notification-list d-xl-none" ngbDropdown autoClose="outside">
+                <a ngbDropdownToggle class="nav-link dropdown-toggle arrow-none" id="mobileDropdown"
+                    href="javascript: void(0);" aria-expanded="false">
+                    <i class="dripicons-search noti-icon"></i>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="mobileDropdown" class="dropdown-menu-animated dropdown-lg p-0">
+                    <form ngbDropdownItem class="p-3">
+                        <input type="text" class="form-control" placeholder="Search ..."
+                            aria-label="Recipient's username">
+                    </form>
+                </div>
+            </li>
+
+            <li class="notification-list">
+                <!-- <a class="nav-link end-bar-toggle" href="javascript:void(0);" (click)="toggleRightSidebar()">
+                    <i class="dripicons-gear noti-icon"></i>
+                </a> -->
+            </li>
+            <li class="dropdown notification-list" ngbDropdown>
+                <a ngbDropdownToggle class="nav-link nav-user arrow-none me-0" id="profileMenuDropdown"
+                    href="javascript:void(0)" aria-expanded="false">
+                    <span *ngIf="fullName">
+                        <span class="account-user-name">{{fullName | titlecase}}</span>
+                        <span *ngIf="tenantName else noTenant" class="account-position">{{ tenantName }}</span>
+                        <ng-template #noTenant>
+                          <span class="account-position">{{ displayedRole }}</span>
+                        </ng-template>
+                    </span>
+                    <span *ngIf="fullName" class="account-user-avatar avatar-sm m-2">
+                        <span class="avatar-title bg-secondary-lighten text-white font-16 rounded-circle">
+                          {{ fullName!.split(' ')[0][0] }}{{ fullName!.split(' ')[1][0] }}
+                        </span>
+                    </span>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="profileMenuDropdown"
+                    class="dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                    <!-- item -->
+                    <div ngbDropdownItem class="dropdown-header noti-title">
+                        <div class="text-overflow bold m-0 font-14">{{ email | lowercase }}</div>
+                    </div>
+                    <div class="notify-item" href="" (click)="switchBu()">
+                      Switch BU
+                    </div>
+                    <div *ngIf="canAccessManagement" class="notify-item" href="" (click)="accessManagement()">
+                      Access management
+                    </div>
+                    <div class="notify-item" href="" (click)="logout()">
+                        Logout
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+        <button class="button-menu-mobile open-left d-none d-md-block" (click)="toggleSidebarWidth()"
+            *ngIf="layoutType==='vertical' || layoutType==='full'">
+            <i class="mdi mdi-menu open-left-icon"></i>
+        </button>
+
+        <!-- mobile menu toggle -->
+        <button class="button-menu-mobile open-left disable-btn d-md-none" (click)="toggleMobileMenu($event)"
+            *ngIf="layoutType==='vertical' || layoutType==='full'">
+            <i class="mdi mdi-menu open-left-icon"></i>
+        </button>
+
+
+        <a class="navbar-toggle open-left" [ngClass]="{'open': topnavCollapsed}" (click)="toggleMobileMenu($event)"
+            *ngIf="layoutType==='horizontal'">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </a>
+
+        <a class="button-menu-mobile open-left disable-btn" (click)="toggleMobileMenu($event)"
+            *ngIf="layoutType==='detached'">
+            <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </a>
+    </div>
+
+</div>
+<!-- Topbar End -->

@@ -1,0 +1,77 @@
+<div class="bg-white rounded-3 px-3 py-2 my-3">
+    <div class="row">
+        <div class="col-6">
+            <span class="text-dark font-16"><strong>Expiry scheme <span class="text-danger"> *</span></strong> </span>
+        </div>
+        <div class="col-6" *ngIf="selectedExpirySchemes$.value.length > 0">
+            <div class="float-end">
+                <button *ngIf="isFixedExpiryPolicy else flexibleButton"
+                    class="btn btn-primary font-12 px-3"
+                    (click)="openFixedModal()">
+                    Select fixed expiry
+                </button>
+                <ng-template #flexibleButton>
+                    <button class="btn btn-primary font-12 px-3"
+                        (click)="openFlexibleModal()">
+                        Select flexible expiry
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <ng-container *ngIf="selectedExpirySchemes$.value.length > 0 else noExpiryScheme">
+                <ng-container *ngTemplateOutlet="expiryTable"></ng-container>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #expiryTable>
+    <table class="table table-centered mt-2"
+        *ngIf="selectedExpirySchemes$.value.length > 0 else noExpiryScheme">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col" style="width: 5%;"></th>
+                <th scope="col">Expiry Date Type</th>
+                <th scope="col">Expiry Condition</th>
+                <th scope="col" style="width: 5%;">Action</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let item of selectedExpirySchemes$ | async; let index = index">
+                <td class="text-center py-0">{{ index+1 }}</td>
+                <td class="py-0">{{ ExpirationPolicyTypeEnum[item.type] | stringSplitByCapitalLetter }}</td>
+                <td class="py-0">
+                    {{ item.displayName }}
+                    <span
+                        *ngIf="isFixedExpiryPolicy && item.name.includes(KEYWORD_FIX_END_OF_DAY)">
+                        ({{ productExpiryDate | date:'MM/dd/yyyy' }})
+                    </span>
+                </td>
+                <td class="py-0">
+                    <button class="btn" (click)="removeExpiryScheme(index)"><i class="uil-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noExpiryScheme>
+    <div class="text-center text-danger my-2 d-flex justify-content-center">
+        <div class="px-1">
+            <button class="btn btn-primary font-12 px-3"
+                (click)="openFlexibleModal()">
+                Select flexible expiry
+            </button>
+        </div>
+        <div class="px-1">
+            <button class="btn btn-primary font-12 px-3"
+                (click)="openFixedModal()">
+                Select fixed expiry
+            </button>
+        </div>
+    </div>
+</ng-template>

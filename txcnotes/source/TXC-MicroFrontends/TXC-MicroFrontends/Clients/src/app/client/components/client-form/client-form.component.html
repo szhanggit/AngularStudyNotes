@@ -1,0 +1,709 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.DuplicateCheckStatusProviderID">
+        Status Provider ID already exists
+    </ng-container>  
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.DuplicateCheckClientName">
+        Client name already exists
+    </ng-container>          
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.pattern && formControl.errors?.pattern?.requiredPattern != '^[0-9]*$'">
+        Invalid input pattern
+    </ng-container>  
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength && (formControl !== f.subURL)">
+       Entered value exceeded maximum characters!
+    </ng-container> 
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 0 number!
+    </ng-container> 
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidPhoneNumber">
+        Please enter valid phone number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.isEmpty">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && (formControl.errors === null || formControl.errors?.email)">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.pattern && formControl.errors?.pattern?.requiredPattern == '^[0-9]*$'">
+        Entered value should contain only numbers!
+    </ng-container>
+    <ng-container *ngIf="f.subURL?.invalid && f.subURL?.errors?.maxlength">
+        Max length of Sub URL is 6!
+    </ng-container>
+</ng-template>
+
+
+<form [formGroup]="clientFormGroup">
+    <div class="row my-3">
+        <div class="col-9">           
+            <span class="font-20 text-dark bold">
+                {{ isEdit ? 'Edit Client': 'Create Client' }}              
+               <span class="font-14 px-1 colorText" *ngIf="clientDetailEdit && isEdit">| {{ clientDetailEdit.clientName }}</span>
+            </span>           
+        </div>
+        <div class="col-3 d-flex" *ngIf="isEdit">
+            <label for="Status" class="mt-1">Status</label>
+         
+            <select class="form-select ms-2 font-8 text-secondary" formControlName="status">
+                <option value="1">Active</option>
+                <option value="0">InActive</option>
+            </select>
+       
+        </div>
+
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Basic Info
+                        </span>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="clientName">Client name <span class="text-danger bold">*</span></label>
+                                <input type="text" class="form-control font-14 text-secondary" 
+                                    [ngClass]="{'is-invalid': f.clientName.invalid && f.clientName.dirty}"
+                                    formControlName="clientName" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.clientName.invalid && f.clientName.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #nameTip="ngbTooltip" 
+                                    (keyup)="toggleTooltipWithContext(nameTip, f.clientName)"
+                                    (mouseup)="toggleTooltipWithContext(nameTip, f.clientName)"
+                                    [disableTooltip]="!(f.clientName.invalid && f.clientName.dirty)"
+                                    (blur)="isEdit? checkClientnameDuplicate(f.clientName.value, $event) : false">
+                            </div>
+
+                            <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('voucherIssuer')">
+                                <label for="voucherIssuer">Voucher issuer <span class="text-danger bold">*</span></label>
+                                <select class="form-select font-14 text-secondary" formControlName="voucherIssuer"
+                                    [ngClass]="{'is-invalid': f.voucherIssuer.invalid && f.voucherIssuer.dirty}"
+                                    triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.voucherIssuer.invalid && f.voucherIssuer.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #nameTip="ngbTooltip" 
+                                    (keyup)="toggleTooltipWithContext(nameTip, f.voucherIssuer)"
+                                    (mouseup)="toggleTooltipWithContext(nameTip, f.voucherIssuer)"
+                                    [disableTooltip]="!(f.voucherIssuer.invalid && f.voucherIssuer.dirty)">
+                                    <option selected value="">Select</option>
+                                    <option *ngFor="let item of voucherIssuerList" [value]="item.dictionaryId">{{ item.displayName }}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6 mb-2" style="visibility: hidden;" *ngIf="tenant != 'GL'">
+                            </div>
+
+                            <div class="col-6 mb-2">
+                                <label for="businessType">Quotation default business type</label>
+                                <select class="form-select font-14 text-secondary" formControlName="businessType">
+                                    <option selected value="">Select</option>
+                                    <option *ngFor="let item of businessTypeList" [value]="item.dictionaryId">{{ item.displayName }}</option>
+                                </select>
+                            </div> 
+                            
+                            <div class="col-6 mb-2">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control font-14 text-secondary" 
+                                    [ngClass]="{'is-invalid': f.description.invalid && f.description.dirty}" 
+                                    formControlName="description" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.description.invalid && f.description.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #nameTip="ngbTooltip" 
+                                    (keyup)="toggleTooltipWithContext(nameTip, f.description)"
+                                    (mouseup)="toggleTooltipWithContext(nameTip, f.description)"
+                                    [disableTooltip]="!(f.description.invalid && f.description.dirty)">
+                            </div>   
+                           
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="row my-3">
+                    <div class="col-6">
+                        <span class="font-16 text-dark bold">
+                           Security
+                        </span>
+                    </div>
+                    <div class="col-6">
+                    <div class="send-security-key float-end" *ngIf="isEdit && _clientPermissionService.isClientEditor">
+                        <app-send-security-key 
+                            [clientId]="clientId" 
+                            [securityKey]="f.securityKey.value" 
+                            [clientEmailList]="clientContactDetails">
+                        </app-send-security-key>
+                    </div>
+                </div>
+                    <div class="col-6 mb-2" *ngIf="isEdit">
+                        <label for="securityKey">Security key</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="securityKey">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" (click)="Open(updateSecurityKeyModalContent)">
+                                    <i class='uil uil-sync'></i>
+                                </button>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="col-6 mb-2" *ngIf="isEdit"> </div>
+                    <div class="col-6 mb-2">
+                        <label for="securityAlgo">Security algorithm <span class="text-danger bold">*</span></label>                        
+                        <select class="form-select font-14 text-secondary" formControlName="securityAlgo" (change)="isEdit && Open(updateSecurityKeyModalContent)"
+                        >
+                            <option *ngFor="let item of securityAlgoList" [value]="item.id">{{ item.name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="isEdit">
+                        <label for="identityCode">Identity code</label>
+                        <input type="text"  formControlName="identityCode" class="form-control font-14 text-secondary"
+                            [ngClass]="{'is-invalid': f.identityCode.invalid}" formControlName="identityCode" triggers="manual" 
+                            [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.identityCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #identityCodeTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(identityCodeTip, f.identityCode)"
+                            [disableTooltip]="!f.identityCode.invalid">
+                    </div>
+
+                </div>
+
+                <div class="row my-3">
+                    <div class="col-12 mb-2" *ngIf="clientFormGroup.contains('invoiceTitle') || clientFormGroup.contains('invoiceNumber')">
+                        <span class="font-16 text-dark bold">
+                           Billing
+                        </span>
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('invoiceTitle')">
+                        <label for="invoiceTitle">Invoice title <span class="text-danger bold">*</span></label>       
+                        <input type="text" class="form-control font-14 text-secondary" 
+                            [ngClass]="{'is-invalid': f.invoiceTitle.invalid && f.invoiceTitle.dirty}"
+                            formControlName="invoiceTitle" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.invoiceTitle.invalid && f.invoiceTitle.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #invoiceTitleTip="ngbTooltip" 
+                            (keyup)="toggleTooltipWithContext(invoiceTitleTip, f.invoiceTitle)"
+                            (mouseup)="toggleTooltipWithContext(invoiceTitleTip, f.invoiceTitle)"
+                            [disableTooltip]="!(f.invoiceTitle.invalid && f.invoiceTitle.dirty)"
+                            (blur)="isEmptyOrSpaces($event)"> 
+                    </div>
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('invoiceNumber')">
+                        <label for="invoiceNumber">Invoice number <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" 
+                            [ngClass]="{'is-invalid': f.invoiceNumber.invalid && f.invoiceNumber.dirty}" 
+                            formControlName="invoiceNumber" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.invoiceNumber.invalid && f.invoiceNumber.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #invoiceNumberTip="ngbTooltip" 
+                            (keyup)="toggleTooltipWithContext(invoiceNumberTip, f.invoiceNumber)"
+                            (mouseup)="toggleTooltipWithContext(invoiceNumberTip, f.invoiceNumber)"
+                            [disableTooltip]="!(f.invoiceNumber.invalid && f.invoiceNumber.dirty)"> 
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('mandatoryAutoBilling')">
+                        <label for="mandatoryAutoBilling">Mandatory auto billing <span class="text-danger bold">*</span></label>
+                        <select class="form-select font-14 text-secondary" formControlName="mandatoryAutoBilling">
+                            <option [value]="true">Yes</option>
+                            <option [value]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Distribution details
+                        </span>
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('statusSubscriptionEnabled')">
+                        <label for="statusSubscriptionEnabled">Status subscription</label>
+                        <div>
+                            <label class="switch">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" formControlName="statusSubscriptionEnabled" (change)="onStatusSubscriptionChanged()">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('statusSubscriptionEnabled') && f.statusSubscriptionEnabled.value">
+                        <label for="statusProviderId">Status provider ID <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="statusProviderId"
+                            [ngClass]="{'is-invalid': f.statusProviderId.invalid && f.statusProviderId.dirty}" 
+                            triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.statusProviderId.invalid && f.statusProviderId.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #invoiceNumberTip="ngbTooltip" 
+                            (keyup)="toggleTooltipWithContext(invoiceNumberTip, f.statusProviderId)"
+                            (mouseup)="toggleTooltipWithContext(invoiceNumberTip, f.statusProviderId)"
+                            [disableTooltip]="!(f.statusProviderId.invalid && f.statusProviderId.dirty)"
+                            (blur)="checkExistingStatusProviderId(f.statusProviderId.value, $event)" > 
+                    </div>
+                    
+                    <div class="col-12 mb-2" *ngIf="clientFormGroup.contains('emailSenderName') || clientFormGroup.contains('emailSenderAddress') || clientFormGroup.contains('emailProviderCode')">
+                        <span class="font-16 text-secondary bold">
+                            Email
+                        </span>
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('emailSenderName')">
+                        <label for="emailSenderName">Email sender name</label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="emailSenderName"
+                            [ngClass]="{'is-invalid': f.emailSenderName.invalid && f.emailSenderName.dirty}"  
+                            triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.emailSenderName.invalid && f.emailSenderName.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #emailSenderNameTip="ngbTooltip"
+                            (keyup)="toggleTooltipWithContext(emailSenderNameTip, f.emailSenderName)"
+                            (mouseup)="toggleTooltipWithContext(emailSenderNameTip, f.emailSenderName)"
+                            [disableTooltip]="!(f.emailSenderName.invalid && f.emailSenderName.dirty)"> 
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('emailSenderAddress')">
+                        <label for="emailSenderAddress">Email sender address</label>                        
+                        <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.emailSenderAddress.invalid && f.emailSenderAddress.dirty
+                        }" formControlName="emailSenderAddress" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.emailSenderAddress.invalid && f.emailSenderAddress.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #emailSenderAddressTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(emailSenderAddressTip, f.emailSenderAddress)"
+                            [disableTooltip]="!(f.emailSenderAddress.invalid && f.emailSenderAddress.dirty)"> 
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('emailProviderCode')">
+                        <label for="emailProviderCode">Email service provider</label>
+                        <select class="form-select font-14 text-secondary" formControlName="emailProviderCode">
+                            <option *ngFor="let item of emailProviderList" [value]="item.providerCode">{{ item.name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mb-2" *ngIf="clientFormGroup.contains('smsSenderName') || clientFormGroup.contains('smsProviderCode') || clientFormGroup.contains('smsEntityId')">
+                        <span class="font-16 text-secondary bold">
+                            SMS
+                        </span>
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('smsSenderName')">
+                        <label for="smsSenderName">SMS sender name</label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="smsSenderName"
+                            [ngClass]="{'is-invalid': f.smsSenderName.invalid && f.smsSenderName.dirty}"  
+                            triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.smsSenderName.invalid && f.smsSenderName.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #smsSenderNameTip="ngbTooltip"
+                            (keyup)="toggleTooltipWithContext(smsSenderNameTip, f.smsSenderName)"
+                            (mouseup)="toggleTooltipWithContext(smsSenderNameTip, f.smsSenderName)"
+                            [disableTooltip]="!(f.smsSenderName.invalid && f.smsSenderName.dirty)"> 
+                    </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('smsProviderCode')">
+                        <label for="smsProviderCode">SMS service provider</label>
+                        <select class="form-select font-14 text-secondary" formControlName="smsProviderCode">
+                            <option *ngFor="let item of smsProviderList" [value]="item.providerCode">{{ item.name }}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-6 mb-2"  *ngIf="clientFormGroup.contains('smsEntityId') && showSMSEntityID">
+                        <label for="smsEntityId">SMS entityID(for Netcore)</label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="smsEntityId"> 
+                    </div>
+
+                </div>
+
+                <div class="row my-3" *ngIf="clientFormGroup.contains('logoMediaId') || clientFormGroup.contains('bannerMediaId') || clientFormGroup.contains('subURL')">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Customization
+                        </span>
+                    </div>
+
+                    
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('logoMediaId')" ngbDropdown #logoMediaDrop="ngbDropdown">
+                        <label for="logoMediaId">Client logo</label>
+                        <div class="input-group input-group-sm input-group-prefix-icon mb-1 font-12" ngbDropdownAnchor>  
+                            <span class="input-group-text"><span class="mdi mdi-magnify search-icon"></span></span>
+                            <input type="text" class="form-control ps-0" placeholder="Search from media library" formControlName="logoMediaId" (focus)="logoMediaDrop.open()" (keyup)="onLogoMediaDropTextChange()">
+                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                <div class="list-group">
+                                    <div ngbDropdownItem *ngIf="logoMediaList.length == 0">No data.</div>
+                                    <div  ngbDropdownItem  class="list-group-item list-group-item-action"  [ngClass]="{ 'active': f.logoMediaId.value == item.keyword }" 
+                                    *ngFor="let item of logoMediaList" (click)="onLogoMediaDropSelectChange(item)">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img [src]="item.nodeUrl" width="100%">
+                                            </div>
+                                            <div class="col-10">
+                                                <p class="text-wrap">{{ item.keyword }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                    <div class="col-6 mb-2" *ngIf="f.logoMediaId?.value && isEdit && clientFormGroup.contains('logoMediaId')" (click)="removeLogo()"
+                    (mouseout)="logoOnHover = false"
+                    (mouseenter)="logoOnHover = true">
+                    <div class="dashed d-flex justify-content-center p-3" [class.hover]="logoOnHover"
+                        (mouseenter)="logoOnHover = true" *ngIf="logoMediaList.length > 0">
+                        <div class="d-flex flex-column text-center">
+                            <img [src]="this.logoMediaList[0].nodeUrl"                           
+                            class="img-thumbnail" 
+                            height="{{this.logoMediaList[0].height}}" 
+                            width="{{this.logoMediaList[0].width}}"
+                           >
+                            <span class="text-secondary mt-2 font-14"><strong>Client Logo : {{ f.logoMediaId.value
+                                     }}</strong></span>
+                           
+                        </div>
+                        <div class="d-flex flex-column text-center show-on-hover pt-4" *ngIf="logoOnHover">
+                            <span class="font-20">
+                                <i class="uil-trash"></i>
+                            </span>
+                            <span class="font-14">
+                                Delete file
+                            </span>
+                        </div>
+                    </div>
+              
+                </div>
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('bannerMediaId')">
+                        <label for="bannerMediaId">Banner</label>
+                        <div class="input-group input-group-sm input-group-prefix-icon mb-1 font-12" ngbDropdown #bannerMediaDrop="ngbDropdown">  
+                            <span class="input-group-text"><span class="mdi mdi-magnify search-icon"></span></span>
+                            <input type="text" class="form-control ps-0" ngbDropdownAnchor placeholder="Search from media library" formControlName="bannerMediaId" (focus)="bannerMediaDrop.open()" (keyup)="onBannerMediaDropTextChange()">
+                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                <div class="list-group">
+                                    <div ngbDropdownItem *ngIf="bannerMediaList.length == 0">No data.</div>
+                                    <div  ngbDropdownItem  class="list-group-item list-group-item-action"  [ngClass]="{ 'active': f.bannerMediaId.value == item.keyword }" 
+                                    *ngFor="let item of bannerMediaList" (click)="onBannerMediaDropSelectChange(item)">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <img [src]="item.nodeUrl" width="100%">
+                                            </div>
+                                            <div class="col-10">
+                                                <p class="text-wrap">{{ item.keyword }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 mb-2" *ngIf="f.bannerMediaId?.value && isEdit && clientFormGroup.contains('bannerMediaId')" 
+                    (click)="removeBanner()"
+                    (mouseout)="bannerOnHover = false"
+                    (mouseenter)="bannerOnHover = true">
+                    <div class="dashed d-flex justify-content-center p-3" [class.hover]="bannerOnHover"
+                        (mouseenter)="bannerOnHover = true" *ngIf="bannerMediaList.length > 0"> 
+                        <div class="d-flex flex-column text-center">
+                            <img [src]="this.bannerMediaList[0].nodeUrl" class="img-thumbnail" height="{{this.bannerMediaList[0].height}}" 
+                            width="{{this.bannerMediaList[0].width}}">
+                            <span class="text-secondary mt-2 font-14"><strong>Banner: {{ f.bannerMediaId.value
+                                     }}</strong></span>
+                           
+                        </div>
+                        <div class="d-flex flex-column text-center show-on-hover pt-4" *ngIf="bannerOnHover">
+                            <span class="font-20">
+                                <i class="uil-trash"></i>
+                            </span>
+                            <span class="font-14">
+                                Delete file
+                            </span>
+                        </div>
+                    </div>
+              
+                </div>
+                   
+
+                    <div class="col-6 mb-2" *ngIf="clientFormGroup.contains('subURL')">
+                        <label for="subURL" >Sub URL <span class="text-danger bold" *ngIf="f.bannerMediaId?.value || f.logoMediaId.value"> *</span> </label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="subURL"
+                            [ngClass]="{'is-invalid': f.subURL.invalid && f.subURL.dirty}"  
+                            triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.subURL.invalid && f.subURL.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #subURLTip="ngbTooltip"
+                            (keyup)="toggleTooltipWithContext(subURLTip, f.subURL)"
+                            (mouseup)="toggleTooltipWithContext(subURLTip, f.subURL)"
+                            [disableTooltip]="!(f.subURL.invalid && f.subURL.dirty)"> 
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Edenred contact info
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="salesEmail">Sales Email</label>
+                                <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.salesEmail.invalid && f.salesEmail.dirty
+                                }" formControlName="salesEmail" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="(f.salesEmail.invalid && f.salesEmail.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    #salesEmailTip="ngbTooltip"
+                                    (keyup)="toggleTooltipWithContext(salesEmailTip, f.salesEmail)"
+                                    (mouseup)="toggleTooltipWithContext(salesEmailTip, f.salesEmail)"
+                                    [disableTooltip]="!(f.salesEmail.invalid && f.salesEmail.dirty)"> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Client contact info
+                        </span>
+                    </div>
+                    <div class="mt-2">
+                      <div class="row">
+                          <div class="col-2 mb-2">
+                              <label for="contacPersonJobTitle">Position</label>
+                          </div>
+                          <div class="col-3 mb-2">
+                              <label for="contactPersonName">Name</label>
+                          </div>
+                          <div class="col-3 mb-2">
+                              <label for="contactEmail">Email</label>
+                          </div>
+                          <div class="col-3 mb-2">
+                              <label for="contactPhoneNumber">Phone</label>
+                          </div>
+                          <div class="col-1 mb-2">
+                              <label for="contactPhoneNumber">Action</label>
+                          </div>
+                       </div>
+                    </div>
+                     <hr>
+                    <div [formGroup]="formGroupCtrl(ct)" *ngFor="let ct of contactDetailcontrols.controls; index as idx">
+                    <div class="col-12" *ngIf="formGroupCtrl(ct).controls.isActive.value==true">
+                        <div class="row">
+
+                            <div class="col-2 mb-2">
+                                <input type="hidden" formControlName="contactid">
+                                <input type="text" class="form-control font-14 text-secondary" 
+                                    [ngClass]="{'is-invalid': formGroupCtrl(ct).controls.newcontacPersonJobTitle.invalid && formGroupCtrl(ct).controls.newcontacPersonJobTitle.dirty}" 
+                                    formControlName="newcontacPersonJobTitle" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="(formGroupCtrl(ct).controls.newcontacPersonJobTitle.invalid && formGroupCtrl(ct).controls.newcontacPersonJobTitle.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    #contacPersonJobTitleTip="ngbTooltip"
+                                    (blur)="ValidateField(ct)"
+                                    (keyup)="toggleTooltipWithContext(contacPersonJobTitleTip, formGroupCtrl(ct).controls.newcontacPersonJobTitle)"
+                                    (mouseup)="toggleTooltipWithContext(contacPersonJobTitleTip, formGroupCtrl(ct).controls.newcontacPersonJobTitle)"
+                                    [disableTooltip]="!(formGroupCtrl(ct).controls.newcontacPersonJobTitle.invalid && formGroupCtrl(ct).controls.newcontacPersonJobTitle.dirty)"> 
+                            </div>
+
+                            <div class="col-3 mb-2">
+                                <input type="text" class="form-control font-14 text-secondary" 
+                                    [ngClass]="{'is-invalid': formGroupCtrl(ct).controls.newcontactPersonName.invalid && formGroupCtrl(ct).controls.newcontactPersonName.dirty}" 
+                                    formControlName="newcontactPersonName" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="(formGroupCtrl(ct).controls.newcontactPersonName.invalid && formGroupCtrl(ct).controls.newcontactPersonName.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    #contactPersonNameTip="ngbTooltip"
+                                    (blur)="ValidateField(ct)"
+                                    (keyup)="toggleTooltipWithContext(contactPersonNameTip, formGroupCtrl(ct).controls.newcontactPersonName)"
+                                    (mouseup)="toggleTooltipWithContext(contactPersonNameTip, formGroupCtrl(ct).controls.newcontactPersonName)"
+                                    [disableTooltip]="!(formGroupCtrl(ct).controls.newcontactPersonName.invalid && formGroupCtrl(ct).controls.newcontactPersonName.dirty)"> 
+                            </div>
+
+                            <div class="col-3 mb-2">
+                                <input type="text" class="form-control font-14 text-secondary" 
+                                    [ngClass]="{'is-invalid': formGroupCtrl(ct).controls.newcontactEmail.invalid && formGroupCtrl(ct).controls.newcontactEmail.dirty}" 
+                                    formControlName="newcontactEmail" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="(formGroupCtrl(ct).controls.newcontactEmail.invalid && formGroupCtrl(ct).controls.newcontactEmail.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    #contactEmailTip="ngbTooltip"
+                                    (keyup)="toggleTooltipWithContext(contactEmailTip, formGroupCtrl(ct).controls.newcontactEmail)"
+                                    (mouseup)="toggleTooltipWithContext(contactEmailTip, formGroupCtrl(ct).controls.newcontactEmail)"
+                                    (blur)="removeValidationForEmailAndNumner(ct)"
+                                    [disableTooltip]="!(formGroupCtrl(ct).controls.newcontactEmail.invalid && formGroupCtrl(ct).controls.newcontactEmail.dirty)"> 
+                            </div>
+                            <div class="col-3 mb-2">
+                                <input type="text" class="form-control font-14 text-secondary" 
+                                    [ngClass]="{'is-invalid': formGroupCtrl(ct).controls.newcontactPhoneNumber.invalid && formGroupCtrl(ct).controls.newcontactPhoneNumber.dirty}" 
+                                    formControlName="newcontactPhoneNumber" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="(formGroupCtrl(ct).controls.newcontactPhoneNumber.invalid && formGroupCtrl(ct).controls.newcontactPhoneNumber.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    #contactPhoneNumberTip="ngbTooltip"
+                                    (blur)="removeValidationForEmailAndNumner(ct)"
+                                    (keyup)="toggleTooltipWithContext(contactPhoneNumberTip, formGroupCtrl(ct).controls.newcontactPhoneNumber)"
+                                    (mouseup)="toggleTooltipWithContext(contactPhoneNumberTip, formGroupCtrl(ct).controls.newcontactPhoneNumber)"
+                                    [disableTooltip]="!(formGroupCtrl(ct).controls.newcontactPhoneNumber.invalid && formGroupCtrl(ct).controls.newcontactPhoneNumber.dirty)">
+                            </div>
+                            <div class="col-1 d-flex align-items-center">
+                                <i class="mdi mdi-plus font-20 mouse-hover-pointer mb-2" *ngIf="idx==0" (click)="addNewContactDetails()"></i>
+                                <i class="mdi mdi-trash-can-outline font-20 mouse-hover-pointer mb-2" (click)="removeContactDetailRow(ct)"  *ngIf="idx>0"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr  *ngIf="formGroupCtrl(ct).controls.isActive.value==true">
+                </div>
+            </div>
+
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Client Address 
+                            <span class="text-danger bold">*</span>
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="country">Country</label>                                
+                                <select class="form-select font-14 text-secondary"  formControlName="country"
+                                    [ngClass]="{'is-invalid': f.country.invalid && f.country.dirty}" 
+                                    triggers="manual" [ngbTooltip]="tipContent" #countryTip="ngbTooltip"
+                                    [tooltipClass]="(f.country.invalid && f.country.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    (keyup)="toggleTooltipWithContext(countryTip, f.country)"
+                                    (mouseup)="toggleTooltipWithContext(countryTip, f.country)"
+                                    [disableTooltip]="!(f.country.invalid && f.country.dirty)" (change)="onCountryChanged(f.country.value)">
+                                    <option selected value="">Select</option>   
+                                    <option *ngFor="let item of countryList" [value]="item.dictionaryId">{{ item.displayName }}</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label for="state">State</label>                                
+                                <select class="form-select font-14 text-secondary"  [(ngModel)]="selectedValuestate" formControlName="state"
+                                    [ngClass]="{'is-invalid': f.state.invalid && f.state.dirty}" 
+                                    triggers="manual" [ngbTooltip]="tipContent" #stateTip="ngbTooltip"
+                                    [tooltipClass]="(f.state.invalid && f.state.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    (keyup)="toggleTooltipWithContext(stateTip, f.state)"
+                                    (mouseup)="toggleTooltipWithContext(stateTip, f.state)"
+                                    [disableTooltip]="!(f.state.invalid && f.state.dirty)" (change)="onStateChanged(f.state.value)"
+                                triggers="manual">
+                                    <option selected value="">Select</option> 
+                                    <option *ngFor="let item of stateList" [value]="item.dictionaryId">{{ item.displayName }}</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label for="city">City</label>                                
+                                <select class="form-select font-14 text-secondary" [(ngModel)]="selectedValueCity" formControlName="city"
+                                    [ngClass]="{'is-invalid': f.city.invalid && f.city.dirty}" 
+                                    triggers="manual" [ngbTooltip]="tipContent" #cityTip="ngbTooltip"
+                                    [tooltipClass]="(f.city.invalid && f.city.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    (keyup)="toggleTooltipWithContext(cityTip, f.city)"
+                                    (mouseup)="toggleTooltipWithContext(cityTip, f.city)"
+                                    [disableTooltip]="!(f.city.invalid && f.city.dirty)">
+                                    <option selected value="">Select</option>    
+                                    <option *ngFor="let item of cityList" [value]="item.dictionaryId">{{ item.displayName }}</option>                                
+                                </select>
+                            </div>
+
+                            <div class="col-6 mb-2">
+                                <label for="district">District</label>                                
+                                <input type="text" class="form-control font-14 text-secondary" formControlName="district"
+                                    [ngClass]="{'is-invalid': f.district.invalid && f.district.dirty}"
+                                    triggers="manual" [ngbTooltip]="tipContent" #districtTip="ngbTooltip"
+                                    [tooltipClass]="(f.district.invalid && f.district.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    (keyup)="toggleTooltipWithContext(districtTip, f.district)"
+                                    (mouseup)="toggleTooltipWithContext(districtTip, f.district)"
+                                    [disableTooltip]="!(f.district.invalid && f.district.dirty)">
+                            </div>
+
+                            <div class="col-6 mb-2">
+                                <label for="detailAddress">Detail address</label>                                
+                                <input type="text" class="form-control font-14 text-secondary" formControlName="detailAddress"
+                                    [ngClass]="{'is-invalid': f.detailAddress.invalid && f.detailAddress.dirty}"
+                                    triggers="manual" [ngbTooltip]="tipContent" #detailAddressTip="ngbTooltip"
+                                    [tooltipClass]="(f.detailAddress.invalid && f.detailAddress.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    (keyup)="toggleTooltipWithContext(detailAddressTip, f.detailAddress)"
+                                    (mouseup)="toggleTooltipWithContext(detailAddressTip, f.detailAddress)"
+                                    [disableTooltip]="!(f.detailAddress.invalid && f.detailAddress.dirty)">
+                            </div>
+
+                            <div class="col-6 mb-2">
+                                <label for="postcode">Post code</label>                                
+                                <input type="text" class="form-control font-14 text-secondary" formControlName="postcode"
+                                    [ngClass]="{'is-invalid': f.postcode.invalid && f.postcode.dirty}"
+                                    triggers="manual" [ngbTooltip]="tipContent" #postcodeTip="ngbTooltip"
+                                    [tooltipClass]="(f.postcode.invalid && f.postcode.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    (keyup)="toggleTooltipWithContext(postcodeTip, f.postcode)"
+                                    (mouseup)="toggleTooltipWithContext(postcodeTip, f.postcode)"
+                                    [disableTooltip]="!(f.postcode.invalid && f.postcode.dirty)">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+ 
+
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                           Memo
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="memo">Notes</label>
+                                <textarea class="form-control font-14 text-secondary" rows="5" 
+                                    [ngClass]="{'is-invalid': f.memo.invalid && f.memo.dirty}" 
+                                    formControlName="memo" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="(f.memo.invalid && f.memo.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                                    #memoTip="ngbTooltip"
+                                    (keyup)="toggleTooltipWithContext(memoTip, f.memo)"
+                                    (mouseup)="toggleTooltipWithContext(memoTip, f.memo)"
+                                    [disableTooltip]="!(f.memo.invalid && f.memo.dirty)" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row my-2">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                                (click)="onCancelClicked()">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12"
+                            [disabled]="clientFormGroup.pristine || clientFormGroup.invalid " (click)="onSubmitClicked()"> {{ isEdit ? 'Save' : 'Create' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<ng-template #updateSecurityKeyModalContent let-modal>    
+    <div class="modal-header border-bottom-0">
+		<h4 class="modal-title text-center w-100" id="modal-basic-title">Update security key</h4>
+	</div>
+	<div class="modal-body">
+        <p class="text-muted text-center">
+            Are you sure you want to generate a new security key? <br/>Once Updated, can not be reversed back.
+        </p>
+	</div>
+    <div class="modal-footer border-top-0 justify-content-center">
+        <button type="button" class="btn btn-secondary rounded-pill" style="width: 100px;"
+            (click)="modal.dismiss('Cross click');OnCancel()">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill" style="width: 100px;"
+            (click)="modal.dismiss('Cross click'); updateSecurityKey();">OK</button>
+    </div>
+</ng-template>
+<ngbd-toast-global></ngbd-toast-global>

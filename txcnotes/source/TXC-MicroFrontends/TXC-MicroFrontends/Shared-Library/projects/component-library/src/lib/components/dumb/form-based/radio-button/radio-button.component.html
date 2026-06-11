@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-12">
+        <label class="form-label" [for]="radioButtonModel.formControlName">{{ radioButtonModel.label }}
+            <span *ngIf="radioButtonModel.required" class="text-danger">*</span></label>
+
+        <div class="d-flex justify-content-between flex-wrap">
+            <div *ngFor="let option of radioButtonModel.options">
+                <div class="form-check form-check-inline">
+                    <input type="radio" [id]="radioButtonModel.formControlName" [id]="radioButtonModel.formControlName"
+                        [name]="radioButtonModel.formControlName" [value]="option.value" class="form-check-input"
+                        [(ngModel)]="value" [class]="{'invalid-input': controlDir.control?.touched && !controlDir.control?.valid }"
+                        (input)="onChange(option.value)" (blur)="onTouched(); blur.emit()" [disabled]="disabledControl">
+                    <label class="form-check-label" for="voucherNumberType1">{{ option.label }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

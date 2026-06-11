@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+
+stages:
+- stage: DevBuildDeploy
+  displayName: DevBuildDeploy
+  jobs:
+  - job: BuildPackage
+    displayName: BuildPackage
+    workspace:
+      clean: all
+    pool:
+      name: 'APAC agent pool'
+      demands:
+        - AZP_TARGET_ENV -equals TXC-DEV
+    steps:
+    - task: Npm@1
+      inputs:
+        command: 'install'
+        workingDir: '/Shared-Library'
+    - task: Npm@1
+      inputs:
+        command: 'publish'
+        workingDir: '/Shared-Library'
+        publishRegistry: 'useFeed'
+        publishFeed: '69ce1b3a-c186-4fa3-b834-9b732e774cb9/4926a3ea-70a0-4b7f-9ecb-9bfe29b049a7'

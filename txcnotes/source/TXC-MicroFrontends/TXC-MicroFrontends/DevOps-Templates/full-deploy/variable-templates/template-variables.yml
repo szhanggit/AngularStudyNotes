@@ -1,0 +1,20 @@
+parameters:
+  - name: mfeEnv
+    type: string
+
+variables:
+- name: prBuildAgentName
+  ${{ if in(parameters.mfeEnv, 'dev') }}:
+    value: 'TXC-DEV'
+  ${{ elseif eq(parameters.mfeEnv, 'prod') }}:
+    value: 'TXC-PROD'
+- name: codeBuildAgentName
+  ${{ if in(parameters.mfeEnv, 'dev', 'staging', 'uat', 'txcuat') }}:
+    value: 'TXC-DEPLOY'
+  ${{ elseif eq(parameters.mfeEnv, 'prod') }}:
+    value: 'TXC-PROD'
+- name: keyVaultName
+  ${{ if in(parameters.mfeEnv, 'dev', 'staging', 'uat', 'txcuat') }}:
+    value: 'esg-aks-kv-d'
+  ${{ elseif eq(parameters.mfeEnv, 'prod') }}:
+    value: 'esg-aks-kv-p'

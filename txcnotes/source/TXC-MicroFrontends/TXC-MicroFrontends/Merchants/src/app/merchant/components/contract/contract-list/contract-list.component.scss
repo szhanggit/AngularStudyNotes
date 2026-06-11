@@ -1,0 +1,12 @@
+.dropdown-toggle::after{
+    display: none;
+}
+
+.input-group-prefix-icon > .input-group-text{
+    background-color: transparent;
+    border-right-width: 0px;
+}
+
+.input-group-prefix-icon > .form-control{
+    border-left-width: 0px;
+}

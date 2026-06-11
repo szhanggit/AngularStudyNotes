@@ -1,0 +1,32 @@
+a {
+    &.text-primary {
+        cursor: pointer;
+    }
+}
+
+.nav-tabs {
+    .nav-item {
+        .nav-link {
+            background-color: #F2F4F8;
+        }
+
+        .active {
+            color: #0D8AFF;
+            font-weight: bold;
+        }
+    }
+}
+
+.group-name {
+    max-width: 320px;
+    overflow-wrap: break-word;
+}
+
+.input-group-text{
+    background-color: transparent;
+    border-right: 0px;
+    line-height: 0.5;
+    ~ input{
+        border-left: 0px;
+    }
+}

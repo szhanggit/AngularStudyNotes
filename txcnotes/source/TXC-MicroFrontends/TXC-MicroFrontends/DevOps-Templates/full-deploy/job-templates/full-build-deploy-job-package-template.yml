@@ -1,0 +1,101 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+
+parameters:
+  - name: MFEFolderName
+    type: string
+  - name: DistFolderName
+    type: string
+  - name: StorageName
+    type: string
+  - name: ContainerName
+    type: string
+  - name: BuildConfiguration
+    type: string
+  - name: keyVaultSecretsPullFilter
+    type: string
+  - name: keyVaultServiceConnection
+    type: string
+  
+
+jobs:
+  - job: Build
+    displayName: Build
+    workspace:
+      clean: all
+    pool:
+      name: 'APAC agent pool'
+    demands:
+      - AZP_DEPLOYMENT_BUILD_AGENT -equals $(codeBuildAgentName)
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '16.x'
+      displayName: 'Install Node.js'
+    
+    - task: npmAuthenticate@0
+      inputs:
+        workingFile: ${{parameters.MFEFolderName}}/.npmrc
+
+    - task: CmdLine@2
+      displayName: 'npm install'
+      inputs:
+        script: |
+          npm install -g @angular/cli
+          dir 
+        workingDirectory: ${{parameters.MFEFolderName}}
+        
+    # - task: CmdLine@2
+    #   displayName: 'npm cache clear'
+    #   inputs:
+    #     script: |
+    #       dir
+    #       npm cache clean --force
+    #     workingDirectory: ${{parameters.MFEFolderName}}
+    
+    - task: CmdLine@2
+      displayName: 'npm install force'
+      inputs:
+        script: |
+          dir
+          npm install --force --save
+        workingDirectory: ${{parameters.MFEFolderName}}
+
+    - task: CmdLine@2
+      displayName: 'build angular'
+      inputs:
+        script: |
+          npm run ${{parameters.BuildConfiguration}} --prod
+        workingDirectory: ${{parameters.MFEFolderName}}
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/${{parameters.MFEFolderName}}/dist/${{parameters.DistFolderName}}'
+        artifact: 'dist'
+        publishLocation: 'pipeline'
+
+    - task: AzureKeyVault@2
+      inputs:
+        connectedServiceName: ${{ parameters.keyVaultServiceConnection }}
+        keyVaultName: $(keyVaultName)
+        secretsFilter: ${{parameters.keyVaultSecretsPullFilter}}
+        runAsPreJob: true # Runs before the job starts
+
+    - task: CmdLine@2
+      displayName: Echo upload storage command
+      inputs:
+        script: |
+          echo az storage blob upload-batch -d '${{parameters.ContainerName}}' --account-name ${{parameters.StorageName}} -s "$(Build.SourcesDirectory)/${{parameters.MFEFolderName}}/dist/${{parameters.DistFolderName}}" --overwrite --connection-string '$(${{parameters.keyVaultSecretsPullFilter}})'
+
+    - task: AzureCLI@2
+      displayName: Upload to Storage
+      inputs:
+        azureSubscription: 'esg-dev-txc'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az storage blob upload-batch -d '${{parameters.ContainerName}}' --account-name ${{parameters.StorageName}} -s "$(Build.SourcesDirectory)/${{parameters.MFEFolderName}}/dist/${{parameters.DistFolderName}}" --overwrite --connection-string '$(${{parameters.keyVaultSecretsPullFilter}})'
+

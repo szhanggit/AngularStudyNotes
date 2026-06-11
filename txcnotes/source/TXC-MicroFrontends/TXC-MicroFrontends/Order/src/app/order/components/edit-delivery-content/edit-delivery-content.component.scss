@@ -1,0 +1,52 @@
+@import "../../../../styles/variables";
+
+.template-part-container {
+  margin-top: -1rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.invalid-input {
+  background: $light-pink;
+  border: 1px solid $grey;
+}
+
+.insert-tag-btn {
+  width: 230px;
+  height: 36px;
+  font-weight: 500;
+}
+
+textarea {
+  &:focus {
+    @extend .selected-part;
+  }
+}
+
+.selected-part {
+  border: 1px solid $light-blue;
+}
+
+.mt-6 {
+  margin-top: 5.5rem !important;
+}
+
+.tag-container {
+  margin-top: 1rem;
+  border-radius: 4px;
+  border: 1px solid $grey;
+  height: 182px;
+  overflow-y: auto;
+
+  .tags {
+    padding: 0.25rem;
+    &:hover {
+      @extend .selected-tag;
+    }
+  }
+
+  .selected-tag {
+    cursor: pointer;
+    color: white;
+    background-color: $dark-grey;
+  }
+}

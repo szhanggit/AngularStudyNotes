@@ -1,0 +1,103 @@
+<div class="row my-3">
+    <div class="col-6">
+        <span class="font-22 text-dark bold">
+           Add SKU
+        </span>
+    </div>
+        <div class="row">
+            <!-- <div class="col-6">
+                <span class="font-22 text-dark bold">
+                    {{ isEdit ? 'Edit Shop' : 'Create Shop' }}
+                </span>
+            </div> -->
+            <div class="col-12">
+                <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <span class="font-16 text-dark bold font-16">
+                                {{ type == 'bulk' ?  "Uploaded SKU details" : "SKU details" }} <span class="text-muted fw-normal ">(Total Quantity: {{ skuData.length }})</span>
+                            </span>
+                            <button class="btn btn-sm btn-primary float-end" *ngIf="type == 'bulk'" (click)="openReupload()">Reupload excel</button>
+                            <button class="btn btn-sm btn-primary float-end" *ngIf="type == 'single'" (click)="addSKU()">Add SKU</button>
+                        </div>
+                        <div class="col-12 mb-1">
+                            <span class="font-16 text-muted bold font-16">
+                                Contract
+                            </span>
+                        </div>
+                        <div class="col-12 mb-1">
+                            <div class="row">
+                                <div class="col-3 font-14">
+                                    Contract name
+                                </div>
+                                <div class="col-9 font-14 bold" *ngIf="contract">
+                                    {{contract.contractName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-1">
+                            <div class="row">
+                                <div class="col-3 font-14">
+                                    Contract number
+                                </div>
+                                <div class="col-9 font-14 bold" *ngIf="contract">
+                                    {{contract.contractNumber}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="row">
+                                <div class="col-3 font-14">
+                                    Contract period
+                                </div>
+                                <div class="col-9 font-14 bold" *ngIf="contract">
+                                    {{ contract.startDate |  txcLocalDateTime | date : "yyyy/MM/dd"  }} - {{ contract.endDate |  txcLocalDateTime | date : "yyyy/MM/dd"  }}
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="contract.data">
+                            <div class="col-12 mb-2" *ngIf="(contract.listSku.length>0)?true:false">
+                                <app-sku-draft-list [merchantId]="contract.merchantId" [contractId]="contract.contractId" [costscheme]="contract.costSchemeId" [isAfterBulkUploader]="true" [skuList]="skuData" [showAction]="type != 'bulk'"></app-sku-draft-list>
+                            </div>
+                            <div class="col-12 mb-2" *ngIf="!contract.data.success">
+                                <div class="col-12 alert alert-danger text-dark border-1 my-3 border border-danger border-2" [innerHTML]="contract.data.message">
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="row my-2">
+                    <div class="col-9">
+                    </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"  (click)="onCancel()">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                            [disabled]="(contract.listSku.length>0)?false:true" (click)="onSubmit(modalSuccess)">{{ type == 'bulk' ?  "Submit for review" : "Save" }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>
+<ng-template #modalSuccess let-modal>
+    <div class="modal-header border-bottom-0">
+		<h4 class="modal-title text-center w-100 font-18 text-dark bold " id="modal-basic-title">Submit successfully!</h4>
+    </div>
+	<div class="modal-body">
+        <p class="text-muted text-center">
+            New added SKUs have been submitted successfully. <br/>
+            You can check review status in merchant details page.
+        </p>
+	</div>
+    <div class="modal-footer border-top-0 justify-content-center">
+        <button type="button" class="btn btn-primary rounded-pill px-5" (click)="modal.close();">OK</button>
+    </div>
+</ng-template>

@@ -1,0 +1,102 @@
+<div (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+  <input id="file-input" type="file" [accept]="allowedFileTypes" hidden (change)="onFileSelected($event)">
+  <div class="row mt-3">
+    <div class="col-12">
+      <span class="text-dark font-22"><strong>Batch Update Product Combo</strong></span>
+    </div>
+    <div class="col-12">
+      <span class="text-secondary font-16">Batch update child products to master products</span>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-3 px-3 py-2 my-2">
+    <div class="row">
+      <div class="col-12">
+        <span class="text-dark font-18"><strong>Instructions</strong></span>
+      </div>
+      <div class="col-12 mt-1">
+        <span class="text-secondary font-14">1.
+          <a (click)="onClickDownloadTemplate()">Download template</a>
+          first and fill in the new child product codes would
+          like to add and the corresponding master product code in the excel</span>
+      </div>
+      <div class="col-12">
+        <span class="text-secondary font-14">2. Upload the file and review the list</span>
+      </div>
+    </div>
+    <ng-container *ngIf="batchUpdateComboList.length === 0">
+      <div class="row">
+        <div class="col-6">
+          <div id="file-drop-zone" class="w-100 mt-2 file-drop-zone" [class.drag-over]="dragOver"
+            (click)="onFileDropZoneClick($event)">
+            <div>
+              <svg-controller svgName="drop-file-or-click-to-upload"></svg-controller>
+            </div>
+            <span>Drop file here or click to upload</span>
+
+          </div>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="batchUpdateComboList.length > 0">
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+      <div class="row">
+        <div class="col-12">
+          <span class="text-dark font-18"><strong>Review content of uploaded file</strong></span>
+          <br />
+        </div>
+      </div>
+      <div class="table-wrapper">
+        <div class="row font-12 horizontal-rule vertical-center head-content">
+          <div class="col-1 text-center">#</div>
+          <div class="col-2">Master Product Code</div>
+          <div class="col-2">Master Product Name</div>
+          <div class="col-2">Child Product Code</div>
+          <div class="col-2">Child Product Name</div>
+          <div class="col-3">Error</div>
+        </div>
+        <div class="row font-12 horizontal-rule vertical-center data-content"
+          *ngFor="let item of batchUpdateComboList; let index = index">
+          <div class="col-1 text-center">{{item.index != undefined ? item.index + 1 : ''}}</div>
+          <div class="col-2">{{item.masterProductCode}}</div>
+          <div class="col-2">{{item.masterProductName}}</div>
+          <div class="col-2">{{item.childProductCode}}</div>
+          <div class="col-2">{{item.childProductName}}</div>
+          <div class="col-3" [class.error-Red]="item.error">{{item.error ?? '--'}}</div>
+        </div>
+        <div class="operation-content vertical-center">
+          <button class="btn btn-secondary font-12 mx-2" (click)="onReuploadClick();">
+            Reupload excel
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="row my-2">
+    <div class="col-9"></div>
+    <div class="col-3">
+      <div class="row  justify-content-end">
+        <div class="col-6">
+          <button class="btn btn-secondary rounded-pill w-100 p-2 font-12 order-2" (click)="onCancelClick()">
+            Cancel
+          </button>
+        </div>
+        <ng-container *ngIf="batchUpdateComboList.length > 0">
+          <div class="col-6">
+            <button class="btn btn-primary rounded-pill w-100 p-2 font-12 order-1" [disabled]="!isValidToSave"
+              (click)="onSaveClick()">
+              Save
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</div>
+<ngbd-toast-global></ngbd-toast-global>

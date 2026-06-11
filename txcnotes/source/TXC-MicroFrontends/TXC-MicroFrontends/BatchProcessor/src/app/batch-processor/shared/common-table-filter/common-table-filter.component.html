@@ -1,0 +1,103 @@
+<div
+  class="filter-controls"
+  [formGroup]="filtersFormGroup"
+  (keydown.enter)="onSearchBatch()"
+>
+  <div class="row">
+    <div class="col-8 d-flex align-items-end">
+      <div *ngIf="batchDomain === batchDomainEnum.OrderItemView" class="w-40">
+        <ng-template [ngTemplateOutlet]="searchBy"></ng-template>
+      </div>
+      <ng-template [ngTemplateOutlet]="searchInput"></ng-template>
+    </div>
+    <div class="col-4">
+      <ng-template [ngTemplateOutlet]="createdOn"></ng-template>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="d-flex">
+        <ng-container *ngFor="let field of selectInputModel">
+          <div *ngIf="!field.hidden" class="w-30">
+            <lib-select
+              [selectModel]="field"
+              [formControlName]="field.formControlName"
+            ></lib-select>
+          </div>
+        </ng-container>
+        <div class="d-flex align-items-end justify-content-end w-10">
+          <button
+            (click)="onSearchBatch()"
+            class="btn font-12 btn-primary w-100 filter-control"
+          >
+            Search batch
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2" *ngIf="batchDomain === batchDomainEnum.OrderItemView">
+    <div class="col-12 export-btn-wrapper">
+      <div class="w-10 export-btn">
+        <button
+          (click)="onExport($event)"
+          class="btn font-12 btn-secondary w-100 filter-control"
+          [disabled]="searchResults === 0"
+        >
+          Export ({{ searchResults }})
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- filter control templates -->
+  <ng-template #searchInput>
+    <div
+      class="align-content-end input-group input-group-sm input-group-prefix-icon search-icon search-field-box font-12"
+    >
+      <span 
+        [ngClass]="batchDomain === batchDomainEnum.OrderItemView ? 'left-border' : '' "
+        class="input-group-text"
+      ><span class="mdi mdi-magnify search-icon"></span
+      ></span>
+      <input
+        type="text"
+        class="form-control filter-control"
+        [placeholder]="searchPlaceholder"
+        formControlName="searchInput"
+      />
+      <span
+        class="search-reset"
+        *ngIf="searchTerm.length > 0"
+        (click)="resetSearch()"
+      >
+        <i class="uil-times"></i
+      ></span>
+    </div>
+  </ng-template>
+
+  <ng-template #createdOn>
+    <div class="d-flex flex-column range-datepicker">
+      <span class="text-secondary font-12 mb-1"> Created on </span>
+      <lib-date-picker
+        formControlName="createdOn"
+        [displayMonths]="2"
+        [type]="'range'"
+        [writeFullObject]="false"
+      >
+      </lib-date-picker>
+    </div>
+  </ng-template>
+
+  <ng-template #searchBy>
+    <div class="d-flex flex-column">
+      <lib-select
+        [selectModel]="searchByInputModel"
+        [customClass]="customClass"
+        formControlName="searchBy"
+      ></lib-select>
+    </div>
+  </ng-template>
+</div>

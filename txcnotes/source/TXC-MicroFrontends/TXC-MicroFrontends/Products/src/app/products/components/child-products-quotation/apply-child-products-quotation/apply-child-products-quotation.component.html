@@ -1,0 +1,66 @@
+<div class="apply-child-product-quotation my-3">
+  <div class="text-dark font-22">
+    <strong>Apply Child Products to Quotation</strong>
+  </div>
+  <!-- Quotation with expiry info -->
+  <section class="search-quotation">
+    <h3 class="font-20 mt-0 mb-2">Search for related quotation</h3>
+    <!-- Error message section -->
+    <div class="px-2">
+      <app-error-message [errorMessages]="failedErrorMessages" [showHeading]="true"></app-error-message>
+    </div>
+    <form [formGroup]="searchQuotationForm">
+      <p class="font-16 mb-1">Enter master product code</p>
+      <div class="row mt-2">
+        <div class="col-4">
+          <textarea
+            rows="5"
+            cols="200"
+            class="form-control"
+            formControlName="masterProductCode"
+            placeholder="PROCODE001&#10;PROCODE002&#10;PROCODE003"
+          >
+          </textarea>
+          <small class="form-text text-muted"
+            >You can insert multiple product codes in one time</small
+          >
+        </div>
+        <div class="col-2">
+          <button
+            class="btn btn-secondary px-4 py-2 font-12 search-button"
+            [disabled]="searchQuotationForm.invalid || !isUploadFormHidden"
+            (click)="searchQuotation()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+ <!-- Quotation with expiry info -->
+ <section *ngIf="!isUploadFormHidden" class="quotation-with-expiry-info">
+    <app-upload-quotation-area
+        [quotationFile]="quotationFile"
+        (quotationFileChanged)="OnQuotationFileChanged($event)"
+    ></app-upload-quotation-area>
+    </section>
+    <section *ngIf="!isUploadFormHidden">
+        <div class="row mt-3">
+            <div class="col-9"></div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                            (click)="onReset()">Reset</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary w-100 rounded-pill font-12"
+                            [disabled]="isApplyDisabled"
+                            (click)="onApply()">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

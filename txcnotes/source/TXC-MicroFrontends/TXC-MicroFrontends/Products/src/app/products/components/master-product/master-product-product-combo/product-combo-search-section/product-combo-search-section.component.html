@@ -1,0 +1,88 @@
+<ng-container>
+    <div class="row title vertical-center">
+        <div class="col-12" (click)="collapse()">
+            <button class="btn ratio ratio-1x1 rounded-circle"
+                [ngClass]="{ 'btn-primary' : stepFocused, 'btn-secondary' : !stepFocused }">
+                <span style="font-size: 18px;">{{STEP_NUMBER}}</span>
+            </button>
+            <span class="text-dark collapse-title mx-2 bold font-16"
+                [ngClass]="{ 'text-primary' : stepFocused, 'text-dark' : !stepFocused }">
+                {{TITLE}}
+            </span>
+        </div>
+    </div>
+
+    <p class="my-2">{{SUB_TITLE}}</p>
+
+    <div class="my-2" #sectionCollapse="ngbCollapse" [(ngbCollapse)]="sectionCollapsed">
+
+        <div class="row font-14">
+            <div class="col-6">
+                <span class="deleteicon textarea-deleteicon w-100">
+                    <textarea class="form-control w-100" placeholder="Enter child product code"
+                        (ngModelChange)="autoGrowTextAreaZone()" [(ngModel)]="productCodeListValue"></textarea>
+                    <span class="h5" *ngIf="productCodeListValue" (click)="autoGrowTextAreaZone(true)">x</span>
+                </span>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-secondary w-100" (click)="onEnterClick()">Enter</button>
+            </div>
+        </div>
+
+        <div class="row font-14 my-2">
+            <div class="col-6">
+                <div class="input-group mb-3 deleteicon">
+                    <span class="input-group-text" id="search-addon">
+                        <i class="mdi mdi-magnify"></i>
+                    </span>
+                    <input id="typeahead-custom" type="text" class="form-control font-14"
+                        placeholder="Search product name" [(ngModel)]="searchKeyword" />
+                    <span class="h5" *ngIf="searchKeyword" (click)="searchKeyword = ''">x</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-secondary w-100" (click)="onSearchClick()">Search</button>
+            </div>
+        </div>
+        
+        <ng-container *ngIf="searchProductList.length > 0">
+            <div class="table-wrapper">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col-1 text-center">
+                        <input type="checkbox" class="form-check-input" #toggleCheckbox
+                            (change)="toggleCheckboxes(toggleCheckbox.checked)" [defaultChecked]="true">
+                    </div>
+                    <div *ngIf="isSuperVoucher" class="col-3">Product Name</div>
+                    <div *ngIf="isSmartChoiceVoucher" class="col-4">Product Name</div>
+                    <div class="col-2">Product Code</div>
+                    <div class="col-2">Product Type</div>
+                    <div *ngIf="isSuperVoucher" class="col-2">Face Value With Tax</div>
+                    <div *ngIf="isSmartChoiceVoucher" class="col-3">Face Value With Tax</div>
+                    <div *ngIf="isSuperVoucher" class="col-2">Brand</div>
+                </div>
+                <div class="row font-12 horizontal-rule vertical-center data-content"
+                    *ngFor="let product of searchProductList; let index = index">
+                    <div class="col-1 text-center">
+                        <input type="checkbox" class="form-check-input" [checked]="product.checked" #checkbox
+                            (change)="onSelectionCheckClick(checkbox.checked, product.productCode)">
+                    </div>
+                    <div *ngIf="isSuperVoucher" class="col-3">{{ product.productName }}</div>
+                    <div *ngIf="isSmartChoiceVoucher" class="col-4">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div *ngIf="isSuperVoucher" class="col-2">{{ product.faceValueWithTax }}</div>
+                    <div *ngIf="isSmartChoiceVoucher" class="col-3">{{ product.faceValueWithTax }}</div>
+                    <div *ngIf="isSuperVoucher" class="col-2">{{ product.brandName }}</div>
+                </div>
+                <div class="operation-content vertical-center">
+                    <button class="btn btn-secondary font-12 mx-2"
+                        (click)="onSearchResetClick(); toggleCheckbox.checked = false">Reset</button>
+                    <button class="btn btn-primary font-12 mx-2" (click)="onAddToComboClick()"
+                        [disabled]="(selectProductList.length === 0)">Add to combo
+                        ({{selectProductList.length}}/{{searchProductList.length}})
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>

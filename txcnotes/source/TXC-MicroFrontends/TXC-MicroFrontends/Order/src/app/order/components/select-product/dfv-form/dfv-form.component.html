@@ -1,0 +1,56 @@
+<form [formGroup]="dfvDetailsFormModel.formGroup">
+    <div class="row px-3 py-2">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-8">
+            <div class="row">
+              <div class="col-5 ml-2">
+                <label>Face Value (WithTax) <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-5">
+                <label>Quantity <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-2"></div>
+            </div>
+          </div>
+          <div class="col-4"></div>
+        </div>
+      </div>
+      <hr class="mt-2">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-8" formArrayName="dfvDetailsFormArray">
+            <div class="row" *ngFor="let control of dfvDetailsFormArray.controls; let i = index" [formGroupName]="i">
+              <div class="col-10">
+                <div class="row ml-2">
+                    <div class="col-6 mb-2" *ngFor="let field of dfvDetailsFormModel.fieldsDefinition; let index = index">
+                        <app-textbox [textBoxModel]="field" [formControlName]="field.formControlName"></app-textbox>
+                    </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="mx-2">
+                  <ng-container *ngIf="i === 0; else deleteButton">
+                    <button class="btn p-0" [disabled]="isAddBtnDisabled" (click)="addFields()">
+                      <i class="dripicons-plus font-20"></i>
+                    </button>
+                  </ng-container>
+                  <ng-template #deleteButton>
+                    <button type="button" class="btn p-0" (click)="removeFields(i)">
+                      <i class="dripicons-trash py-1 font-16"></i>
+                    </button>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4"></div>
+        </div>
+      </div>
+      <div class="col-12">
+        <p class="text-secondary ml-2 mt-2">Only accept at most 10 face values. Please use an excel file to upload if more values are needed.</p>
+      </div>
+      <hr>
+    </div>
+  </form>
+  

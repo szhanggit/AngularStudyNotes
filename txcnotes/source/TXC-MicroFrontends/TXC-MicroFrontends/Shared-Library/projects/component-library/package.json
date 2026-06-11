@@ -1,0 +1,22 @@
+{
+  "name": "component-library",
+  "version": "0.0.34",
+  "peerDependencies": {
+    "@angular/cdk": "^13.0.0 || ^14.0.0",
+    "@angular/common": "^14.0.0",
+    "@angular/compiler": "^14.0.0",
+    "@angular/core": "^13.0.0 || ^14.0.0",
+    "@angular/forms": "^13.0.0 || ^14.0.0",
+    "@danielmoncada/angular-datetime-picker": "^16.0.1",
+    "@danielmoncada/angular-datetime-picker-moment-adapter": "^3.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "file-saver": "^2.0.5",
+    "ng-select2-component": "^10.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.6"
+  }
+}

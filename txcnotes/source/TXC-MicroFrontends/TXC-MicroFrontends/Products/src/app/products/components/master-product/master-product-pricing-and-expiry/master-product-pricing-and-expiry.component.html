@@ -1,0 +1,285 @@
+<div class="bg-white rounded-3 px-3 py-2">
+    <form [formGroup]="pricingFormGroup">
+        <span class="text-dark font-16"><strong>SKU</strong></span>
+
+        <div class="py-2" *ngIf="isSmartChoiceVoucher">
+            <ul>
+                <li class="text-primary">
+                    Create master product will auto create SKU under Merchant "Smart Choice Voucher". Please make sure
+                    "SKU cost" is correct.
+                </li>
+                <li>
+                    Default selling price and SKU cost are prefilled by comparing the price of child product codes as
+                    highlight in the list below.
+                </li>
+            </ul>
+        </div>
+        <div class="py-2" *ngIf="isSuperVoucher">
+            <span class="text-primary">Create master product will auto create SKU under Merchant "Smart Choice Voucher".
+                Please make sure "SKU cost" is correct.</span>
+        </div>
+
+        <div>
+            <div class="row mb-2">
+                <div class="col-6">
+                    <label [for]="FACE_VALUE_WITH_TAX" class="form-label font-14">SKU Face value (with tax) <span
+                            class="text-danger">*</span></label>
+                    <input type="text" inputControl="decimal-2" class="form-control font-14 text-secondary" [ngClass]="{
+                        'is-invalid': f[FACE_VALUE_WITH_TAX].invalid && f[FACE_VALUE_WITH_TAX].dirty
+                    }" [formControlName]="FACE_VALUE_WITH_TAX" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[FACE_VALUE_WITH_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #faceValueWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(faceValueWithTaxTip, f[FACE_VALUE_WITH_TAX])"
+                        [disableTooltip]="!(f[FACE_VALUE_WITH_TAX].invalid && f[FACE_VALUE_WITH_TAX].dirty)" />
+                </div>
+                <div class="col-6">
+                    <label [for]="FACE_VALUE_WITHOUT_TAX" class="form-label font-14">SKU Face value</label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[FACE_VALUE_WITHOUT_TAX].invalid && f[FACE_VALUE_WITHOUT_TAX].dirty
+                    }" [formControlName]="FACE_VALUE_WITHOUT_TAX" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[FACE_VALUE_WITHOUT_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #faceValueWithoutTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(faceValueWithoutTaxTip, f[FACE_VALUE_WITHOUT_TAX])"
+                        [disableTooltip]="!(f[FACE_VALUE_WITHOUT_TAX].invalid && f[FACE_VALUE_WITHOUT_TAX].dirty)" />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-6">
+                    <label *ngIf="isSmartChoiceVoucher" [for]="SKU_COST_WITH_TAX" class="form-label font-14">SKU cost (with tax) <span
+                            class="text-danger">*</span></label>
+                    <label *ngIf="isSuperVoucher" [for]="SKU_COST_WITH_TAX" class="form-label font-14">SKU cost (%) <span
+                            class="text-danger">*</span></label>
+
+                    <input type="text" inputControl="PNdecimal-4" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[SKU_COST_WITH_TAX].invalid && f[SKU_COST_WITH_TAX].dirty
+                    }" [formControlName]="SKU_COST_WITH_TAX" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[SKU_COST_WITH_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #skuCostWithTaxTip="ngbTooltip" (click)="toggleTooltipWithContext(skuCostWithTaxTip, f[SKU_COST_WITH_TAX])"
+                        [disableTooltip]="!(f[SKU_COST_WITH_TAX].invalid && f[SKU_COST_WITH_TAX].dirty)" />
+                </div>
+                <div class="col-6" *ngIf="isSmartChoiceVoucher">
+                    <label [for]="SKU_COST_WITHOUT_TAX" class="form-label font-14">SKU cost (without tax)</label>
+                    <input type="text" inputControl="PNdecimal-4" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[SKU_COST_WITHOUT_TAX].invalid && f[SKU_COST_WITHOUT_TAX].dirty
+                    }" [formControlName]="SKU_COST_WITHOUT_TAX" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[SKU_COST_WITHOUT_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #skuCostWithoutTaxTip="ngbTooltip" (click)="toggleTooltipWithContext(skuCostWithoutTaxTip, f[SKU_COST_WITHOUT_TAX])"
+                        [disableTooltip]="!(f[SKU_COST_WITHOUT_TAX].invalid && f[SKU_COST_WITHOUT_TAX].dirty)" />
+                </div>
+            </div>
+        </div>
+
+        <div class="my-4">
+            <span class="text-dark font-16"><strong>Default pricing</strong></span>
+            <div class="row my-2">
+                <div class="col-6">
+                    <label [for]="DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX" class="form-label font-14">Default selling
+                        price
+                        (<span class="text-primary">prepaid</span> with tax) <span class="text-danger">*</span></label>
+                    <input type="text" inputControl="decimal-2" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX].invalid && f[DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX].dirty
+                    }" [formControlName]="DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX" triggers="manual"
+                        [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #defaultSellingPricePrepaidWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(defaultSellingPricePrepaidWithTaxTip, f[DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX])"
+                        [disableTooltip]="!(f[DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX].invalid && f[DEFAULT_SELLING_PRICE_PREPAID_WITH_TAX].dirty)" />
+                </div>
+                <div class="col-6">
+                    <label [for]="DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX" class="form-label font-14">Default selling
+                        price
+                        (<span class="text-primary">prepaid</span>)</label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX].invalid && f[DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX].dirty
+                    }" [formControlName]="DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX" triggers="manual"
+                        [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #defaultSellingPricePrepaidWithoutTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(defaultSellingPricePrepaidWithoutTaxTip, f[DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX])"
+                        [disableTooltip]="!(f[DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX].invalid && f[DEFAULT_SELLING_PRICE_PREPAID_WITHOUT_TAX].dirty)" />
+                </div>
+            </div>
+
+            <div *ngIf="isSmartChoiceVoucher" class="row mb-2">
+                <div class="col-6">
+                    <label [for]="DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX" class="form-label font-14">Default selling
+                        price
+                        (<span class="text-success">postpaid</span> with tax) <span class="text-danger">*</span></label>
+                    <input type="text" inputControl="decimal-2" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX].invalid && f[DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX].dirty
+                    }" [formControlName]="DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX" triggers="manual"
+                        [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #defaultSellingPricePostpaidWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(defaultSellingPricePostpaidWithTaxTip, f[DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX])"
+                        [disableTooltip]="!(f[DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX].invalid && f[DEFAULT_SELLING_PRICE_POSTPAID_WITH_TAX].dirty)" />
+                </div>
+                <div class="col-6">
+                    <label [for]="DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX" class="form-label font-14">Default selling
+                        price
+                        (<span class="text-success">postpaid</span>)</label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX].invalid && f[DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX].dirty
+                    }" [formControlName]="DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX" triggers="manual"
+                        [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #defaultSellingPricePostpaidWithoutTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(defaultSellingPricePostpaidWithoutTaxTip, f[DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX])"
+                        [disableTooltip]="!(f[DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX].invalid && f[DEFAULT_SELLING_PRICE_POSTPAID_WITHOUT_TAX].dirty)" />
+                </div>
+            </div>
+            <div *ngIf="isSuperVoucher" class="row mb-2">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <label [for]="DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE" class="form-label font-14">Default selling
+                        price
+                        (<span class="text-primary">prepaid %</span>)</label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f[DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE].invalid && f[DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE].dirty
+                    }" [formControlName]="DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE" triggers="manual"
+                        [ngbTooltip]="tipContent"
+                        [tooltipClass]="f[DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #defaultSellingPricePrepaidPercentageTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(defaultSellingPricePrepaidPercentageTip, f[DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE])"
+                        [disableTooltip]="!(f[DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE].invalid && f[DEFAULT_SELLING_PRICE_PREPAID_PERCENTAGE].dirty)" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col">
+            <span class="text-dark font-16"><strong>Child product code list for reference</strong></span>
+            <table class="table table-centered mt-2">
+                <thead class="font-12 bold">
+                    <tr>
+                        <th scope="col" style="width: 45%;">Product Name</th>
+                        <th scope="col">Product Code</th>
+                        <th scope="col">Face Value (with Tax)</th>
+                        <th scope="col">Default Selling Price <br />(Prepaid with Tax)</th>
+
+                        <th *ngIf="isSmartChoiceVoucher" scope="col">Default Selling
+                            Price <br />(Postpaid with Tax)</th>
+                        <th *ngIf="isSuperVoucher" scope="col">Default Selling Price
+                            <br />(Prepaid %)
+                        </th>
+
+                        <th scope="col">Default Product Cost <br />(with Tax)</th>
+                        <th scope="col">Default Product Cost <br />(%)</th>
+                    </tr>
+                </thead>
+                <tbody class="font-14">
+                    <tr *ngFor="let item of referenceListDisplay; let i = index"
+                        [ngClass]="{'table-active' : isSmartChoiceVoucher && i === 0 }">
+                        <td>{{ item.productName }}</td>
+                        <td>{{ item.productCode }}</td>
+                        <td
+                            [ngClass]="{'text-danger' : 
+                            f[FACE_VALUE_WITH_TAX].value && item.faceValueWithTax && item.faceValueWithTax > f[FACE_VALUE_WITH_TAX].value }">
+                            {{ item.faceValueWithTax != null
+                            ? (item.faceValueWithTax | number:'1.0-2')
+                            : NOT_APPLICABLE }} <br />
+
+                            <span
+                                *ngIf="f[FACE_VALUE_WITH_TAX].value && item.faceValueWithTax && item.faceValueWithTax > f[FACE_VALUE_WITH_TAX].value">
+                                Above SKU FV
+                            </span>
+                        </td>
+                        <!-- it is nullable in DB, but should not have null value here -->
+                        <!-- exception: for dynamic face value, this column should be "N/A" -->
+                        <td>
+                            {{ item.defaultSellingPricePrepaidWithTax != null
+                            ? (item.defaultSellingPricePrepaidWithTax | number:'1.0-2')
+                            : (item.productType == ProductTypeEnum.DynamicFaceValue ? NOT_APPLICABLE :
+                            NULL_BUT_SHOULD_NOT_BE) }}
+                        </td>
+                        <!-- it is nullable in DB, but should not have null value here -->
+                        <td *ngIf="isSmartChoiceVoucher">
+                            {{ item.defaultSellingPricePostpaidWithTax != null
+                            ? (item.defaultSellingPricePostpaidWithTax | number:'1.0-2')
+                            : NULL_BUT_SHOULD_NOT_BE }}
+                        </td>
+                        <!-- for dynamic face value, this column should always have value -->
+                        <td *ngIf="isSuperVoucher">
+                            {{ item.defaultSellingPricePrepaidPercentage != null
+                            ? (item.defaultSellingPricePrepaidPercentage | number:'1.0-4')
+                            : (item.productType == ProductTypeEnum.DynamicFaceValue ? NULL_BUT_SHOULD_NOT_BE :
+                            NOT_APPLICABLE) }}
+                            <span *ngIf="item.defaultSellingPricePrepaidPercentage"> %</span>
+                        </td>
+
+                        <td>
+                            {{ item.productCostWithTax != null
+                            ? (item.productCostWithTax | number:'1.0-4')
+                            : NOT_APPLICABLE }}
+                        </td>
+                        <td>
+                            {{ item.productCostPercentage != null
+                            ? (item.productCostPercentage | number:'1.0-4')
+                            : NOT_APPLICABLE}}
+                            <span *ngIf="item.productCostPercentage"> %</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="referenceList.length > REFERENCE_LIST_DEFAULT_SIZE" class="row my-2">
+                <div class="text-center">
+                    <button class="btn btn-outline-secondary font-12 px-4" (click)="toggleReferenceList()">
+                        {{ referenceListDisplay.length > REFERENCE_LIST_DEFAULT_SIZE ? "Collapse " : "Expand all lists "
+                        }}
+                        ({{referenceList.length}})
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Expiry -->
+<app-expiry-scheme-fixed-flexible *ngIf="expiryComponentSetup && expirySchemeList && expirySchemeList.length > 0"
+    [componentSetup]="expiryComponentSetup"
+    (selectionChange)="onSelectedExpiryChange($event)"
+    (errorThrown)="onExpiryErrorThrown($event)">
+</app-expiry-scheme-fixed-flexible>
+
+<ng-template #PopupModal let-modal>
+    <div class="modal-body px-4 py-4">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>Warning</strong></span>
+        </div>
+
+        <div class="my-3 position-relative font-14">
+            <p>{{ popupMessage }}</p>
+        </div>
+
+        <div class="row px-3 pt-2">
+            <div class="col-6">
+                <button class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close('Cancel')">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary w-100 rounded-pill font-12" (click)="modal.close('OK')">OK</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min">
+        Entered value should be greater than {{ formControl.errors?.min?.min }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.max">
+        Entered value exceeded maximum value of {{ formControl.errors?.max?.max }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.greaterThan">
+        Entered value should be greater than {{ formControl.errors?.greaterThan?.greaterThan }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.valid">
+        Entered value is valid
+    </ng-container>
+</ng-template>

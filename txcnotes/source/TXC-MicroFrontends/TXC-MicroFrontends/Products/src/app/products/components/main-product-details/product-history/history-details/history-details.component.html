@@ -1,0 +1,151 @@
+<div class="product-details">
+    <div class="row mt-3">
+        <a class="font-12 text-secondary" (click)="navigateBackToProductHistory()"><i class="uil-angle-left"></i> Back
+            to product history</a>
+        <div class="col-6 mt-2">
+            <span class="text-secondary font-22"><strong>{{ product.productCode | titlecase }}</strong></span>
+            <span class="text-dark font-22 mx-2"><strong>{{ product.productName | titlecase }}</strong></span>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-8">
+            <div class="font-16">
+                <strong [ngClass]="{ 'text-success' : product.status, 'text-danger' : !product.status }">
+                    {{ product.status ? 'Active' : 'Inactive' }}
+                </strong>
+                <div class="vr font-16 mx-2"></div>
+                <span class="text-secondary font-16">
+                    Product type: {{ product.productType | producttype }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="productDetails"></ng-container>
+    <ng-template #productDetails>
+        <div class="bg-white rounded-3 px-3 py-2 my-2">
+            <div class="row">
+                <div class="col-10">
+                    <button class="btn rounded-circle btn-light btn-sm collapse-circle-button" (click)="pdCollapse.toggle()"
+                        [attr.aria-expanded]="!productDetailsCollapsed" aria-controls="collapseExample">
+                        <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                    </button>
+                    <span class="text-dark collapse-title font-16 m-2">
+                        <strong>Product Details</strong>
+                    </span>
+                </div>
+            </div>
+            <div #pdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productDetailsCollapsed">
+                <!-- Basic Info -->
+                <app-basic-info 
+                    [selectedTenant]="selectedTenant" 
+                    [product]="product">
+                </app-basic-info>
+                <!-- Merchant and sku section -->
+                <div class="row my-2">
+                    <div class="mb-n2"><span class="font-16"><strong>Merchant & SKU</strong></span></div>
+                    <ng-container *ngIf="merchantSKUData.length > 0; else noMerchantSkuData">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Merchant Name</th>
+                                    <th>Internal Code</th>
+                                    <th>SKU Name / <br /> SKU Code</th>
+                                    <th>SKU Type</th>
+                                    <th>Face Value</th>
+                                    <th>Cost</th>
+                                    <th>Cost validity period</th>
+                                    <th>Contract Name / <br /> Contract Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let skuData of merchantSKUData">
+                                    <td>
+                                        <a [routerLink]="['/merchants/details']"
+                                            [queryParams]="{merchantId: merchantId}">
+                                            {{ merchantDetails.merchantName }}
+                                        </a>
+                                    </td>
+                                    <td>{{ merchantDetails.identityCode }}</td>
+                                    <td>{{ skuData.skuName }} <br /> <span class="font-12">{{ skuData.skuNumber
+                                            }}</span></td>
+                                    <td>{{ skuData?.skuType?.value }}</td>
+                                    <td>{{ skuData.faceValueWithTax }}</td>
+                                    <td>{{ skuData?.contractSKUCosts[0]?.cost }}</td>
+                                    <td>
+                                        <span>
+                                            {{ skuData?.contractSKUCosts[0]?.validStartDate.slice(0, 10) | date:
+                                            'yyyy/MM/dd' }} -
+                                            {{ skuData?.contractSKUCosts[0]?.validEndDate.slice(0,10) | date:
+                                            'yyyy/MM/dd' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/merchants/contract/details/' + skuData?.contractSKUCosts[0]?.skuCostContract?.contractId]"
+                                            [queryParams]="{merchantId: merchantId}">
+                                            {{ skuData?.contractSKUCosts[0]?.skuCostContract?.contractName }}
+                                            <br />
+                                            <span class="font-12">{{
+                                                skuData?.contractSKUCosts[0]?.skuCostContract?.contractNumber }}</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-template #noMerchantSkuData>
+                        <div class="row my-2">
+                            <div class="text-center text-secondary font-14">
+                                No Merchant & Sku Data to display
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+                <!-- Acceptance Loop Table  -->
+                <div class="mb-n2"><span class="font-16"><strong>Acceptance loop</strong></span></div>
+                <ng-container *ngIf="acceptanceLoopList.length > 0;  else noAcceptanceData">
+                    <app-acceptance-loop-table [acceptanceLoopList]="acceptanceLoopList"
+                        [selectedAcceptanceLoopId]="selectedAcceptanceLoopId"
+                        [errorMessage]="acceptanceLoopErrorMessage" [shopCount]="shopCount" [merchantId]="merchantId"
+                        [selectedMerchant]="merchantDetails" [isMonoMerchant]="isMonoMerchant" [isReview]="true">
+                    </app-acceptance-loop-table>
+                </ng-container>
+                <ng-template #noAcceptanceData>
+                    <div class="row my-2">
+                        <div class="text-center text-secondary font-14">
+                            No available acceptance loop for this merchant
+                        </div>
+                    </div>
+                </ng-template>
+                <!-- Voucher Number Rule -->
+                <div class="mb-n2"><span class="font-16"><strong>Voucher number rule</strong></span></div>
+                <ng-container *ngIf="voucherNumberRuleList.length > 0;  else noVoucherNumerRuleList">
+                    <app-voucher-number-rule-table [program]="merchantProgram"
+                        [voucherNumberRuleList]="voucherNumberRuleList" [errorMessage]="vnrErrorMessage">
+                    </app-voucher-number-rule-table>
+                </ng-container>
+                <ng-template #noVoucherNumerRuleList>
+                    <div class="row my-2">
+                        <div class="text-center text-secondary font-14">
+                            No available voucher number rule for this merchant
+                        </div>
+                    </div>
+                </ng-template>
+                <!-- Additional information section -->
+                <div class="row my-2">
+                    <div><span class="font-16"><strong>Additional information</strong></span></div>
+                    <div class="row my-1">
+                        <div class="col-4 font-14">Note for internal used (Operation)</div>
+                        <div class="col-8 font-14"><strong>{{ product?.operationNote || '--' }}</strong></div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-4 font-14">Note for internal used (Sales)</div>
+                        <div class="col-8 font-14"><strong>{{ product?.salesNote || '--' }}</strong></div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-4 font-14">Note for internal used (Customer service)</div>
+                        <div class="col-8 font-14"><strong>{{ product?.customerServiceNote || '--' }}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>

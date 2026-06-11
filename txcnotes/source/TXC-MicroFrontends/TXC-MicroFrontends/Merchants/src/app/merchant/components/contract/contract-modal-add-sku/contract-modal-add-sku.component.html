@@ -1,0 +1,28 @@
+<div class="modal-header border-bottom-0">
+    <h4 class="modal-title text-center w-100" id="modal-basic-title">Add SKU</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <p class="fw-bold">Which way you like to proceed?</p>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-outline-secondary btn-sm w-100 mt-2" (click)="activeModal.close(); navigateToCreateSKU();" >
+                <i [class]="'fs-2 uil-file-plus'"></i>
+                <br>
+                Add SKU online directly
+            </button>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-outline-secondary btn-sm w-100 mt-2" [appSkuBlukUpload] [programId]="programId" [merchantId]="merchantId" [costSchemeId]="costSchemeId">
+                <i [class]="'fs-2 uil-upload'"></i>
+                <br>
+                Upload an excel file
+            </button>
+        </div>
+    </div>
+    <div class="col-12 text-center">
+        <a href="javascript:void(0)" class="text-decoration-underline" (click)="downloadSkuTemplate()">Download
+            Batch SKU Template</a>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

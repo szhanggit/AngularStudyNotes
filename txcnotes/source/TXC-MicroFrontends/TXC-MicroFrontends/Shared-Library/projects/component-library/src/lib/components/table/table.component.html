@@ -1,0 +1,167 @@
+<div class="bg-white rounded-3 d-flex flex-column p-3">
+  <div class="mb-2">
+    <!-- table filter content -->
+    <ng-content></ng-content>
+  </div>
+
+  <ng-container *ngIf="!loading; else listLoading">
+    <div class="d-flex justify-content-end ml-3 my-2">
+      <lib-page-size [(pageSizeModel)]="pageSize"></lib-page-size>
+    </div>
+    <div>
+      <ng-container *ngIf="!tableModel.tableData.length; else table">
+        <lib-no-data [message]="noResultsMessage"></lib-no-data>
+      </ng-container>
+      <ng-template #table>
+        <div class="table-responsive">
+          <table
+            class="table table-centered mt-2"
+            [class]="tableModel?.tableClass"
+          >
+            <thead class="font-12">
+              <tr>
+                <ng-container *ngFor="let column of tableModel?.tableHeaders">
+                  <th [style]="column?.style" scope="col">
+                    {{ column.headerName }}
+                  </th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody class="font-14">
+              <ng-container *ngFor="let row of rows; index as rowIndex">
+                <tr>
+                  <ng-container
+                    *ngFor="
+                      let column of tableModel?.tableHeaders;
+                      first as first
+                    "
+                  >
+                    <td *ngIf="!column.actionConfig?.length && !column.status">
+                      <ng-container *ngIf="row.linkConfig?.isLink && first; else regular">
+                        <a
+                          (click)="onActionClicked($event, row, row.linkConfig?.eventName)"
+                          class="text-primary cursor-pointer"
+                        >
+                          {{ row[column!.headerId] || "--" }}
+                        </a>
+                      </ng-container>
+                      <ng-template #regular>
+                        <ng-container
+                          *ngTemplateOutlet="
+                            regularItem;
+                            context: { row: row, column: column }
+                          "
+                        ></ng-container>
+                      </ng-template>
+                    </td>
+                    <td *ngIf="column.actionConfig?.length">
+                      <div class="d-flex">
+                        <ng-container *ngIf="row?.action">
+                          <ng-container
+                            *ngFor="let action of column.actionConfig"
+                          >
+                            <ng-container *ngIf="row.action.includes(action.id)">
+                              <div
+                                style="width: 1.5rem"
+                                tooltipClass="custom-tooltip"
+                                [disableTooltip]="!column.tooltip ?? true"
+                                placement="bottom"
+                                class="action-container"
+                                [ngbTooltip]="action.tooltipLabel"
+                              >
+                                <ng-container
+                                  *ngTemplateOutlet="
+                                    actionButton;
+                                    context: { action: action, row: row }
+                                  "
+                                ></ng-container>
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </td>
+                    <td *ngIf="column.status">
+                      <lib-status
+                        [statusEnum]="statusEnum"
+                        [statusProperties]="statusProperties"
+                        [status]="row[column.headerId]"
+                      ></lib-status>
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="mx-2">
+          <lib-pagination
+            [pageSize]="pageSize"
+            [(page)]="page"
+            [total]="total"
+            (pageChange)="onPageChange($event)"
+          ></lib-pagination>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #regularItem let-row="row" let-column="column">
+  <span
+    *ngIf="!column?.fieldConfig"
+    [disableTooltip]="!column?.tooltip ?? true"
+    tooltipClass="custom-tooltip"
+    [ngbTooltip]="row?.tooltipLabel"
+    placement="bottom"
+    [style]="column?.spanStyle"
+  >
+    {{ row[column?.headerId] || "--" }}
+  </span>
+  <div *ngIf="column.fieldConfig">
+    <ng-container *ngFor="let item of column.fieldConfig">
+      <p class="m-0"
+      [disableTooltip]="!column?.tooltip ?? true"
+      tooltipClass="custom-tooltip"
+      [ngbTooltip]="row?.tooltipLabel"
+      placement="bottom"
+      [style]="column?.spanStyle"
+      >{{row[item]}}</p>
+    </ng-container>
+  </div>
+  
+</ng-template>
+
+<ng-template #listLoading>
+  <div style="height: 20rem">
+    <lib-loader></lib-loader>
+  </div>
+</ng-template>
+
+<ng-template #actionButton let-action="action" let-row="row">
+  <ng-container [ngSwitch]="action.buttonType">
+    <i
+      *ngSwitchCase="'icon'"
+      [style]="action.style"
+      class="fs-3 icon-button"
+      (click)="onActionClicked($event, row, action.eventName)"
+      [class]="action.iconName"
+    ></i>
+    <!-- TODO: add default styles for other cases -->
+    <button
+      *ngSwitchCase="'basic'"
+      (click)="onActionClicked($event, row, action.eventName)"
+      [style]="action.style"
+    >
+      {{ action.buttonName }}
+    </button>
+    <button
+      *ngSwitchCase="'basicWithIcon'"
+      (click)="onActionClicked($event, row, action.eventName)"
+      [style]="action.style"
+    >
+      <i class="fs-3 icon-button" [class]="action.iconName"></i
+      >{{ action.buttonName }}
+    </button>
+  </ng-container>
+</ng-template>

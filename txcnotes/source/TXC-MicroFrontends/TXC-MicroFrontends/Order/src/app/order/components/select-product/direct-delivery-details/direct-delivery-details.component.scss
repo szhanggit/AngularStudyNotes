@@ -1,0 +1,24 @@
+@import "../../../../../styles/variables";
+
+.alert-danger {
+  color: black;
+  border: 1.5px solid $red;
+  background: $red-bg-color;
+  border-radius: 10px;
+
+  div {
+    margin-bottom: 0px !important;
+  }
+
+  .type {
+    font-weight: bold;
+  }
+}
+
+.download-link {
+  &:hover {
+    cursor: pointer;
+  }
+  color: $light-blue;
+  text-decoration: underline;
+}

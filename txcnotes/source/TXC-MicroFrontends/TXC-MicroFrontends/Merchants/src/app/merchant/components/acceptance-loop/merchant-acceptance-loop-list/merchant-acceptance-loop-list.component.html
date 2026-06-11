@@ -1,0 +1,27 @@
+<div class="bg-white rounded-3 px-3 py-2 my-2">
+    <div class="row">
+        
+        <div class="col-4">
+            <button class="btn rounded-circle btn-sm" [class]="acceptanceListCollapsed ? 'btn-light' : 'btn-secondary'"
+            (click)="collapse()" [attr.aria-expanded]="!acceptanceListCollapsed" aria-controls="collapseExample">
+            <i [class]="acceptanceListCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+        </button>
+        <span class="text-dark collapse-title font-16 m-2">
+            <strong>Acceptance Loop</strong>
+        </span>  
+        </div>
+        <div class="col-8">
+            <div class="float-end" [hidden]="!showCreateAction">
+                <button class="btn btn-primary font-12 px-4" (click)="navigateToAcceptanceLoopCreate()" *ngIf="_merchantPermissionService.isMerchantEditor">Create acceptance loop</button>
+            </div>
+        </div>
+        <div #acceptanceListCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="acceptanceListCollapsed">
+            <div class="row">
+                <ng-container *ngTemplateOutlet="list"></ng-container>
+            </div>
+        </div>
+    </div>
+</div> 
+<ng-template #list>
+    <app-acceptance-loop-list [merchantId]="merchant.merchantId" [allowAction]="true" [allowPagination]="true" *ngIf="!acceptanceListCollapsed" (noData)="noDataList($event)"></app-acceptance-loop-list>
+</ng-template>

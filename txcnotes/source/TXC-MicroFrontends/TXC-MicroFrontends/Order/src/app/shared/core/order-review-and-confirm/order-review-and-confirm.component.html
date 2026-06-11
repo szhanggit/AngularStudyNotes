@@ -1,0 +1,138 @@
+<ng-container [ngTemplateOutlet]="orderReference"></ng-container>
+<ng-container [ngTemplateOutlet]="basicProperties"></ng-container>
+<ng-container [ngTemplateOutlet]="selectedProductList"></ng-container>
+<ng-container
+  *ngIf="hasDeliveryDetailStep"
+  [ngTemplateOutlet]="defaultDeliveryContent"
+></ng-container>
+
+<ng-template #orderReference>
+  <app-view-form-accordion
+    [showEdit]="false"
+    [sectionCollapsed]="orderReferenceCollapsed"
+    [sectionTitle]="'Reference details of this order'"
+  >
+    <app-order-reference-details
+      [viewMode]="true"
+    ></app-order-reference-details>
+  </app-view-form-accordion>
+</ng-template>
+
+<ng-template #basicProperties>
+  <app-view-form-accordion
+    (editClicked)="onEditClicked(1)"
+    [sectionCollapsed]="basicPropertiesCollapsed"
+    [sectionTitle]="'Basic Properties'"
+    [showEdit]="true"
+  >
+    <app-form [formModel]="basicInfoFormModel" [viewMode]="true">
+      <ng-container #dateContent dateContent>
+        {{ getComputedActivatedDate() }}</ng-container
+      >
+      <ng-container #selectContent selectContent>
+        {{ getNdaysFromPublishDate() }}</ng-container
+      >
+    </app-form>
+    <app-form [formModel]="settingsFormModel" [viewMode]="true"></app-form>
+    <app-form [formModel]="memoFormModel" [viewMode]="true"></app-form>
+    <app-form [formModel]="attachmentFormModel" [viewMode]="true"></app-form>
+  </app-view-form-accordion>
+</ng-template>
+
+<ng-template #selectedProductList>
+  <app-view-form-accordion
+    (editClicked)="onEditClicked(2)"
+    (showChildProduct)="onShowChildProduct($event)"
+    [showChildProductToggle]="true"
+    [showEdit]="true"
+    [sectionCollapsed]="orderReferenceCollapsed"
+    [sectionTitle]="'Selected product list'"
+    [disableChildToggle]="disableChildToggle"
+    [isShowChildProduct]="showChildProduct"
+  >
+    <app-product-selection-table
+      *ngIf="productList?.length"
+      [viewMode]="true"
+      [tableModel]="productSelectionTableModel"
+      [productList]="productList"
+      [showChildProduct]="showChildProduct"
+      [disableEditOnTrustAccount]="disableEditOnTrustAccount"
+    >
+      <div class="row g-0 mt-3">
+        <div class="card p-3">
+          <div class="row my-1">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6">Total product quantity</div>
+                <div class="col-6 bold">{{ totalProductQuantity }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row my-1" *ngIf="selectedOrderMode?.key !== orderModes.API">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6">Total voucher quantity</div>
+                <div class="col-6 bold">{{ totalVoucherQuantity }}</div>
+              </div>
+            </div>
+          </div>
+          <ng-container
+            *ngIf="selectedOrderMode?.key === orderModes.DirectNonAPI"
+          >
+            <div class="row my-1">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-6">Total email quantity</div>
+                  <div class="col-6 bold">{{ totalEmailQuantity }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row my-1">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-6">Total SMS quantity</div>
+                  <div class="col-6 bold">{{ totalSmsQuantity }}</div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="row my-1" *ngIf="selectedOrderMode?.key !== orderModes.API">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6">Estimated total price value</div>
+                <div class="col-6 bold">
+                  {{ estimatedTotal | currency }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-product-selection-table>
+  </app-view-form-accordion>
+</ng-template>
+
+<ng-template #defaultDeliveryContent>
+  <app-view-form-accordion
+    (editClicked)="onEditClicked(3)"
+    (showChildProduct)="onShowChildProduct($event)"
+    [showEdit]="true"
+    [sectionCollapsed]="orderReferenceCollapsed"
+    [sectionTitle]="'Default delivery content'"
+  >
+    <ng-container
+      *ngIf="
+        selectedOrderMode.key === orderModes.IndirectNonAPI;
+        else withDefault
+      "
+    >
+      <span>No default delivery content for NonAPI indirect orders.</span>
+    </ng-container>
+  </app-view-form-accordion>
+  <ng-template #withDefault>
+    <app-form
+      [formModel]="deliveryDetailsFormModel"
+      [viewMode]="true"
+    ></app-form>
+  </ng-template>
+</ng-template>

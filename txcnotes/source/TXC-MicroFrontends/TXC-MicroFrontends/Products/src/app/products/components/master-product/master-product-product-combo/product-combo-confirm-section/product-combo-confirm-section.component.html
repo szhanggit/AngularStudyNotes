@@ -1,0 +1,180 @@
+<ng-container>
+    <div class="row title vertical-center">
+        <div class="col-12" (click)="collapse()">
+            <button class="btn ratio ratio-1x1 rounded-circle"
+                [ngClass]="{ 'btn-primary' : stepFocused, 'btn-secondary' : !stepFocused }">
+                <span style="font-size: 18px;">{{STEP_NUMBER}}</span>
+            </button>
+            <span class="text-dark collapse-title mx-2 bold font-16"
+                [ngClass]="{ 'text-primary' : stepFocused, 'text-dark' : !stepFocused }">
+                {{TITLE}}
+            </span>
+        </div>
+    </div>
+
+    <p class="my-2" *ngIf="sectionCollapsed && !isInEditionAddProduct && confirmProductList.length > 0">
+        You have selected {{confirmProductList.length}} products for this combo.
+    </p>
+    <p class="my-2" *ngIf="sectionCollapsed && isInEditionAddProduct && confirmProductList.length > 0">
+        You have selected {{confirmProductList.length + existProductList.length}} products for this combo.
+    </p>
+
+    <div class="vertical-center alarm-toast my-2 py-2" *ngIf="isErrorToast">
+        <ul class="alarm-list">
+            <li *ngIf="noCodeIdList != ''"><span class="bold">{{ERROR_MESSAGE_NO_PRODUCT}}</span>{{noCodeIdList}}</li>
+            <li *ngIf="statusInactiveIdList != ''"><span class="bold">{{ERROR_MESSAGE_INACTIVE}}</span>{{statusInactiveIdList}}</li>
+            <li *ngIf="noBrandIdList != ''"><span class="bold">{{ERROR_MESSAGE_NO_BRAND}}</span>{{noBrandIdList}}</li>
+            <li *ngIf="stopIssueIdList != ''"><span class="bold">{{ERROR_MESSAGE_STOP_ISSUING}}</span>{{stopIssueIdList}}</li>
+            <li *ngIf="masterProductIdList != ''"><span class="bold">{{ERROR_MESSAGE_CANNOT_ADD_MASTER_PRODUCT}}</span>{{masterProductIdList}}</li>
+            <li *ngIf="noSkuIdList != ''"><span class="bold">{{ERROR_MESSAGE_NO_SKU_COST}}</span>{{noSkuIdList}}</li>
+            <li *ngIf="noValidSkuCostIdList != ''"><span class="bold">{{ERROR_MESSAGE_NO_VALID_SKU_COST}}</span>{{noValidSkuCostIdList}}</li>
+            <li *ngIf="errorMessage != ''"><span class="bold">{{ERROR_MESSAGE_ERROR}}</span>{{errorMessage}}</li>
+        </ul>
+    </div>
+
+    <div class="my-2" #sectionCollapse="ngbCollapse" [(ngbCollapse)]="sectionCollapsed">
+        <ng-container *ngIf="isInCreation || isInEditionAddProduct">
+            <div *ngIf="isInEditionAddProduct">
+                <i [class]="!newProductsCollapsed ? 'uil-angle-down sortable' : 'uil-angle-up sortable'"
+                    style="font-size: 1em;" (click)="onNewProductsCollapseClick()"></i>
+                <span class="text-dark bold font-14">New products ({{confirmProductList.length}})</span>
+            </div>
+            <div class="table-wrapper" #newProductsCollapse="ngbCollapse" [(ngbCollapse)]="newProductsCollapsed">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col">{{CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME}}
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-2">{{CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_CODE}}</div>
+                    <div class="col-2">{{CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_TYPE}}</div>
+                    <div class="col-2">{{CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX}}
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                    </div>
+                    <div *ngIf="isSuperVoucher" class="col-2">{{CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME}}
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-1">{{CONFIRM_PRODUCT_TABLE_HEADER_ACTION}}</div>
+                </div>
+                <div class="row font-12 horizontal-rule vertical-center data-content"
+                    *ngFor="let product of confirmProductList; let index = index">
+                    <div class="col">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div class="col-2">{{ product.faceValueWithTax }}</div>
+                    <div *ngIf="isSuperVoucher" class="col-2">{{ product.brandName }}</div>
+                    <div class="col-1">
+                        <button class="btn" (click)="confirmProductList.splice(index, 1)">
+                            <i class="uil-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isInEditionAddProduct">
+            <div class="mt-4">
+                <i [class]="!existProductsCollapsed ? 'uil-angle-down sortable' : 'uil-angle-up sortable'"
+                    style="font-size: 1em;" (click)="onExistProductsCollapseClick()"></i>
+                <span class="text-dark bold font-14">Existing products ({{existProductList.length}})</span>
+            </div>
+            <div class="table-wrapper" #existProductsCollapse="ngbCollapse" [(ngbCollapse)]="existProductsCollapsed">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col">{{EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME}}
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-2">{{EXIST_PRODUCT_TABLE_HEADER_PRODUCT_CODE}}</div>
+                    <div class="col-2">{{EXIST_PRODUCT_TABLE_HEADER_PRODUCT_TYPE}}</div>
+                    <div class="col-2">{{EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX}}
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_PRODUCT_FACE_VALUE_WITH_TAX)"></svg-controller>
+                    </div>
+                    <div *ngIf="isSuperVoucher" class="col-2">{{EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME}}
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getExistProductTableSortingStatus(EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingExistProductTable(EXIST_PRODUCT_TABLE_HEADER_BRAND_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="row font-12 horizontal-rule vertical-center data-content"
+                    *ngFor="let product of existProductList; let index = index">
+                    <div class="col">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div class="col-2">{{ product.faceValueWithTax }}</div>
+                    <div *ngIf="isSuperVoucher" class="col-2">{{ product.brandName }}</div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+
+        </ng-container>
+        <div class="operation-content vertical-center">
+            <button class="btn btn-secondary font-12 mx-2" (click)="onConfirmResetClick()">Reset</button>
+            <button class="btn btn-primary font-12 mx-2" (click)="onConfirmClick()"
+                [disabled]="(confirmProductList.length === 0)">Confirm product list
+                ({{confirmProductList.length}})
+            </button>
+        </div>
+    </div>
+
+</ng-container>

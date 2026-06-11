@@ -1,0 +1,242 @@
+<ng-template #tipContent let-formControl="formControl" let-message="message">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+  
+      <ng-container *ngIf="formControl?.invalid && formControl.errors?.allowDecimal">
+        {{formControl.errors?.msg}} 
+     </ng-container> 
+   
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidPhoneNumber">
+        Please enter valid phone number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="formGroup">
+    <div class="row">
+       
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <span class="font-16 text-dark bold">
+                            Contract and payment term 
+                        </span>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="name">Contract name <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.name.invalid && f.name.dirty
+                        }" formControlName="name" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f.name.invalid && f.name.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #nameTip="ngbTooltip"
+                            (blur)="toggleTooltipWithContext(nameTip, f.name, 'Contract name maximum is 128.')"
+                            [disableTooltip]="!(f.name.invalid && f.name.dirty)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label for="period">Contract period <span class="text-danger bold">*</span></label>
+
+                        <lib-date-picker
+                            formControlName="period" [displayMonths]="2" [type]="'range'" [disablePastDates]="true" 
+                        >
+                        </lib-date-picker>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="paymentterm">Payment term <span class="text-danger bold">*</span></label>
+                        <select class="form-select font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.paymentterm.invalid && f.paymentterm.dirty
+                        }" formControlName="paymentterm" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.paymentterm.invalid && f.paymentterm.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #paymenttermTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(paymenttermTip, f.paymentterm)"
+                            [disableTooltip]="!(f.paymentterm.invalid && f.paymentterm.dirty)" 
+                            (change)="OnPaymentTermSelectionChanged()">
+                            <option selected value="">Select</option>
+                            <option *ngFor="let item of termList" [value]="item.value"  
+                            >{{ item.text }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="priceoption">Price option <span class="text-danger bold">*</span></label>
+                        <select class="form-select font-14 text-secondary" [(ngModel)]="selectedValuePrice"  (ngModelChange)="EditautopopulatePriceOption()" [ngClass]="{
+                            'is-invalid': f.priceoption.invalid && f.priceoption.dirty
+                        }" formControlName="priceoption" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.priceoption.invalid && f.priceoption.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #priceoptionTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(priceoptionTip, f.priceoption)"
+                            [disableTooltip]="!(f.priceoption.invalid && f.priceoption.dirty)">
+                            <option value=""  *ngIf="priceOptionList.length != 1">Select</option>
+                            <option *ngFor="let item of priceOptionList" [value]="item.value" 
+                            >{{ item.text }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="costscheme">Cost scheme <span class="text-danger bold">*</span></label>
+                        <select class="form-select font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.costscheme.invalid && f.costscheme.dirty
+                        }" formControlName="costscheme" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.costscheme.invalid && f.costscheme.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #costschemeTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(costschemeTip, f.costscheme)"
+                            [disableTooltip]="!(f.costscheme.invalid && f.costscheme.dirty)" (change)="OnCostSchemeSelectionChanged(modalChangeCostSchemaConfirmation)">
+                            <option selected value="">Select</option>
+                            <option *ngFor="let item of costSchemeList" [value]="item.value">{{ item.text }}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="cost">Cost % <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.cost.invalid && f.cost.dirty
+                        }" formControlName="cost" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.cost.invalid && f.cost.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #costTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(costTip, f.cost)"
+                            [disableTooltip]="!(f.cost.invalid && f.cost.dirty)">
+                    </div>
+
+                    <div class="col-6 mb-2">
+                        <label for="roundingrule">Rounding rule <span class="text-danger bold">*</span></label>
+                        <select class="form-select font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.roundingrule.invalid && f.roundingrule.dirty
+                        }" formControlName="roundingrule" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.roundingrule.invalid && f.roundingrule.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #roundingruleTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(roundingruleTip, f.roundingrule)"
+                            [disableTooltip]="!(f.roundingrule.invalid && f.roundingrule.dirty)">
+                            <option selected value="">Select</option>
+                            <option *ngFor="let item of roundingRuleList" [value]="item.value">{{ item.text }}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-6 mb-2">
+                        <label for="roundingdecimalplaces">Rounding decimal places <span class="text-danger bold">*</span></label>
+                        <select class="form-select font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.roundingdecimalplaces.invalid && f.roundingdecimalplaces.dirty
+                        }" formControlName="roundingdecimalplaces" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="(f.roundingdecimalplaces.invalid && f.roundingdecimalplaces.dirty) ? 'tooltip-danger' : 'tooltip-success'"
+                            #roundingdecimalplacesTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(roundingdecimalplacesTip, f.roundingdecimalplaces)"
+                            [disableTooltip]="!(f.roundingdecimalplaces.invalid && f.roundingdecimalplaces.dirty)">
+                            <option selected value="">Select</option>
+                            <option *ngFor="let item of roundingDecimalPlacesList" [value]="item.value">{{ item.text }}</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="isEdit == false">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <span class="font-16 text-dark bold">
+                            Add SKU to this contract
+                            <button type="button" [disabled]="formGroup.invalid" class="btn btn-sm btn-primary float-end m-1"  *ngIf="skuList.length > 0 && !isUploader"
+                                     (click)="navigateToCreateSKU()">
+                                    Add SKU</button>
+                               
+                            <button class="btn btn-sm btn-primary float-end m-1" *ngIf="isUploader"
+                                [disabled]="formGroup.invalid" (click)="openReupload();">Reupload
+                                excel</button>
+                        </span>
+                        <span *ngIf="isUploader && errorMessageskuValidation!='' ">
+                            <div class="col-12 alert alert-danger text-dark border-1 my-3">
+                            <div  [innerHTML]="errorMessageskuValidation"></div>
+                        </div></span>
+                        <p class="text-center my-3" *ngIf="skuList.length == 0 && !isUploader">
+                            You can manually add SKUs or upload an excel file to create batch of SKUs, it's ok add SKU
+                            later after contract created.
+                            <br>
+                            <button type="button" [disabled]="formGroup.invalid" class="btn btn-primary btn-sm mt-2" (click)="navigateToAddSKU()">
+                                Add SKU</button>
+                        </p>
+                    </div>
+                   
+                    <div class="col-12">                       
+                        <app-sku-draft-list [merchantId]="merchantId" [costscheme]="f.costscheme.value" [isAfterBulkUploader]="isUploader" [skuList]="skuList" [showAction]="!isUploader"></app-sku-draft-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row my-2">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" (click)="OnCancel(cancelModalContent)">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                                [disabled]="formGroup.invalid" (click)="OnSubmit(modalContent)">{{ isEdit ? 'Save' : 'Create' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #modalContent let-modal>
+    <div class="modal-header border-bottom-0">
+		<h4 class="modal-title text-center w-100" id="modal-basic-title">Contract saved as draft</h4>
+	</div>
+	<div class="modal-body">
+        <p class="text-muted text-center">
+            Please add SKU(s) to activate this contract.
+        </p>
+	</div>
+    <div class="modal-footer border-top-0 justify-content-center">
+        <button type="button" class="btn btn-primary rounded-pill px-5" (click)="modal.dismiss('Cross click'); goBack('contractCreated')">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #cancelModalContent let-modal>
+    <div class="modal-header border-bottom-0">
+		<h4 class="modal-title text-center w-100" id="modal-basic-title">Cancel creation</h4>
+	</div>
+	<div class="modal-body">
+        <p class="text-muted text-center">
+            Are you sure you want to cancel the creation? All added SKUs will be cleared.
+        </p>
+	</div>
+    <div class="modal-footer border-top-0 justify-content-center">
+        <button type="button" class="btn btn-secondary rounded-pill px-4"
+            (click)="modal.dismiss('Cross click')">Continue editing</button>
+        <button type="button" class="btn btn-primary rounded-pill px-5"
+            (click)="modal.dismiss('Cross click'); goBack('contractCancelled');">Confirm</button>
+    </div>
+</ng-template>
+
+<ng-template #modalChangeCostSchemaConfirmation let-modal>
+    <div class="modal-header border-bottom-0">
+		<h4 class="modal-title text-center w-100" id="modal-basic-title">Confirmation</h4>
+	</div>
+	<div class="modal-body">
+        <p class="text-muted text-center">
+            Your SKU selection will be cleared.
+        </p>
+	</div>
+    <div class="modal-footer border-top-0 justify-content-center">
+        <button type="button" class="btn btn-secondary rounded-pill px-5" (click)="modal.dismiss('Cross click'); resetCostScheme();">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill px-5" (click)="modal.dismiss('Cross click'); removeSkuCost();">OK</button>
+    </div>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

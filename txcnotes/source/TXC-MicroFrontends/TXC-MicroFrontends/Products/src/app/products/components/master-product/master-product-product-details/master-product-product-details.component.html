@@ -1,0 +1,160 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <!-- validator min is used for Merchant acquirer dropdown -->
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min"> 
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters of {{ formControl.errors?.maxlength?.requiredLength }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.notUnique">
+        {{ formControl.value }} already exists!
+    </ng-container>
+    <ng-container *ngIf="formControl?.valid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="detailsFormGroup">
+    <div class="bg-white rounded-3 px-3 py-2">
+        <span class="text-dark font-16"><strong>Basic Info</strong></span>
+
+        <div class="row">
+            <div class="row my-3">
+                <div class="col-6 mb-1">
+                    <label for="productName" class="form-label font-14">Product name <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                        'is-invalid': f.productName.invalid && f.productName.dirty
+                    }" formControlName="productName" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productName.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productNameTip="ngbTooltip" (click)="toggleTooltipWithContext(productNameTip, f.productName)"
+                        [disableTooltip]="!(f.productName.invalid && f.productName.dirty)" />
+                </div>
+                <div class="col-6 mb-1">
+                    <label for="productCode" class="form-label font-14">Product code <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f.productCode.invalid && f.productCode.dirty
+                    }" formControlName="productCode" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productCodeTip="ngbTooltip" (click)="toggleTooltipWithContext(productCodeTip, f.productCode)"
+                        [disableTooltip]="!(f.productCode.invalid && f.productCode.dirty)">
+                </div>
+                <div class="col-6">
+                    <label for="productDescription" class="form-label font-14">Product description</label>
+                    <textarea type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                        'is-invalid': f.productDescription.invalid && f.productDescription.dirty
+                    }" formControlName="productDescription" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productDescription.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productDescriptionTip="ngbTooltip" (click)="toggleTooltipWithContext(productDescriptionTip, f.productDescription)"
+                        [disableTooltip]="!(f.productDescription.invalid && f.productDescription.dirty)"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <!-- Merchant acquirer (only for GL) -->
+                <div class="col-6" *ngIf="tenant.name == TENANT_NAME_GL">
+                    <label for="voucherIssuerId" class="form-label font-14">Merchant acquirer <span
+                            class="text-danger">*</span></label>
+                    <select name="voucherIssuerId" class="form-select" formControlName="voucherIssuerId"
+                        [ngClass]="{'is-invalid': f.voucherIssuerId.invalid && f.voucherIssuerId.dirty}"
+                        triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.voucherIssuerId.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #voucherIssuerIdTip="ngbTooltip" (click)="toggleTooltipWithContext(voucherIssuerIdTip, f.voucherIssuerId)"
+                        [disableTooltip]="!(f.voucherIssuerId.invalid && f.voucherIssuerId.dirty)">
+                        <option value="" >Please select</option>
+                        <option [value]="ma.key" *ngFor="let ma of merchantAcquirers">{{ ma.value }}</option>
+                    </select>
+                </div>
+
+                <!-- Super voucher type (only for IN and supuer voucher) -->
+                <div class="col-6" *ngIf="tenant.name == TENANT_NAME_IN && productType.key == ProductTypeEnum.SuperVoucher">
+                    <label for="superVoucherType" class="form-label font-14">Super voucher type <span
+                            class="text-danger">*</span></label>
+                    <select name="superVoucherType" class="form-select" formControlName="superVoucherType"
+                        [ngClass]="{'is-invalid': f.superVoucherType.invalid && f.superVoucherType.dirty}"
+                        triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.superVoucherType.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #superVoucherTypeTip="ngbTooltip" (click)="toggleTooltipWithContext(superVoucherTypeTip, f.superVoucherType)"
+                        [disableTooltip]="!(f.superVoucherType.invalid && f.superVoucherType.dirty)">
+                        <option [value]="svt.key" *ngFor="let svt of SUPER_VOUCHER_TYPE">{{ svt.value }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Merchant & SKU</strong></span>
+        <div class="row">
+            <table class="table table-centered mt-2">
+                <thead class="font-12 bold">
+                    <tr>
+                        <th scope="col" width="20%">Merchant Name</th>
+                        <th scope="col">SKU Name / <br/> SKU Code</th>
+                    </tr>
+                </thead>
+                <tbody class="font-14">
+                    <tr>
+                        <td>
+                            <button type="text" class="btn btn-link px-0 py-0" (click)="navigateToMerchantDetails()">{{ merchantName }}</button>
+                        </td>
+                        <td>
+                            <div class="bold">{{ (skuName$ | async) ?? NOT_APPLICABLE }}</div>
+                            <div class="font-12">{{ (skuNumber$ | async) ?? NOT_APPLICABLE }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Voucher number rule</strong></span>       
+        <app-voucher-number-rule-table *ngIf="program" [selectedSKU]="undefined" [program]="program"
+            [voucherNumberRuleList]="voucherNumberRuleList"
+            [errorMessage]="ERROR_SHOWING_VNR"></app-voucher-number-rule-table>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Additional information</strong></span>
+        <div class="row my-3">
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14">Note for internal used (Operation)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.operationNote.invalid && f.operationNote.dirty
+                }" formControlName="operationNote" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.operationNote.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #operationNoteTip="ngbTooltip" (click)="toggleTooltipWithContext(operationNoteTip, f.operationNote)"
+                    [disableTooltip]="!(f.operationNote.invalid && f.operationNote.dirty)"></textarea>
+            </div>
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14 text-secondary">Note for internal used
+                    (Sales)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.salesNote.invalid && f.salesNote.dirty
+                }" formControlName="salesNote" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.salesNote.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #salesNoteTip="ngbTooltip" (click)="toggleTooltipWithContext(salesNoteTip, f.salesNote)"
+                    [disableTooltip]="!(f.salesNote.invalid && f.salesNote.dirty)"></textarea>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14 text-secondary">Note for internal used
+                    (Customer
+                    service)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.customerServiceNote.invalid && f.customerServiceNote.dirty
+                }" formControlName="customerServiceNote" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.customerServiceNote.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #customerServiceNoteTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(customerServiceNoteTip, f.customerServiceNote)"
+                    [disableTooltip]="!(f.customerServiceNote.invalid && f.customerServiceNote.dirty)"></textarea>
+            </div>
+        </div>
+    </div>
+</form>

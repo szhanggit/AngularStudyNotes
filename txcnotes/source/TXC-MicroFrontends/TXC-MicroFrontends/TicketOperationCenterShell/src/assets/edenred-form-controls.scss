@@ -1,0 +1,33 @@
+input[type='text'], input[type='password']{
+    padding: 3px 0 2px 4px;
+    line-height: 29px;
+    border-radius: 5px;
+    border: solid 0.5px rgb(206, 206, 206);
+    font-size: 14px;
+    width: 98%;
+}
+
+.control-block{
+    display: block;
+
+    .lbl, .control{
+        display: block;
+    }
+}
+
+.control-inline-block{
+    display: block;
+    margin: 0 0 5px 0;
+    .lbl, .control {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .lbl{
+        min-width: 250px;
+    }
+
+    .control{
+        width: 300px;
+    }
+}

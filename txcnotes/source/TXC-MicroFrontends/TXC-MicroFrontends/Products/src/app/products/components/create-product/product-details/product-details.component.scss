@@ -1,0 +1,113 @@
+// image input
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+    pointer-events: none;
+    position: relative;
+
+    &.hover {
+        background: #D5D8DD;
+        opacity: 0.8;
+        border-radius: 4px;
+    }
+
+    .img-thumbnail {
+        height: auto;
+        width: 100%;
+        pointer-events: all;
+    }
+
+    .show-on-hover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background-color: #D5D8DD;
+        opacity: 0.8;
+        color: #6D7787;
+    }
+}
+
+.input-group > ::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 100%;
+    margin-left: -45px !important;
+
+    button {
+        ngb-highlight {
+            word-break: break-word;
+            white-space: break-spaces;
+        }
+    }
+}
+
+.reseller-merchant > ::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 20%;
+
+    button {
+        ngb-highlight {
+            word-break: break-word;
+            white-space: break-spaces;
+        }
+    }
+}
+
+.search-SKU > ::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 42%;
+
+    button {
+        ngb-highlight {
+            word-break: break-word;
+            white-space: break-spaces;
+        }
+    }
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
+.input-group-prepend > .input-group-text{
+    background-color: transparent !important;
+    border-right-width: 0px !important;
+}
+
+.input-group > .form-control{
+    border-left-width: 0px !important;
+}
+
+.input-group.is-invalid {
+    border: 1px solid #fa5c7c;
+    border-radius: 5px;
+}
+
+hr {
+    height: 1px !important;
+    background: #D5D8DD !important;
+    opacity: 1 !important;
+}
+
+.border-bottom-1px {
+    border-bottom: 1px #D5D8DD solid;
+}
+
+textarea {
+    resize: none;
+    overflow-x: hidden;
+}
+
+.select2-dropdown[_ngcontent-evb-c226] .select2-label-content[_ngcontent-evb-c226] {
+    padding: 0 0.25rem;
+}
+
+.word-break {
+    word-break: break-word;
+}

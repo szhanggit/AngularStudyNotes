@@ -1,0 +1,91 @@
+<div class="modal-body font-14 px-5">
+  <div class="row text-center mb-3">
+    <span class="font-18 text-dark"
+      ><strong>Select fixed expiry condition</strong></span
+    >
+  </div>
+
+  <div class="row my-3 position-relative">
+    <div class="row font-12">
+      <div class="col-2"></div>
+      <div class="col-3">
+        <strong>Expiry Date Type</strong>
+      </div>
+      <div class="col-3">
+        <strong>Expiry Condition</strong>
+      </div>
+      <hr class="m-3" />
+    </div>
+    <div [formGroup]="expirySchemeForm">
+      <div class="row" *ngFor="let expiryScheme of displayedExpirySchemes">
+        <div class="col-2 text-center">
+          <input
+            type="radio"
+            [value]="expiryScheme"
+            formControlName="fixedExpiryCondition"
+            class="form-radio-input"
+          />
+        </div>
+        <div class="col-3">
+          {{
+            expirationPolicyTypeEnum[expiryScheme.type]
+              | stringSplitByCapitalLetter
+          }}
+        </div>
+        <div class="col-3">
+          {{ expiryScheme.displayName | stringSplitByCapitalLetter }}
+        </div>
+        <div
+          class="col-4"
+          *ngIf="expiryScheme.displayName.includes(fixEndOfDay)"
+        >
+          <div
+            class="date-picker input-group input-group-sm input-group-prefix-icon calendar h-100"
+          >
+            <input
+              [disabled]="isDatePickerDisabled"
+              autocomplete="off"
+              class="form-control"
+              placeholder="YYYY/MM/DD"
+              name="dp"
+              [minDate]="currentDate"
+              ngbDatepicker
+              #dp="ngbDatepicker"
+              (input)="onDatePickerInputChange($event)"
+              (click)="dp.toggle()"
+              [value]="datePickerValue"
+              (dateSelect)="onDateSelect($event)"
+              [autoClose]="true"
+            />
+            <button
+              class="mdi mdi-calendar search-icon input-group-text"
+              (click)="dp.toggle()"
+              type="button"
+            ></button>
+          </div>
+        </div>
+        <hr class="m-3" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="text-center">
+      <button
+        type="button"
+        class="btn btn-secondary rounded-pill font-12 px-3"
+        (click)="closeModal(false)"
+      >
+        Cancel
+      </button>
+      <button
+        [disabled]="expirySchemeForm?.invalid"
+        type="button"
+        class="btn btn-primary rounded-pill font-12 mx-2 px-3"
+        (click)="closeModal(true)"
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>

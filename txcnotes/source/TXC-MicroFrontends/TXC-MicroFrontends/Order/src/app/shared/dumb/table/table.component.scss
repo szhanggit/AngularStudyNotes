@@ -1,0 +1,29 @@
+@import "../../../../styles/_variables.scss";
+
+.grey {
+  background-color: $disabled-bg-color;
+}
+
+.scroll-bar-order-history {
+  display: block;
+  overflow-y: scroll;
+  max-height: 300px;
+  &::-webkit-scrollbar {
+    width: 18px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $grey;
+  }
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+  }
+}
+
+.scroll-adjust {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}

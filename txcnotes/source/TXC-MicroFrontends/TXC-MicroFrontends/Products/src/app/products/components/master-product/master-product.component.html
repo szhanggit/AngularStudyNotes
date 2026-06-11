@@ -1,0 +1,286 @@
+<div *ngIf="isCreate">
+  <div class="row my-3">
+    <h3 class="text-dark font-22"> {{actionModeName}} <span class="text-secondary"> ({{productTypeName}})</span></h3>
+    <div class="ml-auto mr-auto m-2">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)"
+        (activeIdChange)="onActiveIdChange($event)" class="product-wizard-stepper">
+        <li [ngbNavItem]="1" class="multisteps-form__progress-btn" [class.pre-active]="true"
+          [class.active]="active === 1" [class.alarm]="alarmFlag_productDetails" (click)="onChangeStep(false, 1)">
+          <a ngbNavLink>Product Details</a>
+          <ng-template ngbNavContent>
+            <app-master-product-product-details [parent]="this"></app-master-product-product-details>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2" class="multisteps-form__progress-btn" [disabled]="isNavDisable_productCombo"
+          [class.pre-active]="!isNavDisable_productCombo" [class.active]="active === 2"
+          [class.alarm]="alarmFlag_productCombo" (click)="onChangeStep(isNavDisable_productCombo, 2)">
+          <a ngbNavLink>Product Combo</a>
+          <ng-template ngbNavContent>
+            <app-master-product-product-combo [parent]="this"></app-master-product-product-combo>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="3" class="multisteps-form__progress-btn" [disabled]="isNavDisable_pricingAndExpiry"
+          [class.pre-active]="!isNavDisable_pricingAndExpiry" [class.active]="active === 3"
+          [class.alarm]="alarmFlag_pricingAndExpiry" (click)="onChangeStep(isNavDisable_pricingAndExpiry, 3)">
+          <a ngbNavLink>Pricing & Expiry</a>
+          <ng-template ngbNavContent>
+            <app-master-product-pricing-and-expiry [parent]="this"></app-master-product-pricing-and-expiry>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="4" class="multisteps-form__progress-btn" [disabled]="isNavDisable_productTemplate"
+          [class.pre-active]="!isNavDisable_productTemplate" [class.active]="active === 4"
+          [class.alarm]="alarmFlag_productTemplate" (click)="onChangeStep(isNavDisable_productTemplate, 4)">
+          <a ngbNavLink>Product Template</a>
+          <ng-template ngbNavContent>
+            <app-master-product-product-template [parent]="this"></app-master-product-product-template>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="5" class="multisteps-form__progress-btn" [disabled]="isNavDisable_advanceSettings"
+          [class.pre-active]="!isNavDisable_advanceSettings" [class.active]="active === 5"
+          [class.alarm]="alarmFlag_advanceSettings" (click)="onChangeStep(isNavDisable_advanceSettings, 5)">
+          <a ngbNavLink>Advanced Settings</a>
+          <ng-template ngbNavContent>
+            <app-master-product-advance-settings [parent]="this"></app-master-product-advance-settings>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="6" class="multisteps-form__progress-btn" [disabled]="isNavDisable_reviewAndConfirm"
+          [class.pre-active]="!isNavDisable_reviewAndConfirm" [class.active]="active === 6"
+          [class.alarm]="alarmFlag_reviewAndConfirm" (click)="onChangeStep(isNavDisable_reviewAndConfirm, 6)">
+          <a ngbNavLink>Review & Confirm</a>
+          <ng-template ngbNavContent>
+            <div *ngIf="createErrorMessage != '' " class="alarm-toast vertical-center my-2 p-2">
+              <ul class="alarm-list">
+                <li><span class="bold">Error: {{createErrorMessage}}</span></li>
+              </ul>
+            </div>
+            <app-master-product-review-and-confirm [parent]="this"></app-master-product-review-and-confirm>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    <div class="row my-2">
+      <div class="col-9"></div>
+      <div class="col-3">
+        <div class="row" *ngIf="isProductEditor; else createViewOnlyButtons">
+          <div class="col-6">
+            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" *ngIf="active === 1"
+              (click)="onCancelClick()">
+              Cancel
+            </button>
+            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" *ngIf="active != 1"
+              (click)="onChangeStep(false, active - 1, true)">
+              Back
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" *ngIf="active != 6"
+              (click)="onChangeStep(nextButtonDisableFlag, active + 1)" [disabled]="nextButtonDisableFlag">
+              Next
+            </button>
+            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" *ngIf="active === 6"
+              (click)="onCreateClick()" [disabled]="createButtonDisableFlag">
+              Create
+            </button>
+          </div>
+        </div>
+
+        <ng-template #createViewOnlyButtons>
+          <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6">
+              <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" (click)="onCancelClick()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Mode -->
+<div *ngIf="!isCreate">
+  <div *ngIf="active !== 6" class="row mt-3">
+    <h3 class="text-dark font-22 clo-12"> {{actionModeName}} <span class="text-secondary">| {{
+        productBasicInfo?.productName }}</span></h3>
+  </div>
+  <div *ngIf="active === 6">
+    <div class="row mt-3">
+      <div class="col-12">
+        <span class="text-dark font-22"><strong>{{ productBasicInfo?.productCode }}</strong></span>
+        <span class="text-secondary font-22 mx-2"><strong>| {{ productBasicInfo?.productName }}</strong></span>
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-4">
+        <div class="font-16">
+          <strong
+            [ngClass]="{ 'text-success' : productBasicInfo?.status, 'text-danger' : !productBasicInfo?.status }">
+            {{ productBasicInfo?.status ? 'Active' : 'Inactive' }}
+          </strong>
+          <div class="vr font-16 mx-2"></div>
+          <span class="text-secondary font-16">
+            Product type: {{ productTypeName }}
+          </span>
+        </div>
+        <span *ngIf="stopIssueTime" class="font-16"
+          [ngClass]="{'text-success' : !isStopIssueTimeStart, 'text-danger' : isStopIssueTimeStart}">
+          Stop issue time:
+          <!-- No timezone conversion needed here because it is done in ts file to actually converse the value -->
+          <span *ngIf="stopIssueTime else noStopIssueTime">{{ stopIssueTime | date : 'M/dd/yyyy hh:mm:ss aa' }}</span>
+          <ng-template #noStopIssueTime>--</ng-template>
+        </span>
+      </div>
+      <div class="col-8">
+        <div class="float-end">
+          <span ngbDropdown class="mx-1">
+            <a class="btn btn-secondary rounded-circle" href="javascript:void(0)" role="button" id="dropdownLink"
+              ngbDropdownToggle>
+              <i class="uil uil-ellipsis-h"></i>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="dropdownLink" class="dropdown-menu">
+              <a ngbDropdownItem class="font-12" (click)="navigateToProductHistory()">View Product History</a>
+            </div>
+          </span>
+          <button *ngIf="isProductEditor && productBasicInfo?.status" class="btn btn-secondary rounded-pill mx-1 font-12"
+            (click)="openModal(stopIssueTimeModal)">
+            Set stop issue time
+          </button>
+          <button class="btn btn-primary rounded-pill font-12 mx-1" (click)="navigateToSkuInventory()" disabled>
+            View SKU inventory
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-auto mr-auto m-2">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)"
+      (activeIdChange)="onActiveIdChange($event)" class="product-wizard-stepper hidden">
+      <li [ngbNavItem]="1" class="multisteps-form__progress-btn" [class.pre-active]="true" [class.active]="active === 1"
+        [class.alarm]="alarmFlag_productDetails" (click)="onChangeStep(false, 1)">
+        <a ngbNavLink>Product Details</a>
+        <ng-template ngbNavContent>
+          <app-master-product-product-details [parent]="this"></app-master-product-product-details>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2" class="multisteps-form__progress-btn" [disabled]="isNavDisable_productCombo"
+        [class.pre-active]="!isNavDisable_productCombo" [class.active]="active === 2"
+        [class.alarm]="alarmFlag_productCombo" (click)="onChangeStep(isNavDisable_productCombo, 2)">
+        <a ngbNavLink>Product Combo</a>
+        <ng-template ngbNavContent>
+          <app-master-product-product-combo [parent]="this"></app-master-product-product-combo>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3" class="multisteps-form__progress-btn" [disabled]="isNavDisable_pricingAndExpiry"
+        [class.pre-active]="!isNavDisable_pricingAndExpiry" [class.active]="active === 3"
+        [class.alarm]="alarmFlag_pricingAndExpiry" (click)="onChangeStep(isNavDisable_pricingAndExpiry, 3)">
+        <a ngbNavLink>Pricing & Expiry</a>
+        <ng-template ngbNavContent>
+          <app-master-product-pricing-and-expiry [parent]="this"></app-master-product-pricing-and-expiry>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="4" class="multisteps-form__progress-btn" [disabled]="isNavDisable_productTemplate"
+        [class.pre-active]="!isNavDisable_productTemplate" [class.active]="active === 4"
+        [class.alarm]="alarmFlag_productTemplate" (click)="onChangeStep(isNavDisable_productTemplate, 4)">
+        <a ngbNavLink>Product Template</a>
+        <ng-template ngbNavContent>
+          <app-master-product-product-template [parent]="this"></app-master-product-product-template>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="5" class="multisteps-form__progress-btn" [disabled]="isNavDisable_advanceSettings"
+        [class.pre-active]="!isNavDisable_advanceSettings" [class.active]="active === 5"
+        [class.alarm]="alarmFlag_advanceSettings" (click)="onChangeStep(isNavDisable_advanceSettings, 5)">
+        <a ngbNavLink>Advanced Settings</a>
+        <ng-template ngbNavContent>
+          <app-master-product-advance-settings [parent]="this"></app-master-product-advance-settings>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="6" class="multisteps-form__progress-btn" [disabled]="isNavDisable_reviewAndConfirm"
+        [class.pre-active]="!isNavDisable_reviewAndConfirm" [class.active]="active === 6"
+        [class.alarm]="alarmFlag_reviewAndConfirm" (click)="onChangeStep(isNavDisable_reviewAndConfirm, 6)">
+        <a ngbNavLink>Review & Confirm</a>
+        <ng-template ngbNavContent>
+          <app-master-product-review-and-confirm [parent]="this"></app-master-product-review-and-confirm>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  <div class="row my-2">
+    <div class="col-9"></div>
+    <div class="col-3">
+      <div class="row" *ngIf="isProductEditor; else editViewOnlyButtons">
+        <div class="col-6">
+          <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" *ngIf="active !== 6 && actionMode === 1"
+            (click)="onCancelClick()">
+            Cancel
+          </button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-primary rounded-pill w-100 p-2 font-12" *ngIf="active !== 6 && actionMode === 1"
+            [disabled]="(editSaveButtonDisableFlag$ | async)" (click)="onSaveClick()">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <ng-template #editViewOnlyButtons>
+        <div class="row">
+          <div class="col-6"></div>
+          <div class="col-6">
+            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" *ngIf="active !== 6 && actionMode === 1"
+              (click)="onCancelClick()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <ng-template #stopIssueTimeModal let-modal>
+    <div class="modal-body">
+      <div class="text-center">
+        <span class="font-18 text-dark" id="modalLabel">
+          <strong>{{ !stopIssueTime ? 'Set stop issue time' : 'Edit stop issue time' }}</strong>
+        </span>
+      </div>
+
+      <div class="my-3 position-relative" id="stopIssueTimeContainer">
+        <label class="form-label font-14">Stop issue time</label>
+        <div class="stopIssueTime_input_section">
+          <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [min]="minDate" placeholder="MM/DD/YYYY 11:59 PM"
+            class="form-control stopIssueTime_input" [(ngModel)]="modelStopIssueTime" />
+          <owl-date-time #dt1 [startAt]="startDate" [hour12Timer]="true"></owl-date-time>
+          <i class="mdi mdi-clock-time-three-outline timer_icon"></i>
+          <a class="clearBtn" *ngIf="modelStopIssueTime" (click)="clearStopIssueTimeInput()">Clear</a>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="isProductEditor; else stopIssueTimeViewOnlyButtons">
+        <div class="col-6">
+          <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+            (click)="clearStopIssueTimeInput();modal.close(null)">Cancel</button>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-primary w-100 rounded-pill font-12"
+            (click)="modal.close('Close click')">Save</button>
+        </div>
+      </div>
+      
+      <ng-template #stopIssueTimeViewOnlyButtons>
+        <div class="row">
+          <div class="col-6"></div>
+          <div class="col-6">
+            <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+              (click)="clearStopIssueTimeInput();modal.close(null)">Cancel</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

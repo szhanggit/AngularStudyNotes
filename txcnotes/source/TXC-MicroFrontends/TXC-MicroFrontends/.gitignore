@@ -1,0 +1,8 @@
+.vscode/*
+.vs/
+/Clients/package-lock.json
+/System/package-lock.json
+/Merchants/package-lock.json
+/Order/.vscode/*
+/System/.vscode/*
+/BatchProcessor/.vscode/*

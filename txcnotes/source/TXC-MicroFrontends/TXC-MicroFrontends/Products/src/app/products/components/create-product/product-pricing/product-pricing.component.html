@@ -1,0 +1,150 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value must be less than 100 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min">
+        Negative numbers are not allowed!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidNumber">
+        Please enter valid number!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+
+<form [formGroup]="pricingFormGroup">
+    <div class="bg-white rounded-3 px-3 py-2 my-3 font-14">
+        <span class="text-dark font-16"><strong>Default pricing</strong></span>
+        <ng-container *ngIf="selectedType?.key !== 4; else dynamicFaceForm">
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="defaultSrpPreTax" class="form-label">Default selling price (<span
+                            class="text-primary">prepaid</span> with tax) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" inputControl="decimal-2" [ngClass]="{
+                        'is-invalid': f.sellingPricePrepaidWithTax?.invalid && f.sellingPricePrepaidWithTax?.dirty
+                    }" formControlName="sellingPricePrepaidWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.sellingPricePrepaidWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #sellingPricePrepaidWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(sellingPricePrepaidWithTaxTip, f.sellingPricePrepaidWithTax)"
+                        [disableTooltip]="!(f.sellingPricePrepaidWithTax?.invalid && f.sellingPricePrepaidWithTax?.dirty)">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPre" class="form-label ">Default selling price (<span
+                            class="text-primary">prepaid</span>)</label>
+                    <input type="text" class="form-control" formControlName="sellingPricePrepaid">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="selectedType?.key === 1 || selectedType?.key === 3">
+                <div class="col-6">
+                    <label for="defaultSrpPostTax" class="form-label ">Default selling price (<span class="text-success"
+                            [ngClass]="{'text-primary': selectedType.key}">postpaid</span> with tax) <span
+                            class="text-danger">*</span></label>
+                    <input inputControl="decimal-2" type="text" class="form-control" [ngClass]="{
+                        'is-invalid': f.sellingPricePostpaidWithTax?.invalid && f.sellingPricePostpaidWithTax?.dirty
+                    }" formControlName="sellingPricePostpaidWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.sellingPricePostpaidWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #sellingPricePostpaidWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(sellingPricePostpaidWithTaxTip, f.sellingPricePostpaidWithTax)"
+                        [disableTooltip]="!(f.sellingPricePostpaidWithTax?.invalid && f.sellingPricePostpaidWithTax?.dirty)">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPost" class="form-label ">Default selling price (<span class="text-success"
+                            [ngClass]="{'text-primary': selectedType.key}">postpaid</span>)</label>
+                    <input type="text" class="form-control" formControlName="sellingPricePostpaid">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="selectedType?.key === 2">
+                <div class="col-6">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPost" class="form-label ">Default selling price (<span
+                            class="text-primary">prepaid %</span>)</label>
+                    <input type="text" class="form-control" formControlName="customerFeePrepaidWithTax">
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #dynamicFaceForm>
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="faceValueTax" class="form-label">Default selling price (<span
+                            class="text-primary">prepaid</span> %) <span class="text-danger">*</span></label>
+                    <input inputControl="decimal-2" type="text" class="form-control" [ngClass]="{
+                        'is-invalid': f.customerFeePrepaidWithTax?.invalid
+                    }" formControlName="customerFeePrepaidWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.customerFeePrepaidWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #customerFeePrepaidWithTax="ngbTooltip"
+                        (click)="toggleTooltipWithContext(customerFeePrepaidWithTax, f.customerFeePrepaidWithTax)"
+                        [disableTooltip]="!f.customerFeePrepaidWithTax?.invalid">
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3 font-14">
+        <ng-container *ngIf="selectedMerchant && merchantProgram; else loadingExpirySchemes">
+            <app-expiry-scheme-selector [selectedTenant]="selectedTenant" [merchantProgram]="merchantProgram"
+                [fixExpiryDate]="fixExpiryDate"
+                [isFixedExpiryPolicy$]="isFixedExpiryPolicy$"
+                [expirySchemeList]="expirySchemeList" 
+                [selectedExpirySchemes]="tableExpirySchemes"
+                (onSelectedExpirySchemesChanged)="OnSelectedExpirySchemesChanged($event)"
+                (openModalButtonClicked)="openModal($event)"
+                (removeFromSelectionClicked)="removeFromSelection($event)">
+            </app-expiry-scheme-selector>
+        </ng-container>
+        <ng-template #loadingExpirySchemes>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <span class="text-dark font-16"><strong>Loading expiry schemes...</strong></span>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</form>
+
+<ng-template #contract>
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Contract</strong></span>
+        <div class="row">
+            <div class="col-2 text-left">
+                <h6>Available Merchant</h6>
+            </div>
+            <div class="col-2 text-left">
+                <h6>Shop(s)</h6>
+            </div>
+            <div class="col-3 text-left">
+                <h6>Default Product Cost (with tax) <span class="text-danger">*</span></h6>
+            </div>
+            <div class="col-3 text-left">
+                <h6>Valid Period <span class="text-danger">*</span></h6>
+            </div>
+            <div class="col-2 text-left"></div>
+            <hr class="my-2">
+        </div>
+        <div class="row">
+            <div class="col-2 text-left">AvailableMerchantName01</div>
+            <div class="col-2 text-left">All (N Shops)</div>
+            <div class="col-3 text-left">
+                <input type="text" class="form-control">
+                <div class="mt-2">
+                    <h6>Product cost: 457.1429</h6>
+                </div>
+            </div>
+            <div class="col-3 text-left">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-2 text-left">
+                <button class="btn form-control btn-secondary">Apply to merchants</button>
+            </div>
+            <hr class="my-3">
+        </div>
+    </div>
+</ng-template>

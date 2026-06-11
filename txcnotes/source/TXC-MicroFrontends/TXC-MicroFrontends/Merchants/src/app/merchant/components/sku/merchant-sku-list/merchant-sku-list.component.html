@@ -1,0 +1,59 @@
+<div class="bg-white rounded-3 px-3 py-2 my-2" >
+    <div class="row">
+        <div class="col-6">
+            <button class="btn rounded-circle btn-secondary btn-sm" [class]="skuCollapsed ? 'btn-light' : 'btn-secondary'" (click)="mdCollapse.toggle()"
+                [attr.aria-expanded]="!skuCollapsed" aria-controls="collapseExample">
+                <i [class]="skuCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>SKU</strong>
+            </span>
+        </div>
+    </div>
+    <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="skuCollapsed">
+        <div class="alert alert-success" role="alert" *ngIf="showskuIntro">
+            <div class="row">
+                <div class="col-1">
+                    <img class="w-100" src="assets/images/sku-into-icon.png">
+                </div>
+                <div class="col-11">
+                    <h4 class="alert-heading">
+                        NEW!
+                        <button type="button" class="btn-close float-end" (click)="onCloseSKUBanner()"></button>
+                    </h4>
+
+                    <p>SKU is new concept  in TOC, With this SKU. With SKU, you can better manage inventory.</p>
+                    <p>SKU can only create under a selected contract. <strong> Go to "Contract" section above to create the first contract!</strong></p>
+                </div>
+            </div>
+    </div>
+
+    <div class="col-12" *ngIf="!showskuIntro">
+        <p class="fs-13">  <i class="mdi mdi-information-outline me-1"></i>
+ 
+      SKU can only create under a selected contract.Go to "Contract" section above, select a contract then add SKUs</p>
+    </div>
+
+
+<!-- Need to check role -->
+<div class="col-12" [hidden]="getShowSkuList()" >
+    <div class="col-12">
+    <ul ngbNav #nav="ngbNav" class="nav nav-tabs nav-bordered mb-3">
+        <li ngbNavItem>
+          <a ngbNavLink>Valid SKUs</a>
+          <ng-template ngbNavContent>
+                <app-sku-list [valid]="true" [merchant]="merchant" (hasValidList)="hasValidList($event)"></app-sku-list>
+          </ng-template>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink>Invalid SKUs</a>
+          <ng-template ngbNavContent>
+            <app-sku-list [valid]="false" [merchant]="merchant" (hasInValidList)="hasInValidList($event)"></app-sku-list>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+</div>
+</div>
+</div>

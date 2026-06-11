@@ -1,0 +1,157 @@
+<div class="container-fluid template-list">
+    <div class="row my-3">
+        <div class="col-10">
+            <div class="d-flex">
+                <h3 class=" text-dark">Template List</h3>
+                <div class="input-search mb-3">
+                    <i class="mdi mdi-magnify input-search-icon"></i>
+                    <input type="text" class="form-control font-12 input-search-field" placeholder="Search template name"
+                        aria-label="Search media" aria-describedby="search-addon" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-6 pe-0">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs nav-bordered mb-3">
+                <li ngbNavItem="0">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                        <span class="d-none d-md-block">All</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="list; context: { tab: 0 }"></ng-container>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="1">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Voucher</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="list; context: { tab: 1 }"></ng-container>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="2">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">SMS</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="list; context: { tab: 2 }"></ng-container>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-6 mt-2">
+            <div class="float-end">
+                <button type="button" class="btn btn-primary rounded-pill font-12 py-1 px-2 text-nowrap">
+                    <span class="mx-2"><i class="mdi mdi-plus align-middle"></i>Create Template</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div [ngbNavOutlet]="nav"></div>
+</div>
+
+<ng-template #list let-tab="tab">
+    <div class="bg-white p-2 rounded">
+        <div class="row">
+            <div class="col-12">
+                <div class="row justify-content-between">
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <select2 class="font-12 w-100" placeholder="Select Status" displaySearchStatus="hidden" [data]="statusData" [(ngModel)]="_templateService.status" resultMaxHeight="500px">
+                        </select2>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-3 d-flex justify-content-end">
+                        <span class="text-secondary align-self-center font-12">Display</span>
+                        <select2 class="font-12 w-100 px-2 page-size" [data]="pageSizes" displaySearchStatus="hidden"  [(ngModel)]="_templateService.pageSize"                        
+                        resultMaxHeight="500px"></select2>
+                        <span class="text-secondary align-self-center">list</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngIf="loading$ | async; else notLoading">
+            <div class="text-center">
+                <span class="text-secondary">
+                    Loading data ...
+                </span>
+            </div>
+        </ng-container>
+        
+        <ng-template #notLoading>
+            <ng-container *ngIf="tab === 0">
+                <ng-container *ngIf="(total$ | async); else nodata">
+                    <ng-container *ngTemplateOutlet="allTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="pagination"></ng-container> 
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="tab === 1">
+                <ng-container *ngIf="(total$ | async); else nodata">
+                    <ng-container *ngTemplateOutlet="voucherTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="pagination"></ng-container> 
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="tab === 2">
+                <ng-container *ngIf="(total$ | async); else nodata">
+                    <ng-container *ngTemplateOutlet="smsTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="pagination"></ng-container> 
+                </ng-container>
+            </ng-container>
+        </ng-template>
+    </div>
+</ng-template>
+
+
+<ng-template #allTemplate>
+    <app-template-list-table [templateList]="templateList$ | async"></app-template-list-table>
+</ng-template>
+<ng-template #voucherTemplate>
+    <app-template-list-table [templateList]="templateList$ | async"></app-template-list-table>
+</ng-template>
+<ng-template #smsTemplate>
+    <app-template-list-table [templateList]="templateList$ | async"></app-template-list-table>
+</ng-template>
+
+<ng-template #nodata>
+    <ng-container *ngIf="_templateService.searchTerm; else emptyList">
+        <ng-container *ngTemplateOutlet="noResult"></ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #emptyList>
+    <app-no-result message="No matches result. Please try other keywords."></app-no-result>
+</ng-template>
+
+<ng-template #noResult>
+    <app-no-result message="No matches result. Please try other keywords."></app-no-result>
+</ng-template>
+
+<ng-template #pagination>
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ _templateService.page }} of {{ pageCount }},
+                items {{ itemStart }} to {{ itemEnd }} of {{ (total$ | async)!                                }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end font-12">
+                <ng-container>
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="_templateService.page" [maxSize]="5"
+                        [pageSize]="_templateService.pageSize" class="pagination-rounded">
+                        <ng-template ngbPaginationPrevious>
+                            <i class="uil-angle-left"></i>
+                        </ng-template>
+                        <ng-template ngbPaginationNext>
+                            <i class="uil-angle-right"></i>
+                        </ng-template>
+                    </ngb-pagination>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-template>

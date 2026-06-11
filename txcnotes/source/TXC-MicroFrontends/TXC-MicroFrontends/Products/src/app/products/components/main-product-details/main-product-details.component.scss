@@ -1,0 +1,86 @@
+.btn-sm.rounded-circle {
+    padding: 0;
+
+    [class^=uil-]:before,
+    [class*=" uil-"]:before {
+        font-size: 2rem;
+    }
+}
+
+.product-details {
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .dropdown-menu {
+        cursor: pointer !important;
+    }
+
+    .banner-right {
+        .txc-btn-block-height {
+            height: 36px;
+        }
+    }
+
+    .menu-circle {
+        height: 36px;
+        width: 36px;
+        padding: 0px;
+        display: inline-block;
+        line-height: 34px;
+    }
+}
+
+.btn-light {
+    background-color: #D5D8DD;
+    box-shadow: 0px 2px 6px 0px rgb(213 216 221 / 50%)
+}
+
+.wallet-image {
+    border: 1.2px dashed #D5D8DD;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.ml-2 {
+    margin-left: 0.75em;
+}
+
+.mr-2 {
+    margin-right: 0.75em;
+}
+
+.stopIssueTime_input_section {
+    position: relative;
+
+    .timer_icon {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .clearBtn {
+        position: absolute;
+        top: 8px;
+        right: 40px;
+        font-weight: 400;
+        font-size: 14px;
+        cursor: pointer;
+    }
+}
+
+.align-right {
+    text-align: right;
+}
+
+.progress {
+    height: 6.88px;
+
+    .progress-bar {
+        height: inherit;
+        background: #00A184;
+        border-radius: 6.88px;
+    }
+}

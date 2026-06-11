@@ -1,0 +1,87 @@
+<ng-container>
+    <div class="row title vertical-center">
+        <div class="col-12" (click)="collapse()">
+            <button *ngIf="!isShowNumberInTitleIcon" class="btn ratio ratio-1x1 rounded-circle btn-secondary">
+                <i [class]="!sectionCollapsed ? 'uil-angle-down' : 'uil-angle-up'" style="font-size: 18px;"></i>
+            </button>
+            <button *ngIf="isShowNumberInTitleIcon" class="btn ratio ratio-1x1 rounded-circle"
+                [ngClass]="{ 'btn-primary' : stepFocused, 'btn-secondary' : !stepFocused }">
+                <span style="font-size: 18px;">{{STEP_NUMBER}}</span>
+            </button>
+            <span class="text-dark collapse-title mx-2 bold font-16">
+                {{TITLE}}
+            </span>
+        </div>
+    </div>
+
+    <div class="my-2" #sectionCollapse="ngbCollapse" [(ngbCollapse)]="sectionCollapsed">
+        <ng-container *ngIf="isSmartChoiceVoucher">
+            <div class="table-wrapper">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col-1"></div>
+                    <div class="col-5">Product Name</div>
+                    <div class="col-3">Product Code</div>
+                    <div class="col-3">Actions (use drag icon to reorder the product list)</div>
+                </div>
+                <div *ngIf="rearrangeProductList.length > 0" [sortablejs]="rearrangeProductList"
+                    [sortablejsOptions]="sortableOptions">
+                    <ng-container *ngFor="let product of rearrangeProductList; let index = index">
+                        <ng-container
+                            *ngTemplateOutlet="DragabbleItem;context:{item: product, list: rearrangeProductList, index: index}">
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isSuperVoucher">
+            <div class="table-wrapper">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col-1"></div>
+                    <div class="col-5">Brand Name</div>
+                    <div class="col-3">Child Product Quantity</div>
+                    <div class="col-3">Actions (use drag icon to reorder the product list)</div>
+                </div>
+                <div *ngIf="rearrangeBrandList.length > 0" [sortablejs]="rearrangeBrandList"
+                    [sortablejsOptions]="sortableOptions">
+                    <ng-container *ngFor="let brand of rearrangeBrandList; let index = index">
+                        <ng-container
+                            *ngTemplateOutlet="DragabbleItem;context:{item: brand, list: rearrangeBrandList, index: index}">
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>
+
+<ng-template #DragabbleItem let-item="item" let-list="list" let-index="index">
+    <div class="row font-12 horizontal-rule vertical-center data-content">
+        <div class="col-1 text-center">
+            {{ list.indexOf(item) + 1 }}
+        </div>
+        <div *ngIf="isSmartChoiceVoucher" class="col-5">{{ item.productName }}</div>
+        <div *ngIf="isSmartChoiceVoucher" class="col-3">{{ item.productCode }}</div>
+        <div *ngIf="isSuperVoucher" class="col-5">{{ item.brandName }}</div>
+        <div *ngIf="isSuperVoucher" class="col-3">{{ item.quantity }}</div>
+        <div class="col-3">
+            <span class="drag-icon"></span>
+        </div>
+    </div>
+</ng-template>
+
+<!-- <div class="my-2" #sectionCollapse="ngbCollapse" [(ngbCollapse)]="sectionCollapsed">
+    <ng-container *ngIf="">
+        <div class="table-wrapper">
+            <div class="row font-12 horizontal-rule vertical-center head-content">
+                
+            </div>
+            <div class="row font-12 horizontal-rule vertical-center data-content"
+                *ngFor="let product of confirmProductList; let index = index">
+                
+            </div>
+            <div class="operation-content vertical-center">
+                
+            </div>
+        </div>
+    </ng-container>
+</div> -->

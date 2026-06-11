@@ -1,0 +1,10 @@
+::ng-deep ngb-modal-window {
+    .table-centered {
+        display: table;
+
+        .modal-content {
+            min-width: 768px;
+            width: auto;
+        }
+    }
+}

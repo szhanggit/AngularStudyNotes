@@ -1,0 +1,17 @@
+.title {
+    cursor: pointer;
+}
+
+.card {
+    border: none;
+    border-bottom: 1px solid #aaa;
+    border-radius: 0px;
+    box-shadow: none;
+    margin-bottom: 24px;
+}
+
+.dragula-handle {
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -25px;
+}

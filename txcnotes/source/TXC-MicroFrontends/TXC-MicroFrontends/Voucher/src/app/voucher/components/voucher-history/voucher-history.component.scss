@@ -1,0 +1,29 @@
+.nav-tabs {
+    .nav-item {
+        .nav-link {
+            background-color: #F2F4F8;
+        }
+
+        .active {
+            color: #0D8AFF;
+            font-weight: bold;
+        }
+    }
+}
+
+.overflow-x-scroll {
+    overflow-x: scroll;
+}
+
+.max-width-col-sm {
+    max-width: 160px;
+}
+
+th {
+    max-width: 400px;
+    min-width: 120px;
+    word-wrap: break-word;
+}
+td {
+    width: 100%;
+}

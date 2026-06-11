@@ -1,0 +1,56 @@
+<ng-container *ngIf="merchantGroup">
+    <div class="merchant-details">
+        <div class="row mt-3">
+            <div class="col-12">
+                <span class="text-secondary font-22"><strong>{{ merchantGroup.merchantGroupId }}</strong></span>
+                <span class="text-dark font-22 mx-2"><strong>{{ merchantGroup.name }}</strong></span>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-12">
+                <div class="font-16">
+                    Status: {{ merchantGroup.status ? 'Active' : 'Inactive' }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngTemplateOutlet="merchantDetails"></ng-container>
+    <ng-container *ngTemplateOutlet="acceptanceLoop"></ng-container>
+    <ng-container *ngTemplateOutlet="voucherNumberRule"></ng-container>
+    <ng-container *ngTemplateOutlet="groupSku"></ng-container>
+</ng-container>
+
+
+<ng-template #merchantDetails>
+    <app-merchant-group-merchant-map
+        [merchantGroup]="merchantGroup"
+        [merchantCount]="merchantCount"
+        [isMerchantEditor]="isMerchantEditor">
+    </app-merchant-group-merchant-map>
+</ng-template>
+
+<ng-template #acceptanceLoop>
+    <app-merchant-group-acceptance-loop-list *ngIf="merchantGroup" 
+        [merchantGroupId]="merchantGroup.merchantGroupId"
+        [merchantId]="merchantGroup.merchantId"
+        [action]="action">
+    </app-merchant-group-acceptance-loop-list>
+</ng-template>
+
+<!-- #region voucher-number-rule list -->
+<ng-template #voucherNumberRule>
+    <app-voucher-number-rule-list *ngIf="merchantGroup && currentProgram" [merchantId]="merchantGroup.merchantId"
+        [tenant]="tenant" [toast]="toast" [program]="currentProgram" [action]="action"
+        [isMerchantGroup]="true"></app-voucher-number-rule-list>
+</ng-template>
+<!-- #endregion -->
+
+<ng-template #groupSku>
+    <merchant-group-sku-view 
+        [merchantId]="merchantId"
+        [merchantGroupId]="merchantGroup.merchantGroupId">
+    </merchant-group-sku-view>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

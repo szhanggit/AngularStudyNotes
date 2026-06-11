@@ -1,0 +1,44 @@
+<div class="modal-body p-4">
+  <div class="container">
+    <div class="row">
+      <span class="font-18 text-dark bold text-center">
+        {{ title }}
+      </span>
+    </div>
+    <div class="row mt-2">
+      <span
+        class="text-secondary font-14"
+      >
+        {{ description }}
+      </span>
+    </div>
+    <div class="row mt-3">
+      <div
+        class="px-3"
+        [class]="{
+          'col-12': !secondButton,
+          'text-center': !secondButton,
+          'col-6': secondButton
+        }"
+      >
+        <button
+          [ngClass]="{ 'px-5': !secondButton, 'w-100': secondButton }"
+          [class]="firstButton && firstButton.buttonClass ? firstButton.buttonClass : ''"
+          class="btn font-12 rounded-pill"
+          (click)="activeModal.close('cancel')"
+        >
+          {{ firstButton.buttonText }}
+        </button>
+      </div>
+      <div class="col-6 px-3" *ngIf="secondButton">
+        <button
+          [class]="secondButton && secondButton.buttonClass ? secondButton.buttonClass : ''"
+          class="btn font-12 w-100 rounded-pill"
+          (click)="activeModal.close('confirm')"
+        >
+          {{ secondButton.buttonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

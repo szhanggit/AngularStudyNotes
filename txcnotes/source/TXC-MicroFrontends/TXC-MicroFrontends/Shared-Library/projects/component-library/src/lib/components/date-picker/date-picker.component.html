@@ -1,0 +1,158 @@
+<ng-container [ngSwitch]="type">
+  <div class="input-group input-group-sm">
+    <ng-template
+      *ngSwitchCase="'range'"
+      [ngTemplateOutlet]="range"
+    ></ng-template>
+    <ng-template
+      *ngSwitchCase="'simple'"
+      [ngTemplateOutlet]="simple"
+    ></ng-template>
+  </div>
+</ng-container>
+
+<ng-template
+  #tipContent
+  let-formControl="formControl"
+  let-message="message"
+>
+  <ng-container *ngIf="
+      formControl?.control?.invalid && formControl.control?.errors?.required
+    ">
+    This is a required field
+  </ng-container>
+</ng-template>
+<ng-template #range>
+  <div
+    class="d-flex input-group"
+    style="width: 100%"
+  >
+    <input
+      appDateMaskInput
+      [datePickerType]="type"
+      autocomplete="off"
+      [placeholder]="rangeDatePlaceholder"
+      class="dp-hidden form-control"
+      ngbDatepicker
+      #rangeDp="ngbDatepicker"
+      #rangeDpInput
+      [autoClose]="'outside'"
+      (dateSelect)="onDateSelection($event)"
+      (blur)="onTouched(); blur.emit(); toggleTooltipWithContext(tip)"
+      [dayTemplate]="t"
+      (click)="rangeDp.toggle(); onInputClicked()"
+      [ngClass]="{
+        'is-invalid':
+          (controlDir.control?.invalid && controlDir.control?.dirty) ||
+          invalidInput
+      }"
+      triggers="manual"
+      [ngbTooltip]="tooltipMessage"
+      [footerTemplate]="rangeDpFooterTemplate"
+      [tooltipClass]="
+        (controlDir.control?.invalid && controlDir.control?.dirty) ||
+        invalidInput
+          ? 'tooltip-danger'
+          : 'tooltip-success'
+      "
+      #tip="ngbTooltip"
+      tabindex="-1"
+      [value]="selectedDateRange"
+      [displayMonths]="displayMonths"
+      [minDate]="minDate"
+      (input)="
+        onChange($any($event.target).value);
+        onRangeDatePickerInputChange($event)
+      "
+      [disableTooltip]="
+        !(
+          (controlDir.control?.invalid && controlDir.control?.dirty) ||
+          invalidInput
+        )
+      "
+      [disabled]="disabled"
+    />
+    <ng-container *ngTemplateOutlet="dpButton; context: { dp: rangeDp }"></ng-container>
+  </div>
+  <!-- Footer template for calendar  -->
+  <ng-template #rangeDpFooterTemplate>
+    <ng-container *ngIf="hasFooter">
+      <hr class="my-0" />
+      <span class="w-100 d-flex">
+        <button
+          class="btn btn-secondary btn-sm m-2 mx-auto"
+          (click)="setNoExpiry();rangeDp.close()"
+        >
+          No expiration
+        </button>
+      </span>
+    </ng-container>
+  </ng-template>
+</ng-template>
+
+<ng-template #simple>
+  <input
+    appDateMaskInput
+    [datePickerType]="type"
+    autocomplete="off"
+    [placeholder]="simpleDatePlaceholder"
+    class="form-control"
+    ngbDatepicker
+    #simpleDp="ngbDatepicker"
+    #simpleDpInput
+    [autoClose]="true"
+    (dateSelect)="onDateSelection($event)"
+    (blur)="onTouched(); blur.emit()"
+    [value]="selectedDate"
+    [dayTemplate]="t"
+    (click)="simpleDp.toggle(); onInputClicked()"
+    [minDate]="minDate"
+    [displayMonths]="displayMonths"
+    (input)="
+      onChange($any($event.target).value); onSimpleDatePickerInputChange($event)
+    "
+    #tip="ngbTooltip"
+    [ngbTooltip]="tooltipMessage"
+    [tooltipClass]="
+      (controlDir.control?.invalid && controlDir.control?.dirty) || invalidInput
+        ? 'tooltip-danger'
+        : 'tooltip-success'
+    "
+    [ngClass]="{
+      'is-invalid':
+        (controlDir.control?.invalid && controlDir.control?.dirty) ||
+        invalidInput
+    }"
+  />
+  <ng-container *ngTemplateOutlet="dpButton; context: { dp: simpleDp }"></ng-container>
+</ng-template>
+
+<ng-template
+  #dpButton
+  let-dp="dp"
+>
+  <button
+    class="mdi mdi-calendar search-icon input-group-text"
+    (click)="dp.toggle()"
+    [disabled]="disabled"
+    [ngClass]="!disabled ? 'calendar-transparent' : ''"
+    type="button"
+  ></button>
+</ng-template>
+
+<ng-template
+  #t
+  let-date
+  let-focused="focused"
+>
+  <span
+    class="custom-day"
+    [class.focused]="focused"
+    [class.range]="isRange(date)"
+    [class.faded]="isHovered(date) || isInside(date)"
+    (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null"
+  >
+    {{ date.day }}
+  </span>
+</ng-template>

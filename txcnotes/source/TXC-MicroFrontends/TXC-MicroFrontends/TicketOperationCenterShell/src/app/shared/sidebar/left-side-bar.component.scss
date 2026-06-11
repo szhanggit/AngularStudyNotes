@@ -1,0 +1,11 @@
+.leftside-menu {
+    background-color: #fff !important;
+}
+
+li.disabled-link {
+    cursor: not-allowed;
+
+    a {
+        pointer-events: none;
+    }
+}

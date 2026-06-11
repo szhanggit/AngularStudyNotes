@@ -1,0 +1,64 @@
+<div class="bg-white rounded-3 px-3 py-2 my-2">
+    <div class="row">
+        <div class="col-6">
+            <button class="btn rounded-circle btn-sm" [class]="contractCollapsed ? 'btn-light' : 'btn-secondary'" (click)="mdCollapse.toggle()"
+                [attr.aria-expanded]="!contractCollapsed" aria-controls="collapseExample">
+                <i [class]="contractCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>Contract</strong>
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end">
+                <button class="btn btn-primary font-12" (click)="navigateToCreateContract()" *ngIf="_merchantPermissionService.isMerchantEditor && !showContractIntro && !showContractManually">Create contract</button>
+            </div>
+        </div>
+    </div>
+    <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="contractCollapsed">
+        <div class="row">
+            <div class="col-12" *ngIf="showContractIntro">
+        <div class="alert alert-success" role="alert">
+            <div class="row">
+                <div class="col-1">
+                    <img class="w-100" src="assets/images/contract-into-icon.png">
+                </div>
+                <div class="col-11">
+                    <h4 class="alert-heading">
+                        Updated!
+                        <button type="button" class="btn-close float-end" (click)="onIntroDismiss()"></button>
+                    </h4>
+
+                    <p>The content of contract is updated! Now you can define more details based on merchant’s commercial term, payment term, price option, etc.</p>
+                    <button class="btn btn-primary font-12" (click)="navigateToCreateContract()" *ngIf="_merchantPermissionService.isMerchantEditor">Create contract</button>
+                </div>
+            </div>
+          </div>
+            </div>
+            <div class="col-12 text-center" *ngIf="showContractManually && !showContractIntro">
+                <p class="fs-3">You can manually create contract to define the commercial terms.</p>
+                <button class="btn btn-primary font-12" (click)="navigateToCreateContract()" *ngIf="_merchantPermissionService.isMerchantEditor">Create contract</button>
+            </div>
+        <div class="col-12" [hidden]="showContractManually">
+            <div class="col-12" *ngIf="_merchantPermissionService.isMerchantViewer">
+
+            <ul ngbNav #nav="ngbNav" class="nav nav-tabs nav-bordered mb-3">
+                <li ngbNavItem>
+                  <a ngbNavLink>Valid Contracts</a>
+                  <ng-template ngbNavContent>
+                        <app-contract-list [valid]="true" [merchant]="merchant"></app-contract-list>
+                  </ng-template>
+                </li>
+                <li ngbNavItem>
+                  <a ngbNavLink>Invalid Contracts</a>
+                  <ng-template ngbNavContent>
+                    <app-contract-list [valid]="false" [merchant]="merchant"></app-contract-list>
+                  </ng-template>
+                </li>
+              </ul>
+              <div [ngbNavOutlet]="nav"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

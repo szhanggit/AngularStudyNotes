@@ -1,0 +1,28 @@
+<div class="bg-white rounded-3 px-3 py-2 card">
+    <span class="text-dark font-16 mb-2"><strong>Product delivery template</strong></span>    
+    <div class="col-12">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs nav-bordered font-14"
+            (navChange)="onNavChange()" >
+            <li [ngbNavItem]="templateType.HTML" *ngIf="defaultVoucherTemplateId === 0 && isDataLoaded">
+                <a ngbNavLink [ngClass]="{'text-primary': activeTab == templateSubType.Voucher}">Voucher Page Design</a>                
+                <ng-template ngbNavContent>
+                    <app-voucher-template #voucherTemplate [productTemplateList]="voucherTemplates"
+                        (showErrorMessage)="showErrorMessage($event)"
+                        (updateMasterProduct)="updateMasterProduct()">
+                    </app-voucher-template>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="templateType.Text">                
+                <a ngbNavLink [ngClass]="{'text-primary': activeTab == templateSubType.SMS}">SMS Design</a>    
+                <ng-template ngbNavContent>
+                    <app-sms-template #smsTemplate [productTemplateList]="smsTemplates"
+                        (showErrorMessage)="showErrorMessage($event)"
+                        (updateMasterProduct)="updateMasterProduct()">
+                    </app-sms-template>
+                </ng-template>
+            </li>
+        </ul>
+    </div>    
+    <div [ngbNavOutlet]="nav" class="mt-2 outlet"  *ngIf="isDataLoaded==true" ></div>
+
+</div>

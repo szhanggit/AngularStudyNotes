@@ -1,0 +1,19 @@
+<div>
+  <ul
+    ngbNav
+    #tabNav="ngbNav"
+    (activeIdChange)="onNavChange($event)"
+    [(activeId)]="activeTab"
+    class="nav-tabs nav-bordered font-14"
+  >
+    <li *ngFor="let tab of tabs" [ngbNavItem]="tab.id">
+      <a ngbNavLink [ngClass]="{ 'text-primary': activeTab === tab.id }">{{
+        tab.name
+      }}</a>
+      <ng-template ngbNavContent>
+        <ng-content></ng-content>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="tabNav" class="py-2 mt-2"></div>
+</div>

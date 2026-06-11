@@ -1,0 +1,93 @@
+@import "../../../../../styles/variables";
+
+.dashed {
+  border: 1px dashed $grey;
+  border-radius: 10px;
+  height: auto;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto !important;
+  color: $dark-grey;
+
+  &.fileover {
+    border: 1.2px dashed $light-blue;
+    background-color: $blue-bg-color;
+    color: $light-blue;
+  }
+}
+
+hr {
+  border: 1px inset $grey;
+}
+
+.file-name {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cursor-pointer {
+  padding-left: 0.25rem;
+}
+
+
+// 
+.file-drop-zone {
+  /* Frame 27 in Figma*/
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 12px;
+  gap: 4px;
+  width: 100%;
+  height: 80px;
+  border: 1.2px dashed $grey;
+  border-radius: 4px;
+  flex: none;
+  flex-grow: 0;
+}
+
+.file-drop-zone:hover{
+  cursor: pointer;
+  color: $light-blue;
+  border-color: $light-blue;
+  ::ng-deep {
+      svg-controller {
+          svg {
+              fill: $light-blue !important;
+          }
+      }
+  }
+}
+.file-drop-zone.drag-over {
+  background-color: $grey-bg-color;
+  border-color: $grey;
+}
+
+a {
+  cursor: pointer;
+  color: $light-blue !important;
+  text-decoration: underline !important;
+}
+
+.file-drop-zone {
+  position: relative;
+  &:hover .show-on-hover{
+      display: flex;
+  }
+}
+
+.show-on-hover{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #D5D8DD;
+  opacity: 1;
+  color: #000;
+}

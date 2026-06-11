@@ -1,0 +1,12 @@
+a {
+    cursor: pointer;
+}
+.collapse-circle-button{
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    line-height: 20px;
+    .uil-angle-down, .uil-angle-up{
+        font-size: 20px;
+    }
+}

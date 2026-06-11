@@ -1,0 +1,211 @@
+<ng-container *ngIf="!viewMode; else viewModeTemplate">
+    <div class="col-12 mt-4">
+        <div class="row text-left text-secondary bold">
+            <div class="col-2">
+                <span class="font-12">SKU Name / SKU Code</span>
+            </div>
+            <div class="col-2" *ngIf="!isMonoMerchant">
+                <span class="font-12">Merchant</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">SKU Type</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">Face Value</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">Cost <span *ngIf="showPercentageWithCost">%</span></span>
+            </div>
+            <div class="col-1" *ngIf="selectedType.key === type.SmartBooklet">
+                <span class="font-12">Multiplier</span>
+            </div>
+            <div class="col-2">
+                <span class="font-12">Cost validity period</span>
+            </div>
+            <div class="col-2">
+                <span class="font-12">Contract Name / Contract Number</span>
+            </div>
+        </div>
+        <hr class="my-2">
+    </div>
+    <div class="col-12 mt-2">
+        <div class="row text-left text-secondary font-14"
+            *ngFor="let skuContract of selectedSKU.contractSKUCosts; let index = index">
+            <div class="col-2 py-2">
+                <div *ngIf="index === 0">{{ selectedSKU.skuName }}</div>
+                <div *ngIf="index === 0" class="font-12">{{ selectedSKU.skuNumber }}</div>
+            </div>
+            <div class="col-2 py-2" *ngIf="!isMonoMerchant"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                {{ skuContract.skuCostContract.merchant?.name }}
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ selectedSKU.skuType.value }}</span>
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ selectedSKU.faceValueWithTax || '--' }}</span>
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ skuContract.costWithTax }}</span>
+                <span *ngIf="skuContract.skuCostContract?.costSchemeId === costSchemeType.CostPercentage">%</span>
+            </div>
+            <div class="col-1 py-2" *ngIf="selectedType.key === type.SmartBooklet"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ selectedSKU.multiplier }}</span>
+            </div>
+            <div class="col-2 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ skuContract.validStartDate | txcLocalDateTime | date:'yyyy/MM/dd' }} - {{
+                    skuContract.validEndDate | txcLocalDateTime
+                    | date:'yyyy/MM/dd' }}</span>
+            </div>
+            <div class="col-2 py-2 text-primary word-break"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>
+                    <div>
+                        <a [routerLink]="['/merchants/contract/details/' + skuContract.skuCostContract.contractId]"
+                            [queryParams]="{
+                                merchantId: skuContract.skuCostContract.merchantId
+                                ? skuContract.skuCostContract.merchantId
+                                : selectedMerchant?.merchantId
+                                }">
+                            {{ skuContract.skuCostContract.contractName }}
+                        </a>
+                    </div>
+                    <div class="font-12">
+                        <a [routerLink]="['/merchants/contract/details/' + skuContract.skuCostContract.contractId]"
+                            [queryParams]="{
+                                merchantId: skuContract.skuCostContract.merchantId
+                                ? skuContract.skuCostContract.merchantId
+                                : selectedMerchant?.merchantId
+                                }">
+                            {{ skuContract.skuCostContract.contractNumber }}
+                        </a>
+                    </div>
+                </span>
+            </div>
+        </div>
+        <hr class="my-2">
+    </div>
+</ng-container>
+
+
+<ng-template #viewModeTemplate>
+    <div class="col-12 mt-4">
+        <div class="row text-left text-secondary bold">
+            <div class="col-1">
+                <span class="font-12">{{!isMonoMerchant ? 'Merchant Group Name' : 'Merchant'}}</span>
+            </div>
+            <div class="col-2" *ngIf="isMonoMerchant">
+                <span class="font-12">Internal Code</span>
+            </div>
+            <div class="col-2">
+                <span class="font-12">
+                    <div>SKU Name /</div>
+                    <div>SKU Code</div>
+                </span>
+            </div>
+            <div class="col-2 word-break" *ngIf="!isMonoMerchant">
+                <span class="font-12">Merchant</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">SKU Type</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">Face Value</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">Cost <span *ngIf="showPercentageWithCost">%</span></span>
+            </div>
+            <div class="col-1" *ngIf="selectedType.key === type.SmartBooklet">
+                <span class="font-12">Multiplier</span>
+            </div>
+            <div class="col-1">
+                <span class="font-12">Cost validity period</span>
+            </div>
+            <div class="col-2">
+                <span class="font-12">Contract Name / Contract Number</span>
+            </div>
+        </div>
+        <hr class="my-2">
+    </div>
+    <div class="col-12 mt-2">
+        <div class="row text-left text-secondary font-14"
+            *ngFor="let skuContract of selectedSKU.contractSKUCosts; let index = index">
+            <div class="col-1 py-2 word-break">
+                <div *ngIf="index === 0">
+                    <a *ngIf="isMonoMerchant; else mgLink" [routerLink]="['/merchants/details']"
+                        [queryParams]="{merchantId: selectedMerchant?.merchantId}">{{
+                        selectedMerchant?.merchantName }}
+                    </a>
+                </div>
+                <ng-template #mgLink><a [routerLink]="['/merchants/merchant-group-details']"
+                        [queryParams]="{merchantId: selectedMerchant?.merchantId}">{{
+                        selectedMerchant?.merchantName }}</a>
+                </ng-template>
+            </div>
+            <div class="col-2 py-2 word-break" *ngIf="isMonoMerchant">
+                <div *ngIf="index === 0">{{ selectedMerchant?.identityCode || '--' }}</div>
+            </div>
+            <div class="col-2 py-2 word-break">
+                <div *ngIf="index === 0">{{ selectedSKU.skuName }}</div>
+                <div *ngIf="index === 0" class="font-12">{{ selectedSKU.skuNumber }}</div>
+            </div>
+            <div class="col-2 py-2 word-break" *ngIf="!isMonoMerchant"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                {{ skuContract.skuCostContract.merchant?.name }}
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ selectedSKU.skuType.value }}</span>
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ selectedSKU.faceValueWithTax }}</span>
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ skuContract.costWithTax }}</span>
+                <span *ngIf="skuContract.skuCostContract?.costSchemeId === costSchemeType.CostPercentage">%</span>
+            </div>
+            <div class="col-1 py-2" *ngIf="selectedType.key === type.SmartBooklet"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ selectedSKU.multiplier }}</span>
+            </div>
+            <div class="col-1 py-2"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>{{ skuContract.validStartDate | txcLocalDateTime | date:'yyyy/MM/dd' }} - {{
+                    skuContract.validEndDate | txcLocalDateTime | date:'yyyy/MM/dd' }}</span>
+            </div>
+            <div class="col-2 py-2 text-primary word-break"
+                [class]="{ 'border-bottom-1px' : index !== selectedSKU.contractSKUCosts.length - 1, 'pt-3' : index === selectedSKU.contractSKUCosts.length - 1 }">
+                <span>
+                    <div>
+                        <a [routerLink]="['/merchants/contract/details/' + skuContract.skuCostContract.contractId]"
+                            [queryParams]="{
+                                merchantId: skuContract.skuCostContract.merchantId
+                                ? skuContract.skuCostContract.merchantId
+                                : selectedMerchant?.merchantId
+                                }">
+                            {{ skuContract.skuCostContract.contractName }}
+                        </a>
+                    </div>
+                    <div class="font-12">
+                        <a [routerLink]="['/merchants/contract/details/' + skuContract.skuCostContract.contractId]"
+                            [queryParams]="{
+                                merchantId: skuContract.skuCostContract.merchantId
+                                ? skuContract.skuCostContract.merchantId
+                                : selectedMerchant?.merchantId
+                                }">
+                            {{ skuContract.skuCostContract.contractNumber }}
+                        </a>
+                    </div>
+                </span>
+            </div>
+        </div>
+        <hr class="my-2">
+    </div>
+</ng-template>

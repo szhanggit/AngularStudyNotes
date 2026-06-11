@@ -1,0 +1,55 @@
+<div class="modal-body p-4">
+    <div class="text-center mb-4">
+        <span
+            class="font-18 text-dark my-3"
+            id="modalLabel"
+        >
+            <strong (click)="clearList()">Operation history</strong>
+        </span>
+    </div>
+    <div class="table" [ngClass]="{'table--min-height': list.length > 0}">
+        <table class="table table-centered">
+            <thead class="font-12 bold">
+                <tr>
+                    <th scope="col" width="30%">Action Time</th>
+                    <th scope="col" width="20%">Action Type</th>
+                    <th scope="col" width="10%">Result</th>
+                    <th scope="col" width="20%">Operator</th>
+                    <th scope="col" width="20%">Memo</th>
+                </tr>
+            </thead>
+            <tbody class="font-14 border-bottom-hide">
+                <tr *ngFor="let item of list">
+                    <td> {{ item.actionTime }}</td>
+                    <td> {{ item.actionType }}</td>
+                    <td> {{ item.result }}</td>
+                    <td> {{ item.operator }}</td>
+                    <td> {{ item.memo }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-container
+        *ngIf="list.length === 0">
+        <div class="text-center no-data-content">
+            <span class="text-secondary">
+                <svg-controller
+                    class="mt-2"
+                    svgName="no-data"
+                ></svg-controller>
+                <span class="mt-3">No operation history found</span>
+            </span>
+        </div>
+    </ng-container>
+    <div class="row">
+        <span class="col-5"></span>
+        <div class="col-2">
+            <button
+                type="button"
+                class="btn btn-secondary w-100 rounded-pill font-12"
+                (click)="activeModal.close(null)"
+            >Close</button>
+        </div>
+    </div>
+</div>

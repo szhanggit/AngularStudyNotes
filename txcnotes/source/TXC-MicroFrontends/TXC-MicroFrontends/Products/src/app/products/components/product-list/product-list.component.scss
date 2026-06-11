@@ -1,0 +1,116 @@
+.product-list {
+    .nav-tabs {
+        .nav-item {
+            .nav-link {
+                background-color: #F2F4F8 !important;
+            }
+
+            .active {
+                color: #0D8AFF;
+                font-weight: bold;
+            }
+        }
+    }
+
+    table {
+        thead {
+            tr {
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+
+        tbody {
+            tr {
+                font-size: 14px;
+            }
+        }
+    }
+
+    button.dropdown-toggle {
+        &::after {
+            display: none;
+        }
+    }
+}
+
+.input-group-prefix-icon>.input-group-text {
+    background-color: transparent;
+    border-right-width: 0px;
+}
+
+.input-group-prefix-icon>.form-control {
+    border-left-width: 0px;
+}
+
+.product-speeding-wheel {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    width: 63px;
+    height: 63px;
+    margin: 0 auto;
+    border: 4px solid rgb(217, 83, 79);
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: cssload-spin 500ms infinite linear;
+    -o-animation: cssload-spin 500ms infinite linear;
+    -ms-animation: cssload-spin 500ms infinite linear;
+    -webkit-animation: cssload-spin 500ms infinite linear;
+    -moz-animation: cssload-spin 500ms infinite linear;
+}
+
+@keyframes cssload-spin {
+    100% {
+        transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes cssload-spin {
+    100% {
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes cssload-spin {
+    100% {
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes cssload-spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes cssload-spin {
+    100% {
+        -moz-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.btn {
+    &.btn-secondary {
+        &.rounded-circle {
+            width: 34.8px !important;
+            padding-left: 8.8px !important;
+        }
+    }
+} 
+
+.mr-2 {
+    margin-right: 2em;
+}

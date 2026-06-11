@@ -1,0 +1,147 @@
+// image input
+.loader {
+    border: 6px solid #f3f3f3;
+    /* Light grey */
+    border-top: 6px solid rgb(217, 83, 79);
+    /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+    pointer-events: none;
+    position: relative;
+
+    &.hover {
+        background: #D5D8DD;
+        opacity: 0.8;
+        border-radius: 4px;
+    }
+
+    .img-thumbnail {
+        height: auto;
+        width: 100%;
+        pointer-events: all;
+    }
+
+    .show-on-hover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #D5D8DD;
+        opacity: 0.8;
+        color: #000;
+    }
+}
+
+.ml-1 {
+    margin-left: 1rem;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+::ng-deep .email-template-container ngb-typeahead-window.dropdown-menu {
+    width: 40%;
+}
+
+// Bootstrap Loading Skeleton
+%loading-skeleton {
+    color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #eee;
+    border-color: #eee;
+
+    &::placeholder {
+        color: transparent;
+    }
+}
+
+@keyframes loading-skeleton {
+    from {
+        opacity: .4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.loading-skeleton {
+    pointer-events: none;
+    animation: loading-skeleton 1s infinite alternate;
+
+    img {
+        filter: grayscale(100) contrast(0%) brightness(1.8);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    .form-control {
+        @extend %loading-skeleton;
+    }
+}
+
+.input-group {
+    width: 100%;
+
+    .input-group-text {
+        z-index: 2;
+    }
+
+    input {
+        margin-left: -42px !important;
+        padding-left: 42px !important;
+        z-index: 1;
+    }
+}
+
+.input-group > ::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 100%;
+
+    button {
+        ngb-highlight {
+            word-break: break-word;
+            white-space: break-spaces;
+        }
+    }
+}
+
+.input-group-prefix-icon>.input-group-text {
+    background-color: transparent;
+}
+
+.search-icon>.input-group-text {
+    border-right-width: 0px;
+}
+
+.search-icon>.form-control {
+    border-left-width: 0px;
+}

@@ -1,0 +1,802 @@
+<div class="row">
+    <span class="col-10 font-22 boGroup px-2 my-2  mb-0">
+        <span class="text-dark">
+            <strong>
+                {{ skuDetails.skuCode }}
+            </strong>
+        </span>
+        <span class="">
+            ({{ skuDetails.skuName }})
+        </span>
+    </span>
+    <div class="col-2 my-2 mb-0">
+    </div>
+    <span class="col-12 my-1">
+        <span *ngIf="isCritical && source === skuDetailSourceTypeEnum.IMPORT">
+            <span class="bg-danger rounded-3 px-2 py-1 text-white mr-1 font-14">
+                Critical
+            </span>
+            <span>
+                &ensp;|&ensp;
+            </span>
+        </span>
+        <span
+            *ngIf="source === skuDetailSourceTypeEnum.TPC"
+            class="font-16 mx-1"
+        >
+            {{ skuDetailSourceTypeEnum[source] | uppercase}}
+        </span>
+        <span
+            *ngIf="source !== skuDetailSourceTypeEnum.TPC"
+            class="font-16 mx-1"
+        >
+            {{ skuDetailSourceTypeEnum[source] | titlecase}}
+        </span>
+    </span>
+</div>
+
+<!-- Basic Info -->
+<div class="bg-white rounded-3 px-3 py-3 my-2 font-14">
+    <span class="text-dark font-16 w-100"><strong>Basic info</strong></span>
+    <table class="table table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th
+                    scope="col"
+                    width="20%"
+                >Merchant</th>
+                <th scope="col">Cost with tax</th>
+                <th scope="col">Cost valid period</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <ng-container *ngFor="let merchant of merchantList; index as i">
+                <tr>
+                    <td [ngClass]="{'border-bottom-none': merchantList.length > 1 && i < merchantList.length - 1 }">
+                        <button
+                            *ngIf="i === 0"
+                            type="text"
+                            class="btn btn-link px-0 py-0 "
+                        >
+                            <a
+                                [routerLink]="['/merchants/details']"
+                                [queryParams]="{merchantId: merchant.merchantId}"
+                            >
+                                {{ i === 0 ? merchant.merchantName : merchantList[i-1].merchantName ===
+                                merchant.merchantName? '' : merchant.merchantName }}
+                            </a>
+                        </button>
+                    </td>
+                    <td>{{ merchant.cost }}</td>
+                    <td>{{ merchant.costStartDate | txcLocalDateTime | date : 'yyyy/MM/dd' }} ~ {{ merchant.costEndDate
+                        | txcLocalDateTime | date : 'yyyy/MM/dd' }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+<!-- Voucher Watermark Rule-->
+<div
+    class="bg-white rounded-3 px-3 py-3 my-2 font-14"
+    *ngIf="source === skuDetailSourceTypeEnum.IMPORT"
+>
+    <div class="row">
+        <span class="col-6 text-dark font-16"><strong>In stock watermark rule</strong></span>
+        <div class="col-6">
+            <div class="float-end">
+                <button
+                    class="btn btn-primary font-12 px-4"
+                    (click)="openModal(voucherWaterMarkRule)"
+                >
+                    Manage rule
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="my-2">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">In stock watermark</div>
+                    <div class="col-6 bold">{{ inStockWatermark}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">API buffer</div>
+                    <div class="col-6 bold">{{ apiBuffer }}</div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="row"
+            *ngIf="tenant === TENANT_NAME_IN"
+        >
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">Procurement quantity</div>
+                    <div class="col-6 bold">{{ replenishmentQty }}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Voucher Safety stock quantity-->
+<div
+    class="bg-white rounded-3 px-3 py-3 my-2 font-14"
+    *ngIf="source === skuDetailSourceTypeEnum.EDENRED"
+>
+    <div class="row">
+        <span class="col-6 text-dark font-16"><strong>Safety stock watermark rule</strong></span>
+        <div class="col-6">
+            <div class="float-end">
+                <button
+                    class="btn btn-primary font-12 px-4"
+                    (click)="openModal(voucherSafetyWaterMarkRule)"
+                >
+                    Manage rule
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="my-2">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">Threshold watermark</div>
+                    <div class="col-6 bold">{{ thresholdWatermark }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">Regenerate to</div>
+                    <div class="col-6 bold">{{ regenerateTo }}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Related Product Codes-->
+<div class="bg-white rounded-3 px-3 py-3 my-2 font-14">
+    <span class="text-dark font-16"><strong>Related product codes</strong></span>
+    <span class="font-16"> (Total: {{ productListTotalCount }})</span>
+    <table class="table table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th
+                    scope="col"
+                    width="25%"
+                >Product Code</th>
+                <th scope="col">Product Name</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let product of (isExpanded ? productList : productList.slice(0, 5)) ; index as i">
+                <td>
+                    <a
+                        type="text"
+                        class="btn btn-link px-0 py-0 "
+                        [href]="[navigateToProductDetails(product)]"
+                    >
+                        {{ product.productCode }}
+                    </a>
+                </td>
+                <td>{{ product.productName }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <button
+            class="btn btn-secondary-outline text-secondary font-14"
+            (click)="toggleCollapsibleTable()"
+            *ngIf="productListTotalCount > 5"
+        >
+            <i
+                [class]="!isExpanded ? 'uil-angle-down mr-2' : 'uil-angle-up mr-2'"
+                class="font-16"
+            ></i>
+            <span>{{ !isExpanded ? 'VIEW ALL' : 'COLLAPSE' }} {{ '(' + productListTotalCount + ')' }}</span>
+        </button>
+    </div>
+</div>
+
+<!-- Inventory Details -->
+<div class="bg-white rounded-3 px-3 py-3 my-2 font-14">
+    <span class="font-16 col-10 mb-2">
+        <strong class="text-dark">Inventory details </strong>
+        <span> (Total in stock quantity: {{ totalStockQty }})</span>
+    </span>
+    <span class="col-2">
+        <button
+            *ngIf="source === skuDetailSourceTypeEnum.EDENRED"
+            (click)="openModalAddStockQty(addStockQtyTemplate);"
+            class="btn btn-primary font-12 px-3 float-end"
+        >
+            New reservation code
+        </button>
+    </span>
+
+    <span
+        *ngIf="source === skuDetailSourceTypeEnum.EDENRED"
+        class="font-14 col-12 row mt-3 border-bottom pb-3 m-0 border-light"
+    >
+        <span class="col-2 text-secondary">Safety stock quantity</span>
+        <span class="col-1 text-secondary">{{ safetyStockQty }}</span>
+    </span>
+    <!-- 3rd import Table -->
+    <table
+        *ngIf="source === skuDetailSourceTypeEnum.IMPORT ; else smallTable"
+        class="table table-centered mt-0"
+    >
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col">#</th>
+                <th>Available Start Date</th>
+                <th>Available End Date</th>
+                <th>Expiry Date</th>
+                <th *ngIf="tenant === TENANT_NAME_TW">Trust Account End Date</th>
+                <th>In Stock Qty</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let inventory of inventoryList ; index as i">
+                <td class="cursor-pointer">
+                    <a
+                        (click)="setDataInStorage(inventory)"
+                        [routerLink]="['/voucher/inventory/inventory-batch-details/' + skuId]"
+                    >
+                        #{{ i + 1 + ((pageInfo.currentPage - 1) * pageInfo.pageSize) }}
+                    </a>
+                </td>
+                <td *ngIf="inventory.issueAvailableStartDate">
+                    {{ inventory.issueAvailableStartDate | txcLocalDateTime | date : 'yyyy/MM/dd' }}
+                </td>
+                <td *ngIf="!inventory.issueAvailableStartDate">
+                    --
+                </td>
+                <td *ngIf="inventory.issueAvailableEndDate">
+                    {{ inventory.issueAvailableEndDate | txcLocalDateTime | date : 'yyyy/MM/dd' }}
+                </td>
+                <td *ngIf="!inventory.issueAvailableEndDate">
+                    --
+                </td>
+                <td *ngIf="inventory.expiryDate">
+                    {{ inventory.expiryDate | txcLocalDateTime | date : 'yyyy/MM/dd hh:mm:ss a' }}
+                </td>
+                <td *ngIf="!inventory.expiryDate">
+                    --
+                </td>
+                <td *ngIf="tenant === TENANT_NAME_TW">
+                    <ng-container *ngIf="inventory.trustAccountEndDate; else showDefault">
+                        {{ inventory.trustAccountEndDate | txcLocalDateTime | date : 'yyyy/MM/dd' }}
+                    </ng-container>
+                    <ng-template #showDefault>
+                        --
+                    </ng-template>
+                </td>
+                <td>
+                    {{ inventory.remainingQuantity }}
+                </td>
+                <td>
+                    <div
+                        ngbDropdown
+                        class="d-inline-block"
+                    >
+                        <i
+                            class="mdi mdi-dots-vertical fs-3"
+                            id="dropdownBasic1"
+                            ngbDropdownToggle
+                            *ngIf="inventory.remainingQuantity ? +inventory.remainingQuantity > 0 : false"
+                        ></i>
+                        <div
+                            ngbDropdownMenu
+                            aria-labelledby="dropdownBasic1"
+                        >
+                            <button
+                                ngbDropdownItem
+                                class="px-3"
+                                (click)="openModal(downloadReasonTemplate, 'md', inventory)"
+                            >
+                                Download inventory
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Endenred Table & TPC Table -->
+    <ng-template #smallTable>
+        <table class="table table-centered mt-2">
+            <thead class="font-12 bold">
+                <tr>
+                    <th
+                        scope="col"
+                        width="5%"
+                    >#</th>
+                    <th
+                        width="20%"
+                        *ngIf="source === skuDetailSourceTypeEnum.EDENRED"
+                    >Reservation code</th>
+                    <th width="15%">Expiry Date</th>
+                    <th width="10%">Remaining Qty</th>
+                    <th width="5%">Actions</th>
+                    <th width=""></th>
+                </tr>
+            </thead>
+            <tbody class="font-14">
+                <tr *ngFor="let inventory of inventoryList ; index as i">
+                    <td class="cursor-pointer">
+                        # {{ i + 1 + ((pageInfo.currentPage - 1) * pageInfo.pageSize)}}
+                    </td>
+                    <td
+                        *ngIf="source === skuDetailSourceTypeEnum.EDENRED"
+                        class="cursor-pointer"
+                    >
+                        {{ inventory.reservationCode }}
+                    </td>
+                    <td
+                        class="cursor-pointer"
+                        *ngIf="inventory.expiryDate"
+                    >
+                        {{ inventory.expiryDate | txcLocalDateTime | date : 'MM/dd/yyyy hh:mm:ss a' }}
+                    </td>
+                    <td
+                        class="cursor-pointer"
+                        *ngIf="!inventory.expiryDate"
+                    >
+                        --
+                    </td>
+                    <td class="cursor-pointer">
+                        {{ inventory.inStockQty }}
+                    </td>
+                    <td>
+                        <div
+                            ngbDropdown
+                            class="d-inline-block"
+                        >
+                            <i
+                                class="mdi mdi-dots-vertical fs-3"
+                                id="dropdownBasic1"
+                                ngbDropdownToggle
+                            ></i>
+                            <div
+                                ngbDropdownMenu
+                                aria-labelledby="dropdownBasic1"
+                            >
+                                <button
+                                    ngbDropdownItem
+                                    *ngFor="let action of (inventory.inStockQty && +inventory.inStockQty > 0 ? actionList : actionListFiltered)"
+                                    class="px-3"
+                                    (click)="onAction(action.actionName, inventory)"
+                                >
+                                    {{ action.actionName }}
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-template>
+
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ pageInfo.currentPage }} of {{ pageInfo.pageCount }}, items
+                {{ pageInfo.itemStart }} to {{ pageInfo.itemEnd }} of {{ pageInfo.total }}
+            </span>
+        </div>
+        <div class="col-6 mt-2">
+            <div class="float-end font-12">
+                <ngb-pagination
+                    [collectionSize]="pageInfo.total"
+                    class="pagination-rounded"
+                    [(page)]="pageInfo.currentPage"
+                    [maxSize]="5"
+                    (pageChange)="getInventorySkuList()"
+                    [pageSize]="pageInfo.pageSize || 0"
+                >
+                    <ng-template>
+                        <i class="uil-angle-left"></i>
+                    </ng-template>
+                    <ng-template>
+                        <i class="uil-angle-right"></i>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal template: In stock water mark rule -->
+<ng-template
+    #voucherWaterMarkRule
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong>Edit in stock watermark rule</strong>
+            </span>
+        </div>
+        <form [formGroup]="voucherWaterMarkRuleForm">
+            <div
+                class="my-4 position-relative"
+                id="inStockWatermark"
+            >
+                <label class="form-label font-14">In stock watermark</label>
+                <input
+                    type="text"
+                    inputControl="number-only"
+                    class="form-control font-14 text-secondary"
+                    maxlength="10"
+                    formControlName="inStockWatermark"
+                >
+                Display critical in dashboard when stock is below the watermark
+            </div>
+            <div
+                class="my-4 position-relative"
+                id="apiBuffer"
+            >
+                <label class="form-label font-14">API buffer</label>
+                <input
+                    type="text"
+                    inputControl="number-only"
+                    class="form-control font-14 text-secondary"
+                    maxlength="10"
+                    formControlName="apiBuffer"
+                >
+                Set reserve quantity for API order
+            </div>
+            <div
+                class="my-4 position-relative"
+                id="replenishmentQty"
+                *ngIf="tenant === TENANT_NAME_IN"
+            >
+                <label class="form-label font-14">Procurement quantity</label>
+                <input
+                    type="text"
+                    inputControl="number-only"
+                    class="form-control font-14 text-secondary"
+                    maxlength="10"
+                    formControlName="replenishmentQty"
+                >
+                Set quantity for procurement to purchase
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-6 px-3">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6 px-3">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="!(voucherWaterMarkRuleForm.get('inStockWatermark')?.value || voucherWaterMarkRuleForm.get('replenishmentQty')?.value)"
+                    (click)="modal.close('save-inStockWatermark')"
+                >Save</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal template: Safty water mark rule -->
+<ng-template
+    #voucherSafetyWaterMarkRule
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong>Safety stock watermark rule</strong>
+            </span>
+        </div>
+        <form [formGroup]="voucherWaterMarkRuleForm">
+            <div
+                class="my-4 position-relative"
+                id="thresholdWatermark"
+            >
+                <label class="form-label font-14">Threshold watermark</label>
+                <input
+                    type="text"
+                    inputControl="number-only"
+                    class="form-control font-14 text-secondary"
+                    maxlength="10"
+                    formControlName="thresholdWatermark"
+                    (change)="onSafetyStockValueChange()"
+                >
+                Start regenerating when stock quantity is below the number
+            </div>
+            <div
+                class="my-4 position-relative"
+                id="regenerateTo"
+            >
+                <label class="form-label font-14">Regenerate to</label>
+                <input
+                    type="text"
+                    inputControl="number-only"
+                    class="form-control font-14 text-secondary"
+                    [ngClass]="{'is-invalid': !isRegenerateToWording}"
+                    maxlength="10"
+                    formControlName="regenerateTo"
+                    (change)="onSafetyStockValueChange()"
+                >
+                <span *ngIf="isRegenerateToWording">Set the quantity number for system to auto regenerate to</span>
+                <span
+                    *ngIf="!isRegenerateToWording"
+                    class="text-danger"
+                >Number of regenerate should be larger than threshold watermark.</span>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="!(voucherWaterMarkRuleForm.get('thresholdWatermark')?.value || voucherWaterMarkRuleForm.get('regenerateTo')?.value)"
+                    (click)="modal.close('save-safetyStockWatermark')"
+                >Save</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal template: Provide download reason -->
+<ng-template
+    #downloadReasonTemplate
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong>Provide download reason</strong>
+            </span>
+        </div>
+        <div class="my-3 text-dark font-14">
+            Provide a short description to describe the reason for downloading the voucher.
+        </div>
+        <form [formGroup]="provideDownloadReasonForm">
+            <div
+                class="my-4 position-relative"
+                id="download-reason"
+            >
+                <label class="form-label font-14">Download reason</label>
+                <textarea
+                    type="text"
+                    class="form-control font-14 text-secondary"
+                    formControlName="downloadReason"
+                    maxlength="300"
+                ></textarea>
+            </div>
+        </form>
+        <div class="row px-1">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="!(provideDownloadReasonForm.get('downloadReason')?.value)"
+                    (click)="modal.close('save-downloadReason')"
+                >Submit & Download</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal template: Trash inventory-->
+<ng-template
+    #trashInventoryTemplate
+    let-modal
+>
+    <div class="modal-body p-4">
+        <ng-container *ngIf="!isConfirmToTrash; else provideTrashReason ">
+            <div class="text-center">
+                <span
+                    class="font-18 text-dark my-3"
+                    id="modalLabel"
+                >
+                    <strong>Trash inventory</strong>
+                </span>
+            </div>
+            <div class="my-3 text-dark font-14">
+                Are you sure you want to trash this inventory?
+                <div class="text-danger font-14">
+                    Note: Once trashed, voucher number can not be reused.
+                </div>
+            </div>
+            <div class="row px-1">
+                <div class="col-6">
+                    <button
+                        type="button"
+                        class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="modal.close(null)"
+                    >
+                        Cancel
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button
+                        type="button"
+                        class="btn btn-danger w-100 rounded-pill font-12"
+                        (click)="isConfirmToTrash = true"
+                    >
+                        Trash
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #provideTrashReason>
+            <div class="text-center">
+                <span
+                    class="font-18 text-dark my-3"
+                    id="modalLabel"
+                >
+                    <strong>Provide trash reason</strong>
+                </span>
+            </div>
+            <div class="my-3 text-dark font-14">
+                Provide a short description to describe the reason for trashing this inventory.
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Trash reason</label>
+                <textarea
+                    [(ngModel)]="trashReason"
+                    type="text"
+                    class="form-control font-14 text-secondary"
+                    placeholder="text"
+                    maxlength="300"
+                ></textarea>
+            </div>
+            <div class="row px-1">
+                <div class="col-6">
+                    <button
+                        type="button"
+                        class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="modal.close(null)"
+                    >Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100 rounded-pill font-12"
+                        [disabled]="!trashReason"
+                        (click)="modal.close('trash')"
+                    >
+                        Submit & Trash
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template
+    #addStockQtyTemplate
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong>{{addStockQtyTitle}}</strong>
+            </span>
+        </div>
+        <form [formGroup]="addStockQtyForm">
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Reservation code<span class="text-danger bold">*</span></label>
+                <input
+                    type="text"
+                    class="form-control font-14 text-secondary"
+                    maxlength="250"
+                    formControlName="reservationCode"
+                    [ngClass]="{'is-invalid': addStockQtyForm.get('reservationCode')?.invalid && addStockQtyForm.get('reservationCode')?.dirty}"
+                    (change)="checkExistingReservationCode()"
+                >
+                <span
+                    class="text-danger"
+                    *ngIf="hasExistingReservationCode"
+                >The reservation code already exist</span>
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Expiry date</label>
+                <span id="expiryDate">
+                    <lib-date-picker
+                        *ngIf="addStockQtyTitle !== ADD_STOCK_QTY_TITLE"
+                        class="h-100"
+                        formControlName="expiryDate"
+                        [displayMonths]="1"
+                        [type]="'simple'"
+                        [disablePastDates]="false"
+                        [writeFullObject]="false"
+                    >
+                    </lib-date-picker>
+                    <div>
+                        <input
+                            *ngIf="addStockQtyTitle === ADD_STOCK_QTY_TITLE"
+                            type="text"
+                            class="form-control font-14 text-secondary"
+                            [disabled]="true"
+                            formControlName="expiryDate"
+                        >
+                        <span
+                            *ngIf="addStockQtyTitle === ADD_STOCK_QTY_TITLE"
+                            class="mdi mdi-calendar search-icon input-group-text calendar-transparent calendar-icon"
+                        ></span>
+                    </div>
+                </span>
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Add stock quantity<span class="text-danger bold">*</span></label>
+                <input
+                    type="text"
+                    inputControl="number-only"
+                    class="form-control font-14 text-secondary"
+                    maxlength="15"
+                    formControlName="addStockQty"
+                >
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="!(addStockQtyForm.get('addStockQty')?.value && addStockQtyForm.get('reservationCode')?.value) || !addStockQtyForm.valid"
+                    (click)="modal.close('add-stockQty')"
+                >Save</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ngbd-toast-global></ngbd-toast-global>

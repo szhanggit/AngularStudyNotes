@@ -1,0 +1,684 @@
+<div class="row">
+    <div class="col-12">
+        <div class="mt-3">
+            <span class="page-title text-dark font-22 bold">Voucher Details</span>
+            <span class="text-secondary font-22 m-3 bold">
+                ({{ voucherInfo.voucherNumber }})
+            </span>
+            <div class="float-end">
+                <button
+                    type="button"
+                    class="btn btn-secondary rounded-pill font-12 mx-2 px-3"
+                    (click)="navigateToVoucherHistory('voucher/voucher-history')"
+                >
+                    Voucher history
+                </button>
+            </div>
+        </div>
+        <div class="mt-2 mb-3">
+            <voucher-status-tag [status]="voucherInfo.status" *ngIf="voucherInfo.status !== voucherStatusEnum.ALL"></voucher-status-tag>
+        </div>
+        <!-- BASIC INFO -->
+        <div class="bg-white px-4 py-3 rounded mb-2 col-12 ">
+            <div class="row font-14">
+                <div class="col-12">
+                    <span class="font-16 my-2 text-dark"><strong>Basic info</strong></span>
+                </div>
+                <div class="row mt-3 font-16">
+                    <div class="col-6">
+                        <div class="row mb-1">
+                            <div class="col-6">Client</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.clientName }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Quotation no.</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.quotaionNo }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Project name</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.projectName }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Business model</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.businessModel }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Order no.</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.orderNo }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">SKU name</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.skuName ?  voucherBasicInfo.skuName : --''}}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">SKU code</div>
+                            <div class="col-6 bold">{{ voucherBasicInfo.skuCode }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Product type</div>
+                            <div class="col-6 bold">{{ +voucherBasicInfo.productType | producttype }}</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Publish time</div>
+                            <div class="col-6 bold" *ngIf="voucherBasicInfo.publishDate">{{ voucherBasicInfo.publishDate | txcLocalDateTime | date : 'yyyy/MM/dd hh:mm:ss a'}}</div>
+                            <div class="col-6 bold" *ngIf="!voucherBasicInfo.publishDate">--</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Activate time</div>
+                            <div class="col-6 bold" *ngIf="voucherBasicInfo.activateDate">{{ voucherBasicInfo.activateDate| txcLocalDateTime | date : 'yyyy/MM/dd hh:mm:ss a' }}</div>
+                            <div class="col-6 bold" *ngIf="!voucherBasicInfo.activateDate">--</div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-6">Expiry date</div>
+                            <div class="col-6 bold" *ngIf="voucherBasicInfo.expiryDate">{{ voucherBasicInfo.expiryDate | txcLocalDateTime | date : 'yyyy/MM/dd'}}</div>
+                            <div class="col-6 bold" *ngIf="!voucherBasicInfo.expiryDate">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution: Show direct order, Hidden inDirect order -->
+        <div
+            *ngIf="showDistribution"
+            class="bg-white px-4 py-3 rounded mb-2 col-12"
+        >
+            <div class="row my-2">
+                <div class="col-10">
+                    <span class="font-16 my-2 text-dark"><strong>Distribution</strong></span>
+                </div>
+                <div class="col-2">
+                    <div class="float-end">
+                        <button
+                            (click)="openOperationHistoryModal()"
+                            class="btn btn-primary font-12"
+                        >
+                            Operation history
+                        </button>
+                    </div>
+                </div>
+                <div class="row px-4">
+                    <table class="table table-centered">
+                        <thead class="font-12 bold">
+                            <tr>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Email</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Distribution Status</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Action</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Resend</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-14 border-bottom-hide">
+                            <tr>
+                                <td>
+                                    <span *ngIf="showMaskEmail">
+                                        {{ distributionConfig.email | maskWithStar: 'first-2-3'}}
+                                    </span>
+                                    <span *ngIf="!showMaskEmail">
+                                        {{ distributionConfig.email === '' ? '--' : distributionConfig.email }}
+                                    </span>
+                                    <i
+                                        (click)="eyeSwitcher(distributionTypeEnum.EMAIL)"
+                                        *ngIf="distributionConfig.email && showMaskEmail"
+                                        class="mdi mdi-eye-off cursor-pointer"
+                                    ></i>
+                                    <i
+                                        (click)="eyeSwitcher(distributionTypeEnum.EMAIL)"
+                                        *ngIf="distributionConfig.email && !showMaskEmail"
+                                        class="mdi mdi-eye cursor-pointer"
+                                    ></i>
+                                </td>
+                                <td>
+                                    {{ distributionConfig.emailStatus ? distributionConfig.emailStatus : '--' }}
+
+                                </td>
+                                <td>
+                                    <button class="btn font-16 p-0">
+                                        <i
+                                            class="mdi mdi-pencil"
+                                            (click)="openDistributionModal(editEmailOrPhoneTemplate, 'md', distributionTypeEnum.EMAIL)"
+                                        ></i>
+                                    </button>
+                                    <button
+                                        class="btn font-16 mx-2"
+                                        *ngIf="distributionConfig.email !== ''"
+                                    >
+                                        <i
+                                            class="mdi mdi-refresh"
+                                            (click)="refresh(distributionTypeEnum.EMAIL)"
+                                        ></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        *ngIf="distributionConfig.email !== ''"
+                                        (click)="openDistributionModal(resendTemplate, 'md', distributionTypeEnum.EMAIL)"
+                                        class="btn btn-secondary px-3 font-12 rounded-2"
+                                    >Resend</button>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-centered">
+                        <thead class="font-12 bold">
+                            <tr>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Mobile</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Distribution Status</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Action</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                >Resend</th>
+                                <th
+                                    scope="col"
+                                    width="20%"
+                                ></th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-14 border-bottom-hide">
+                            <tr>
+                                <td>
+                                    <span *ngIf="showMaskMobile">
+                                        {{ distributionConfig.mobile | maskWithStar: 'last-3-3'}}
+                                    </span>
+                                    <span *ngIf="!showMaskMobile">
+                                        {{ distributionConfig.mobile === '' ? '--' : distributionConfig.mobile }}
+                                    </span>
+                                    <i
+                                        *ngIf="distributionConfig.mobile && showMaskMobile"
+                                        (click)="eyeSwitcher(distributionTypeEnum.MOBILE)"
+                                        class="mdi mdi-eye-off cursor-pointer"
+                                    ></i>
+                                    <i
+                                        *ngIf="distributionConfig.mobile && !showMaskMobile"
+                                        (click)="eyeSwitcher(distributionTypeEnum.MOBILE)"
+                                        class="mdi mdi-eye cursor-pointer"
+                                    ></i>
+                                </td>
+                                <td>
+                                    {{ distributionConfig.mobileStatus ? distributionConfig.mobileStatus : '--' }}
+                                </td>
+                                <td>
+                                    <button class="btn font-16 p-0">
+                                        <i
+                                            class="mdi mdi-pencil"
+                                            (click)="openDistributionModal(editEmailOrPhoneTemplate, 'md', distributionTypeEnum.MOBILE)"
+                                        ></i>
+                                    </button>
+                                    <button
+                                        class="btn font-16 mx-2"
+                                        *ngIf="distributionConfig.mobile !== ''"
+                                    >
+                                        <i
+                                            class="mdi mdi-refresh"
+                                            (click)="refresh(distributionTypeEnum.MOBILE)"
+                                        ></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        *ngIf="distributionConfig.mobile !== ''"
+                                        (click)="openDistributionModal(resendTemplate, 'md', distributionTypeEnum.MOBILE)"
+                                        class="btn btn-secondary px-3 font-12 rounded-2"
+                                    >Resend</button>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memo -->
+        <div class="bg-white px-4 py-3 rounded mb-2 col-12">
+            <div class="row font-14">
+                <div class="col-10">
+                    <span class="font-16 my-2 text-dark"><strong>Memo</strong></span>
+                </div>
+                <div class="col-2">
+                    <div class="float-end">
+                        <button
+                            (click)="openModal(updateMemo)"
+                            class="btn btn-primary font-12"
+                        >Update voucher memo</button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 my-1">Voucher memo </div>
+                            <div class="col-6 bold break-word">{{ voucherMemo ? voucherMemo : '--' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 my-1">Order memo</div>
+                            <div class="col-6 bold break-word">{{ orderMemo ? orderMemo : '--' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 my-1">Client memo </div>
+                            <div class="col-6 bold break-word">{{ clientMemo ? clientMemo : '--' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 my-1">Product memo</div>
+                            <div class="col-6 bold break-word">{{ productMemo ? productMemo : '--' }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 my-1">Merchant memo</div>
+                            <div class="col-6 bold break-word">{{ merchantMemo ? merchantMemo : '--' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Master voucher info / Child voucher info -->
+        <div class="bg-white px-4 py-3 rounded mb-2 col-12" *ngIf="voucherType !==  voucherTypeEnum.NORMAL">
+            <div class="row font-14">
+                <div class="col-10">
+                    <span class="font-16 my-2 text-dark">
+                        <strong>{{ voucherType !== voucherTypeEnum.MOTHER ? 'Master voucher info' : 'Child voucher info'}}</strong>
+                    </span>
+
+                </div>
+                <table class="table table-centered">
+                    <thead class="font-12 bold">
+                        <tr>
+                            <th
+                                scope="col"
+                                width="20%"
+                            >Voucher No.</th>
+                            <th
+                                scope="col"
+                                width="20%"
+                            >Product Name</th>
+                            <th
+                                scope="col"
+                                width="10%"
+                            >Voucher Status</th>
+                            <th
+                                *ngIf="voucherType === voucherTypeEnum.MOTHER"
+                                scope="col"
+                                width="10%"
+                            >Face Value</th>
+                            <th
+                                *ngIf="voucherType === voucherTypeEnum.MOTHER"
+                                scope="col"
+                                width="10%"
+                            >Remaining Balance</th>
+                            <th
+                                *ngIf="voucherType === voucherTypeEnum.MOTHER"
+                                scope="col"
+                                width="10%"
+                            >Association Status</th>
+                            <th
+                                scope="col"
+                                width="20%"
+                            >Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-14">
+                        <tr *ngFor="let item of masterChildInfo">
+                            <td>
+                                <a
+                                    type="text"
+                                    class="btn btn-link px-0 py-0"
+                                    [href]="[navigateToVoucherDetails(item)]"
+                                >
+                                    {{ item.voucherNumber }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ item.productName }}
+                            </td>
+                            <td>
+                                <voucher-status-tag
+                                    [status]="item.voucherStatus"></voucher-status-tag>
+                            </td>
+                            <td *ngIf="voucherType === voucherTypeEnum.MOTHER">
+                                <span *ngIf="item.faceValue">$</span>
+                                {{ item.faceValue }}
+                            </td>
+                            <td *ngIf="voucherType === voucherTypeEnum.MOTHER">
+                                <span *ngIf="item.remainingBalance">$</span>
+                                {{ item.remainingBalance }}
+                            </td>
+                            <td *ngIf="voucherType === voucherTypeEnum.MOTHER">
+                                {{ item.associationStatus }}
+                            </td>
+                            <td>
+                                <button
+                                    *ngIf="canDeleteRelationship(item)"
+                                    (click)="openModalDeleteRelationship(deleteRelationshipTemplate, item)"
+                                    class="btn btn-secondary px-3 font-12 rounded-2"
+                                >Disassociate</button> 
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal template: Update email, update phone number -->
+<ng-template
+    #editEmailOrPhoneTemplate
+    let-modal
+>
+    <ng-template
+        #tipContent
+        let-formControl="formControl"
+        let-message="message"
+    >
+        <ng-container *ngIf="formControl?.invalid">
+            Incorrect email format!
+        </ng-container>
+        <ng-container *ngIf="!formControl?.invalid">
+            Entered value is valid
+        </ng-container>
+    </ng-template>
+    <ng-template
+        #tipContentMobile
+        let-formControl="formControl"
+        let-message="message"
+    >
+        <ng-container *ngIf="formControl?.invalid">
+            Incorrect mobile format!
+        </ng-container>
+        <ng-container *ngIf="!formControl?.invalid">
+            Entered value is valid
+        </ng-container>
+    </ng-template>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong *ngIf="editType === distributionTypeEnum.EMAIL">Update email</strong>
+                <strong *ngIf="editType === distributionTypeEnum.MOBILE">Update phone number</strong>
+            </span>
+        </div>
+        <form [formGroup]="editEmailOrPhoneForm">
+            <label class="mt-4 form-label font-14 col-10">Update for</label>
+            <div class=" mt-1 d-flex position-relative">
+                <div class="col-5 form-check form-check-inline mb-1 mx-1">
+                    <input
+                        type="radio"
+                        id="one"
+                        name="updateRange"
+                        class="form-check-input"
+                        formControlName="updateRange"
+                        value="one"
+                    >
+                    <label
+                        class="form-check-label"
+                        for="one"
+                    >This voucher only
+                    </label>
+                </div>
+                <div class="col-6 form-check form-check-inline mb-1">
+                    <input
+                        type="radio"
+                        id="all"
+                        name="updateRange"
+                        class="form-check-input"
+                        formControlName="updateRange"
+                        value="all"
+                    >
+                    <label
+                        class="form-check-label"
+                        for="all"
+                    >The {{ editType === distributionTypeEnum.EMAIL ? editType : 'phone number' }} in this order
+                    </label>
+                </div>
+            </div>
+            <div
+                class="p-0 position-relative col-11 mt-2"
+                *ngIf="this.editEmailOrPhoneForm.get('updateRange')?.value === 'all'"
+            >
+                <i class="mdi mdi-information-outline text-danger m-1"></i>
+                <span class="text-danger font-14">2331 rows will be updated</span>
+            </div>
+
+
+            <div
+                class="my-3 position-relative"
+                *ngIf="editType === distributionTypeEnum.EMAIL"
+            >
+                <label class="form-label font-14">Email</label>
+                <input
+                    type="email"
+                    class="form-control font-14 text-secondary"
+                    [ngClass]="{
+                    'is-invalid': editEmailOrPhoneForm.controls.email.invalid && editEmailOrPhoneForm.controls.email.dirty
+                }"
+                    formControlName="email"
+                    triggers="manual"
+                    [ngbTooltip]="tipContent"
+                    [tooltipClass]="editEmailOrPhoneForm.controls.email.invalid && editEmailOrPhoneForm.controls.email.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                    #nameTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(nameTip, editEmailOrPhoneForm.controls.email)"
+                    [disableTooltip]="!(editEmailOrPhoneForm.controls.email.invalid && editEmailOrPhoneForm.controls.email.dirty)"
+                >
+            </div>
+            <div
+                class="my-3 position-relative"
+                *ngIf="editType === distributionTypeEnum.MOBILE"
+            >
+                <label class="form-label font-14">Phone number</label>
+                <input
+                    type="text"
+                    class="form-control font-14 text-secondary"
+                    [ngClass]="{
+                        'is-invalid': editEmailOrPhoneForm.controls.mobile.invalid && editEmailOrPhoneForm.controls.mobile.dirty
+                    }"
+                    formControlName="mobile"
+                    triggers="manual"
+                    [ngbTooltip]="tipContentMobile"
+                    [tooltipClass]="editEmailOrPhoneForm.controls.mobile.invalid && editEmailOrPhoneForm.controls.mobile.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                    #nameTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(nameTip, editEmailOrPhoneForm.controls.mobile)"
+                    [disableTooltip]="!(editEmailOrPhoneForm.controls.mobile.invalid && editEmailOrPhoneForm.controls.mobile.dirty)"
+                >
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    (click)="modal.close('update')"
+                    [disabled]="!editEmailOrPhoneForm.dirty || (editEmailOrPhoneForm.invalid && editEmailOrPhoneForm.dirty)"
+                >Update</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal template: Update email, update phone number -->
+<ng-template
+    #resendTemplate
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong *ngIf="editType === distributionTypeEnum.EMAIL">Resend email</strong>
+                <strong *ngIf="editType === distributionTypeEnum.MOBILE">Resend SMS</strong>
+            </span>
+        </div>
+        <div class="my-3 position-relative">
+            <label class="form-label font-14">Service provider</label>
+            <select
+                [(ngModel)]="serviceProvider"
+                class="form-select font-8 text-secondary"
+            >
+                <option
+                    *ngFor="let item of serviceProviderList"
+                    [value]="item.id"
+                >{{ item.name }}</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    (click)="modal.close('resend')"
+                >Resend</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal template: Update memo -->
+<ng-template
+    #updateMemo
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong>Update voucher memo</strong>
+            </span>
+        </div>
+        <div
+            class="my-4 position-relative"
+            id="voucher-memo"
+        >   
+        <!-- Voucher memo should not allow over than 900 characters!!!
+             When executing "Delete expired child(set associate status to 2)" will append the following wording:
+            "Log by System: auto return expired voucher on YYYY/MM/DD HH:MM" -->
+            <textarea
+                type="text"
+                class="form-control font-14 text-secondary"
+                [(ngModel)]="updateMemoContent"
+                maxlength="900" 
+                style="min-height: 150px;"
+            ></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 rounded-pill font-12"
+                    (click)="modal.close('updateMemo')"
+                    [disabled]="updateMemoContent === voucherMemo"
+                >Update</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal template: Disassociate -->
+<ng-template
+    #deleteRelationshipTemplate
+    let-modal
+>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span
+                class="font-18 text-dark my-3"
+                id="modalLabel"
+            >
+                <strong>Disassociate</strong>
+            </span>
+        </div>
+        <div class="my-4 mx-2 font-14">
+            Are you sure you want to disassociate the two vouchers? The child voucher will be trashed immediately. If the child voucher is a third-party voucher, please trash it on third-party platform first.
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button
+                    type="button"
+                    class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)"
+                >Cancel</button>
+            </div>
+            <div class="col-6">
+                <button
+                    type="submit"
+                    class="btn btn-danger w-100 rounded-pill font-12"
+                    (click)="modal.close('delete')"
+                >Disassociate</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

@@ -1,0 +1,190 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least {{ formControl.errors?.minlength?.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum {{ formControl.errors?.maxlength?.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.max">
+        Entered value exceeded maximum value of {{ formControl.errors?.max?.max }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min">
+        Entered value should be greater than {{ formControl.errors?.min?.min }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidNumber">
+        Please enter valid number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidPhoneNumber">
+        Please enter valid phone number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.pattern && formControl.errors?.pattern?.requiredPattern == '^[A-Z0-9]*$'">
+        Entered value should contain only capital letters or numbers!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="voucherNumberRuleForm" (submit)="OnSubmit()" *ngIf="!isLoadingReference">
+    <div class="col-12">
+        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+            <div class="row my-2">
+                <div class="col-6 mb-2">
+                    <label for="ruleName">Rule name <span class="text-danger bold">*</span></label>
+                    <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.ruleName.invalid && f.ruleName.dirty
+                                }" formControlName="ruleName" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.ruleName.invalid && f.ruleName.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #ruleNameTip="ngbTooltip" (click)="toggleTooltipWithContext(ruleNameTip, f.ruleName)"
+                        [disableTooltip]="!(f.ruleName.invalid && f.ruleName.dirty)">
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="algorithmId">Algorithm <span class="text-danger bold">*</span></label>
+                    <select name="algorithmId" id="algorithmId" class="form-select font-14" [ngClass]="{
+                        'is-invalid': f.algorithmId.invalid && f.algorithmId.dirty
+                    }" formControlName="algorithmId" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.algorithmId.invalid && f.algorithmId.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #algorithmIdTip="ngbTooltip" (click)="toggleTooltipWithContext(algorithmIdTip, f.algorithmId)"
+                        [disableTooltip]="!(f.algorithmId.invalid && f.algorithmId.dirty)">
+                        <option [value]="voucherNumberRuleAlgorithm.id"
+                            *ngFor="let voucherNumberRuleAlgorithm of voucherNumberRuleAlgorithms">
+                            {{ voucherNumberRuleAlgorithm.name }}</option>
+                    </select>
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="prefix">Prefix</label>
+                    <input type="text" formControlName="voucherNumberPrefix" class="form-control font-14 text-secondary"
+                        [ngClass]="{
+                    'is-invalid': f.voucherNumberPrefix.invalid
+                }" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.voucherNumberPrefix.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #voucherNumberPrefixTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(voucherNumberPrefixTip, f.voucherNumberPrefix)"
+                        [disableTooltip]="!f.voucherNumberPrefix.invalid"
+                        (change)="generateExample()">
+                </div>
+
+                <div class="col-6 mb-2">
+                    <div class="row">
+                        <label for="voucherNumberType" class="form-label">Type <span
+                                class="text-danger bold">*</span></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="voucherNumberType" name="voucherNumberType" [value]="1"
+                                    class="form-check-input" formControlName="voucherNumberType"
+                                    (change)="generateExample()">
+                                <label class="form-check-label" for="voucherNumberType1">Pure Digital</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="voucherNumberType" name="voucherNumberType" [value]="2"
+                                    class="form-check-input" formControlName="voucherNumberType"
+                                    (change)="generateExample()">
+                                <label class="form-check-label" for="voucherNumberType2">Letter Digital</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="voucherNumberLength">Length <span class="text-danger bold">*</span></label>
+                    <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                    'is-invalid': f.voucherNumberLength.invalid && f.voucherNumberLength.dirty
+                }" formControlName="voucherNumberLength" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.voucherNumberLength.invalid && f.voucherNumberLength.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #voucherNumberLengthTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(voucherNumberLengthTip, f.voucherNumberLength)"
+                        [disableTooltip]="!(f.voucherNumberLength.invalid && f.voucherNumberLength.dirty)"
+                        (change)="generateExample()">
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="examplePreview">Example preview</label>
+                    <div class="font-14 mt-2">
+                    {{ exampleVoucher }}
+                    </div>
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="voucherNumberGenerator">Voucher generator <span
+                            class="text-danger bold">*</span></label>
+                    <select name="voucherNumberGenerator" id="voucherNumberGenerator" class="form-select font-14"
+                        [ngClass]="{
+                    'is-invalid': f.voucherNumberGenerator.invalid && f.voucherNumberGenerator.dirty
+                }" formControlName="voucherNumberGenerator" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.voucherNumberGenerator.invalid && f.voucherNumberGenerator.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #voucherNumberGeneratorTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(voucherNumberGeneratorTip, f.voucherNumberGenerator)"
+                        [disableTooltip]="!(f.voucherNumberGenerator.invalid && f.voucherNumberGenerator.dirty)">
+                        <option [value]="voucherNumberGenerator.id"
+                            *ngFor="let voucherNumberGenerator of voucherNumberRuleVoucherGenerators">{{
+                            voucherNumberGenerator.description }}</option>
+                    </select>
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="barcodeTypeId">Barcode type <span class="text-danger bold">*</span></label>
+                    <select name="barcodeTypeId" id="barcodeTypeId" class="form-select font-14" [ngClass]="{
+                        'is-invalid': f.barcodeTypeId.invalid && f.barcodeTypeId.dirty
+                    }" formControlName="barcodeTypeId" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.barcodeTypeId.invalid && f.barcodeTypeId.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #barcodeTypeIdTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(barcodeTypeIdTip, f.barcodeTypeId)"
+                        [disableTooltip]="!(f.barcodeTypeId.invalid && f.barcodeTypeId.dirty)">
+                        <option [value]="voucherNumberRuleBarCode.id"
+                            *ngFor="let voucherNumberRuleBarCode of voucherNumberRuleBarCodes">{{
+                            voucherNumberRuleBarCode.description }}</option>
+                    </select>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" id="displayVoucherNumberUnderBarcode"
+                            formControlName="displayVoucherNumberUnderBarcode">
+                        <label class="form-check-label font-14" for="displayVoucherNumberUnderBarcode">Display voucher
+                            number under barcode</label>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-2" *ngIf="tenant == 'IN'">
+                    <label for="pinType">PIN Type</label>
+                    <select name="pinType" id="pinType" class="form-select font-14" formControlName="pinType">
+                        <option [value]="voucherNumberRulePinCode.id"
+                            *ngFor="let voucherNumberRulePinCode of voucherNumberRulePinCodes">{{
+                            voucherNumberRulePinCode.description }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="row my-2">
+            <div class="col-9">
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                            (click)="navigateToMerchantDetails('cancel')">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                            [disabled]="voucherNumberRuleForm.invalid || (isLoading$ | async) || (isEdit && !voucherNumberRuleForm.dirty)">{{ (isLoading$ | async) ?
+                            'Loading ...' : isEdit ? 'Save' : 'Create' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ngbd-toast-global></ngbd-toast-global>

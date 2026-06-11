@@ -1,0 +1,45 @@
+<div class="product-history">
+    <div class="row my-3">
+        <a class="font-12 text-secondary" (click)="navigateBackToProductDetails()"><i class="uil-angle-left"></i> Back
+            to latest product details</a>
+        <div class="col-6 mt-1">
+            <div class="text-dark font-22"><strong>{{ product.productName | titlecase }} <i class="uil-angle-right"></i>
+                    Product History</strong></div>
+            <div class="font-16 mt-2">
+                <div class="row">
+                    <div class="col-3">Product code:</div>
+                    <div class="col-3">{{ product.productCode | titlecase }}</div>
+                </div>
+            </div>
+            <div class="font-16">
+                <div class="row">
+                    <div class="col-3">Product type:</div>
+                    <div class="col-3">{{ product.productType | producttype }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-2 rounded">
+        <table class="table table-striped table-centered mb-0">
+            <thead>
+                <tr class="font-12">
+                    <th><strong>Version No.</strong></th>
+                    <th><strong>Product Name</strong></th>
+                    <th><strong>Version Create Time</strong></th>
+                    <th><strong>Status</strong></th>
+                    <th><strong>Creator</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="font-14" *ngFor="let productVersion of productHistory">
+                    <td>{{ productVersion.version }}</td>
+                    <td>{{ productVersion.productName }}</td>
+                    <td>{{ productVersion.lastUpdatedOn ?? productVersion.createdOn | txcLocalDateTime | date: 'M/d/yyyy' }} {{ productVersion.lastUpdatedOn ?? productVersion.createdOn | txcLocalDateTime | date: 'mediumTime'}}</td>
+                    <td>{{ productVersion.status ? 'Active' : 'Inactive' }}</td>
+                    <td>{{ productVersion.lastUpdatedBy === '' ? productVersion.createdBy : productVersion.lastUpdatedBy }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

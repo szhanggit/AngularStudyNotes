@@ -1,0 +1,50 @@
+<div class="product-details">
+    <div class="row my-3">
+        <div class="col-12">
+            <span class="text-dark font-22"><strong>Edit Product Details</strong></span>
+            <div class="vr font-16 mx-2"></div>
+            <span class="text-secondary font-22 mx-2"><strong>{{ product?.productName }}</strong></span>
+        </div>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>
+<app-product-details *ngIf="product && !(isLoading$ | async)"
+    [selectedTenant]="selectedTenant" 
+    [selectedType]="selectedType"
+    [brandList]="brandList"
+    [merchantAcquirers]="merchantAcquirers"
+    [selectedMerchant]="selectedMerchant"
+    [merchantProgram]="merchantProgram"
+    [isMonoMerchant]="isMonoMerchant"
+    [selectedSKU]="selectedSKU"
+    [skuList]="skuList"
+    [selectedAcceptanceLoop]="selectedAcceptanceLoop"
+    [acceptanceLoopPage]="acceptanceLoopPage"
+    [acceptanceLoopList]="acceptanceLoopList"
+    [shopCount]="shopCount"
+    [voucherNumberRuleList]="voucherNumberRuleList"
+    [vnrErrorMessage]="vnrErrorMessage"
+    [toast]="toast"
+    [detailsFormGroup]="detailsFormGroup"
+    (merchantSKUChanged)="OnMerchantChanged($event)"
+    [editMode]="true">
+</app-product-details>
+
+<div class="row my-2">
+    <div class="col-9">
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-secondary rounded-pill w-100 p-2 font-14" 
+                (click)="navigateBackToProductDetails()">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary rounded-pill w-100 p-2 font-14"
+                    [disabled]="(actionLoading$ | async) || detailsFormGroup.invalid || (detailsFormGroup.valid && !detailsFormGroup.dirty)" (click)="saveEditedDetails()">
+                    {{ (actionLoading$ | async) ? 'Loading ...' : 'Save' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

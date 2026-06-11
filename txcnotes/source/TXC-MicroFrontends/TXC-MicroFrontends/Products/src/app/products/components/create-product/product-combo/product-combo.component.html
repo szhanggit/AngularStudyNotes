@@ -1,0 +1,189 @@
+<ng-container *ngTemplateOutlet="searchProducts"></ng-container>
+<ng-container *ngTemplateOutlet="confirmProducts"></ng-container>
+<ng-container *ngTemplateOutlet="rearrangeProducts"></ng-container>
+
+<ng-template #searchProducts>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row title">
+            <div class="col-10" (click)="expandContainer('search')">
+                <button class="btn rounded-circle"
+                    [ngClass]="{ 'btn-primary' : !searchCollapsed, 'btn-secondary' : searchCollapsed }"
+                    [attr.aria-expanded]="!searchCollapsed" aria-controls="collapseExample">1
+                </button>
+                <span class="collapse-title m-2 bold"
+                    [ngClass]="{ 'text-primary' : !searchCollapsed, 'text-dark' : searchCollapsed }">
+                    Search products for this combo
+                </span>
+            </div>
+        </div>
+        <div #spCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="searchCollapsed">
+            <div class="row font-14">
+                <div class="col-6">
+                    <input type="text" class="form-control" placeholder="Enter child product code">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-secondary w-100">Enter</button>
+                </div>
+            </div>
+            <div class="row font-14 my-2">
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search-addon">
+                                <i class="mdi mdi-magnify"></i>
+                            </span>
+                        </div>
+                        <input id="typeahead-custom" type="text" class="form-control font-14"
+                            placeholder="Search product name" [(ngModel)]="keyword" />
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-secondary w-100" [disabled]="keyword.length < 1"
+                        (click)="populateProductList()">Search</button>
+                </div>
+            </div>
+            <ng-container *ngIf="productList.length > 0">
+                <div class="row font-12 bold text-left">
+                    <div class="col-1 text-center font-14">
+                        <input type="checkbox" class="form-check-input" #toggleCheckbox
+                            (change)="toggleCheckboxes(toggleCheckbox.checked)">
+                    </div>
+                    <div class="col-4">Product Name</div>
+                    <div class="col-2">Product Code</div>
+                    <div class="col-2">Voucher Type</div>
+                    <div class="col-3">Face Value With Tax</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row font-14 text-secondary" *ngFor="let product of productList; let index = index">
+                    <div class="col-1 text-center">
+                        <input type="checkbox" class="form-check-input" [checked]="product.checked" #checkbox
+                            (change)="addToSelectedProducts(checkbox.checked, index)">
+                    </div>
+                    <div class="col-4">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div class="col-3">{{ product.faceValueWithTax }}</div>
+                    <hr class="my-2">
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-secondary font-12"
+                        (click)="toggleCheckboxes(false); toggleCheckbox.checked = false">Reset</button>
+                    <button class="btn btn-primary font-12 mx-2" (click)="addToCombo()"
+                        [disabled]="!selectedProductList?.length">Add to combo ({{selectedProductList?.length ||
+                        0}}/{{productList.length}})</button>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #confirmProducts>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row title">
+            <div class="col-10" (click)="expandContainer('confirm')">
+                <button class="btn rounded-circle"
+                    [ngClass]="{ 'btn-primary' : !confirmCollapsed, 'btn-secondary' : confirmCollapsed }"
+                    [attr.aria-expanded]="!confirmCollapsed" aria-controls="collapseExample">2
+                </button>
+                <span class="text-dark collapse-title m-2 bold"
+                    [ngClass]="{ 'text-primary' : !confirmCollapsed, 'text-dark' : confirmCollapsed }">
+                    Confirm product list for this combo
+                </span>
+            </div>
+        </div>
+        <div #cpCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="confirmCollapsed">
+            <ng-container *ngIf="confirmProductList.length > 0">
+                <div class="row font-12 bold text-left">
+                    <div class="col-1 text-center font-14">
+                    </div>
+                    <div class="col-3">Product Name</div>
+                    <div class="col-2">Product Code</div>
+                    <div class="col-2">Voucher Type</div>
+                    <div class="col-2">Face Value With Tax</div>
+                    <div class="col-2">Actions</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row font-14 text-secondary" *ngFor="let product of confirmProductList; let index = index">
+                    <div class="col-1 text-center">
+                        {{ index + 1}}
+                    </div>
+                    <div class="col-3">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div class="col-2">{{ product.faceValueWithTax }}</div>
+                    <div class="col-2">
+                        <button class="btn btn-light" (click)="confirmProductList.splice(index,1)">
+                            <i class="uil-trash"></i>
+                        </button>
+                    </div>
+
+                    <hr class="my-2">
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-secondary font-12" (click)="toggleCheckboxes(false, 2)">Reset</button>
+                    <button class="btn btn-primary font-12 mx-2" (click)="expandContainer('rearrange')"
+                        [disabled]="!confirmProductList?.length">Confirm product list ({{confirmProductList?.length ||
+                        0}})</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #rearrangeProducts>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row title">
+            <div class="col-10" (click)="expandContainer('rearrange')">
+                <button class="btn rounded-circle btn-secondary" [attr.aria-expanded]="!rearrangeCollapsed"
+                    [ngClass]="{ 'btn-primary' : !rearrangeCollapsed, 'btn-secondary' : rearrangeCollapsed }"
+                    aria-controls="collapseExample">3
+                </button>
+                <span class="collapse-title m-2 bold"
+                    [ngClass]="{ 'text-primary' : !rearrangeCollapsed, 'text-dark ' : rearrangeCollapsed }">
+                    Rearrange product sequence</span>
+            </div>
+        </div>
+        <div #rpCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="rearrangeCollapsed">
+            <ng-container *ngIf="confirmProductList.length > 0">
+                <div class="font-12 bold text-left">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-1 text-center font-14">
+                                </div>
+                                <div class="col-5">Product Name</div>
+                                <div class="col-2">Product Code</div>
+                                <div class="col-4">Actions (use drag icon to reorder the product list)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-14 text-secondary" [sortablejs]="confirmProductList" [sortablejsOptions]="options">
+                    <ng-container *ngFor="let product of confirmProductList; let index = index">
+                        <ng-container
+                            *ngTemplateOutlet="DragabbleItem;context:{product: product, list: confirmProductList, index: index}">
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #DragabbleItem let-product="product" let-list="list" let-index="index">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-1 text-center">
+                    {{ index + 1}}
+                </div>
+                <div class="col-5">{{ product.productName }}</div>
+                <div class="col-2">{{ product.productCode }}</div>
+                <div class="col-4">
+                    <span class="dragula-handle"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
