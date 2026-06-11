@@ -1,0 +1,58 @@
+ng new injection-token
+cd injection-token
+ng generate c merchant
+
+https://country-code.ghost.io/angular-injection-token-use-cases/
+
+It is for injecting variable value into a component.
+1. The injectionToken is defined in tokens.ts.
+export const MY_TOKEN = new InjectionToken<string>('myToken');
+2. Register it in providers with token value.
+  providers: [{provide: MY_TOKEN, useValue: 'Token Value'}],
+3. Inject it into component:
+  constructor(@Inject(MY_TOKEN) private myToken: string) 
+  {
+    console.log("Injected myToken", myToken);
+  }
+
+
+Comparing with Chapter 24.0:
+/*
+    It is about building an updating channel.
+*/
+1. The injectionToken is defined in src\app\core\sharedState.model.ts.
+    export const SHARED_STATE = new InjectionToken("shared_state");
+2. src\app\core\core.module.ts
+    providers: [{ provide: SHARED_STATE, useValue: new Subject<SharedState>() }]
+3. Inject it into component:
+src\app\core\table.component.ts
+    constructor(private model: Model, @Inject(SHARED_STATE) public observer: Observer<SharedState>) 
+    { 
+        
+    }
+src\app\core\form.component.ts
+    constructor(private model: Model, @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>) {
+        stateEvents.subscribe((update) => {
+            this.product = new Product();
+            if (update.id != undefined) {
+                Object.assign(this.product, this.model.getProduct(update.id));
+            }
+            this.editing = update.mode == MODES.EDIT;
+        });
+    }
+
+
+
+/*
+It is about injecting value.
+*/
+1. The injectionToken is defined in src\app\core\sharedState.model.ts.    
+    src\app\model\rest.datasource.ts
+2. src\app\model\model.module.ts
+    providers: [Model, RestDataSource, { provide: REST_URL, useValue: `https://localhost:7002/api/products` }]    
+3. Inject it into component:
+    src\app\model\rest.datasource.ts
+    constructor(private http: HttpClient, @Inject(REST_URL) private url: string) 
+    { 
+        
+    }

@@ -1,0 +1,100 @@
+https://country-code.ghost.io/angular-injection-token-use-cases/
+
+/*Running result:   2 emitters and 2 receivers.*/
+
+Injected myToken from AppComponent
+
+
+AdminComponent from AppComponent
+AdminComponent from AdminComponent
+
+
+/*********************************************8/
+
+
+There is a complicated example in Chapter24.0
+Case 1: After clicking Edit button or Create button in Table form, 
+in form component, form data and form header text will be changed.
+
+1. The token is defined in src\app\core\sharedState.model.ts.
+	export const SHARED_STATE = new InjectionToken("shared_state");
+	
+2. The valet is defined in src\app\core\core.module.ts
+	providers: [{ provide: SHARED_STATE, useValue: new Subject<SharedState>() }]
+    /*providers: [{
+        provide: SHARED_STATE,
+        deps: [MessageService, Model],	//MessageService is a service type for injection. Model is a class type for injection.
+        useFactory: (messageService, model) => { //messageService is an instantiated object of MessageService. model is an instantiated object of Model. 
+            let subject = new Subject<SharedState>();
+            subject.subscribe(m => messageService.reportMessage(	//m is an object of SharedState. Its content is defined at this.observer.next(new SharedState(MODES.EDIT, key));
+                    new Message(MODES[m.mode] + (m.id != undefined
+                        ? ` ${model.getProduct(m.id).name}` : "")))
+                );
+            return subject;       
+        }
+    }]*/
+	
+3. Will get a subject according to the SHARED_STATE token.
+	src\app\core\table.component.ts	(Due to the object is subject, it can be either Observer or Observable.)
+	constructor(private model: Model, @Inject(SHARED_STATE) public observer: Observer<SharedState>) { }
+	editProduct(key: number) {
+        this.observer.next(new SharedState(MODES.EDIT, key));	//Emitter
+    }
+
+    createProduct() {
+        this.observer.next(new SharedState(MODES.CREATE));		//Emitter
+    }
+	
+	src\app\core\form.component.ts (Due to the object is subject, it can be either Observer or Observable.)
+	constructor(private model: Model, @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>) {
+		stateEvents
+		.subscribe(update => {									//The first handler for emitters above.
+			this.product = new Product();
+			if (update.id != undefined) {
+				Object.assign(this.product, this.model.getProduct(update.id));
+			}
+			this.editing = update.mode == MODES.EDIT;     
+		});
+    }
+	
+	
+	
+	
+Case 2: After clicking Edit button or Create button in Table form,
+text will be displayed in the top banner.
+
+1. The token is defined in src\app\core\sharedState.model.ts.
+	export const SHARED_STATE = new InjectionToken("shared_state");
+		
+2. The valet is defined in src\app\core\core.module.ts
+    providers: [{
+        provide: SHARED_STATE,
+        deps: [MessageService, Model],	//MessageService is a service type for injection. Model is a class type for injection.
+        useFactory: (messageService, model) => { //messageService is an instantiated object of MessageService. model is an instantiated object of Model. 
+            let subject = new Subject<SharedState>();
+            subject.subscribe(m => messageService.reportMessage(	//m is an object of SharedState. Its content is defined at this.observer.next(new SharedState(MODES.EDIT, key));
+                    new Message(MODES[m.mode] + (m.id != undefined
+                        ? ` ${model.getProduct(m.id).name}` : ""))) //This is the second handler:
+                );													//m => messageService.reportMessage(...)
+            return subject;       
+        }
+    }]	
+	
+3. Will get a subject according to the SHARED_STATE token.
+   The subject is registered the second handler in the provider.		
+	
+	
+	
+Case 3: Message service. It displays text in the top banner.
+m => messageService.reportMessage(new Message(MODES[m.mode] + (m.id != undefined? ` ${model.getProduct(m.id).name}` : "")))
+
+1. The subject is defined in src\app\messages\message.service.ts, private subject = new Subject<Message>();
+2. The emitter is defined in src\app\messages\message.service.ts, reportMessage(msg: Message) { this.subject.next(msg); }
+3. The handler is defined in src\app\messages\message.component.ts, messageService.messages.subscribe(m => {this.lastMessage = m; console.log("Text message is: ", m.text)});
+	
+	
+	
+	
+	
+	
+	
