@@ -1,0 +1,57 @@
+@import "../../../../../styles/variables";
+
+table {
+    thead {
+        th {
+            border-bottom: 1px solid $grey;
+        }
+    }
+
+    tbody {
+        tr {
+            background: linear-gradient(0deg, $egg-shell, $egg-shell),
+                linear-gradient(0deg, $grey, $grey);
+
+            &.border-bottom {
+                border-bottom: 1px solid $grey;
+            }
+
+            &.white-bg {
+                background: white;
+            }
+
+            &.no-border-bottom {
+                border-bottom: 0.5px solid white;
+            }
+            td {
+                word-break: break-word;
+            }
+        }
+    }
+}
+
+.remove-caret::after {
+    display: none !important;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-right: 0px;
+    line-height: 0.5;
+
+    ~input {
+        border-left: 0px;
+    }
+}
+
+// Styles for MVP (remove when funtionality is available)
+.dropdown-toggle:disabled {
+    border: none;
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+.form-switch .form-check-input {
+    width: 36px !important;
+    height: 18px !important;
+}

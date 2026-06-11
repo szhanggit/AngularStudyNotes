@@ -1,0 +1,18 @@
+@import "../../../../../styles/variables";
+.invalid-input {
+    background: $light-pink;
+    border: 1px solid $grey;
+}
+
+.input-group {
+    input {
+        border-right: 0px !important;
+    }
+
+    .input-group-text {
+        background-color: transparent !important;
+        border-left: 0px !important;
+        line-height: 0.5 !important;
+
+    }
+}

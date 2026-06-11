@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-12">
+        <label class="form-label" [for]="htmlEditorModel.formControlName">
+            {{ htmlEditorModel.label | standardCase }} 
+        </label>
+        <angular-editor 
+            [config]="editorConfig"
+            [name]="htmlEditorModel.formControlName" ngDefaultControl
+            [(ngModel)]="value" 
+            (input)="onHTMLTextChanged($event)">
+        </angular-editor>
+    </div>
+</div>

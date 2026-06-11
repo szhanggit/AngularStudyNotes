@@ -1,0 +1,46 @@
+<table
+  class="table table-centered mt-2"
+  [class]="{ 'table-striped': isStripedTable }"
+>
+  <thead class="font-12" [class]="{ grey: greyHeader, 'scroll-adjust': showScrollInsideTable }">
+    <tr>
+      <th scope="col" *ngFor="let header of tableModel.tableHeaders">
+        {{ header.headerName }}
+      </th>
+    </tr>
+  </thead>
+  <tbody class="font-14" [class]="{ 'scroll-bar-order-history': showScrollInsideTable }">
+    <tr *ngFor="let row of tableModel.tableRows; index as rowIndex" [class]="{ 'scroll-adjust': showScrollInsideTable }">
+      <td *ngFor="let data of row.data; index as dataIndex">
+        <ng-container *ngIf="!data.isButton; else buttonTemplate">
+          {{ data.value || "-" }}
+          <div class="font-12" *ngIf="data.hasSubValue">
+            {{ data.subValue }}
+          </div>
+        </ng-container>
+        <ng-template #buttonTemplate>
+          <ng-container [ngSwitch]="data.buttonType">
+            <ng-container *ngSwitchCase="buttonType.TripleDots">
+              <button class="btn">
+                <i class="uil uil-ellipsis-v"></i>
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchCase="buttonType.EditDeleteButton">
+              <button class="btn" (click)="onDeleteClicked(row.data, rowIndex)">
+                <i class="uil uil-trash font-18"></i>
+              </button>
+              <button class="btn" (click)="onEditClicked(row.data, rowIndex)">
+                <i class="mdi mdi-pencil font-21"></i>
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <button class="text-primary">
+                <!-- insert button text -->
+              </button>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>

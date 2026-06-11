@@ -1,0 +1,31 @@
+@import "../../../../../styles/variables";
+
+.dashed {
+  border: 1px dashed $grey;
+  border-radius: 10px;
+  height: auto;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto !important;
+  color: $dark-grey;
+
+  &.fileover {
+    border: 1.2px dashed $light-blue;
+    background-color: $blue-bg-color;
+    color: $light-blue;
+  }
+}
+
+hr {
+  border: 1px inset $grey;
+}
+
+.file-name {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cursor-pointer {
+  padding-left: 0.25rem;
+}

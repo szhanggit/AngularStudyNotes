@@ -1,0 +1,77 @@
+<ng-container [ngSwitch]="type">
+  <div class="input-group input-group-sm">
+    <ng-template
+      *ngSwitchCase="datePickerType.RANGE"
+      [ngTemplateOutlet]="range"
+    ></ng-template>
+    <ng-template
+      *ngSwitchCase="datePickerType.SIMPLE"
+      [ngTemplateOutlet]="simple"
+    ></ng-template>
+  </div>
+</ng-container>
+
+<ng-template #range>
+  <div class="d-flex input-group">
+    <input
+    autocomplete="off"
+    placeholder="YYYY/MM/DD - YYYY/MM/DD"
+    name="datepicker"
+    class="dp-hidden form-control"
+    ngbDatepicker
+    #rangeDp="ngbDatepicker"
+    [autoClose]="'outside'"
+    (dateSelect)="onDateSelection($event)"
+    [dayTemplate]="t"
+    outsideDays="hidden"
+    tabindex="-1"
+    [value]="selectedDateRange"
+    (input)="onDatePickerInputChange($event)"
+    [disabled]="disabled"
+    />
+    <ng-container
+      *ngTemplateOutlet="dpButton; context: { dp: rangeDp }"
+    ></ng-container>
+  </div>
+  <span class="text-danger" [class]="parentClass"  *ngIf="isDateRangeInvalid">Invalid format.</span>
+</ng-template>
+
+<ng-template #simple>
+  <input
+    autocomplete="off"
+    class="form-control"
+    placeholder="YYYY/MM/DD"
+    name="dp"
+    ngbDatepicker
+    #simpleDp="ngbDatepicker"
+    (click)="simpleDp.toggle()"
+    [autoClose]="true"
+    (dateSelect)="onDateSelection($event)"
+  />
+  <ng-container
+    *ngTemplateOutlet="dpButton; context: { dp: simpleDp }"
+  ></ng-container>
+</ng-template>
+
+<ng-template #dpButton let-dp="dp">
+  <button
+    class="mdi mdi-calendar search-icon input-group-text"
+    (click)="dp.toggle()"
+    [disabled]="disabled"
+    [ngClass]="!disabled ? 'calendar-transparent' : ''"
+    type="button"
+  ></button>
+</ng-template>
+
+<ng-template #t let-date let-focused="focused">
+  <span
+    class="custom-day"
+    [class.focused]="focused"
+    [class.range]="isRange(date)"
+    [class.faded]="isHovered(date) || isInside(date)"
+    (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null"
+  >
+    {{ date.day }}
+  </span>
+</ng-template>

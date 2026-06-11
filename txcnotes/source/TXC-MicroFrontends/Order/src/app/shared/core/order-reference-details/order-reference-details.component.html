@@ -1,0 +1,47 @@
+<div class="row g-0">
+  <div
+    class="col-12 bg-white rounded-3"
+    [ngClass]="!viewMode ? 'px-3 py-2' : ''"
+  >
+    <span class="text-dark font-16" *ngIf="!viewMode"
+      ><strong>Reference details of this order</strong></span
+    >
+
+    <div class="row mt-2">
+      <div class="col-3">Client name</div>
+      <div class="col-9 bold">{{ selectedQuotation.clientName }}</div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-3">Project name</div>
+      <div class="col-9 bold">{{ selectedQuotation.projectName }}</div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-3">Quotation number</div>
+      <div class="col-9 bold">{{ selectedQuotation.quotationNumber }}</div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-3">Quotation type</div>
+      <div class="col-9 bold">
+        {{ selectedQuotation.quotationType | quotationtype }}
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-3">Validity</div>
+      <div class="col-9 bold">
+        {{ selectedQuotation.validFrom | txcLocalDateTime
+          | date : "yyyy/MM/dd" }} -
+        {{ selectedQuotation.validTo | txcLocalDateTime
+          | date : "yyyy/MM/dd" }}
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-3">Business model</div>
+      <div class="col-9 bold">{{ selectedQuotation.businessModelName }}</div>
+    </div>
+  </div>
+</div>

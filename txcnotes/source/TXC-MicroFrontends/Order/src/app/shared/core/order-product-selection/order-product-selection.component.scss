@@ -1,0 +1,33 @@
+@import "../../../../styles/variables";
+
+.alert-danger {
+    color: black;
+    border: 1.5px solid $red;
+    background: $red-bg-color;
+    border-radius: 10px;
+
+    ul {
+        margin-bottom: 0px !important;
+    }
+
+    .type {
+        font-weight: bold;
+    }
+}
+
+.text-primary {
+    color: $light-blue;
+}
+
+.title {
+    margin-right: 15px;
+}
+
+.form-switch .form-check-input {
+    width: 36px !important;
+    height: 18px !important;
+}
+
+.form-check-label {
+    margin-left: 10px;
+}

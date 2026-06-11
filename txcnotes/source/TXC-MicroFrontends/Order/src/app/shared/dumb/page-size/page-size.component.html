@@ -1,0 +1,11 @@
+<div class="d-flex">
+    <span class="text-secondary align-self-center font-12">Display</span>
+    <select2 
+        class="font-12 w-100 px-2 page-size" 
+        [data]="pageSizes" 
+        [ngModel]="pageSizeModel" 
+        (ngModelChange)="pageSizeModelChange.emit($event)"
+        resultMaxHeight="500px"
+    ></select2>
+    <span class="text-secondary align-self-center">list</span>
+</div>

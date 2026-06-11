@@ -1,0 +1,28 @@
+<!-- error messages goes here -->
+<div
+  class="row font-14"
+  [class]="{ 'my-3': addHorizontalMargin, 'mx-1': addVerticalMargin }"
+  *ngIf="errorMessages.length"
+>
+  <span class="alert alert-danger">
+    <ul class="float-start" [ngClass]="{'list-unstyled':showRefreshButton}">
+      <ng-container *ngFor="let errorMessage of errorMessages">
+        <li>
+          <span class="type" *ngIf="showHeading"
+            >{{ errorMessage.type }} :
+          </span>
+          {{ errorMessage.description }}
+        </li>
+      </ng-container>
+    </ul>
+    <ng-template #refreshContent>After replenishing, click this button to refresh the status.</ng-template>
+    <span
+      class="refresh-icon"
+      *ngIf="showRefreshButton"
+      (click)="refreshStatus()"
+      [ngbTooltip]="refreshContent"
+    >
+      <i class="mdi mdi-refresh"></i>
+    </span>
+  </span>
+</div>

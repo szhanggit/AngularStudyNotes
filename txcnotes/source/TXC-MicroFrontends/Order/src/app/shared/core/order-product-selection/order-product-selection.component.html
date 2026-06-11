@@ -1,0 +1,109 @@
+<div class="row g-0">
+  <div class="col-12 bg-white rounded-3 px-3 py-2">
+    <div class="row">
+      <div class="col-7">
+        <span class="text-dark font-16 title"
+          ><strong>{{ title }}</strong></span
+        >
+        <div
+          class="form-check form-switch form-check-inline mt-2"
+          *ngIf="!productSelectionOnInitialState"
+        >
+          <input
+            type="checkbox"
+            id="isChildProduct"
+            name="isChildProduct"
+            [(ngModel)]="showChildProduct"
+            class="form-check-input"
+            (change)="toggleChildProduct($event)"
+            [disabled]="disableChildToggle"
+          />
+          <label for="isChildProduct" class="form-check-label"
+            >Child product</label
+          >
+        </div>
+      </div>
+      <div class="col-5" *ngIf="!productSelectionOnInitialState && !isDirectOrderDeliveryDetails">
+        <div class="float-end justify-content-center">
+          <span 
+              *ngIf="selectedOrderMode.key !== orderModes.API" 
+              class="text-primary font-16 px-3 mt-2"
+            >Estimated Total: ${{ estimatedTotal | number : "1.0-2" }}</span
+          >
+          <ng-container *ngIf="fromUpload; else selectProductManually">
+            <button
+              class="btn btn-primary font-12 px-3"
+              (click)="inputFile.click()"
+            >
+              Reupload excel
+            </button>
+          </ng-container>
+          <ng-template #selectProductManually>
+            <ng-container *ngIf="!editMode; else selectProduct">
+              <button
+                class="btn btn-secondary font-12 px-3"
+                (click)="onProductCreateClicked()"
+              >
+                Select product manually
+              </button>
+            </ng-container>
+            <ng-template #selectProduct>
+              <button
+                class="btn btn-primary font-12 px-3"
+                (click)="openModal()"
+              >
+                Select product
+              </button>
+            </ng-template>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <!-- error messages goes here -->
+    <app-error-message 
+      [errorMessages]="productSelectionErrorMessages" 
+      [showRefreshButton]="showRefreshButton"
+      (refreshClicked)="handleRefreshCall($event)">
+    </app-error-message>
+
+    <!-- table -->
+    <app-product-selection-table
+      *ngIf="productList.length"
+      [tableModel]="productSelectionTableModel"
+      [productList]="productList"
+      [showChildProduct]="showChildProduct"
+      [displaySearchBar]="isDirectOrderDeliveryDetails"
+      [isDirectOrderDeliveryDetails]="isDirectOrderDeliveryDetails"
+      [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+      (productEditClicked)="onProductEditClicked($event)"
+      (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked($event)"
+      (productDeleted)="onProductDeleted($event)"
+      (statusChanged)="onStatusChanged($event)"
+    ></app-product-selection-table>
+
+    <div class="row my-3 font-14" *ngIf="productSelectionOnInitialState">
+      <div class="col-12 text-center">
+        <div class="text-secondary mb-3">
+          You can manually select products or upload an excel file to create
+          batch of products.
+        </div>
+        <button class="btn btn-primary font-12 py-2 px-4" (click)="openModal()">
+          Select product
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input
+  #inputFile
+  type="file"
+  name="inputFile"
+  id="inputFile"
+  (change)="onFileSelected($event)"
+  hidden="true"
+  accept=".xls,.xlsx"
+/>
+
+<!-- TOAST -->
+<ngbd-toast-global></ngbd-toast-global>
