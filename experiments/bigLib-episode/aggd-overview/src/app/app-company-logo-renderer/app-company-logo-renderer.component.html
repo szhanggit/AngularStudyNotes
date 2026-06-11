@@ -1,0 +1,14 @@
+<span>
+    @if (value) {
+      <img
+        [alt]="value"
+        [src]="
+          'https://www.ag-grid.com/example-assets/space-company-logos/' +
+          value.toLowerCase() +
+          '.png'
+        "
+        [height]="30"
+      />
+      <p>{{ value }}</p>
+    }
+</span>

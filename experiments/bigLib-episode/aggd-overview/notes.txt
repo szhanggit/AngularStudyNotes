@@ -1,0 +1,6 @@
+https://ag-grid.com/angular-data-grid/cell-editing-full-row/
+
+ng g c appMissionResultRenderer
+ng g c appCompanyLogoRenderer
+
+https://ag-grid.com/angular-data-grid/deep-dive/

@@ -1,0 +1,17 @@
+<p>basic-form-one works!</p>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div>
+    Make email mandatory <input formControlName="myCheckbox" type="checkbox">
+  </div>
+  <div>
+    Email: <input formControlName="myEmailField" type="email" triggers="manual" [ngClass]="{'is-invalid':f.myEmailField.invalid}">
+  </div>
+  <button type="submit" [disabled]="formSubmitted && myForm.invalid">Submit</button>
+</form>
+
+<h2>Debug</h2>
+<ul>
+	<li>Is my form  valid? {{myForm.valid}}</li>
+	<li><pre>{{myForm.controls["myEmailField"].errors| json}}</pre></li>
+</ul>

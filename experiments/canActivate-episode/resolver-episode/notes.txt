@@ -1,0 +1,3 @@
+canLoadResolver		canLoad(route: Route): Promise<boolean> | boolean	(defined in the root. canLoad: [LoadGuard]. Check if the module can be loaded.)
+formResolver		resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product[]>	(defined in the specific module. Make sure that new component can be activated after data is loaded.)
+loadingResolver		resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product[]>	(defined in the specific module. Make sure that new component can be activated after data is loaded.)

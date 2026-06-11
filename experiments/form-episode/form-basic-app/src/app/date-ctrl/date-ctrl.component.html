@@ -1,0 +1,40 @@
+<p>date-ctrl works!</p>
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field {{Obj.stringify(formControl.errors)}}
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors != null">
+        Incorrect email format! {{Obj.stringify(formControl.errors)}}
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="dataFormGroup" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="date">Date:</label>
+      <input id="date" type="date" formControlName="singleDateCtrl"
+      [ngbTooltip]="tipContent" #singleDateTip="ngbTooltip" (click)="toggleTooltipWithContext(singleDateTip, f.singleDateCtrl)" triggers="manual">
+      <div *ngIf="date?.touched && date?.invalid">
+        <div *ngIf="date?.errors?.['required']">
+          Date is required.
+        </div>
+      </div>
+
+
+      <div class="text-danger">
+        <ng-container *ngIf="formSubmitted && f.singleDateCtrl?.invalid">
+            <ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.singleDateCtrl}">
+            </ng-container>
+        </ng-container>
+      </div>      
+    </div>
+    <button type="submit">Submit</button>
+</form>

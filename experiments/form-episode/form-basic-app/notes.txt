@@ -1,0 +1,61 @@
+ng new form-basic-app --routing --standalone false
+npm install bootstrap --save
+npm install @fortawesome/fontawesome-free --save
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap --save
+ng add @angular/localize
+
+
+ng g component basicFormOne
+ng g component basicFormTwo
+ng g component basicFormThree
+ng g component formArrayNameEx
+ng g component formArrayEx
+ng g class model/formConstants.model
+ng g class model/product.model
+ng g class model/form.model
+ng g class model/LimitValidator
+
+ng g component dateCtrl
+ng g component ratingCtrl
+ng g component upimg
+
+ng g service event
+ng g service FileManagement
+ng g class layout.model
+ng g class eventType
+
+
+https://ng-bootstrap.github.io/#/components/nav/api#NgbNavItem
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\merchant\components\create-merchant\create-merchant.component.ts
+FormGroup > FormControl > FormArray
+
+
+this.merchantFormGroup = this._formBuilder.group({
+          //edenred internal contact info
+          mamEmail: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.maxLength(255), Validators.email]),
+          edenredContactEmailList: this._formBuilder.array([this.createInternalEmail()])
+        });
+
+
+private createInternalEmail(): FormGroup {
+    return new FormGroup({
+        'internalEmailAddress': new FormControl('', Validators.email),
+    });
+}        
+
+
+
+---------------------------------------------------------------------------------------
+
+About dropdown list:
+        res => {
+          this.merchantAcquirers = JSON.parse(res.data).dictionaries;
+          this.merchantAcquirersSelect2Data = [{ value: 0, label: 'All merchant acquirers' }, ...this.merchantAcquirers.map((dictionary: Dictionary) => { return { value: dictionary.dictionaryId, label: dictionary.displayName } })];
+        },
+
+        productTypes = [{ value: 0, label: 'All product types' }, ...PRODUCT_CONSTANTS.PRODUCT_TYPE.map((type: { key: number, value: string }) => { return { value: type.key, label: type.value } })];
+
+
+
+

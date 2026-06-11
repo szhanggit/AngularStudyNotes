@@ -1,0 +1,3 @@
+https://ag-grid.com/angular-data-grid/cell-editing-full-row/
+
+ng g c numericCellEditor

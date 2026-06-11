@@ -1,0 +1,4 @@
+ng generate service services/api
+ng g class Model/Student
+ng g class Model/RestDataSource
+ng g class Model/repository.student

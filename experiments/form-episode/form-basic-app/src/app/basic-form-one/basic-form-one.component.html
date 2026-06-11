@@ -1,0 +1,201 @@
+<p>basic-form-one works!</p>
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field {{Obj.stringify(formControl.errors)}}
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors != null">
+        Incorrect email format! {{Obj.stringify(formControl.errors)}}
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+<br /><br />
+
+<div *ngIf="dataFormGroup.errors?.hasOwnProperty('customError')" class="mt-3">
+    <h4>Form Errors</h4>
+	{{ formError['customError'] }}
+</div>
+<br /><br />
+
+<button (click)="setErrorOnFirstName()">Set error for first name</button>
+<button (click)="setCustomError()">Set customer errors</button>
+<button (click)="clearCustomError()">Clear customer errors</button>
+<button (click)="enableRatingCtrl()">Enable Rating Ctrl</button>
+<button (click)="disableRatingCtrl()">Disable Rating Ctrl</button>
+<form class="row row-cols-sm-auto" [formGroup]="dataFormGroup" (submit)="OnSubmit()">
+	<div class="col-8">
+		<div class="input-group">
+			<input
+				class="form-control"
+				placeholder="yyyy-mm-dd"
+				name="dp"
+				[(ngModel)]="model"
+				ngbDatepicker
+				#d="ngbDatepicker" formControlName="singleDateCtrl" [ngbTooltip]="tipContent" #singleDateTip="ngbTooltip" (click)="toggleTooltipWithContext(singleDateTip, f.singleDateCtrl)" triggers="manual"
+			/>
+			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+		</div>
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.singleDateCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.singleDateCtrl}">
+				</ng-container>
+			</ng-container>
+		</div>  
+	</div>
+
+
+    <div class="col-12">
+		<div class="dp-hidden position-absolute">
+			<div class="input-group">
+				<input
+					name="datepicker"
+					class="form-control"
+					ngbDatepicker
+					#datepicker="ngbDatepicker"
+					[autoClose]="'outside'"
+					(dateSelect)="onDateSelection($event)"
+					[displayMonths]="2"
+					[dayTemplate]="t"
+					outsideDays="hidden"
+					[startDate]="fromDate!"
+					tabindex="-1" 
+				/>
+				<ng-template #t let-date let-focused="focused">
+					<span
+						class="custom-day"
+						[class.focused]="focused"
+						[class.range]="isRange(date)"
+						[class.faded]="isHovered(date) || isInside(date)"
+						(mouseenter)="hoveredDate = date"
+						(mouseleave)="hoveredDate = null"
+					>
+						{{ date.day }}
+					</span>
+				</ng-template>
+			</div>
+		</div>
+		<div class="input-group">
+			<input
+				#dpFromDate
+				class="form-control"
+				placeholder="yyyy-mm-dd"
+				name="dpFromDate"
+				[value]="formatter.format(fromDate)"
+				(input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+			/>
+			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
+		</div>
+	</div>
+	<div class="col-12">
+		<div class="input-group">
+			<input
+				#dpToDate
+				class="form-control"
+				placeholder="yyyy-mm-dd"
+				name="dpToDate"
+				[value]="formatter.format(toDate)"
+				(input)="toDate = validateInput(toDate, dpToDate.value)"
+			/>
+			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
+		</div>
+	</div>
+	
+	<div class="col-8">
+	<ngb-rating formControlName="ratingCtrl" [(rate)]="rating"
+	[ngbTooltip]="tipContent" #ratingCtrlTip="ngbTooltip" (click)="toggleTooltipWithContext(ratingCtrlTip, f.ratingCtrl)" triggers="manual"></ngb-rating><!-- [(rate)]="rating"-->
+	<div class="text-danger">
+        <ng-container *ngIf="formSubmitted && f.ratingCtrl?.invalid">
+            <ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.ratingCtrl}">
+            </ng-container>
+        </ng-container>
+	</div>		
+	</div>
+
+	<div class="col-8">
+		<select name="productType" id="productType" class="form-select font-12" formControlName="productTypeCtrl" [ngbTooltip]="tipContent" #productTypeTip="ngbTooltip" (click)="toggleTooltipWithContext(productTypeTip, f.productTypeCtrl)" triggers="manual">
+			<option [value]="productType.key" *ngFor="let productType of productTypes">{{productType.value }}</option>
+		</select>
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.productTypeCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.productTypeCtrl}">
+				</ng-container>
+			</ng-container>
+		</div>		
+	</div>
+
+
+	<div class="col-8">
+		<select name="filter" id="statusDropdown" class="form-select font-12" formControlName="status">
+			<option selected [value]="0">Active</option>
+			<option selected [value]="1">Inactive</option>
+		</select>
+	</div>
+
+	<div class="col-8">
+		<label for="fname">First name:</label><br>
+		<input type="text" id="fname" name="fname" [(ngModel)]="firstName" formControlName="firstNameCtrl" [ngbTooltip]="tipContent" #firstNameTip="ngbTooltip" (click)="toggleTooltipWithContext(firstNameTip, f.firstNameCtrl)" triggers="manual" ><br><!--[ngClass]="{'is-invalid':f.firstNameCtrl.invalid}" [tooltipClass]="f.firstNameCtrl.invalid ? 'tooltip-danger' : 'tooltip-success'" [disableTooltip]="!f.firstNameCtrl.invalid"-->
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.firstNameCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.firstNameCtrl}">
+				</ng-container>
+			</ng-container>
+		</div><br>
+
+		<label for="lname">Last name:</label><br>
+		<input type="text" id="lname" name="lname" [(ngModel)]="lastName" formControlName="lastNameCtrl" [ngbTooltip]="tipContent" #lastNameTip="ngbTooltip" (click)="toggleTooltipWithContext(lastNameTip, f.lastNameCtrl)" triggers="manual" [ngClass]="{'is-invalid':f.lastNameCtrl.invalid}" [tooltipClass]="f.lastNameCtrl.invalid ? 'tooltip-danger' : 'tooltip-success'" [disableTooltip]="!f.lastNameCtrl.invalid"><br>
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.lastNameCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.lastNameCtrl}">
+				</ng-container>
+			</ng-container>
+		</div>	
+	</div>
+	<div class="col-8">
+		<input type="radio" id="html" name="frontTechCtrl" value="HTML" checked="checked" formControlName="frontTechCtrl" [ngbTooltip]="tipContent" #htmlOptionTip="ngbTooltip" (click)="toggleTooltipWithContext(htmlOptionTip, f.frontTechCtrl)" triggers="manual"/><!-- -->
+		<label for="html">HTML</label><br>
+		<input type="radio" id="css" name="frontTechCtrl" value="CSS" formControlName="frontTechCtrl" [ngbTooltip]="tipContent" #cssOptionTip="ngbTooltip" (click)="toggleTooltipWithContext(cssOptionTip, f.frontTechCtrl)" triggers="manual"/><!-- -->
+		<label for="css">CSS</label><br>
+		<input type="radio" id="javascript" name="frontTechCtrl" value="JavaScript" formControlName="frontTechCtrl" [ngbTooltip]="tipContent" #jsOptionTip="ngbTooltip" (click)="toggleTooltipWithContext(jsOptionTip, f.frontTechCtrl)" triggers="manual"/><!-- -->
+		<label for="javascript">JavaScript</label>
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.frontTechCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.frontTechCtrl}">
+				</ng-container>
+			</ng-container>
+		</div>			
+	</div>
+	<div class="col-8">
+		<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" formControlName="vehicle1Ctrl">
+		<label for="vehicle1"> I have a bike</label><br>
+		<input type="checkbox" id="vehicle2" name="vehicle2" value="Car" formControlName="vehicle2Ctrl">
+		<label for="vehicle2"> I have a car</label><br>
+		<input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" formControlName="vehicle3Ctrl">
+		<label for="vehicle3"> I have a boat</label>
+	</div>
+	<div class="col-8">
+		<textarea id="message" name="message" rows="10" cols="30" formControlName="msgBoxCtrl" [ngbTooltip]="tipContent" #messageTip="ngbTooltip" (click)="toggleTooltipWithContext(messageTip, f.msgBoxCtrl)" triggers="manual" [ngClass]="{'is-invalid':f.msgBoxCtrl.invalid}" [tooltipClass]="f.msgBoxCtrl.invalid ? 'tooltip-danger' : 'tooltip-success'" [disableTooltip]="!f.msgBoxCtrl.invalid">
+			The cat was playing in the garden.
+		</textarea>
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.msgBoxCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.msgBoxCtrl}">
+				</ng-container>
+			</ng-container>
+		</div>			
+	</div>
+
+	<div class="col-8"><!---->
+		<button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+		[disabled]="formSubmitted && dataFormGroup.invalid">Create</button>
+	</div>
+
+
+
+</form>

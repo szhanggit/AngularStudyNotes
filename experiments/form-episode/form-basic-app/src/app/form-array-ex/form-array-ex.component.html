@@ -1,0 +1,105 @@
+<p>form-array-ex works!</p>
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+<br /><br />
+
+<form novalidate class="row row-cols-sm-auto" [formGroup]="dataFormGroup" (submit)="OnSubmit()">
+	<div class="col-8">
+		<label for="fname">First name:</label><br>
+		<input type="text" id="fname" name="fname" value="John" formControlName="firstNameCtrl" [ngbTooltip]="tipContent" #firstNameTip="ngbTooltip" (click)="toggleTooltipWithContext(firstNameTip, f.firstNameCtrl)" triggers="manual" ><br><!--[ngClass]="{'is-invalid':f.firstNameCtrl.invalid}" [tooltipClass]="f.firstNameCtrl.invalid ? 'tooltip-danger' : 'tooltip-success'" [disableTooltip]="!f.firstNameCtrl.invalid"-->
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.firstNameCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.firstNameCtrl}">
+				</ng-container>
+			</ng-container>
+		</div><br>
+
+		<label for="lname">Last name:</label><br>
+		<input type="text" id="lname" name="lname" value="Doe" formControlName="lastNameCtrl" [ngbTooltip]="tipContent" #lastNameTip="ngbTooltip" (click)="toggleTooltipWithContext(lastNameTip, f.lastNameCtrl)" triggers="manual" [ngClass]="{'is-invalid':f.lastNameCtrl.invalid}" [tooltipClass]="f.lastNameCtrl.invalid ? 'tooltip-danger' : 'tooltip-success'" [disableTooltip]="!f.lastNameCtrl.invalid"><br>
+		<div class="text-danger">
+			<ng-container *ngIf="formSubmitted && f.lastNameCtrl?.invalid">
+				<ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.lastNameCtrl}">
+				</ng-container>
+			</ng-container>
+		</div>	
+	</div>
+
+    <div class="col-6">
+        <label for="merchantName">Merchant's Email <span class="text-danger">*</span></label>
+        <div formArrayName="merchantContactEmailList">
+            <div class="input-group mb-1"
+                *ngFor="let email of f.merchantContactEmailList.controls; let i = index"
+                [formGroupName]="i">
+                <input type="text" class="form-control font-14 text-secondary" formControlName="emailAddress" [ngClass]="{
+                    'is-invalid': (f.merchantContactEmailList.invalid && (f.merchantContactEmailList.dirty || f.merchantContactEmailList.touched))
+                }" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.merchantContactEmailList.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #merchantContactEmailListTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(merchantContactEmailListTip, f.merchantContactEmailList)"
+                    [disableTooltip]="!f.merchantContactEmailList.invalid">
+                <div class="input-group-append">
+                    <ng-container *ngIf="i === 0; else deleteButton">
+                        <button class="btn btn-outline-secondary" (click)="addMerchantEmail()">
+                            <i class="dripicons-plus"></i>
+                        </button>
+                    </ng-container>
+                    <ng-template #deleteButton>
+                        <button class="btn btn-outline-secondary" (click)="removeMerchantEmail(i)">
+                            <i class="dripicons-trash"></i>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <label for="merchantName">Other internal Email</label>
+        <div formArrayName="edenredContactEmailList">
+            <div class="input-group mb-1"
+                *ngFor="let email of f.edenredContactEmailList.controls; let i = index"
+                [formGroupName]="i">
+                <input type="text" class="form-control font-14 text-secondary" formControlName="internalEmailAddress" [ngClass]="{
+                    'is-invalid': f.edenredContactEmailList.invalid
+                }" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.edenredContactEmailList.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #edenredContactEmailListTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(edenredContactEmailListTip, f.edenredContactEmailList)"
+                    [disableTooltip]="!f.edenredContactEmailList.invalid">
+                <div class="input-group-append">
+                    <ng-container *ngIf="i === 0; else deleteButton">
+                        <button class="btn btn-outline-secondary" (click)="addInternalEmail()">
+                            <i class="dripicons-plus"></i>
+                        </button>
+                    </ng-container>
+                    <ng-template #deleteButton>
+                        <button class="btn btn-outline-secondary"
+                            (click)="removeInternalEmail(i)">
+                            <i class="dripicons-trash"></i>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8"><!---->
+		<button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+		[disabled]="formSubmitted && dataFormGroup.invalid">Create</button>
+	</div>
+</form>

@@ -1,0 +1,31 @@
+https://angular.io/api/router/NavigationEnd
+
+An event triggered when a navigation ends successfully.
+
+    constructor(messageService: MessageService, router: Router) {
+        messageService.messages.subscribe(m => this.lastMessage = m);
+        router.events
+            .pipe(filter(e => e instanceof NavigationEnd 
+                || e instanceof NavigationCancel))
+            .subscribe(e => { this.lastMessage = null; });
+    }
+
+
+
+https://angular.io/api/router/NavigationStart
+https://angular.io/api/router/NavigationCancel
+https://angular.io/api/router/NavigationError
+
+
+Page 650 Receiving Navigation Events
+NavigationStart This event is sent when the navigation process starts.
+RoutesRecognized This event is sent when the routing system matches the URL to a route.
+NavigationEnd This event is sent when the navigation process completes successfully.
+NavigationError This event is sent when the navigation process produces an error.
+NavigationCancel This event is sent when the navigation process is canceled.
+
+
+router.events
+.pipe(filter(e => e instanceof NavigationEnd
+|| e instanceof NavigationCancel))
+.subscribe(e => { this.lastMessage = null; });

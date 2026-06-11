@@ -1,0 +1,28 @@
+ng new condition-validation-app --routing --standalone false
+npm install bootstrap --save
+npm install @fortawesome/fontawesome-free --save
+npm install jquery popper.js
+npm install @ng-bootstrap/ng-bootstrap --save
+ng add @angular/localize
+
+
+
+ng g component basicFormOne
+ng g component basicFormTwo
+ng g component basicFormThree
+ng g component basicFormThree.v2
+ng g component basicFormThree.v3
+
+https://medium.com/ngx/3-ways-to-implement-conditional-validation-of-reactive-forms-c59ed6fc3325
+
+angular custom validation example
+https://v17.angular.io/guide/form-validation
+https://www.digitalocean.com/community/tutorials/angular-custom-validation
+https://blog.angular-university.io/angular-custom-validators/
+
+
+
+
+https://medium.com/front-end-weekly/angular-how-to-implement-conditional-custom-validation-1ec14b0feb45
+https://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html
+https://codecraft.tv/courses/angular/advanced-topics/basic-custom-validators/

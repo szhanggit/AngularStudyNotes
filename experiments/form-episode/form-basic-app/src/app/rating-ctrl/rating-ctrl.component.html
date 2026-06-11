@@ -1,0 +1,46 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field {{Obj.stringify(formControl.errors)}}
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors != null">
+        Incorrect email format! {{Obj.stringify(formControl.errors)}}
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+<br /><br />
+
+<form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="rating">Rating:</label>
+      <ngb-rating formControlName="ratingCtrl"
+      [ngbTooltip]="tipContent" #ratingCtrlTip="ngbTooltip" (click)="toggleTooltipWithContext(ratingCtrlTip, f.ratingCtrl)" triggers="manual"></ngb-rating>
+
+
+
+      <div *ngIf="f.ratingCtrl.invalid && (f.ratingCtrl.dirty || f.ratingCtrl.touched)" class="text-danger">
+        <div *ngIf="f.ratingCtrl.errors?.required">
+          Rating is required.
+        </div>
+        <div *ngIf="f.ratingCtrl.errors?.min">
+          Rating must be at least 1.
+        </div>
+      </div>
+
+
+      <div class="text-danger">
+        <ng-container *ngIf="formSubmitted && f.ratingCtrl?.invalid">
+            <ng-container *ngTemplateOutlet="tipContent;context:{formControl: f.ratingCtrl}">
+            </ng-container>
+        </ng-container>
+      </div>      
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

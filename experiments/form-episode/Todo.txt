@@ -1,0 +1,2 @@
+https://medium.com/ngx/3-ways-to-implement-conditional-validation-of-reactive-forms-c59ed6fc3325
+https://stackoverflow.com/questions/52866016/conditional-required-validation-in-angular-reactive-form

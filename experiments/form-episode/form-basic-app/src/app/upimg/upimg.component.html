@@ -1,0 +1,17 @@
+<p>upimg works!</p>
+<div class="details__logocontainer">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+            <label for="logo" class="form-label details__container__label">Logo</label>
+            <input type="file"
+                class="form-control" id="fileLogo"
+                (change)="onFileChange($event)"
+                accept="image/*"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <img [src]="logo" class="details__container__logo img-thumbnail" *ngIf="logo" />
+        </div>
+    </div>
+</div>
