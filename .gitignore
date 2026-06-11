@@ -36,3 +36,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+/txcnotes/source/txc-front-web-toc.zip
+/txcnotes/source/TXC-MicroFrontends.zip
