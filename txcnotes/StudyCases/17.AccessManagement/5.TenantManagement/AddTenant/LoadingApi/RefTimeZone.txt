@@ -1,0 +1,637 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/RefTimeZone
+
+
+
+[
+    {
+        "timeZone": "Dateline Standard Time",
+        "utcOffset": "Dateline Standard Time UTC -12:00"
+    },
+    {
+        "timeZone": "UTC-11",
+        "utcOffset": "UTC-11 UTC -11:00"
+    },
+    {
+        "timeZone": "Aleutian Standard Time",
+        "utcOffset": "Aleutian Standard Time UTC -10:00"
+    },
+    {
+        "timeZone": "Hawaiian Standard Time",
+        "utcOffset": "Hawaiian Standard Time UTC -10:00"
+    },
+    {
+        "timeZone": "Marquesas Standard Time",
+        "utcOffset": "Marquesas Standard Time UTC -09:30"
+    },
+    {
+        "timeZone": "Alaskan Standard Time",
+        "utcOffset": "Alaskan Standard Time UTC -09:00"
+    },
+    {
+        "timeZone": "UTC-09",
+        "utcOffset": "UTC-09 UTC -09:00"
+    },
+    {
+        "timeZone": "Pacific Standard Time (Mexico)",
+        "utcOffset": "Pacific Standard Time (Mexico) UTC -08:00"
+    },
+    {
+        "timeZone": "UTC-08",
+        "utcOffset": "UTC-08 UTC -08:00"
+    },
+    {
+        "timeZone": "Pacific Standard Time",
+        "utcOffset": "Pacific Standard Time UTC -08:00"
+    },
+    {
+        "timeZone": "US Mountain Standard Time",
+        "utcOffset": "US Mountain Standard Time UTC -07:00"
+    },
+    {
+        "timeZone": "Mountain Standard Time (Mexico)",
+        "utcOffset": "Mountain Standard Time (Mexico) UTC -07:00"
+    },
+    {
+        "timeZone": "Mountain Standard Time",
+        "utcOffset": "Mountain Standard Time UTC -07:00"
+    },
+    {
+        "timeZone": "Yukon Standard Time",
+        "utcOffset": "Yukon Standard Time UTC -07:00"
+    },
+    {
+        "timeZone": "Central America Standard Time",
+        "utcOffset": "Central America Standard Time UTC -06:00"
+    },
+    {
+        "timeZone": "Central Standard Time",
+        "utcOffset": "Central Standard Time UTC -06:00"
+    },
+    {
+        "timeZone": "Easter Island Standard Time",
+        "utcOffset": "Easter Island Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "Central Standard Time (Mexico)",
+        "utcOffset": "Central Standard Time (Mexico) UTC -06:00"
+    },
+    {
+        "timeZone": "Canada Central Standard Time",
+        "utcOffset": "Canada Central Standard Time UTC -06:00"
+    },
+    {
+        "timeZone": "SA Pacific Standard Time",
+        "utcOffset": "SA Pacific Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "Eastern Standard Time (Mexico)",
+        "utcOffset": "Eastern Standard Time (Mexico) UTC -05:00"
+    },
+    {
+        "timeZone": "Eastern Standard Time",
+        "utcOffset": "Eastern Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "Haiti Standard Time",
+        "utcOffset": "Haiti Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "Cuba Standard Time",
+        "utcOffset": "Cuba Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "US Eastern Standard Time",
+        "utcOffset": "US Eastern Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "Turks And Caicos Standard Time",
+        "utcOffset": "Turks And Caicos Standard Time UTC -05:00"
+    },
+    {
+        "timeZone": "Paraguay Standard Time",
+        "utcOffset": "Paraguay Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Atlantic Standard Time",
+        "utcOffset": "Atlantic Standard Time UTC -04:00"
+    },
+    {
+        "timeZone": "Venezuela Standard Time",
+        "utcOffset": "Venezuela Standard Time UTC -04:00"
+    },
+    {
+        "timeZone": "Central Brazilian Standard Time",
+        "utcOffset": "Central Brazilian Standard Time UTC -04:00"
+    },
+    {
+        "timeZone": "SA Western Standard Time",
+        "utcOffset": "SA Western Standard Time UTC -04:00"
+    },
+    {
+        "timeZone": "Pacific SA Standard Time",
+        "utcOffset": "Pacific SA Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Newfoundland Standard Time",
+        "utcOffset": "Newfoundland Standard Time UTC -03:30"
+    },
+    {
+        "timeZone": "Tocantins Standard Time",
+        "utcOffset": "Tocantins Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "E. South America Standard Time",
+        "utcOffset": "E. South America Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "SA Eastern Standard Time",
+        "utcOffset": "SA Eastern Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Argentina Standard Time",
+        "utcOffset": "Argentina Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Montevideo Standard Time",
+        "utcOffset": "Montevideo Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Magallanes Standard Time",
+        "utcOffset": "Magallanes Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Saint Pierre Standard Time",
+        "utcOffset": "Saint Pierre Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "Bahia Standard Time",
+        "utcOffset": "Bahia Standard Time UTC -03:00"
+    },
+    {
+        "timeZone": "UTC-02",
+        "utcOffset": "UTC-02 UTC -02:00"
+    },
+    {
+        "timeZone": "Greenland Standard Time",
+        "utcOffset": "Greenland Standard Time UTC -02:00"
+    },
+    {
+        "timeZone": "Mid-Atlantic Standard Time",
+        "utcOffset": "Mid-Atlantic Standard Time UTC -02:00"
+    },
+    {
+        "timeZone": "Azores Standard Time",
+        "utcOffset": "Azores Standard Time UTC -01:00"
+    },
+    {
+        "timeZone": "Cape Verde Standard Time",
+        "utcOffset": "Cape Verde Standard Time UTC -01:00"
+    },
+    {
+        "timeZone": "UTC",
+        "utcOffset": "UTC UTC +00:00"
+    },
+    {
+        "timeZone": "GMT Standard Time",
+        "utcOffset": "GMT Standard Time UTC +00:00"
+    },
+    {
+        "timeZone": "Greenwich Standard Time",
+        "utcOffset": "Greenwich Standard Time UTC +00:00"
+    },
+    {
+        "timeZone": "Sao Tome Standard Time",
+        "utcOffset": "Sao Tome Standard Time UTC +00:00"
+    },
+    {
+        "timeZone": "Morocco Standard Time",
+        "utcOffset": "Morocco Standard Time UTC +01:00"
+    },
+    {
+        "timeZone": "W. Europe Standard Time",
+        "utcOffset": "W. Europe Standard Time UTC +01:00"
+    },
+    {
+        "timeZone": "Central Europe Standard Time",
+        "utcOffset": "Central Europe Standard Time UTC +01:00"
+    },
+    {
+        "timeZone": "Romance Standard Time",
+        "utcOffset": "Romance Standard Time UTC +01:00"
+    },
+    {
+        "timeZone": "Central European Standard Time",
+        "utcOffset": "Central European Standard Time UTC +01:00"
+    },
+    {
+        "timeZone": "W. Central Africa Standard Time",
+        "utcOffset": "W. Central Africa Standard Time UTC +01:00"
+    },
+    {
+        "timeZone": "GTB Standard Time",
+        "utcOffset": "GTB Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Middle East Standard Time",
+        "utcOffset": "Middle East Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Egypt Standard Time",
+        "utcOffset": "Egypt Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "E. Europe Standard Time",
+        "utcOffset": "E. Europe Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Syria Standard Time",
+        "utcOffset": "Syria Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "West Bank Standard Time",
+        "utcOffset": "West Bank Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "South Africa Standard Time",
+        "utcOffset": "South Africa Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "FLE Standard Time",
+        "utcOffset": "FLE Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Israel Standard Time",
+        "utcOffset": "Israel Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "South Sudan Standard Time",
+        "utcOffset": "South Sudan Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Kaliningrad Standard Time",
+        "utcOffset": "Kaliningrad Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Sudan Standard Time",
+        "utcOffset": "Sudan Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Libya Standard Time",
+        "utcOffset": "Libya Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Namibia Standard Time",
+        "utcOffset": "Namibia Standard Time UTC +02:00"
+    },
+    {
+        "timeZone": "Jordan Standard Time",
+        "utcOffset": "Jordan Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Arabic Standard Time",
+        "utcOffset": "Arabic Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Turkey Standard Time",
+        "utcOffset": "Turkey Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Arab Standard Time",
+        "utcOffset": "Arab Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Belarus Standard Time",
+        "utcOffset": "Belarus Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Russian Standard Time",
+        "utcOffset": "Russian Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "E. Africa Standard Time",
+        "utcOffset": "E. Africa Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Volgograd Standard Time",
+        "utcOffset": "Volgograd Standard Time UTC +03:00"
+    },
+    {
+        "timeZone": "Iran Standard Time",
+        "utcOffset": "Iran Standard Time UTC +03:30"
+    },
+    {
+        "timeZone": "Arabian Standard Time",
+        "utcOffset": "Arabian Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Astrakhan Standard Time",
+        "utcOffset": "Astrakhan Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Azerbaijan Standard Time",
+        "utcOffset": "Azerbaijan Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Russia Time Zone 3",
+        "utcOffset": "Russia Time Zone 3 UTC +04:00"
+    },
+    {
+        "timeZone": "Mauritius Standard Time",
+        "utcOffset": "Mauritius Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Saratov Standard Time",
+        "utcOffset": "Saratov Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Georgian Standard Time",
+        "utcOffset": "Georgian Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Caucasus Standard Time",
+        "utcOffset": "Caucasus Standard Time UTC +04:00"
+    },
+    {
+        "timeZone": "Afghanistan Standard Time",
+        "utcOffset": "Afghanistan Standard Time UTC +04:30"
+    },
+    {
+        "timeZone": "West Asia Standard Time",
+        "utcOffset": "West Asia Standard Time UTC +05:00"
+    },
+    {
+        "timeZone": "Ekaterinburg Standard Time",
+        "utcOffset": "Ekaterinburg Standard Time UTC +05:00"
+    },
+    {
+        "timeZone": "Pakistan Standard Time",
+        "utcOffset": "Pakistan Standard Time UTC +05:00"
+    },
+    {
+        "timeZone": "Qyzylorda Standard Time",
+        "utcOffset": "Qyzylorda Standard Time UTC +05:00"
+    },
+    {
+        "timeZone": "India Standard Time",
+        "utcOffset": "India Standard Time UTC +05:30"
+    },
+    {
+        "timeZone": "Sri Lanka Standard Time",
+        "utcOffset": "Sri Lanka Standard Time UTC +05:30"
+    },
+    {
+        "timeZone": "Nepal Standard Time",
+        "utcOffset": "Nepal Standard Time UTC +05:45"
+    },
+    {
+        "timeZone": "Central Asia Standard Time",
+        "utcOffset": "Central Asia Standard Time UTC +06:00"
+    },
+    {
+        "timeZone": "Bangladesh Standard Time",
+        "utcOffset": "Bangladesh Standard Time UTC +06:00"
+    },
+    {
+        "timeZone": "Omsk Standard Time",
+        "utcOffset": "Omsk Standard Time UTC +06:00"
+    },
+    {
+        "timeZone": "Myanmar Standard Time",
+        "utcOffset": "Myanmar Standard Time UTC +06:30"
+    },
+    {
+        "timeZone": "SE Asia Standard Time",
+        "utcOffset": "SE Asia Standard Time UTC +07:00"
+    },
+    {
+        "timeZone": "Altai Standard Time",
+        "utcOffset": "Altai Standard Time UTC +07:00"
+    },
+    {
+        "timeZone": "W. Mongolia Standard Time",
+        "utcOffset": "W. Mongolia Standard Time UTC +07:00"
+    },
+    {
+        "timeZone": "North Asia Standard Time",
+        "utcOffset": "North Asia Standard Time UTC +07:00"
+    },
+    {
+        "timeZone": "N. Central Asia Standard Time",
+        "utcOffset": "N. Central Asia Standard Time UTC +07:00"
+    },
+    {
+        "timeZone": "Tomsk Standard Time",
+        "utcOffset": "Tomsk Standard Time UTC +07:00"
+    },
+    {
+        "timeZone": "China Standard Time",
+        "utcOffset": "China Standard Time UTC +08:00"
+    },
+    {
+        "timeZone": "North Asia East Standard Time",
+        "utcOffset": "North Asia East Standard Time UTC +08:00"
+    },
+    {
+        "timeZone": "Singapore Standard Time",
+        "utcOffset": "Singapore Standard Time UTC +08:00"
+    },
+    {
+        "timeZone": "W. Australia Standard Time",
+        "utcOffset": "W. Australia Standard Time UTC +08:00"
+    },
+    {
+        "timeZone": "Taipei Standard Time",
+        "utcOffset": "Taipei Standard Time UTC +08:00"
+    },
+    {
+        "timeZone": "Ulaanbaatar Standard Time",
+        "utcOffset": "Ulaanbaatar Standard Time UTC +08:00"
+    },
+    {
+        "timeZone": "Aus Central W. Standard Time",
+        "utcOffset": "Aus Central W. Standard Time UTC +08:45"
+    },
+    {
+        "timeZone": "Transbaikal Standard Time",
+        "utcOffset": "Transbaikal Standard Time UTC +09:00"
+    },
+    {
+        "timeZone": "Tokyo Standard Time",
+        "utcOffset": "Tokyo Standard Time UTC +09:00"
+    },
+    {
+        "timeZone": "North Korea Standard Time",
+        "utcOffset": "North Korea Standard Time UTC +09:00"
+    },
+    {
+        "timeZone": "Korea Standard Time",
+        "utcOffset": "Korea Standard Time UTC +09:00"
+    },
+    {
+        "timeZone": "Yakutsk Standard Time",
+        "utcOffset": "Yakutsk Standard Time UTC +09:00"
+    },
+    {
+        "timeZone": "Cen. Australia Standard Time",
+        "utcOffset": "Cen. Australia Standard Time UTC +10:30"
+    },
+    {
+        "timeZone": "AUS Central Standard Time",
+        "utcOffset": "AUS Central Standard Time UTC +09:30"
+    },
+    {
+        "timeZone": "E. Australia Standard Time",
+        "utcOffset": "E. Australia Standard Time UTC +10:00"
+    },
+    {
+        "timeZone": "AUS Eastern Standard Time",
+        "utcOffset": "AUS Eastern Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "West Pacific Standard Time",
+        "utcOffset": "West Pacific Standard Time UTC +10:00"
+    },
+    {
+        "timeZone": "Tasmania Standard Time",
+        "utcOffset": "Tasmania Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "Vladivostok Standard Time",
+        "utcOffset": "Vladivostok Standard Time UTC +10:00"
+    },
+    {
+        "timeZone": "Lord Howe Standard Time",
+        "utcOffset": "Lord Howe Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "Bougainville Standard Time",
+        "utcOffset": "Bougainville Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "Russia Time Zone 10",
+        "utcOffset": "Russia Time Zone 10 UTC +11:00"
+    },
+    {
+        "timeZone": "Magadan Standard Time",
+        "utcOffset": "Magadan Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "Norfolk Standard Time",
+        "utcOffset": "Norfolk Standard Time UTC +12:00"
+    },
+    {
+        "timeZone": "Sakhalin Standard Time",
+        "utcOffset": "Sakhalin Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "Central Pacific Standard Time",
+        "utcOffset": "Central Pacific Standard Time UTC +11:00"
+    },
+    {
+        "timeZone": "Russia Time Zone 11",
+        "utcOffset": "Russia Time Zone 11 UTC +12:00"
+    },
+    {
+        "timeZone": "New Zealand Standard Time",
+        "utcOffset": "New Zealand Standard Time UTC +13:00"
+    },
+    {
+        "timeZone": "UTC+12",
+        "utcOffset": "UTC+12 UTC +12:00"
+    },
+    {
+        "timeZone": "Fiji Standard Time",
+        "utcOffset": "Fiji Standard Time UTC +12:00"
+    },
+    {
+        "timeZone": "Kamchatka Standard Time",
+        "utcOffset": "Kamchatka Standard Time UTC +12:00"
+    },
+    {
+        "timeZone": "Chatham Islands Standard Time",
+        "utcOffset": "Chatham Islands Standard Time UTC +13:45"
+    },
+    {
+        "timeZone": "UTC+13",
+        "utcOffset": "UTC+13 UTC +13:00"
+    },
+    {
+        "timeZone": "Tonga Standard Time",
+        "utcOffset": "Tonga Standard Time UTC +13:00"
+    },
+    {
+        "timeZone": "Samoa Standard Time",
+        "utcOffset": "Samoa Standard Time UTC +14:00"
+    },
+    {
+        "timeZone": "Line Islands Standard Time",
+        "utcOffset": "Line Islands Standard Time UTC +14:00"
+    }
+]
+
+
+
+
+--------------------------------------------------------------------------
+
+
+  private services =[
+    { 
+      observable: this.refCountrySvc.getRefCountries(), command: (d: any[])=>{
+        this.countries = d as RefCountryModel[];
+      }
+    },
+    { 
+      observable: this.refTimeZoneSvc.getRefTimeZones(), command: (d: any[]) =>{
+        this.timeZones = d as RefTimeZoneModel[];
+      }
+    },
+    {
+      observable: this.refTimeFormatSvc.getRefTimeFormats(), command: (d: any[])=>{
+        this.timeFormats = d as RefTimeFormatModel[];
+      }
+    },
+    {
+      observable: this.refLanguageSvc.getRefLanguages(), command: (d: any[])=>{
+        this.languages = d as RefLanguageModel[];
+      }
+    }    
+  ];
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\ref-time-zone.service.ts
+  public getRefTimeZones(): Observable<RefTimeZoneModel[]>{
+    return this.apiSvc.get(this.controllter);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

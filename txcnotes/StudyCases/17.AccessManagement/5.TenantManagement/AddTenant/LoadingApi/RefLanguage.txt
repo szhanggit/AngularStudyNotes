@@ -1,0 +1,63 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/RefLanguage
+
+
+
+[
+    {
+        "languageId": 1,
+        "language": "English"
+    },
+    {
+        "languageId": 2,
+        "language": "French"
+    },
+    {
+        "languageId": 3,
+        "language": "Filipino"
+    }
+]
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant-references.service.ts
+
+  private services =[
+    { 
+      observable: this.refCountrySvc.getRefCountries(), command: (d: any[])=>{
+        this.countries = d as RefCountryModel[];
+      }
+    },
+    { 
+      observable: this.refTimeZoneSvc.getRefTimeZones(), command: (d: any[]) =>{
+        this.timeZones = d as RefTimeZoneModel[];
+      }
+    },
+    {
+      observable: this.refTimeFormatSvc.getRefTimeFormats(), command: (d: any[])=>{
+        this.timeFormats = d as RefTimeFormatModel[];
+      }
+    },
+    {
+      observable: this.refLanguageSvc.getRefLanguages(), command: (d: any[])=>{
+        this.languages = d as RefLanguageModel[];
+      }
+    }    
+  ];
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\ref-language.service.ts
+  getRefLanguages():Observable<RefLanguageModel[]>{
+    return this.apiSvc.get(this.controller);
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+

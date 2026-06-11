@@ -1,0 +1,73 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/Tenant
+
+
+{"data":55,"message":"Success","success":true}
+
+
+------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-details\tenant-details.component.ts
+      this._tenantSvc.addTenant(formValues,
+        (result: boolean) => {
+          if (result) {
+            this.progressBar.complete();
+            this.resetForm();
+            this._router.navigateByUrl('/maintenance/tenant-management', { state: { showTenantAdded: true, tenantName:  formValues.name } });
+          } else {
+            this.progressBar.complete();
+            this.toast.showDanger(`There is an error adding ${formValues.name}. Please check entered values.`);
+          }
+        });
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant.service.ts
+  addTenant(parameter:TenantModel, callbackFn:any){
+   const subscriber =  this.apiSvc.post(this.controller,parameter)
+    .subscribe({
+      next: res=>{
+        callbackFn(true);
+      }, error:e=>{
+        if((e.error) && (e.error.errors)){
+           let errors = e.error.errors;
+           let keys = Object.keys(errors);
+           keys.forEach(key => {
+            //  this.toastr.error(errors[key][0],"Error");
+           });
+        }
+        callbackFn(false);
+        subscriber.unsubscribe();
+      }, complete: ()=>{
+        subscriber.unsubscribe();        
+      }
+    })
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  post(path: string, body: object = {}): Observable<any> {
+    return this.httpClient
+      .post(this.currentBaseUrl + path, JSON.stringify(body), this.options);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

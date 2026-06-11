@@ -1,0 +1,36 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/#/maintenance/tenant-management
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app-routing.module.ts
+  {
+    path: "",
+    component: PrivateLayoutComponent,
+    children: [
+      {
+        path: "",
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        canActivate: [SecurityGuard]
+      }
+    ],
+
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\pages-routing.module.ts
+  {
+    path: 'maintenance',
+    loadChildren: ()=> import('./maintenance/maintenance.module').then(m=> m.MaintenanceModule)
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\maintenance-routing.module.ts
+{path: "tenant-management", component: TenantManagementComponent},
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-management\tenant-management.component.html
+<app-tenant-list [filterKeyword]="searchKeyword"></app-tenant-list>
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-list\tenant-list.component.html
+
+
+
+
+

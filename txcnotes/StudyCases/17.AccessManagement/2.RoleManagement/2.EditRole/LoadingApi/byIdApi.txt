@@ -1,0 +1,385 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Role/byId?roleId=7
+
+
+
+{
+    "data": {
+        "roleId": 2,
+        "roleName": "BU Admin",
+        "description": null,
+        "status": true,
+        "isAdmin": true,
+        "tenantId": 2,
+        "appId": 1,
+        "resources": [
+            {
+                "resourceName": "Role Management",
+                "operations": [
+                    {
+                        "operationId": 1,
+                        "operationName": "Create Role",
+                        "permissionId": 56,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 2,
+                        "operationName": "Update Role",
+                        "permissionId": 57,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 3,
+                        "operationName": "View Role",
+                        "permissionId": 58,
+                        "isSelected": true
+                    }
+                ]
+            },
+            {
+                "resourceName": "Admin Management",
+                "operations": [
+                    {
+                        "operationId": 4,
+                        "operationName": "Create Admin",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 5,
+                        "operationName": "Update Admin",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 6,
+                        "operationName": "View Admin",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "User Management",
+                "operations": [
+                    {
+                        "operationId": 7,
+                        "operationName": "Create User",
+                        "permissionId": 59,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 8,
+                        "operationName": "Update User",
+                        "permissionId": 60,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 9,
+                        "operationName": "View User",
+                        "permissionId": 61,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 10,
+                        "operationName": "Create BU Manager",
+                        "permissionId": 62,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 11,
+                        "operationName": "Update BU Manager",
+                        "permissionId": 63,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 12,
+                        "operationName": "View BU Manager",
+                        "permissionId": 64,
+                        "isSelected": true
+                    },
+                    {
+                        "operationId": 19,
+                        "operationName": "Update User Status",
+                        "permissionId": 65,
+                        "isSelected": true
+                    }
+                ]
+            },
+            {
+                "resourceName": "Tenant Management",
+                "operations": [
+                    {
+                        "operationId": 13,
+                        "operationName": "Create Tenant",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 14,
+                        "operationName": "Update Tenant",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 15,
+                        "operationName": "View Tenant",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Merchant",
+                "operations": [
+                    {
+                        "operationId": 20,
+                        "operationName": "View Merchant",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 21,
+                        "operationName": "Create/Edit Merchant",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 38,
+                        "operationName": "View Program",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 39,
+                        "operationName": "Create/Edit Program",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Product",
+                "operations": [
+                    {
+                        "operationId": 23,
+                        "operationName": "View Product",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 24,
+                        "operationName": "Create/Edit Product",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 26,
+                        "operationName": "Activate Product",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 65,
+                        "operationName": "Product Apply to Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 66,
+                        "operationName": "Product Apply Combo",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Order",
+                "operations": [
+                    {
+                        "operationId": 55,
+                        "operationName": "View Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 56,
+                        "operationName": "Create Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 57,
+                        "operationName": "Approve Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 58,
+                        "operationName": "Approve(2nd) Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 84,
+                        "operationName": "Reject Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 85,
+                        "operationName": "Edit Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 86,
+                        "operationName": "Submit Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 87,
+                        "operationName": "Close Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 88,
+                        "operationName": "Download File",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 89,
+                        "operationName": "Send File",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 90,
+                        "operationName": "Republish Order",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 91,
+                        "operationName": "Export Delivery Status",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Client",
+                "operations": [
+                    {
+                        "operationId": 59,
+                        "operationName": "View Client",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 60,
+                        "operationName": "Create/Edit Client",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Voucher",
+                "operations": [
+                    {
+                        "operationId": 73,
+                        "operationName": "View Voucher",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 74,
+                        "operationName": "Manage Voucher",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 75,
+                        "operationName": "Manage Voucher (Limited)",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 93,
+                        "operationName": "View Batch Voucher Operations",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 94,
+                        "operationName": "Add voucher operation",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Inventory",
+                "operations": [
+                    {
+                        "operationId": 76,
+                        "operationName": "View Inventory",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 77,
+                        "operationName": "Manage Inventory",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 92,
+                        "operationName": "Download Inventory",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Media",
+                "operations": [
+                    {
+                        "operationId": 78,
+                        "operationName": "View Media",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 79,
+                        "operationName": "Manage Media",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            },
+            {
+                "resourceName": "Template",
+                "operations": [
+                    {
+                        "operationId": 80,
+                        "operationName": "View Template",
+                        "permissionId": 0,
+                        "isSelected": false
+                    },
+                    {
+                        "operationId": 81,
+                        "operationName": "Manage Template",
+                        "permissionId": 0,
+                        "isSelected": false
+                    }
+                ]
+            }
+        ]
+    },
+    "message": "Success",
+    "success": true
+}

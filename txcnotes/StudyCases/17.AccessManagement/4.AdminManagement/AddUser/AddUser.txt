@@ -1,0 +1,52 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/#/maintenance/add-admin
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app-routing.module.ts
+  {
+    path: "",
+    component: PrivateLayoutComponent,
+    children: [
+      {
+        path: "",
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        canActivate: [SecurityGuard]
+      }
+    ],
+
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\pages-routing.module.ts
+  {
+    path: 'maintenance',
+    loadChildren: ()=> import('./maintenance/maintenance.module').then(m=> m.MaintenanceModule)
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\maintenance-routing.module.ts
+{path: "add-admin", component: AddAdminComponent},
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\add-admin\add-admin.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,99 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/user-status
+
+
+{
+    "data": [
+        {
+            "userStatusId": 1,
+            "userStatus": "UnBlocked"
+        },
+        {
+            "userStatusId": 2,
+            "userStatus": "Blocked"
+        }
+    ],
+    "message": "Success",
+    "success": true
+}
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\admin-management\admin-management.component.ts
+this.subscribeToUserStatusAsRef();
+
+
+  private subscribeToUserStatusAsRef() {
+    this.refUserStatusSvc.get().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (res) => {
+        let response = res.data as RefUserStatusDto[];
+        response.push({ userStatusId: 0, userStatus: 'All user status' }); // default value
+        this.userStatus = response.map(m => {
+          return {
+            label: m.userStatus,
+            value: m.userStatusId
+          }
+        })
+      }
+    })
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\ref-user-status.service.ts
+  public get():Observable<ResponseModel>{
+    return this.apiSvc.get(this.controller + '/user-status');
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

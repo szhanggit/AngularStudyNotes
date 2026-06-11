@@ -1,0 +1,36 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/#/maintenance/admin-management
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app-routing.module.ts
+  {
+    path: "",
+    component: PrivateLayoutComponent,
+    children: [
+      {
+        path: "",
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        canActivate: [SecurityGuard]
+      }
+    ],
+
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\pages-routing.module.ts
+  {
+    path: 'maintenance',
+    loadChildren: ()=> import('./maintenance/maintenance.module').then(m=> m.MaintenanceModule)
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\maintenance-routing.module.ts
+{path: "admin-management", component: AdminManagementComponent},
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\admin-management\admin-management.component.html
+
+(
+<app-page-title [breadcrumbItems]="pageTitle" title="Admin Users"></app-page-title>
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\shared\page-title\page-title.component.ts
+)

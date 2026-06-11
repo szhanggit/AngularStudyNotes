@@ -1,0 +1,2396 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/RefTimeFormat
+
+
+[
+    {
+        "timeFormatId": "yyyy-MM-dd",
+        "timeFormat": "yyyy-MM-dd"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy",
+        "timeFormat": "dd MMM yyyy"
+    },
+    {
+        "timeFormatId": "dddd dd MMMM yyyy",
+        "timeFormat": "dddd dd MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dd MMMM yyyy",
+        "timeFormat": "dd MMMM yyyy"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd h:mm tt",
+        "timeFormat": "yyyy-MM-dd h:mm tt"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy h:mm tt",
+        "timeFormat": "dd MMM yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd h:mm:ss tt",
+        "timeFormat": "yyyy-MM-dd h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy h:mm:ss tt",
+        "timeFormat": "dd MMM yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd HH:mm",
+        "timeFormat": "yyyy-MM-dd HH:mm"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy HH:mm",
+        "timeFormat": "dd MMM yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd HH:mm:ss",
+        "timeFormat": "yyyy-MM-dd HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy HH:mm:ss",
+        "timeFormat": "dd MMM yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yyyy",
+        "timeFormat": "d/M/yyyy"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy",
+        "timeFormat": "d MMM, yyyy"
+    },
+    {
+        "timeFormatId": "dddd d MMMM yyyy",
+        "timeFormat": "dddd d MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d MMMM yyyy",
+        "timeFormat": "d MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d/M/yyyy HH:mm",
+        "timeFormat": "d/M/yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy HH:mm",
+        "timeFormat": "d MMM, yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d/M/yyyy HH:mm:ss",
+        "timeFormat": "d/M/yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy HH:mm:ss",
+        "timeFormat": "d MMM, yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd",
+        "timeFormat": "yyyy/MM/dd"
+    },
+    {
+        "timeFormatId": "yyyy MMM d",
+        "timeFormat": "yyyy MMM d"
+    },
+    {
+        "timeFormatId": "yyyy/M/d",
+        "timeFormat": "yyyy/M/d"
+    },
+    {
+        "timeFormatId": "yy/MM/dd",
+        "timeFormat": "yy/MM/dd"
+    },
+    {
+        "timeFormatId": "dddd, yyyy MMMM dd",
+        "timeFormat": "dddd, yyyy MMMM dd"
+    },
+    {
+        "timeFormatId": "yyyy MMMM d",
+        "timeFormat": "yyyy MMMM d"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd h:mm tt",
+        "timeFormat": "yyyy/MM/dd h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy MMM d h:mm tt",
+        "timeFormat": "yyyy MMM d h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy/M/d h:mm tt",
+        "timeFormat": "yyyy/M/d h:mm tt"
+    },
+    {
+        "timeFormatId": "yy/MM/dd h:mm tt",
+        "timeFormat": "yy/MM/dd h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd h:mm:ss tt",
+        "timeFormat": "yyyy/MM/dd h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy MMM d h:mm:ss tt",
+        "timeFormat": "yyyy MMM d h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy/M/d h:mm:ss tt",
+        "timeFormat": "yyyy/M/d h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yy/MM/dd h:mm:ss tt",
+        "timeFormat": "yy/MM/dd h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy",
+        "timeFormat": "dd/MM/yyyy"
+    },
+    {
+        "timeFormatId": "d MMM yyyy",
+        "timeFormat": "d MMM yyyy"
+    },
+    {
+        "timeFormatId": "yyyy MMMM d, dddd",
+        "timeFormat": "yyyy MMMM d, dddd"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy h:mm tt",
+        "timeFormat": "dd/MM/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d MMM yyyy h:mm tt",
+        "timeFormat": "d MMM yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d/M/yyyy h:mm tt",
+        "timeFormat": "d/M/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy h:mm:ss tt",
+        "timeFormat": "dd/MM/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d MMM yyyy h:mm:ss tt",
+        "timeFormat": "d MMM yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d/M/yyyy h:mm:ss tt",
+        "timeFormat": "d/M/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy",
+        "timeFormat": "d‏/M‏/yyyy"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy",
+        "timeFormat": "dd‏/MM‏/yyyy"
+    },
+    {
+        "timeFormatId": "dddd، d MMMM yyyy",
+        "timeFormat": "dddd، d MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy h:mm tt",
+        "timeFormat": "d‏/M‏/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy h:mm tt",
+        "timeFormat": "dd‏/MM‏/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy h:mm:ss tt",
+        "timeFormat": "d‏/M‏/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy h:mm:ss tt",
+        "timeFormat": "dd‏/MM‏/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy H:mm",
+        "timeFormat": "d‏/M‏/yyyy H:mm"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy H:mm",
+        "timeFormat": "dd‏/MM‏/yyyy H:mm"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy H:mm:ss",
+        "timeFormat": "d‏/M‏/yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy H:mm:ss",
+        "timeFormat": "dd‏/MM‏/yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy HH:mm",
+        "timeFormat": "d‏/M‏/yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy HH:mm",
+        "timeFormat": "dd‏/MM‏/yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy HH:mm:ss",
+        "timeFormat": "d‏/M‏/yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd‏/MM‏/yyyy HH:mm:ss",
+        "timeFormat": "dd‏/MM‏/yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy g",
+        "timeFormat": "d‏/M‏/yyyy g"
+    },
+    {
+        "timeFormatId": "d MMM yyyy g",
+        "timeFormat": "d MMM yyyy g"
+    },
+    {
+        "timeFormatId": "dddd، d MMMM yyyy g",
+        "timeFormat": "dddd، d MMMM yyyy g"
+    },
+    {
+        "timeFormatId": "d MMMM yyyy g",
+        "timeFormat": "d MMMM yyyy g"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy g h:mm tt",
+        "timeFormat": "d‏/M‏/yyyy g h:mm tt"
+    },
+    {
+        "timeFormatId": "d MMM yyyy g h:mm tt",
+        "timeFormat": "d MMM yyyy g h:mm tt"
+    },
+    {
+        "timeFormatId": "d‏/M‏/yyyy g h:mm:ss tt",
+        "timeFormat": "d‏/M‏/yyyy g h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d MMM yyyy g h:mm:ss tt",
+        "timeFormat": "d MMM yyyy g h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d-M-yyyy",
+        "timeFormat": "d-M-yyyy"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy",
+        "timeFormat": "dd-MM-yyyy"
+    },
+    {
+        "timeFormatId": "dddd, d MMMM, yyyy",
+        "timeFormat": "dddd, d MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "d MMMM, yyyy",
+        "timeFormat": "d MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "d-M-yyyy tt h.mm",
+        "timeFormat": "d-M-yyyy tt h.mm"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy tt h.mm",
+        "timeFormat": "dd-MM-yyyy tt h.mm"
+    },
+    {
+        "timeFormatId": "d-M-yyyy tt h.mm.ss",
+        "timeFormat": "d-M-yyyy tt h.mm.ss"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy tt h.mm.ss",
+        "timeFormat": "dd-MM-yyyy tt h.mm.ss"
+    },
+    {
+        "timeFormatId": "dddd, d MMMM yyyy",
+        "timeFormat": "dddd, d MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy HH:mm",
+        "timeFormat": "dd/MM/yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy HH:mm",
+        "timeFormat": "d MMM yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy HH:mm:ss",
+        "timeFormat": "dd/MM/yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM yyyy HH:mm:ss",
+        "timeFormat": "d MMM yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yy",
+        "timeFormat": "d/M/yy"
+    },
+    {
+        "timeFormatId": "dddd, d MMMM 'de' yyyy",
+        "timeFormat": "dddd, d MMMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "d MMMM 'de' yyyy",
+        "timeFormat": "d MMMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "d/M/yy HH:mm",
+        "timeFormat": "d/M/yy HH:mm"
+    },
+    {
+        "timeFormatId": "d/M/yy HH:mm:ss",
+        "timeFormat": "d/M/yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy",
+        "timeFormat": "dd.MM.yyyy"
+    },
+    {
+        "timeFormatId": "dd.MM.yy",
+        "timeFormat": "dd.MM.yy"
+    },
+    {
+        "timeFormatId": "d MMMM yyyy, dddd",
+        "timeFormat": "d MMMM yyyy, dddd"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy HH:mm",
+        "timeFormat": "dd.MM.yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd.MM.yy HH:mm",
+        "timeFormat": "dd.MM.yy HH:mm"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy HH:mm:ss",
+        "timeFormat": "dd.MM.yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd.MM.yy HH:mm:ss",
+        "timeFormat": "dd.MM.yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.MM.yyyy",
+        "timeFormat": "d.MM.yyyy"
+    },
+    {
+        "timeFormatId": "d.MM.yy",
+        "timeFormat": "d.MM.yy"
+    },
+    {
+        "timeFormatId": "d.M.yyyy",
+        "timeFormat": "d.M.yyyy"
+    },
+    {
+        "timeFormatId": "dddd, d MMMM yyyy 'г'.",
+        "timeFormat": "dddd, d MMMM yyyy 'г'."
+    },
+    {
+        "timeFormatId": "d MMMM yyyy 'г'.",
+        "timeFormat": "d MMMM yyyy 'г'."
+    },
+    {
+        "timeFormatId": "d.MM.yyyy HH:mm",
+        "timeFormat": "d.MM.yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d.MM.yy HH:mm",
+        "timeFormat": "d.MM.yy HH:mm"
+    },
+    {
+        "timeFormatId": "d.M.yyyy HH:mm",
+        "timeFormat": "d.M.yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d.MM.yyyy HH:mm:ss",
+        "timeFormat": "d.MM.yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.MM.yy HH:mm:ss",
+        "timeFormat": "d.MM.yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.M.yyyy HH:mm:ss",
+        "timeFormat": "d.M.yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.MM.yyyy 'г'.",
+        "timeFormat": "d.MM.yyyy 'г'."
+    },
+    {
+        "timeFormatId": "d.MM.yy 'г'.",
+        "timeFormat": "d.MM.yy 'г'."
+    },
+    {
+        "timeFormatId": "d.MM.yyyy 'г'. H:mm",
+        "timeFormat": "d.MM.yyyy 'г'. H:mm"
+    },
+    {
+        "timeFormatId": "d.MM.yy 'г'. H:mm",
+        "timeFormat": "d.MM.yy 'г'. H:mm"
+    },
+    {
+        "timeFormatId": "d.MM.yyyy 'г'. H:mm:ss",
+        "timeFormat": "d.MM.yyyy 'г'. H:mm:ss"
+    },
+    {
+        "timeFormatId": "d.MM.yy 'г'. H:mm:ss",
+        "timeFormat": "d.MM.yy 'г'. H:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy h:mm tt",
+        "timeFormat": "d MMM, yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d/M/yy h:mm tt",
+        "timeFormat": "d/M/yy h:mm tt"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy h:mm:ss tt",
+        "timeFormat": "d MMM, yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d/M/yy h:mm:ss tt",
+        "timeFormat": "d/M/yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy ལོའི་MMMཚེས་d",
+        "timeFormat": "yyyy ལོའི་MMMཚེས་d"
+    },
+    {
+        "timeFormatId": "yyyy-M-d",
+        "timeFormat": "yyyy-M-d"
+    },
+    {
+        "timeFormatId": "yyyy MMMMའི་ཚེས་d, dddd",
+        "timeFormat": "yyyy MMMMའི་ཚེས་d, dddd"
+    },
+    {
+        "timeFormatId": "སྤྱི་ལོ་yyyy MMMMའི་ཚེས་d",
+        "timeFormat": "སྤྱི་ལོ་yyyy MMMMའི་ཚེས་d"
+    },
+    {
+        "timeFormatId": "yyyy ལོའི་MMMཚེས་d h:mm tt",
+        "timeFormat": "yyyy ལོའི་MMMཚེས་d h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy-M-d h:mm tt",
+        "timeFormat": "yyyy-M-d h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy ལོའི་MMMཚེས་d h:mm:ss tt",
+        "timeFormat": "yyyy ལོའི་MMMཚེས་d h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy-M-d h:mm:ss tt",
+        "timeFormat": "yyyy-M-d h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "M/d/yyyy",
+        "timeFormat": "M/d/yyyy"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy",
+        "timeFormat": "MMM d, yyyy"
+    },
+    {
+        "timeFormatId": "M/d/yy",
+        "timeFormat": "M/d/yy"
+    },
+    {
+        "timeFormatId": "dddd, MMMM d, yyyy",
+        "timeFormat": "dddd, MMMM d, yyyy"
+    },
+    {
+        "timeFormatId": "MMMM d, yyyy",
+        "timeFormat": "MMMM d, yyyy"
+    },
+    {
+        "timeFormatId": "M/d/yyyy h:mm tt",
+        "timeFormat": "M/d/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy h:mm tt",
+        "timeFormat": "MMM d, yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "M/d/yy h:mm tt",
+        "timeFormat": "M/d/yy h:mm tt"
+    },
+    {
+        "timeFormatId": "M/d/yyyy h:mm:ss tt",
+        "timeFormat": "M/d/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy h:mm:ss tt",
+        "timeFormat": "MMM d, yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "M/d/yy h:mm:ss tt",
+        "timeFormat": "M/d/yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d.M.yyyy.",
+        "timeFormat": "d.M.yyyy."
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy.",
+        "timeFormat": "dd.MM.yyyy."
+    },
+    {
+        "timeFormatId": "d.M.yy.",
+        "timeFormat": "d.M.yy."
+    },
+    {
+        "timeFormatId": "dddd, dd. MMMM yyyy.",
+        "timeFormat": "dddd, dd. MMMM yyyy."
+    },
+    {
+        "timeFormatId": "dd. MMMM yyyy.",
+        "timeFormat": "dd. MMMM yyyy."
+    },
+    {
+        "timeFormatId": "d.M.yyyy. HH:mm",
+        "timeFormat": "d.M.yyyy. HH:mm"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy. HH:mm",
+        "timeFormat": "dd.MM.yyyy. HH:mm"
+    },
+    {
+        "timeFormatId": "d.M.yy. HH:mm",
+        "timeFormat": "d.M.yy. HH:mm"
+    },
+    {
+        "timeFormatId": "d.M.yyyy. HH:mm:ss",
+        "timeFormat": "d.M.yyyy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy. HH:mm:ss",
+        "timeFormat": "dd.MM.yyyy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.M.yy. HH:mm:ss",
+        "timeFormat": "d.M.yy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. M. yyyy.",
+        "timeFormat": "d. M. yyyy."
+    },
+    {
+        "timeFormatId": "d. MMM yyyy.",
+        "timeFormat": "d. MMM yyyy."
+    },
+    {
+        "timeFormatId": "dddd, d. MMMM yyyy.",
+        "timeFormat": "dddd, d. MMMM yyyy."
+    },
+    {
+        "timeFormatId": "d. MMMM yyyy.",
+        "timeFormat": "d. MMMM yyyy."
+    },
+    {
+        "timeFormatId": "d. M. yyyy. HH:mm",
+        "timeFormat": "d. M. yyyy. HH:mm"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy. HH:mm",
+        "timeFormat": "d. MMM yyyy. HH:mm"
+    },
+    {
+        "timeFormatId": "d. M. yyyy. HH:mm:ss",
+        "timeFormat": "d. M. yyyy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy. HH:mm:ss",
+        "timeFormat": "d. MMM yyyy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yyyy H:mm",
+        "timeFormat": "d/M/yyyy H:mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy H:mm",
+        "timeFormat": "d MMM yyyy H:mm"
+    },
+    {
+        "timeFormatId": "d/M/yy H:mm",
+        "timeFormat": "d/M/yy H:mm"
+    },
+    {
+        "timeFormatId": "d/M/yyyy H:mm:ss",
+        "timeFormat": "d/M/yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM yyyy H:mm:ss",
+        "timeFormat": "d MMM yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yy H:mm:ss",
+        "timeFormat": "d/M/yy H:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy MMM d HH:mm",
+        "timeFormat": "yyyy MMM d HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy-M-d HH:mm",
+        "timeFormat": "yyyy-M-d HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy MMM d HH:mm:ss",
+        "timeFormat": "yyyy MMM d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy-M-d HH:mm:ss",
+        "timeFormat": "yyyy-M-d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dی MMMMی yyyy",
+        "timeFormat": "dی MMMMی yyyy"
+    },
+    {
+        "timeFormatId": "g yyyy-MM-dd",
+        "timeFormat": "g yyyy-MM-dd"
+    },
+    {
+        "timeFormatId": "g yyyy MMM d",
+        "timeFormat": "g yyyy MMM d"
+    },
+    {
+        "timeFormatId": "g yyyy MMMM d, dddd",
+        "timeFormat": "g yyyy MMMM d, dddd"
+    },
+    {
+        "timeFormatId": "dی MMMMی yyyy g",
+        "timeFormat": "dی MMMMی yyyy g"
+    },
+    {
+        "timeFormatId": "g yyyy-MM-dd HH:mm",
+        "timeFormat": "g yyyy-MM-dd HH:mm"
+    },
+    {
+        "timeFormatId": "g yyyy MMM d HH:mm",
+        "timeFormat": "g yyyy MMM d HH:mm"
+    },
+    {
+        "timeFormatId": "g yyyy-MM-dd HH:mm:ss",
+        "timeFormat": "g yyyy-MM-dd HH:mm:ss"
+    },
+    {
+        "timeFormatId": "g yyyy MMM d HH:mm:ss",
+        "timeFormat": "g yyyy MMM d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. M. yyyy",
+        "timeFormat": "d. M. yyyy"
+    },
+    {
+        "timeFormatId": "dddd d. MMMM yyyy",
+        "timeFormat": "dddd d. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d. MMMM yyyy",
+        "timeFormat": "d. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy H:mm",
+        "timeFormat": "dd.MM.yyyy H:mm"
+    },
+    {
+        "timeFormatId": "d. M. yyyy H:mm",
+        "timeFormat": "d. M. yyyy H:mm"
+    },
+    {
+        "timeFormatId": "dd.MM.yy H:mm",
+        "timeFormat": "dd.MM.yy H:mm"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy H:mm:ss",
+        "timeFormat": "dd.MM.yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "d. M. yyyy H:mm:ss",
+        "timeFormat": "d. M. yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "dd.MM.yy H:mm:ss",
+        "timeFormat": "dd.MM.yy H:mm:ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yy",
+        "timeFormat": "dd/MM/yy"
+    },
+    {
+        "timeFormatId": "dd/MM/yy HH:mm",
+        "timeFormat": "dd/MM/yy HH:mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yy HH:mm:ss",
+        "timeFormat": "dd/MM/yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy",
+        "timeFormat": "d. MMM yyyy"
+    },
+    {
+        "timeFormatId": "dddd 'den' d. MMMM yyyy",
+        "timeFormat": "dddd 'den' d. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy HH.mm",
+        "timeFormat": "dd.MM.yyyy HH.mm"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy HH.mm",
+        "timeFormat": "d. MMM yyyy HH.mm"
+    },
+    {
+        "timeFormatId": "d.M.yyyy HH.mm",
+        "timeFormat": "d.M.yyyy HH.mm"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy HH.mm.ss",
+        "timeFormat": "dd.MM.yyyy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy HH.mm.ss",
+        "timeFormat": "d. MMM yyyy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "d.M.yyyy HH.mm.ss",
+        "timeFormat": "d.M.yyyy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "dddd, d. MMMM yyyy",
+        "timeFormat": "dddd, d. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d.M.yy",
+        "timeFormat": "d.M.yy"
+    },
+    {
+        "timeFormatId": "d.M.yyyy H:mm",
+        "timeFormat": "d.M.yyyy H:mm"
+    },
+    {
+        "timeFormatId": "d.M.yy H:mm",
+        "timeFormat": "d.M.yy H:mm"
+    },
+    {
+        "timeFormatId": "d.M.yyyy H:mm:ss",
+        "timeFormat": "d.M.yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "d.M.yy H:mm:ss",
+        "timeFormat": "d.M.yy H:mm:ss"
+    },
+    {
+        "timeFormatId": "སྤྱི་ལོ་yyyy ཟླ་MMM ཚེས་dd",
+        "timeFormat": "སྤྱི་ལོ་yyyy ཟླ་MMM ཚེས་dd"
+    },
+    {
+        "timeFormatId": "dddd, སྤྱི་ལོ་yyyy MMMM ཚེས་dd",
+        "timeFormat": "dddd, སྤྱི་ལོ་yyyy MMMM ཚེས་dd"
+    },
+    {
+        "timeFormatId": "སྤྱི་ལོ་yyyy MMMM ཚེས་ dd",
+        "timeFormat": "སྤྱི་ལོ་yyyy MMMM ཚེས་ dd"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd  h  mm tt",
+        "timeFormat": "yyyy-MM-dd  h  mm tt"
+    },
+    {
+        "timeFormatId": "སྤྱི་ལོ་yyyy ཟླ་MMM ཚེས་dd  h  mm tt",
+        "timeFormat": "སྤྱི་ལོ་yyyy ཟླ་MMM ཚེས་dd  h  mm tt"
+    },
+    {
+        "timeFormatId": "yyyy-M-d  h  mm tt",
+        "timeFormat": "yyyy-M-d  h  mm tt"
+    },
+    {
+        "timeFormatId": "སྤྱི་ལོ་yyyy ཟླ་MMM ཚེས་dd h:mm:ss tt",
+        "timeFormat": "སྤྱི་ལོ་yyyy ཟླ་MMM ཚེས་dd h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "MMM d 'lia', yyyy",
+        "timeFormat": "MMM d 'lia', yyyy"
+    },
+    {
+        "timeFormatId": "dddd, MMMM d 'lia' yyyy",
+        "timeFormat": "dddd, MMMM d 'lia' yyyy"
+    },
+    {
+        "timeFormatId": "MMMM d 'lia' yyyy",
+        "timeFormat": "MMMM d 'lia' yyyy"
+    },
+    {
+        "timeFormatId": "M/d/yyyy tt 'ga' h:mm",
+        "timeFormat": "M/d/yyyy tt 'ga' h:mm"
+    },
+    {
+        "timeFormatId": "MMM d 'lia', yyyy tt 'ga' h:mm",
+        "timeFormat": "MMM d 'lia', yyyy tt 'ga' h:mm"
+    },
+    {
+        "timeFormatId": "M/d/yy tt 'ga' h:mm",
+        "timeFormat": "M/d/yy tt 'ga' h:mm"
+    },
+    {
+        "timeFormatId": "M/d/yyyy tt 'ga' h:mm:ss",
+        "timeFormat": "M/d/yyyy tt 'ga' h:mm:ss"
+    },
+    {
+        "timeFormatId": "MMM d 'lia', yyyy tt 'ga' h:mm:ss",
+        "timeFormat": "MMM d 'lia', yyyy tt 'ga' h:mm:ss"
+    },
+    {
+        "timeFormatId": "M/d/yy tt 'ga' h:mm:ss",
+        "timeFormat": "M/d/yy tt 'ga' h:mm:ss"
+    },
+    {
+        "timeFormatId": "M/d/yyyy HH:mm",
+        "timeFormat": "M/d/yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "MMM d 'lia', yyyy HH:mm",
+        "timeFormat": "MMM d 'lia', yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "M/d/yy HH:mm",
+        "timeFormat": "M/d/yy HH:mm"
+    },
+    {
+        "timeFormatId": "M/d/yyyy HH:mm:ss",
+        "timeFormat": "M/d/yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "MMM d 'lia', yyyy HH:mm:ss",
+        "timeFormat": "MMM d 'lia', yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "M/d/yy HH:mm:ss",
+        "timeFormat": "M/d/yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy HH:mm",
+        "timeFormat": "MMM d, yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy HH:mm:ss",
+        "timeFormat": "MMM d, yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd, dd MMMM yyyy",
+        "timeFormat": "dddd, dd MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dd-MMM-yyyy",
+        "timeFormat": "dd-MMM-yyyy"
+    },
+    {
+        "timeFormatId": "dd-MMM-yyyy HH:mm",
+        "timeFormat": "dd-MMM-yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd-MMM-yyyy HH:mm:ss",
+        "timeFormat": "dd-MMM-yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy HH.mm",
+        "timeFormat": "dd/MM/yyyy HH.mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy HH.mm",
+        "timeFormat": "d MMM yyyy HH.mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy HH.mm.ss",
+        "timeFormat": "dd/MM/yyyy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "d MMM yyyy HH.mm.ss",
+        "timeFormat": "d MMM yyyy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy H.mm",
+        "timeFormat": "dd/MM/yyyy H.mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy H.mm",
+        "timeFormat": "d MMM yyyy H.mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy H.mm.ss",
+        "timeFormat": "dd/MM/yyyy H.mm.ss"
+    },
+    {
+        "timeFormatId": "d MMM yyyy H.mm.ss",
+        "timeFormat": "d MMM yyyy H.mm.ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy H:mm",
+        "timeFormat": "dd/MM/yyyy H:mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy H:mm:ss",
+        "timeFormat": "dd/MM/yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "dd-MMM-yyyy h:mm tt",
+        "timeFormat": "dd-MMM-yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd/MM/yy h:mm tt",
+        "timeFormat": "dd/MM/yy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd-MMM-yyyy h:mm:ss tt",
+        "timeFormat": "dd-MMM-yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dd/MM/yy h:mm:ss tt",
+        "timeFormat": "dd/MM/yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d/MM/yyyy",
+        "timeFormat": "d/MM/yyyy"
+    },
+    {
+        "timeFormatId": "d/MM/yy",
+        "timeFormat": "d/MM/yy"
+    },
+    {
+        "timeFormatId": "d/MM/yyyy h:mm tt",
+        "timeFormat": "d/MM/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d/MM/yy h:mm tt",
+        "timeFormat": "d/MM/yy h:mm tt"
+    },
+    {
+        "timeFormatId": "d/MM/yyyy h:mm:ss tt",
+        "timeFormat": "d/MM/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d/MM/yy h:mm:ss tt",
+        "timeFormat": "d/MM/yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd HH:mm",
+        "timeFormat": "yyyy/MM/dd HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd HH:mm:ss",
+        "timeFormat": "yyyy/MM/dd HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd MMM,yyyy",
+        "timeFormat": "dd MMM,yyyy"
+    },
+    {
+        "timeFormatId": "dd MMM,yyyy HH:mm",
+        "timeFormat": "dd MMM,yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd MMM,yyyy HH:mm:ss",
+        "timeFormat": "dd MMM,yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy-MMM-dd",
+        "timeFormat": "yyyy-MMM-dd"
+    },
+    {
+        "timeFormatId": "yy-MM-dd",
+        "timeFormat": "yy-MM-dd"
+    },
+    {
+        "timeFormatId": "dddd, d-'a' 'de' MMMM yyyy",
+        "timeFormat": "dddd, d-'a' 'de' MMMM yyyy"
+    },
+    {
+        "timeFormatId": "yyyy-MMMM-dd",
+        "timeFormat": "yyyy-MMMM-dd"
+    },
+    {
+        "timeFormatId": "yyyy-MMM-dd HH:mm",
+        "timeFormat": "yyyy-MMM-dd HH:mm"
+    },
+    {
+        "timeFormatId": "yy-MM-dd HH:mm",
+        "timeFormat": "yy-MM-dd HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy-MMM-dd HH:mm:ss",
+        "timeFormat": "yyyy-MMM-dd HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yy-MM-dd HH:mm:ss",
+        "timeFormat": "yy-MM-dd HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd, d 'de' MMMM 'de' yyyy",
+        "timeFormat": "dddd, d 'de' MMMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "d 'de' MMMM 'de' yyyy",
+        "timeFormat": "d 'de' MMMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "d MMM 'de' yyyy",
+        "timeFormat": "d MMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "d MMM 'de' yyyy HH:mm",
+        "timeFormat": "d MMM 'de' yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d MMM 'de' yyyy HH:mm:ss",
+        "timeFormat": "d MMM 'de' yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd-MM-yy",
+        "timeFormat": "dd-MM-yy"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy HH:mm",
+        "timeFormat": "dd-MM-yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd-MM-yy HH:mm",
+        "timeFormat": "dd-MM-yy HH:mm"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy HH:mm:ss",
+        "timeFormat": "dd-MM-yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd-MM-yy HH:mm:ss",
+        "timeFormat": "dd-MM-yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/MM/yyyy HH:mm",
+        "timeFormat": "d/MM/yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d/MM/yy HH:mm",
+        "timeFormat": "d/MM/yy HH:mm"
+    },
+    {
+        "timeFormatId": "d/MM/yyyy HH:mm:ss",
+        "timeFormat": "d/MM/yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/MM/yy HH:mm:ss",
+        "timeFormat": "d/MM/yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd dd 'de' MMMM 'de' yyyy",
+        "timeFormat": "dddd dd 'de' MMMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "dd 'de' MMMM 'de' yyyy",
+        "timeFormat": "dd 'de' MMMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "dd/MM/yy H:mm",
+        "timeFormat": "dd/MM/yy H:mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yy H:mm:ss",
+        "timeFormat": "dd/MM/yy H:mm:ss"
+    },
+    {
+        "timeFormatId": "MM/dd/yyyy",
+        "timeFormat": "MM/dd/yyyy"
+    },
+    {
+        "timeFormatId": "MM/dd/yy",
+        "timeFormat": "MM/dd/yy"
+    },
+    {
+        "timeFormatId": "MM/dd/yyyy h:mm tt",
+        "timeFormat": "MM/dd/yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "MM/dd/yy h:mm tt",
+        "timeFormat": "MM/dd/yy h:mm tt"
+    },
+    {
+        "timeFormatId": "MM/dd/yyyy h:mm:ss tt",
+        "timeFormat": "MM/dd/yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "MM/dd/yy h:mm:ss tt",
+        "timeFormat": "MM/dd/yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy HH:mm",
+        "timeFormat": "d. MMM yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d. MMM yyyy HH:mm:ss",
+        "timeFormat": "d. MMM yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy('e')'ko' MMM d('a')",
+        "timeFormat": "yyyy('e')'ko' MMM d('a')"
+    },
+    {
+        "timeFormatId": "yy/M/d",
+        "timeFormat": "yy/M/d"
+    },
+    {
+        "timeFormatId": "yyyy('e')'ko' MMMM'ren' d('a'), dddd",
+        "timeFormat": "yyyy('e')'ko' MMMM'ren' d('a'), dddd"
+    },
+    {
+        "timeFormatId": "yyyy('e')'ko' MMMM'ren' d('a')",
+        "timeFormat": "yyyy('e')'ko' MMMM'ren' d('a')"
+    },
+    {
+        "timeFormatId": "yyyy/M/d HH:mm",
+        "timeFormat": "yyyy/M/d HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy('e')'ko' MMM d('a') HH:mm",
+        "timeFormat": "yyyy('e')'ko' MMM d('a') HH:mm"
+    },
+    {
+        "timeFormatId": "yy/M/d HH:mm",
+        "timeFormat": "yy/M/d HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy/M/d HH:mm:ss",
+        "timeFormat": "yyyy/M/d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy('e')'ko' MMM d('a') HH:mm:ss",
+        "timeFormat": "yyyy('e')'ko' MMM d('a') HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yy/M/d HH:mm:ss",
+        "timeFormat": "yy/M/d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy/M/d H:mm",
+        "timeFormat": "yyyy/M/d H:mm"
+    },
+    {
+        "timeFormatId": "yyyy/M/d H:mm:ss",
+        "timeFormat": "yyyy/M/d H:mm:ss"
+    },
+    {
+        "timeFormatId": "d.M.yyyy H.mm",
+        "timeFormat": "d.M.yyyy H.mm"
+    },
+    {
+        "timeFormatId": "d.M.yyyy H.mm.ss",
+        "timeFormat": "d.M.yyyy H.mm.ss"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd HH 'h' mm",
+        "timeFormat": "yyyy-MM-dd HH 'h' mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy HH 'h' mm",
+        "timeFormat": "d MMM yyyy HH 'h' mm"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd HH 'h' mm 'min' ss 's'",
+        "timeFormat": "yyyy-MM-dd HH 'h' mm 'min' ss 's'"
+    },
+    {
+        "timeFormatId": "d MMM yyyy HH 'h' mm 'min' ss 's'",
+        "timeFormat": "d MMM yyyy HH 'h' mm 'min' ss 's'"
+    },
+    {
+        "timeFormatId": "dddd d 'di' MMMM 'dal' yyyy",
+        "timeFormat": "dddd d 'di' MMMM 'dal' yyyy"
+    },
+    {
+        "timeFormatId": "d 'di' MMMM 'dal' yyyy",
+        "timeFormat": "d 'di' MMMM 'dal' yyyy"
+    },
+    {
+        "timeFormatId": "d-M-yyyy HH:mm",
+        "timeFormat": "d-M-yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d-M-yyyy HH:mm:ss",
+        "timeFormat": "d-M-yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd, d'mh' MMMM yyyy",
+        "timeFormat": "dddd, d'mh' MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d'mh' MMMM yyyy",
+        "timeFormat": "d'mh' MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d 'de' MMM 'de' yyyy",
+        "timeFormat": "d 'de' MMM 'de' yyyy"
+    },
+    {
+        "timeFormatId": "d 'de' MMM 'de' yyyy HH:mm",
+        "timeFormat": "d 'de' MMM 'de' yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d 'de' MMM 'de' yyyy HH:mm:ss",
+        "timeFormat": "d 'de' MMM 'de' yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yyyy hh:mm tt",
+        "timeFormat": "d/M/yyyy hh:mm tt"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy hh:mm tt",
+        "timeFormat": "d MMM, yyyy hh:mm tt"
+    },
+    {
+        "timeFormatId": "d/M/yy hh:mm tt",
+        "timeFormat": "d/M/yy hh:mm tt"
+    },
+    {
+        "timeFormatId": "d/M/yyyy hh:mm:ss tt",
+        "timeFormat": "d/M/yyyy hh:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy hh:mm:ss tt",
+        "timeFormat": "d MMM, yyyy hh:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d/M/yy hh:mm:ss tt",
+        "timeFormat": "d/M/yy hh:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dddd d MMMM, yyyy",
+        "timeFormat": "dddd d MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "d בMMM yyyy",
+        "timeFormat": "d בMMM yyyy"
+    },
+    {
+        "timeFormatId": "dddd, d בMMMM yyyy",
+        "timeFormat": "dddd, d בMMMM yyyy"
+    },
+    {
+        "timeFormatId": "d בMMMM yyyy",
+        "timeFormat": "d בMMMM yyyy"
+    },
+    {
+        "timeFormatId": "d בMMM yyyy H:mm",
+        "timeFormat": "d בMMM yyyy H:mm"
+    },
+    {
+        "timeFormatId": "d בMMM yyyy H:mm:ss",
+        "timeFormat": "d בMMM yyyy H:mm:ss"
+    },
+    {
+        "timeFormatId": "dd. MM. yyyy.",
+        "timeFormat": "dd. MM. yyyy."
+    },
+    {
+        "timeFormatId": "d. M. yy.",
+        "timeFormat": "d. M. yy."
+    },
+    {
+        "timeFormatId": "dd. MM. yyyy. HH:mm",
+        "timeFormat": "dd. MM. yyyy. HH:mm"
+    },
+    {
+        "timeFormatId": "d. M. yy. HH:mm",
+        "timeFormat": "d. M. yy. HH:mm"
+    },
+    {
+        "timeFormatId": "dd. MM. yyyy. HH:mm:ss",
+        "timeFormat": "dd. MM. yyyy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. M. yy. HH:mm:ss",
+        "timeFormat": "d. M. yy. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.M.yyyy H:mm 'hodź'.",
+        "timeFormat": "d.M.yyyy H:mm 'hodź'."
+    },
+    {
+        "timeFormatId": "d.M.yy H:mm 'hodź'.",
+        "timeFormat": "d.M.yy H:mm 'hodź'."
+    },
+    {
+        "timeFormatId": "yyyy. MM. dd.",
+        "timeFormat": "yyyy. MM. dd."
+    },
+    {
+        "timeFormatId": "yyyy. MMM d.",
+        "timeFormat": "yyyy. MMM d."
+    },
+    {
+        "timeFormatId": "yyyy. MMMM d., dddd",
+        "timeFormat": "yyyy. MMMM d., dddd"
+    },
+    {
+        "timeFormatId": "yyyy. MMMM d.",
+        "timeFormat": "yyyy. MMMM d."
+    },
+    {
+        "timeFormatId": "yyyy. MM. dd. H:mm",
+        "timeFormat": "yyyy. MM. dd. H:mm"
+    },
+    {
+        "timeFormatId": "yyyy. MMM d. H:mm",
+        "timeFormat": "yyyy. MMM d. H:mm"
+    },
+    {
+        "timeFormatId": "yyyy. MM. dd. H:mm:ss",
+        "timeFormat": "yyyy. MM. dd. H:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy. MMM d. H:mm:ss",
+        "timeFormat": "yyyy. MMM d. H:mm:ss"
+    },
+    {
+        "timeFormatId": "dd MMM, yyyy թ.",
+        "timeFormat": "dd MMM, yyyy թ."
+    },
+    {
+        "timeFormatId": "yyyy թ. MMMM d, dddd",
+        "timeFormat": "yyyy թ. MMMM d, dddd"
+    },
+    {
+        "timeFormatId": "dd MMMM, yyyy թ.",
+        "timeFormat": "dd MMMM, yyyy թ."
+    },
+    {
+        "timeFormatId": "dd MMM, yyyy թ. HH:mm",
+        "timeFormat": "dd MMM, yyyy թ. HH:mm"
+    },
+    {
+        "timeFormatId": "dd MMM, yyyy թ. HH:mm:ss",
+        "timeFormat": "dd MMM, yyyy թ. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd 'le' d 'de' MMMM yyyy",
+        "timeFormat": "dddd 'le' d 'de' MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d 'de' MMMM yyyy",
+        "timeFormat": "d 'de' MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d/M/yyyy HH.mm",
+        "timeFormat": "d/M/yyyy HH.mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yy HH.mm",
+        "timeFormat": "dd/MM/yy HH.mm"
+    },
+    {
+        "timeFormatId": "d/M/yyyy HH.mm.ss",
+        "timeFormat": "d/M/yyyy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yy HH.mm.ss",
+        "timeFormat": "dd/MM/yy HH.mm.ss"
+    },
+    {
+        "timeFormatId": "yyyy年M月d日dddd",
+        "timeFormat": "yyyy年M月d日dddd"
+    },
+    {
+        "timeFormatId": "yyyy年M月d日",
+        "timeFormat": "yyyy年M月d日"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd H:mm",
+        "timeFormat": "yyyy/MM/dd H:mm"
+    },
+    {
+        "timeFormatId": "yyyy/MM/dd H:mm:ss",
+        "timeFormat": "yyyy/MM/dd H:mm:ss"
+    },
+    {
+        "timeFormatId": "M.d.yyyy",
+        "timeFormat": "M.d.yyyy"
+    },
+    {
+        "timeFormatId": "M.d.yyyy HH:mm",
+        "timeFormat": "M.d.yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "M.d.yyyy HH:mm:ss",
+        "timeFormat": "M.d.yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM. yyyy",
+        "timeFormat": "d MMM. yyyy"
+    },
+    {
+        "timeFormatId": "dddd, dd MMMM, yyyy",
+        "timeFormat": "dddd, dd MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "d MMM. yyyy HH:mm",
+        "timeFormat": "d MMM. yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d MMM. yyyy HH:mm:ss",
+        "timeFormat": "d MMM. yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd, d 'di' MMMM 'di' yyyy",
+        "timeFormat": "dddd, d 'di' MMMM 'di' yyyy"
+    },
+    {
+        "timeFormatId": "d 'di' MMMM 'di' yyyy",
+        "timeFormat": "d 'di' MMMM 'di' yyyy"
+    },
+    {
+        "timeFormatId": "yyyy 'ж'. dd MMM",
+        "timeFormat": "yyyy 'ж'. dd MMM"
+    },
+    {
+        "timeFormatId": "yyyy 'ж'. d MMMM, dddd",
+        "timeFormat": "yyyy 'ж'. d MMMM, dddd"
+    },
+    {
+        "timeFormatId": "yyyy 'ж'. d MMMM",
+        "timeFormat": "yyyy 'ж'. d MMMM"
+    },
+    {
+        "timeFormatId": "yyyy 'ж'. dd MMM HH:mm",
+        "timeFormat": "yyyy 'ж'. dd MMM HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy 'ж'. dd MMM HH:mm:ss",
+        "timeFormat": "yyyy 'ж'. dd MMM HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd/MM yyyy",
+        "timeFormat": "dd/MM yyyy"
+    },
+    {
+        "timeFormatId": "dd/MM yyyy HH:mm",
+        "timeFormat": "dd/MM yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dd/MM yyyy HH:mm:ss",
+        "timeFormat": "dd/MM yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd HH.mm",
+        "timeFormat": "yyyy-MM-dd HH.mm"
+    },
+    {
+        "timeFormatId": "yyyy MMM d HH.mm",
+        "timeFormat": "yyyy MMM d HH.mm"
+    },
+    {
+        "timeFormatId": "yyyy-M-d HH.mm",
+        "timeFormat": "yyyy-M-d HH.mm"
+    },
+    {
+        "timeFormatId": "yyyy-MM-dd HH.mm.ss",
+        "timeFormat": "yyyy-MM-dd HH.mm.ss"
+    },
+    {
+        "timeFormatId": "yyyy MMM d HH.mm.ss",
+        "timeFormat": "yyyy MMM d HH.mm.ss"
+    },
+    {
+        "timeFormatId": "yyyy-M-d HH.mm.ss",
+        "timeFormat": "yyyy-M-d HH.mm.ss"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy hh:mm tt",
+        "timeFormat": "MMM d, yyyy hh:mm tt"
+    },
+    {
+        "timeFormatId": "MMM d, yyyy hh:mm:ss tt",
+        "timeFormat": "MMM d, yyyy hh:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy. M. d.",
+        "timeFormat": "yyyy. M. d."
+    },
+    {
+        "timeFormatId": "yy. M. d.",
+        "timeFormat": "yy. M. d."
+    },
+    {
+        "timeFormatId": "yyyy년 M월 d일 dddd",
+        "timeFormat": "yyyy년 M월 d일 dddd"
+    },
+    {
+        "timeFormatId": "yyyy년 M월 d일",
+        "timeFormat": "yyyy년 M월 d일"
+    },
+    {
+        "timeFormatId": "yyyy. M. d. tt h:mm",
+        "timeFormat": "yyyy. M. d. tt h:mm"
+    },
+    {
+        "timeFormatId": "yy. M. d. tt h:mm",
+        "timeFormat": "yy. M. d. tt h:mm"
+    },
+    {
+        "timeFormatId": "yyyy. M. d. tt h:mm:ss",
+        "timeFormat": "yyyy. M. d. tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "yy. M. d. tt h:mm:ss",
+        "timeFormat": "yy. M. d. tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "d-M-yy",
+        "timeFormat": "d-M-yy"
+    },
+    {
+        "timeFormatId": "d-M-yyyy h:mm tt",
+        "timeFormat": "d-M-yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy h:mm tt",
+        "timeFormat": "dd-MM-yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d-M-yy h:mm tt",
+        "timeFormat": "d-M-yy h:mm tt"
+    },
+    {
+        "timeFormatId": "d-M-yyyy h:mm:ss tt",
+        "timeFormat": "d-M-yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy h:mm:ss tt",
+        "timeFormat": "dd-MM-yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d-M-yy h:mm:ss tt",
+        "timeFormat": "d-M-yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d. MMM. yyyy",
+        "timeFormat": "d. MMM. yyyy"
+    },
+    {
+        "timeFormatId": "dddd, 'dä' d. MMMM yyyy",
+        "timeFormat": "dddd, 'dä' d. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d. M. yyyy HH:mm",
+        "timeFormat": "d. M. yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d. MMM. yyyy HH:mm",
+        "timeFormat": "d. MMM. yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d. M. yyyy HH:mm:ss",
+        "timeFormat": "d. M. yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. MMM. yyyy HH:mm:ss",
+        "timeFormat": "d. MMM. yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy-'ж'., d-MMM",
+        "timeFormat": "yyyy-'ж'., d-MMM"
+    },
+    {
+        "timeFormatId": "yyyy-dd-MM",
+        "timeFormat": "yyyy-dd-MM"
+    },
+    {
+        "timeFormatId": "yyyy-'ж'., d-MMMM, dddd",
+        "timeFormat": "yyyy-'ж'., d-MMMM, dddd"
+    },
+    {
+        "timeFormatId": "yyyy-'ж'., d-MMMM",
+        "timeFormat": "yyyy-'ж'., d-MMMM"
+    },
+    {
+        "timeFormatId": "yyyy-'ж'., d-MMM HH:mm",
+        "timeFormat": "yyyy-'ж'., d-MMM HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy-dd-MM HH:mm",
+        "timeFormat": "yyyy-dd-MM HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy-'ж'., d-MMM HH:mm:ss",
+        "timeFormat": "yyyy-'ж'., d-MMM HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy-dd-MM HH:mm:ss",
+        "timeFormat": "yyyy-dd-MM HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd ທີ d MMMM g yyyy",
+        "timeFormat": "dddd ທີ d MMMM g yyyy"
+    },
+    {
+        "timeFormatId": "g yyyy MMMM d",
+        "timeFormat": "g yyyy MMMM d"
+    },
+    {
+        "timeFormatId": "yyyy 'm'. MMMM d 'd'., dddd",
+        "timeFormat": "yyyy 'm'. MMMM d 'd'., dddd"
+    },
+    {
+        "timeFormatId": "yyyy 'm'. MMMM d 'd'.",
+        "timeFormat": "yyyy 'm'. MMMM d 'd'."
+    },
+    {
+        "timeFormatId": "yyyy. 'gada' d. MMM",
+        "timeFormat": "yyyy. 'gada' d. MMM"
+    },
+    {
+        "timeFormatId": "yyyy.MM.d.",
+        "timeFormat": "yyyy.MM.d."
+    },
+    {
+        "timeFormatId": "dddd, yyyy. 'gada' d. MMMM",
+        "timeFormat": "dddd, yyyy. 'gada' d. MMMM"
+    },
+    {
+        "timeFormatId": "yyyy. 'gada' d. MMMM",
+        "timeFormat": "yyyy. 'gada' d. MMMM"
+    },
+    {
+        "timeFormatId": "yyyy. 'gada' d. MMM HH:mm",
+        "timeFormat": "yyyy. 'gada' d. MMM HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy.MM.d. HH:mm",
+        "timeFormat": "yyyy.MM.d. HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy. 'gada' d. MMM HH:mm:ss",
+        "timeFormat": "yyyy. 'gada' d. MMM HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy.MM.d. HH:mm:ss",
+        "timeFormat": "yyyy.MM.d. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d.M.yy HH:mm",
+        "timeFormat": "d.M.yy HH:mm"
+    },
+    {
+        "timeFormatId": "d.M.yy HH:mm:ss",
+        "timeFormat": "d.M.yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy, MMM d",
+        "timeFormat": "yyyy, MMM d"
+    },
+    {
+        "timeFormatId": "yyyy, MMMM d, dddd",
+        "timeFormat": "yyyy, MMMM d, dddd"
+    },
+    {
+        "timeFormatId": "yyyy, MMMM d",
+        "timeFormat": "yyyy, MMMM d"
+    },
+    {
+        "timeFormatId": "yyyy, MMM d h:mm tt",
+        "timeFormat": "yyyy, MMM d h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy, MMM d h:mm:ss tt",
+        "timeFormat": "yyyy, MMM d h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy.MM.dd",
+        "timeFormat": "yyyy.MM.dd"
+    },
+    {
+        "timeFormatId": "yyyy 'оны' MMM'ын' d",
+        "timeFormat": "yyyy 'оны' MMM'ын' d"
+    },
+    {
+        "timeFormatId": "yyyy 'оны' MMMM'ын' d, dddd 'гараг'",
+        "timeFormat": "yyyy 'оны' MMMM'ын' d, dddd 'гараг'"
+    },
+    {
+        "timeFormatId": "yyyy 'оны' MMMM'ын' d",
+        "timeFormat": "yyyy 'оны' MMMM'ын' d"
+    },
+    {
+        "timeFormatId": "yyyy.MM.dd HH:mm",
+        "timeFormat": "yyyy.MM.dd HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy 'оны' MMM'ын' d HH:mm",
+        "timeFormat": "yyyy 'оны' MMM'ын' d HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy.MM.dd HH:mm:ss",
+        "timeFormat": "yyyy.MM.dd HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy 'оны' MMM'ын' d HH:mm:ss",
+        "timeFormat": "yyyy 'оны' MMM'ын' d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "MMMM d, yyyy, dddd",
+        "timeFormat": "MMMM d, yyyy, dddd"
+    },
+    {
+        "timeFormatId": "dddd, d 'ta'’ MMMM yyyy",
+        "timeFormat": "dddd, d 'ta'’ MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d 'ta'’ MMMM yyyy",
+        "timeFormat": "d 'ta'’ MMMM yyyy"
+    },
+    {
+        "timeFormatId": "yyyy၊ MMM d",
+        "timeFormat": "yyyy၊ MMM d"
+    },
+    {
+        "timeFormatId": "yyyy၊ MMMM d၊ dddd",
+        "timeFormat": "yyyy၊ MMMM d၊ dddd"
+    },
+    {
+        "timeFormatId": "yyyy၊ d MMMM",
+        "timeFormat": "yyyy၊ d MMMM"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy  H:mm",
+        "timeFormat": "dd-MM-yyyy  H:mm"
+    },
+    {
+        "timeFormatId": "yyyy၊ MMM d  H:mm",
+        "timeFormat": "yyyy၊ MMM d  H:mm"
+    },
+    {
+        "timeFormatId": "dd-MM-yy  H:mm",
+        "timeFormat": "dd-MM-yy  H:mm"
+    },
+    {
+        "timeFormatId": "dd-MM-yyyy  HH:mm:ss",
+        "timeFormat": "dd-MM-yyyy  HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy၊ MMM d  HH:mm:ss",
+        "timeFormat": "yyyy၊ MMM d  HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dd-MM-yy  HH:mm:ss",
+        "timeFormat": "dd-MM-yy  HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yy/M/d h:mm tt",
+        "timeFormat": "yy/M/d h:mm tt"
+    },
+    {
+        "timeFormatId": "yy/M/d h:mm:ss tt",
+        "timeFormat": "yy/M/d h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dddd , 'lyɛ'̌ʼ d 'na' MMMM, yyyy",
+        "timeFormat": "dddd , 'lyɛ'̌ʼ d 'na' MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "'lyɛ'̌ʼ d 'na' MMMM, yyyy",
+        "timeFormat": "'lyɛ'̌ʼ d 'na' MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy 'аз'",
+        "timeFormat": "dd MMM yyyy 'аз'"
+    },
+    {
+        "timeFormatId": "dddd, d MMMM, yyyy 'аз'",
+        "timeFormat": "dddd, d MMMM, yyyy 'аз'"
+    },
+    {
+        "timeFormatId": "d MMMM, yyyy 'аз'",
+        "timeFormat": "d MMMM, yyyy 'аз'"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy 'аз' HH:mm",
+        "timeFormat": "dd MMM yyyy 'аз' HH:mm"
+    },
+    {
+        "timeFormatId": "dd MMM yyyy 'аз' HH:mm:ss",
+        "timeFormat": "dd MMM yyyy 'аз' HH:mm:ss"
+    },
+    {
+        "timeFormatId": "g yyyy/M/d",
+        "timeFormat": "g yyyy/M/d"
+    },
+    {
+        "timeFormatId": "dddd د g yyyy د MMMM d",
+        "timeFormat": "dddd د g yyyy د MMMM d"
+    },
+    {
+        "timeFormatId": "د g yyyy د MMMM d",
+        "timeFormat": "د g yyyy د MMMM d"
+    },
+    {
+        "timeFormatId": "g yyyy/M/d H:mm",
+        "timeFormat": "g yyyy/M/d H:mm"
+    },
+    {
+        "timeFormatId": "g yyyy MMM d H:mm",
+        "timeFormat": "g yyyy MMM d H:mm"
+    },
+    {
+        "timeFormatId": "g yyyy-MM-dd H:mm",
+        "timeFormat": "g yyyy-MM-dd H:mm"
+    },
+    {
+        "timeFormatId": "g yyyy/M/d H:mm:ss",
+        "timeFormat": "g yyyy/M/d H:mm:ss"
+    },
+    {
+        "timeFormatId": "g yyyy MMM d H:mm:ss",
+        "timeFormat": "g yyyy MMM d H:mm:ss"
+    },
+    {
+        "timeFormatId": "g yyyy-MM-dd H:mm:ss",
+        "timeFormat": "g yyyy-MM-dd H:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd د yyyy د MMMM d",
+        "timeFormat": "dddd د yyyy د MMMM d"
+    },
+    {
+        "timeFormatId": "د yyyy د MMMM d",
+        "timeFormat": "د yyyy د MMMM d"
+    },
+    {
+        "timeFormatId": "dddd, 'ils' d MMMM yyyy",
+        "timeFormat": "dddd, 'ils' d MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d MMM yyyy 'г'.",
+        "timeFormat": "d MMM yyyy 'г'."
+    },
+    {
+        "timeFormatId": "d MMM yyyy 'г'. HH:mm",
+        "timeFormat": "d MMM yyyy 'г'. HH:mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy 'г'. HH:mm:ss",
+        "timeFormat": "d MMM yyyy 'г'. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy 'сыл' MMMM d 'күнэ', dddd",
+        "timeFormat": "yyyy 'сыл' MMMM d 'күнэ', dddd"
+    },
+    {
+        "timeFormatId": "yyyy, MMM d HH:mm",
+        "timeFormat": "yyyy, MMM d HH:mm"
+    },
+    {
+        "timeFormatId": "yyyy, MMM d HH:mm:ss",
+        "timeFormat": "yyyy, MMM d HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yyyy tt h:mm",
+        "timeFormat": "d/M/yyyy tt h:mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy tt h:mm",
+        "timeFormat": "d MMM yyyy tt h:mm"
+    },
+    {
+        "timeFormatId": "M/d/yyyy tt h:mm",
+        "timeFormat": "M/d/yyyy tt h:mm"
+    },
+    {
+        "timeFormatId": "d/M/yy tt h:mm",
+        "timeFormat": "d/M/yy tt h:mm"
+    },
+    {
+        "timeFormatId": "d/M/yyyy tt h:mm:ss",
+        "timeFormat": "d/M/yyyy tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM yyyy tt h:mm:ss",
+        "timeFormat": "d MMM yyyy tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "M/d/yyyy tt h:mm:ss",
+        "timeFormat": "M/d/yyyy tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yy tt h:mm:ss",
+        "timeFormat": "d/M/yy tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "d. MM. yyyy",
+        "timeFormat": "d. MM. yyyy"
+    },
+    {
+        "timeFormatId": "d. MM. yy",
+        "timeFormat": "d. MM. yy"
+    },
+    {
+        "timeFormatId": "dddd, dd. MMMM yyyy",
+        "timeFormat": "dddd, dd. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dd. MMMM yyyy",
+        "timeFormat": "dd. MMMM yyyy"
+    },
+    {
+        "timeFormatId": "d. MM. yyyy HH:mm",
+        "timeFormat": "d. MM. yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d. MM. yy HH:mm",
+        "timeFormat": "d. MM. yy HH:mm"
+    },
+    {
+        "timeFormatId": "d. MM. yyyy HH:mm:ss",
+        "timeFormat": "d. MM. yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d. MM. yy HH:mm:ss",
+        "timeFormat": "d. MM. yy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "MMM d. yyyy",
+        "timeFormat": "MMM d. yyyy"
+    },
+    {
+        "timeFormatId": "dddd, MMMM d. yyyy",
+        "timeFormat": "dddd, MMMM d. yyyy"
+    },
+    {
+        "timeFormatId": "MMMM d. yyyy",
+        "timeFormat": "MMMM d. yyyy"
+    },
+    {
+        "timeFormatId": "MMM d. yyyy H.mm",
+        "timeFormat": "MMM d. yyyy H.mm"
+    },
+    {
+        "timeFormatId": "MMM d. yyyy H.mm.ss",
+        "timeFormat": "MMM d. yyyy H.mm.ss"
+    },
+    {
+        "timeFormatId": "dddd, MMMM dd, yyyy",
+        "timeFormat": "dddd, MMMM dd, yyyy"
+    },
+    {
+        "timeFormatId": "d.M.yyyy h:mm tt",
+        "timeFormat": "d.M.yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d.M.yy h:mm tt",
+        "timeFormat": "d.M.yy h:mm tt"
+    },
+    {
+        "timeFormatId": "d.M.yyyy h:mm:ss tt",
+        "timeFormat": "d.M.yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d.M.yy h:mm:ss tt",
+        "timeFormat": "d.M.yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d/M/yyyy H.mm",
+        "timeFormat": "d/M/yyyy H.mm"
+    },
+    {
+        "timeFormatId": "d/M/yy H.mm",
+        "timeFormat": "d/M/yy H.mm"
+    },
+    {
+        "timeFormatId": "d/M/yyyy H.mm.ss",
+        "timeFormat": "d/M/yyyy H.mm.ss"
+    },
+    {
+        "timeFormatId": "d/M/yy H.mm.ss",
+        "timeFormat": "d/M/yy H.mm.ss"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy tt h:mm",
+        "timeFormat": "d MMM, yyyy tt h:mm"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy tt h:mm:ss",
+        "timeFormat": "d MMM, yyyy tt h:mm:ss"
+    },
+    {
+        "timeFormatId": "d, MMMM yyyy, dddd",
+        "timeFormat": "d, MMMM yyyy, dddd"
+    },
+    {
+        "timeFormatId": "dd-MM-yy h:mm tt",
+        "timeFormat": "dd-MM-yy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd-MM-yy h:mm:ss tt",
+        "timeFormat": "dd-MM-yy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "ddddที่ d MMMM g yyyy",
+        "timeFormat": "ddddที่ d MMMM g yyyy"
+    },
+    {
+        "timeFormatId": "dddd፣ dd MMMM መዓልቲ yyyy g",
+        "timeFormat": "dddd፣ dd MMMM መዓልቲ yyyy g"
+    },
+    {
+        "timeFormatId": "d MMMM yyyy dddd",
+        "timeFormat": "d MMMM yyyy dddd"
+    },
+    {
+        "timeFormatId": "d.MM.yyyy h:mm tt",
+        "timeFormat": "d.MM.yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy h:mm tt",
+        "timeFormat": "dd.MM.yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d.MM.yyyy h:mm:ss tt",
+        "timeFormat": "d.MM.yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "dd.MM.yyyy h:mm:ss tt",
+        "timeFormat": "dd.MM.yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy 'ел'",
+        "timeFormat": "d MMM, yyyy 'ел'"
+    },
+    {
+        "timeFormatId": "d MMMM, yyyy 'ел', dddd",
+        "timeFormat": "d MMMM, yyyy 'ел', dddd"
+    },
+    {
+        "timeFormatId": "d MMMM, yyyy 'ел'",
+        "timeFormat": "d MMMM, yyyy 'ел'"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy 'ел' H:mm",
+        "timeFormat": "d MMM, yyyy 'ел' H:mm"
+    },
+    {
+        "timeFormatId": "d MMM, yyyy 'ел' H:mm:ss",
+        "timeFormat": "d MMM, yyyy 'ел' H:mm:ss"
+    },
+    {
+        "timeFormatId": "d-MMM، yyyy",
+        "timeFormat": "d-MMM، yyyy"
+    },
+    {
+        "timeFormatId": "yyyy-d-M",
+        "timeFormat": "yyyy-d-M"
+    },
+    {
+        "timeFormatId": "yyyy d-MMMM، dddd",
+        "timeFormat": "yyyy d-MMMM، dddd"
+    },
+    {
+        "timeFormatId": "d-MMMM، yyyy",
+        "timeFormat": "d-MMMM، yyyy"
+    },
+    {
+        "timeFormatId": "d-MMM، yyyy h:mm tt",
+        "timeFormat": "d-MMM، yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "yyyy-d-M h:mm tt",
+        "timeFormat": "yyyy-d-M h:mm tt"
+    },
+    {
+        "timeFormatId": "d-MMM، yyyy h:mm:ss tt",
+        "timeFormat": "d-MMM، yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "yyyy-d-M h:mm:ss tt",
+        "timeFormat": "yyyy-d-M h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d MMM yyyy 'р'.",
+        "timeFormat": "d MMM yyyy 'р'."
+    },
+    {
+        "timeFormatId": "dddd, d MMMM yyyy 'р'.",
+        "timeFormat": "dddd, d MMMM yyyy 'р'."
+    },
+    {
+        "timeFormatId": "d MMMM yyyy 'р'.",
+        "timeFormat": "d MMMM yyyy 'р'."
+    },
+    {
+        "timeFormatId": "d MMM yyyy 'р'. HH:mm",
+        "timeFormat": "d MMM yyyy 'р'. HH:mm"
+    },
+    {
+        "timeFormatId": "d MMM yyyy 'р'. HH:mm:ss",
+        "timeFormat": "d MMM yyyy 'р'. HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d MMM، yyyy",
+        "timeFormat": "d MMM، yyyy"
+    },
+    {
+        "timeFormatId": "dddd، d MMMM، yyyy",
+        "timeFormat": "dddd، d MMMM، yyyy"
+    },
+    {
+        "timeFormatId": "d MMMM، yyyy",
+        "timeFormat": "d MMMM، yyyy"
+    },
+    {
+        "timeFormatId": "d MMM، yyyy h:mm tt",
+        "timeFormat": "d MMM، yyyy h:mm tt"
+    },
+    {
+        "timeFormatId": "d MMM، yyyy h:mm:ss tt",
+        "timeFormat": "d MMM، yyyy h:mm:ss tt"
+    },
+    {
+        "timeFormatId": "d-MMM, yyyy",
+        "timeFormat": "d-MMM, yyyy"
+    },
+    {
+        "timeFormatId": "dddd, d-MMMM, yyyy",
+        "timeFormat": "dddd, d-MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "d-MMMM, yyyy",
+        "timeFormat": "d-MMMM, yyyy"
+    },
+    {
+        "timeFormatId": "d-MMM, yyyy HH:mm",
+        "timeFormat": "d-MMM, yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "d-MMM, yyyy HH:mm:ss",
+        "timeFormat": "d-MMM, yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "dddd, d MMM, yyyy",
+        "timeFormat": "dddd, d MMM, yyyy"
+    },
+    {
+        "timeFormatId": "dטן MMM yyyy",
+        "timeFormat": "dטן MMM yyyy"
+    },
+    {
+        "timeFormatId": "dddd, dטן MMMM yyyy",
+        "timeFormat": "dddd, dטן MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dטן MMMM yyyy",
+        "timeFormat": "dטן MMMM yyyy"
+    },
+    {
+        "timeFormatId": "dטן MMM yyyy HH:mm",
+        "timeFormat": "dטן MMM yyyy HH:mm"
+    },
+    {
+        "timeFormatId": "dטן MMM yyyy HH:mm:ss",
+        "timeFormat": "dטן MMM yyyy HH:mm:ss"
+    },
+    {
+        "timeFormatId": "d MM yyyy",
+        "timeFormat": "d MM yyyy"
+    },
+    {
+        "timeFormatId": "dddd, d MMM yyyy",
+        "timeFormat": "dddd, d MMM yyyy"
+    },
+    {
+        "timeFormatId": "d/M/yyyy H:m",
+        "timeFormat": "d/M/yyyy H:m"
+    },
+    {
+        "timeFormatId": "d MM yyyy H:m",
+        "timeFormat": "d MM yyyy H:m"
+    },
+    {
+        "timeFormatId": "d/M/yyyy H:m:s",
+        "timeFormat": "d/M/yyyy H:m:s"
+    },
+    {
+        "timeFormatId": "d MM yyyy H:m:s",
+        "timeFormat": "d MM yyyy H:m:s"
+    },
+    {
+        "timeFormatId": "yyyy/M/d tth:mm",
+        "timeFormat": "yyyy/M/d tth:mm"
+    },
+    {
+        "timeFormatId": "yyyy年M月d日 tth:mm",
+        "timeFormat": "yyyy年M月d日 tth:mm"
+    },
+    {
+        "timeFormatId": "yyyy/M/d tth:mm:ss",
+        "timeFormat": "yyyy/M/d tth:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy年M月d日 tth:mm:ss",
+        "timeFormat": "yyyy年M月d日 tth:mm:ss"
+    },
+    {
+        "timeFormatId": "yyyy年M月d日 dddd",
+        "timeFormat": "yyyy年M月d日 dddd"
+    },
+    {
+        "timeFormatId": "d/M/yyyy tth:mm",
+        "timeFormat": "d/M/yyyy tth:mm"
+    },
+    {
+        "timeFormatId": "d/M/yy tth:mm",
+        "timeFormat": "d/M/yy tth:mm"
+    },
+    {
+        "timeFormatId": "d/M/yyyy tth:mm:ss",
+        "timeFormat": "d/M/yyyy tth:mm:ss"
+    },
+    {
+        "timeFormatId": "d/M/yy tth:mm:ss",
+        "timeFormat": "d/M/yy tth:mm:ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy tth:mm",
+        "timeFormat": "dd/MM/yyyy tth:mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yy tth:mm",
+        "timeFormat": "dd/MM/yy tth:mm"
+    },
+    {
+        "timeFormatId": "dd/MM/yyyy tth:mm:ss",
+        "timeFormat": "dd/MM/yyyy tth:mm:ss"
+    },
+    {
+        "timeFormatId": "dd/MM/yy tth:mm:ss",
+        "timeFormat": "dd/MM/yy tth:mm:ss"
+    }
+]
+
+--------------------------------------------------------------------
+
+  private services =[
+    { 
+      observable: this.refCountrySvc.getRefCountries(), command: (d: any[])=>{
+        this.countries = d as RefCountryModel[];
+      }
+    },
+    { 
+      observable: this.refTimeZoneSvc.getRefTimeZones(), command: (d: any[]) =>{
+        this.timeZones = d as RefTimeZoneModel[];
+      }
+    },
+    {
+      observable: this.refTimeFormatSvc.getRefTimeFormats(), command: (d: any[])=>{
+        this.timeFormats = d as RefTimeFormatModel[];
+      }
+    },
+    {
+      observable: this.refLanguageSvc.getRefLanguages(), command: (d: any[])=>{
+        this.languages = d as RefLanguageModel[];
+      }
+    }    
+  ];
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\ref-time-format.service.ts
+  getRefTimeFormats():Observable<RefTimeFormatModel[]>{
+    return this.apiSvc.get(this.controller);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/app-permission?appId=0
+
+
+
+
+appId=0
+
+
+
+
+
+
+
+{"data":null,"message":"Success","success":true}
+
+---------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\add-role\add-role.component.html
+                    <div class="col-6">
+                        <label class="form-label">Application</label>
+                        <select2 [data]="applications" [(ngModel)]="createRoleRequest.appId"
+                            (ngModelChange)="onAppSelectChange()" [placeholder]="'Select'" id="cboApplications"
+                            #cboApplications>
+                        </select2>
+                    </div>
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\add-role\add-role.component.ts
+  onAppSelectChange() {
+    this.refAppPermissionSvc.get(this.createRoleRequest.appId).subscribe({
+      next: (res) => {
+        //this.resourcesRef = res.data as RefAppPermissionDto[];
+        let resources = res.data as RefAppPermissionDto[];
+        if(Array.isArray(resources)){
+          this.resourcesRef = this.excludeSomeData(resources);
+        }
+      }
+    });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\ref-app-permission.service.ts
+  public get(appId: number):Observable<ResponseModel>{
+    const params = {
+      appId: appId
+    }
+    const body = new HttpParams({fromObject: params})
+    return this.apiSvc.get(this.controller + '/app-permission', body);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

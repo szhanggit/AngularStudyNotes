@@ -1,0 +1,36 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/#/maintenance/role-management
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app-routing.module.ts
+  {
+    path: "",
+    component: PrivateLayoutComponent,
+    children: [
+      {
+        path: "",
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        canActivate: [SecurityGuard]
+      }
+    ],
+
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\pages-routing.module.ts
+  {
+    path: 'maintenance',
+    loadChildren: ()=> import('./maintenance/maintenance.module').then(m=> m.MaintenanceModule)
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\maintenance-routing.module.ts
+{path: "role-management", component: RoleManagementComponent},
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\role-management\role-management.component.html
+                      <ag-grid-angular class="ag-theme-alpine user-mgmt-grid" [rowData]="rolesData" [columnDefs]="roleMgmtCols"
+                        [gridOptions]="roleMgmtGridOptions" (gridReady)="onGridRead($event)"></ag-grid-angular>
+
+
+ag-Grid is a popular JavaScript data grid library, and ag-Grid-Angular is a specific implementation of ag-Grid for Angular applications. The library is designed to be highly customizable and feature-rich, making it easy to create powerful data grids in Angular applications.
+
+npm install --save ag-grid-angular ag-grid-community
+https://ag-grid.com/angular-data-grid/getting-started/

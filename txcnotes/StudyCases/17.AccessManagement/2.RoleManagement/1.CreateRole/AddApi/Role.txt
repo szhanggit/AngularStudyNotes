@@ -1,0 +1,80 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Role
+
+
+{"data":247,"message":"Create success","success":true}
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\add-role\add-role.component.ts
+  addNewRole() {
+
+    this.resourcesRef.forEach(r => {
+      r.operations.forEach(o => {
+        if(o.isSelected == true){
+          this.createRoleRequest.operationIds.push(o.operationId);
+        }
+      })
+    });
+
+    const subscriber = this.roleSvc.post(this.createRoleRequest)
+      .subscribe({
+        next: (res) => {
+          this.router.navigateByUrl('/maintenance/role-management', { state: { createRole: true } });
+        }, error: (error) => {
+          if ((error.error) && (error.error.message)) {
+            subscriber.unsubscribe();
+          }
+        }, complete: () => {
+          subscriber.unsubscribe();
+        }
+      });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\role\role.service.ts
+  post(model: CreateRoleCommand){
+    return this.apiSvc.post(this.controller, model);
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  post(path: string, body: object = {}): Observable<any> {
+    return this.httpClient
+      .post(this.currentBaseUrl + path, JSON.stringify(body), this.options);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

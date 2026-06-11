@@ -1,0 +1,165 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/tenant
+
+
+
+
+{
+    "data": [
+        {
+            "tenantId": 2,
+            "tenantName": "IN"
+        },
+        {
+            "tenantId": 5,
+            "tenantName": "GR"
+        },
+        {
+            "tenantId": 6,
+            "tenantName": "SG"
+        },
+        {
+            "tenantId": 7,
+            "tenantName": "TW"
+        },
+        {
+            "tenantId": 9,
+            "tenantName": "GL"
+        },
+        {
+            "tenantId": 32,
+            "tenantName": "rsTenantUName_001"
+        },
+        {
+            "tenantId": 33,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 34,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 35,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 36,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 37,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 38,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 39,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 40,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 41,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 42,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 43,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 44,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 45,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 46,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 47,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 48,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 49,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 50,
+            "tenantName": "rsTenantUName_002"
+        },
+        {
+            "tenantId": 51,
+            "tenantName": "rsTenantUName_001"
+        },
+        {
+            "tenantId": 52,
+            "tenantName": "rsTenantUName_001"
+        },
+        {
+            "tenantId": 53,
+            "tenantName": "testTenant"
+        },
+        {
+            "tenantId": 54,
+            "tenantName": "testTenant"
+        }
+    ],
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\edit-role\edit-role.component.ts
+
+
+
+  private setRole(data: RoleQryByIdDto) {
+
+    this.roleToEdit = data;
+    this.roleToEdit.resources = this.excludeSomeData(this.roleToEdit.resources);
+    // set operation existing field for storing remove/new operation Ids
+    this.roleToEdit.resources.forEach(r => {
+      r.operations.forEach(o => {
+        if(o.isSelected) {
+          o.existing = true;
+        }else{
+          o.existing = false;
+        }
+      })
+    });
+
+    this.subscribeToTenantAsRef();			<=======================================
+    this.subscribeToApplicationAsRef();	
+
+  }
+
+
+
+
+
+
+

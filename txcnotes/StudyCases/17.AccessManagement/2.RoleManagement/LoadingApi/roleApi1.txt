@@ -1,0 +1,263 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Role?rowCount=20&pageNumber=1&tenantId=0&appId=0&roleId=0&searchKey=
+
+rowCount=20&pageNumber=1&tenantId=0&appId=0&roleId=0&searchKey=
+
+{
+    "data": {
+        "roles": [
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 2,
+                "roleName": "BU Admin",
+                "isAdmin": true,
+                "tenantId": 2,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 1,
+                        "resourceName": "Role Management",
+                        "operationDetails": " Create Role, Update Role, View Role"
+                    },
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User, Create BU Manager, Update BU Manager, View BU Manager, Update User Status"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 3,
+                "roleName": "BU Manager",
+                "isAdmin": false,
+                "tenantId": 2,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 4,
+                "roleName": "BU Admin",
+                "isAdmin": true,
+                "tenantId": 5,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 1,
+                        "resourceName": "Role Management",
+                        "operationDetails": " Create Role, Update Role, View Role"
+                    },
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User, Create BU Manager, Update BU Manager, View BU Manager, Update User Status"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 5,
+                "roleName": "BU Manager",
+                "isAdmin": false,
+                "tenantId": 5,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 6,
+                "roleName": "BU Admin",
+                "isAdmin": true,
+                "tenantId": 6,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 1,
+                        "resourceName": "Role Management",
+                        "operationDetails": " Create Role, Update Role, View Role"
+                    },
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User, Create BU Manager, Update BU Manager, View BU Manager, Update User Status"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 7,
+                "roleName": "BU Manager",
+                "isAdmin": false,
+                "tenantId": 6,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 8,
+                "roleName": "BU Admin",
+                "isAdmin": true,
+                "tenantId": 7,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 1,
+                        "resourceName": "Role Management",
+                        "operationDetails": " Create Role, Update Role, View Role"
+                    },
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User, Create BU Manager, Update BU Manager, View BU Manager, Update User Status"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 9,
+                "roleName": "BU Manager",
+                "isAdmin": false,
+                "tenantId": 7,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 11,
+                "roleName": "BU Admin",
+                "isAdmin": true,
+                "tenantId": 9,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 1,
+                        "resourceName": "Role Management",
+                        "operationDetails": " Create Role, Update Role, View Role"
+                    },
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User, Create BU Manager, Update BU Manager, View BU Manager, Update User Status"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 12,
+                "roleName": "BU Manager",
+                "isAdmin": false,
+                "tenantId": 9,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 3,
+                        "resourceName": "User Management",
+                        "operationDetails": " Create User, Update User, View User"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 13,
+                "roleName": "Product Editor (GL)",
+                "isAdmin": false,
+                "tenantId": 9,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 6,
+                        "resourceName": "Product",
+                        "operationDetails": " View Product, Create/Edit Product, Product Apply to Order, Product Apply Combo"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 14,
+                "roleName": "Product Approver (GL)",
+                "isAdmin": false,
+                "tenantId": 9,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 6,
+                        "resourceName": "Product",
+                        "operationDetails": " View Product, Activate Product"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 15,
+                "roleName": "Merchant Editor (GL)",
+                "isAdmin": false,
+                "tenantId": 9,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 5,
+                        "resourceName": "Merchant",
+                        "operationDetails": " View Merchant, Create/Edit Merchant"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 16,
+                "roleName": "Merchant Editor (TW)",
+                "isAdmin": false,
+                "tenantId": 7,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 5,
+                        "resourceName": "Merchant",
+                        "operationDetails": " View Merchant, Create/Edit Merchant"
+                    }
+                ]
+            },
+            {
+                "application": "Ticket Xpress Operation Center",
+                "roleId": 17,
+                "roleName": "Product Approver (TW)",
+                "isAdmin": false,
+                "tenantId": 7,
+                "status": true,
+                "resourceItems": [
+                    {
+                        "resourceId": 6,
+                        "resourceName": "Product",
+                        "operationDetails": " View Product, Activate Product"
+                    }
+                ]
+            }
+        ],
+        "totalCount": 20
+    },
+    "message": "Success",
+    "success": true
+}

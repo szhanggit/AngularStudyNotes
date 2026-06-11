@@ -1,0 +1,72 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/application
+
+
+
+{
+    "data": [
+        {
+            "appId": 1,
+            "appName": "Ticket Xpress Operation Center"
+        }
+    ],
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\user\user-management\user-management.component.ts
+this.subscribeToApplicationAsRef();
+
+
+
+  private subscribeToApplicationAsRef() {
+    this.refApplicationSvc.get().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (res) => {
+        let apps = res.data as RefApplicationDto[];
+        apps.push({ appId: 0, appName: 'All applications' }); // default value
+
+        this.applications = apps.map(m => {
+          return {
+            label: m.appName,
+            value: m.appId
+          }
+        })
+      }
+    });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\ref-application.service.ts
+  public get():Observable<ResponseModel>{
+    return this.apiSvc.get(this.controller + '/application');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

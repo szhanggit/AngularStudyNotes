@@ -1,0 +1,42 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Role
+
+
+
+{"data":12,"message":"Update success","success":true}
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\edit-role\edit-role.component.ts
+
+
+
+  editRole() {
+
+......
+
+    const subscriber = this.roleSvc.put(this.editRoleRequest)
+      .subscribe({
+        next: (res) => {
+          this.router.navigateByUrl('/maintenance/role-management', { state: { editRole: true } });
+        }, error: (error) => {
+          if ((error.error) && (error.error.message)) {
+          }
+        }, complete: () => {
+          subscriber.unsubscribe();
+        }
+      });
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\role\role.service.ts
+  put(model: UpdateRoleCommand){
+    return this.apiSvc.put(this.controller, model);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  put(path: string, body: object = {}): Observable<any> {
+    return this.httpClient
+      .put(this.currentBaseUrl + path, JSON.stringify(body), this.options)
+      ;
+  }

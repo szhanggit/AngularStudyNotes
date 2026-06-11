@@ -1,0 +1,107 @@
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\edit-admin\edit-admin.component.html
+            <button type="button" id="btnCreate" class="btn btn-info btn-md rounded-pill ms-2"
+                [class.btn-info]="selectedRole" [disabled]="!selectedRole" (click)="editUser()" *ngIf="enabledUpdate">
+                Save
+            </button>
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\edit-admin\edit-admin.component.ts
+
+
+
+
+
+  editUser(){
+......
+    const subscriber = this.adminUserSrv.put(this.editUserRequest)
+      .subscribe({
+        next: (res) => {
+          if(res.success){
+            this.router.navigateByUrl('/maintenance/admin-management', { state: { editAdmin: true } });
+          }else{
+            this.toast.showDanger(res.data);
+          }
+
+        },
+        error: (error) => {
+          this.progressBar.complete();
+          subscriber.unsubscribe();
+        },
+        complete: () => {
+          this.progressBar.complete();
+          subscriber.unsubscribe();
+        }
+      });
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\admin-user\admin-user.service.ts
+  put(model: UpdateAdminUser){
+    return this.apiSvc.put(this.controller, model);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  put(path: string, body: object = {}): Observable<any> {
+    return this.httpClient
+      .put(this.currentBaseUrl + path, JSON.stringify(body), this.options)
+      ;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

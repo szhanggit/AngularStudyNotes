@@ -1,0 +1,87 @@
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\user\add-user\add-user.component.html
+
+
+            <button type="button" id="btnCreate" class="btn btn-md rounded-pill ms-2"
+                [class.btn-info]="userFound && selectedRole" [disabled]="!userFound || !selectedRole"
+                (click)="addNewUser()">
+                Add
+            </button>
+
+
+  addNewUser() {
+......
+
+    const subscriber = this.userSvc.post(this.createUserRequest)
+      .subscribe({
+        next: (res) => {
+          if(res.success)
+          {
+            this.router.navigateByUrl('/maintenance/user-management', { state: { createUser: true } });
+          }
+          else{
+            this.toast.showDanger(res.message);
+          }
+        },
+        error: (error) => {
+          this.progressBar.complete();
+          subscriber.unsubscribe();
+        }, complete: () => {
+          this.progressBar.complete();
+          subscriber.unsubscribe();
+
+        }
+      })
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\user\user.service.ts
+  post(model: CreateUserCommand): Observable<ResponseModel> {
+    return this.apiSvc.post(this.controller, model);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

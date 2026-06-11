@@ -1,0 +1,97 @@
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\add-admin\add-admin.component.html
+            <button type="button" id="btnCreate" class="btn btn-md rounded-pill ms-2"
+                [class.btn-info]="userFound || selectedRole" [disabled]="!userFound || !selectedRole"
+                (click)="addNewUser()">
+                Add
+            </button>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\add-admin\add-admin.component.ts
+  addNewUser() {
+......
+    const subscriber = this.adminUserSrv.post(this.createUserRequest)
+      .subscribe({
+        next: (res) => {
+          if(res.success){
+            this.router.navigateByUrl('/maintenance/admin-management', { state: { createAdmin: true } });
+            this.ldapUser = new LdaUserModel();
+          }else{
+            this.toast.showDanger(res.message);
+          }
+        },
+        error: (error) => {
+          this.progressBar.complete();
+        },
+        complete: () => {
+          this.progressBar.complete();
+          subscriber.unsubscribe();
+        }
+      })
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\admin-user\admin-user.service.ts
+  post(model: CreateAdminCmd){
+    return this.apiSvc.post(this.controller, model);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  post(path: string, body: object = {}): Observable<any> {
+    return this.httpClient
+      .post(this.currentBaseUrl + path, JSON.stringify(body), this.options);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

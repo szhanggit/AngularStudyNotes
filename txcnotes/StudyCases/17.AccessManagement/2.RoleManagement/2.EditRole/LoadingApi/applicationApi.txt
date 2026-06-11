@@ -1,0 +1,39 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/application
+
+
+
+
+{
+    "data": [
+        {
+            "appId": 1,
+            "appName": "Ticket Xpress Operation Center"
+        }
+    ],
+    "message": "Success",
+    "success": true
+}
+
+
+-------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\edit-role\edit-role.component.ts
+  private setRole(data: RoleQryByIdDto) {
+
+    this.roleToEdit = data;
+    this.roleToEdit.resources = this.excludeSomeData(this.roleToEdit.resources);
+    // set operation existing field for storing remove/new operation Ids
+    this.roleToEdit.resources.forEach(r => {
+      r.operations.forEach(o => {
+        if(o.isSelected) {
+          o.existing = true;
+        }else{
+          o.existing = false;
+        }
+      })
+    });
+
+    this.subscribeToTenantAsRef();
+    this.subscribeToApplicationAsRef();			<===============================
+
+  }

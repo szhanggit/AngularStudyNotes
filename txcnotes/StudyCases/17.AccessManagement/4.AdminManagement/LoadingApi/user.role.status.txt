@@ -1,0 +1,104 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/user-role-status
+
+
+{
+    "data": [
+        {
+            "userRoleStatusId": 1,
+            "userRoleStatus": "Active"
+        },
+        {
+            "userRoleStatusId": 2,
+            "userRoleStatus": "InActive"
+        },
+        {
+            "userRoleStatusId": 3,
+            "userRoleStatus": "Expired"
+        }
+    ],
+    "message": "Success",
+    "success": true
+}
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\admin\admin-management\admin-management.component.ts
+this.subscribeToUserRoleStatusAsRef();
+
+
+  private subscribeToUserRoleStatusAsRef() {
+    this.refUserRoleStatusSvc.get().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (res) => {
+        let roleStatus = res.data as RefUserRoleStatusDto[];
+        roleStatus.push({ userRoleStatusId: 0, userRoleStatus: 'All role status' }); // default value
+        this.roleStatus = roleStatus.map(m => {
+          return {
+            label: m.userRoleStatus,
+            value: m.userRoleStatusId
+          }
+        })
+      }
+    })
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\ref-user-role-status.service.ts
+  public get():Observable<ResponseModel>{
+    return this.apiSvc.get(this.controller + '/user-role-status');
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

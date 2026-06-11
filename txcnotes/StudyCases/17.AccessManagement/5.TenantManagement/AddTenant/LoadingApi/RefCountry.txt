@@ -1,0 +1,147 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/RefCountry
+
+
+[
+    {
+        "country": "Thailand",
+        "countryCode": "TH",
+        "currencySymbol": "THB"
+    },
+    {
+        "country": "India",
+        "countryCode": "IN",
+        "currencySymbol": "INR"
+    },
+    {
+        "country": "ID",
+        "countryCode": "ID",
+        "currencySymbol": "IDR"
+    },
+    {
+        "country": "JP",
+        "countryCode": "JP",
+        "currencySymbol": "JPY"
+    },
+    {
+        "country": "MA",
+        "countryCode": "MA",
+        "currencySymbol": "MAD"
+    },
+    {
+        "country": "TW",
+        "countryCode": "TW",
+        "currencySymbol": "TWD"
+    },
+    {
+        "country": "GR",
+        "countryCode": "GR",
+        "currencySymbol": "USD"
+    },
+    {
+        "country": "SG",
+        "countryCode": "SG",
+        "currencySymbol": "SGD"
+    }
+]
+
+
+
+
+----------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-details\tenant-details.component.html
+                                <select name="country"
+                                    class="form-select is-valid"
+                                    [ngClass]="{
+                                        'is-valid' : !f.countryCode.invalid,
+                                        'is-invalid': f.countryCode.invalid
+                                    }"
+                                    formControlName="countryCode"
+                                    (change)="OnCountryCodeChanged()">
+                                    <option selected value="">Select Country</option>
+                                    <option *ngFor="let countryModel of references.countries" [value]="countryModel.countryCode">
+                                        {{ countryModel.country }}
+                                    </option>
+                                </select>
+
+  OnCountryCodeChanged(): void {
+    const countryCode = this.f.countryCode.value;
+    this.f.currencySymbol.setValue(this.references.countries
+      .find((x: RefCountryModel) => x.countryCode === countryCode).currencySymbol);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant-references.service.ts
+    initializeReferences(){
+      this.services.forEach((fe,i)=>{
+        const subscriber = fe.observable.subscribe({
+          next: res=>{
+            fe.command(res);
+          }, error: e=>{
+            console.log(e);
+            subscriber.unsubscribe();
+          }, complete: ()=>{
+            subscriber.unsubscribe();
+          }
+        });    
+      });
+    }
+
+
+
+
+  private services =[
+    { 
+      observable: this.refCountrySvc.getRefCountries(), command: (d: any[])=>{
+        this.countries = d as RefCountryModel[];
+      }
+    },
+    { 
+      observable: this.refTimeZoneSvc.getRefTimeZones(), command: (d: any[]) =>{
+        this.timeZones = d as RefTimeZoneModel[];
+      }
+    },
+    {
+      observable: this.refTimeFormatSvc.getRefTimeFormats(), command: (d: any[])=>{
+        this.timeFormats = d as RefTimeFormatModel[];
+      }
+    },
+    {
+      observable: this.refLanguageSvc.getRefLanguages(), command: (d: any[])=>{
+        this.languages = d as RefLanguageModel[];
+      }
+    }    
+  ];
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\ref-country.service.ts
+  getRefCountries():Observable<any[]>{
+    return this.apiSvc.get(this.controller);
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/Tenant/2
+
+
+
+{
+    "tenantBasicInfoId": 2,
+    "name": "IN",
+    "countryCode": "IN",
+    "timezone": "India Standard Time",
+    "timeFormat": "yyyy-MM-dd",
+    "currencySymbol": "INR",
+    "companyTaxType": true,
+    "logo": null,
+    "companyTaxRate": 1.0,
+    "language": "English",
+    "effectivityDate": "2021-12-17T00:00:00Z"
+}
+
+
+-------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-details\tenant-details.component.ts
+        this._tenantSvc.getTenantById(params.id).subscribe((result: TenantModel) => {
+          result.effectivityDate = formatDate(result.effectivityDate, CONSTANTS.DATE_FORMAT, CONSTANTS.DEFAULT_LOCALE);
+          this.logo = result.logo;
+          result.logo = '';
+          this.detailsFormGroup.setValue(result);
+        });
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant.service.ts
+  getTenantById(id:number):Observable<TenantModel>{
+    return this.apiSvc.get(`${this.controller}/${id}`);
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,225 @@
+https://api-staging.txc.edenred.net/gateway/api/Tnt/Tenant
+
+
+[
+    {
+        "tenantBasicInfoId": 55,				<==================New added one.
+        "name": "GD",
+        "country": "MA",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 8,
+        "name": "MA",
+        "country": "MA",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 2,
+        "name": "IN",
+        "country": "India",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 3,
+        "name": "ID",
+        "country": "ID",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 9,
+        "name": "GL",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 32,
+        "name": "rsTenantUName_001_update",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 39,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 40,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 41,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 42,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 43,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 49,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 50,
+        "name": "rsTenantUName_002",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 51,
+        "name": "rsTenantUName_001_update",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 52,
+        "name": "rsTenantUName_001_update",
+        "country": "Thailand",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 5,
+        "name": "GR",
+        "country": "GR",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 6,
+        "name": "SG",
+        "country": "SG",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    },
+    {
+        "tenantBasicInfoId": 7,
+        "name": "TW",
+        "country": "TW",
+        "companyTaxType": true,
+        "companyTaxRate": 1.05
+    },
+    {
+        "tenantBasicInfoId": 4,
+        "name": "JP",
+        "country": "JP",
+        "companyTaxType": true,
+        "companyTaxRate": 1.0
+    }
+]
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-details\tenant-details.component.ts
+        this._tenantListSvc.getList((tenants: TenantModel[]) => {
+          this.tenantNames = tenants.map(a => a.name.toLowerCase().trim());
+          this.f.name.setValidators([AlreadyExistValidator.isAlreadyExists(this.tenantNames), Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
+        });
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant-list.service.ts
+  getList(callbackFunction: any){
+    const subscriber = this.tenantSvc.getTenants()
+    .subscribe({
+      next: res=>{
+        this.list.next(res);
+        callbackFunction(res);
+      }, error: e=>{
+        console.log(e);
+        subscriber.unsubscribe();
+      }, complete: ()=>{
+        subscriber.unsubscribe();
+      }
+    });
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\tenant\tenant\tenant.service.ts
+  getTenants():Observable<TenantModel[]>{
+    return this.apiSvc.get(this.controller);
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

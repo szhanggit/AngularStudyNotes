@@ -1,0 +1,14 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Reference/application
+
+
+
+{
+    "data": [
+        {
+            "appId": 1,
+            "appName": "Ticket Xpress Operation Center"
+        }
+    ],
+    "message": "Success",
+    "success": true
+}

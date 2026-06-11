@@ -1,0 +1,18 @@
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\edit-role\edit-role.component.ts
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.roleIdQueryParam = params.id;
+    });
+    this.authSvc.userAuthClaim.subscribe(data =>
+      {
+        if(data == null || data == undefined){
+          this.router.navigate(['401']);
+        }
+        this.userClaim = data;
+        this.fillExcludeData();
+        this.subscribeToRole();		<========================================
+        this.checkAllowedOperation();
+      });
+
+  }

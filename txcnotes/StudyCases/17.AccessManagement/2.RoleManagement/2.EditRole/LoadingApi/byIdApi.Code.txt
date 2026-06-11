@@ -1,0 +1,30 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Role/byId?roleId=7
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\edit-role\edit-role.component.ts
+
+this.subscribeToRole();
+
+
+
+  private subscribeToRole() {
+    this.roleSvc.getById(this.roleIdQueryParam).subscribe({
+      next: (res) => this.setRole(res.data as RoleQryByIdDto)
+    });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\role\role.service.ts
+  getById(roleId: number){
+    var params = {
+      roleId: roleId
+    }
+    const body = new HttpParams({ fromObject: params })
+    return this.apiSvc.get(this.controller + '/byId', body);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }

@@ -1,0 +1,433 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Admin?rowCount=20&pageNumber=0&tenantId=0&appId=0&searchKey=&roleStatus=0&userStatus=0
+
+rowCount=20&pageNumber=0&tenantId=0&appId=0&searchKey=&roleStatus=0&userStatus=0
+
+{
+    "data": {
+        "adminUsers": [
+            {
+                "userId": 1,
+                "name": "Alvin BERNARDO",
+                "userName": "abernardo",
+                "email": "Alvin.BERNARDO@consulting-for.edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "IN",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 2,
+                "appId": 1,
+                "roleActive": "2023-01-30T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2023-05-10T23:52:09.027Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 1,
+                "name": "Alvin BERNARDO",
+                "userName": "abernardo",
+                "email": "Alvin.BERNARDO@consulting-for.edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GR",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 5,
+                "appId": 1,
+                "roleActive": "2023-01-30T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2023-05-10T23:52:09.027Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 1,
+                "name": "Alvin BERNARDO",
+                "userName": "abernardo",
+                "email": "Alvin.BERNARDO@consulting-for.edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "SG",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 6,
+                "appId": 1,
+                "roleActive": "2023-01-30T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2023-05-10T23:52:09.027Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 1,
+                "name": "Alvin BERNARDO",
+                "userName": "abernardo",
+                "email": "Alvin.BERNARDO@consulting-for.edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "TW",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 7,
+                "appId": 1,
+                "roleActive": "2023-01-30T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2023-05-10T23:52:09.027Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 1,
+                "name": "Alvin BERNARDO",
+                "userName": "abernardo",
+                "email": "Alvin.BERNARDO@consulting-for.edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GL",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 9,
+                "appId": 1,
+                "roleActive": "2023-01-30T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2023-05-10T23:52:09.027Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 8,
+                "name": "François RICHEBOEUF",
+                "userName": "fricheboeuf",
+                "email": "Francois.RICHEBOEUF@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "IN",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 2,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:12:24.147Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 8,
+                "name": "François RICHEBOEUF",
+                "userName": "fricheboeuf",
+                "email": "Francois.RICHEBOEUF@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GR",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 5,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:12:24.147Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 8,
+                "name": "François RICHEBOEUF",
+                "userName": "fricheboeuf",
+                "email": "Francois.RICHEBOEUF@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "SG",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 6,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:12:24.147Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 8,
+                "name": "François RICHEBOEUF",
+                "userName": "fricheboeuf",
+                "email": "Francois.RICHEBOEUF@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "TW",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 7,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:12:24.147Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 8,
+                "name": "François RICHEBOEUF",
+                "userName": "fricheboeuf",
+                "email": "Francois.RICHEBOEUF@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GL",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 9,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:12:24.147Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 9,
+                "name": "Maureen CHEN",
+                "userName": "maureen.chen",
+                "email": "Maureen.CHEN@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "IN",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 2,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:14:15.403Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 9,
+                "name": "Maureen CHEN",
+                "userName": "maureen.chen",
+                "email": "Maureen.CHEN@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GR",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 5,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:14:15.403Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 9,
+                "name": "Maureen CHEN",
+                "userName": "maureen.chen",
+                "email": "Maureen.CHEN@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "SG",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 6,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:14:15.403Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 9,
+                "name": "Maureen CHEN",
+                "userName": "maureen.chen",
+                "email": "Maureen.CHEN@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "TW",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 7,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:14:15.403Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 9,
+                "name": "Maureen CHEN",
+                "userName": "maureen.chen",
+                "email": "Maureen.CHEN@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GL",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 9,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:14:15.403Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 10,
+                "name": "Josephin WU",
+                "userName": "joswu",
+                "email": "Josephin.WU@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "IN",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 2,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:15:19.163Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 10,
+                "name": "Josephin WU",
+                "userName": "joswu",
+                "email": "Josephin.WU@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GR",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 5,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:15:19.163Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 10,
+                "name": "Josephin WU",
+                "userName": "joswu",
+                "email": "Josephin.WU@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "SG",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 6,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:15:19.163Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 10,
+                "name": "Josephin WU",
+                "userName": "joswu",
+                "email": "Josephin.WU@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "TW",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 7,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:15:19.163Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            },
+            {
+                "userId": 10,
+                "name": "Josephin WU",
+                "userName": "joswu",
+                "email": "Josephin.WU@edenred.com",
+                "application": "Ticket Xpress Operation Center",
+                "tenant": "GL",
+                "userStatus": 1,
+                "roleName": "BU Admin",
+                "roleDescription": null,
+                "tenantId": 9,
+                "appId": 1,
+                "roleActive": "2022-08-31T00:00:00Z",
+                "roleExpired": null,
+                "createdDate": "2022-08-31T04:15:19.163Z",
+                "roleStatus": 1,
+                "createdBy": "abernardo"
+            }
+        ],
+        "totalCount": 20
+    },
+    "message": "Success",
+    "success": true
+}
+
+---------------------------------------------------------------------------------------------------
+  search() {
+    this.adminUserSrv.get(this.filterRequest).subscribe({
+      next: (res) => {
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\admin-user\admin-user.service.ts
+  get(model: GetAdminUserListQry):Observable<ResponseModel> {
+    var params = {
+      rowCount: model.rowCount,
+      pageNumber: model.pageNumber,
+      tenantId: model.tenantId,
+      appId: model.appId,
+      searchKey: model.searchKey,
+      roleStatus: model.roleStatus,
+      userStatus: model.userStatus
+    }
+
+    const body = new HttpParams({ fromObject: params })
+
+    return this.apiSvc.get(this.controller, body);
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\api.service.ts
+  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+    return this.httpClient.get(this.currentBaseUrl + path, { params });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

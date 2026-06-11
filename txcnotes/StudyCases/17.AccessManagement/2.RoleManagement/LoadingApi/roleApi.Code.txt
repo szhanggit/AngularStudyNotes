@@ -1,0 +1,71 @@
+https://api-staging.txc.edenred.net/gateway/api/amm/Role?rowCount=20&pageNumber=1&tenantId=0&appId=0&roleId=0&searchKey=
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\role\role-management\role-management.component.ts
+this.filterRoles();
+
+
+
+  // request
+  filterRequest = <GetRoleListQry><unknown>{
+    searchKey: "",
+    tenantId: 0,
+    appId: 0,
+    roleId: 0,
+
+    pageNumber: 0,
+    rowCount: this.fixedRowCount
+  }
+
+
+  filterRoles(){
+
+    this.filterRequest.pageNumber = 1;
+    this.currentPageNum = 1;
+
+    this.roleSvc.get(this.filterRequest).subscribe({
+      next: (res) => {
+        this.rolesList = (res.data as GetRoleListQryRes);
+        //this.rolesData = this.rolesList.roles;
+        this.rolesData = this.filterDataByRole(this.rolesList.roles);
+      },
+      complete: () => {
+        this.currentRowCount = this.rolesList.totalCount;
+        this.currentTotalRowCount = this.rolesList.totalCount;
+
+        this.currentPageNum = 1;
+        this.startRow = 1;
+        this.endRow = this.rolesList.totalCount;
+        this.previousRow = this.rolesList.totalCount;
+      }
+    });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\core\service\maintenance\role\role.service.ts
+
+
+  get(model: GetRoleListQry){
+    var params = {
+      rowCount: model.rowCount,
+      pageNumber: model.pageNumber,
+      tenantId: model.tenantId,
+      appId: model.appId,
+      roleId: model.roleId,
+      searchKey: model.searchKey
+    }
+
+    const body = new HttpParams({fromObject: params });
+    return this.apiSvc.get(this.controller, body);
+  }
+
+
+
+
+
+
+
+
+
+
+
