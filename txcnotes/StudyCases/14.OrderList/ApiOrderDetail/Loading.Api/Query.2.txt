@@ -1,0 +1,161 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+Query	Query	Query	Query	Query	Query	Query	Query	Query	SignedQuotations?quotationId=8474	795	SignedQuotations?quotationId=8474	795	authorize?client_id=b1ce5559-5b2b-42fe-baf0-83fa61…e+id_token&scope=openid+profile+email&prompt=none	BssoInterrupt_Core_vh-Mo3E5zaJqWI-ycPlvOw2.js	authorize?client_id=b1ce5559-5b2b-42fe-baf0-83fa61…=openid+profile+email&prompt=none&sso_reload=true	callback	callback	authorize?response_type=code+id_token&redirect_uri…764a5ca490eac0f60a21daa3137_20231226101059&state=	authorize?response_type=code+id_token&redirect_uri…764a5ca490eac0f60a21daa3137_20231226101059&state=	callback	done	
+30 requests
+64.7 kB transferred
+
+
+
+
+
+
+{"query":"query Orders {\n                orders(where: {id: {eq: 795}}) { items {\n                  id\n                  clientQuotationId\n                  clientId\n                  orderNumber\n                  mode\n                  isDirectDelivery\n                  publishDateTime\n                  status\n                  executingStatus\n                  executingResponse\n                  packageReceiver\n                  packagePassword\n                  orderName\n                  shortUrlAuthCodeGenerationWay\n                  indirectFileFormat\n                  mwvEmailTemplateId\n                  exportBarcodeInfo\n                  voucherSupplierId\n                  packagePinReceiver\n                  emailAttachShortUrlImageId\n                  urlType\n                  generateSequenceNumber\n                  memo\n                  orderActivateMode\n                  afterPublished\n                  fixedDate\n                  emailGreeting\n                  emailSubject\n                  smsGreeting\n                  createdDateTime\n                  orderLines {\n                      id\n                      status\n                      orderId\n                      totalQuantity\n                      emailQuantity\n                      smsQuantity\n                      defaultExpirationDate\n                      voucherReservationCode\n                      needShortUrl\n                      expirationPolicyId\n                      messageEncoding\n                      publishedQuantity\n                      needTrustAccount\n                      uniqueExternalOrderId\n                      productVersionId\n                      productVersion {\n                        productVersionId\n                        skuId\n                        product {\n                          productCode\n                          productName\n                          productType\n                          isMaster\n                        }\n                      }\n                      orderLineTemplateId\n                      orderLineTemplate {\n                        orderLineTemplateSet {\n                            orderLineTemplateSetId\n                            templateType\n                            templateSubType\n                            orderLineTemplateVersionId\n                            orderLineTemplateVersion {\n                                templateVersionId\n                                orderLineTemplateTagValue {\n                                    orderLineTemplateTagValueId\n                                    orderLineTemplateTagValueSet {\n                                        orderLineTemplateTagSetId\n                                        tagId\n                                        value\n                                      }\n                                  }\n                              }\n                          }\n 
+
+
+
+
+{
+    "data": "{\"orders\":{\"items\":[{\"id\":795,\"clientQuotationId\":8474,\"clientId\":1207,\"orderNumber\":\"20231223080127\",\"mode\":3,\"isDirectDelivery\":true,\"publishDateTime\":\"2023-11-25T00:00:00Z\",\"status\":64,\"executingStatus\":null,\"executingResponse\":null,\"packageReceiver\":null,\"packagePassword\":null,\"orderName\":\"RubyDummy 1223\",\"shortUrlAuthCodeGenerationWay\":1,\"indirectFileFormat\":null,\"mwvEmailTemplateId\":1,\"exportBarcodeInfo\":null,\"voucherSupplierId\":null,\"packagePinReceiver\":null,\"emailAttachShortUrlImageId\":1,\"urlType\":null,\"generateSequenceNumber\":null,\"memo\":null,\"orderActivateMode\":null,\"afterPublished\":null,\"fixedDate\":null,\"emailGreeting\":\"Def Email greeting\",\"emailSubject\":\"DEf Email subject \",\"smsGreeting\":\"Def SMS greeting\",\"createdDateTime\":\"2023-12-23T08:01:27.847Z\",\"orderLines\":[{\"id\":1241,\"status\":1,\"orderId\":795,\"totalQuantity\":0,\"emailQuantity\":0,\"smsQuantity\":0,\"defaultExpirationDate\":null,\"voucherReservationCode\":null,\"needShortUrl\":false,\"expirationPolicyId\":8,\"messageEncoding\":\"Big5\",\"publishedQuantity\":0,\"needTrustAccount\":false,\"uniqueExternalOrderId\":null,\"productVersionId\":4,\"productVersion\":{\"productVersionId\":4,\"skuId\":4,\"product\":{\"productCode\":\"WWH06073\",\"productName\":\"白木屋六吋蛋糕五選一兌換券_(神坊專用)\",\"productType\":1,\"isMaster\":false}},\"orderLineTemplateId\":1157,\"orderLineTemplate\":{\"orderLineTemplateSet\":[{\"orderLineTemplateSetId\":3177,\"templateType\":1,\"templateSubType\":1,\"orderLineTemplateVersionId\":3183,\"orderLineTemplateVersion\":{\"templateVersionId\":1490,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3189,\"orderLineTemplateTagValueSet\":[]}}},{\"orderLineTemplateSetId\":3178,\"templateType\":2,\"templateSubType\":2,\"orderLineTemplateVersionId\":3184,\"orderLineTemplateVersion\":{\"templateVersionId\":791,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3190,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9651,\"tagId\":6,\"value\":\"\"}]}}}]},\"orderLineDetails\":[]},{\"id\":1242,\"status\":1,\"orderId\":795,\"totalQuantity\":0,\"emailQuantity\":0,\"smsQuantity\":0,\"defaultExpirationDate\":\"2025-12-18T23:59:59Z\",\"voucherReservationCode\":null,\"needShortUrl\":false,\"expirationPolicyId\":16,\"messageEncoding\":\"Big5\",\"publishedQuantity\":0,\"needTrustAccount\":false,\"uniqueExternalOrderId\":null,\"productVersionId\":10940,\"productVersion\":{\"productVersionId\":10940,\"skuId\":5147,\"product\":{\"productCode\":\"BGKYMMDD18\",\"productName\":\"漢堡王小華堡超省餐即享券(10組)\",\"productType\":3,\"isMaster\":false}},\"orderLineTemplateId\":1158,\"orderLineTemplate\":{\"orderLineTemplateSet\":[{\"orderLineTemplateSetId\":3179,\"templateType\":1,\"templateSubType\":1,\"orderLineTemplateVersionId\":3185,\"orderLineTemplateVersion\":{\"templateVersionId\":1537,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3191,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9652,\"tagId\":4,\"value\":\"http://www.burgerking.com.tw/store.php\"},{\"orderLineTemplateTagSetId\":9653,\"tagId\":6,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9654,\"tagId\":9,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9655,\"tagId\":11,\"value\":\"1095\"},{\"orderLineTemplateTagSetId\":9656,\"tagId\":12,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9657,\"tagId\":13,\"value\":\"\"},{\"orderLineTemplateTagSetId\":9658,\"tagId\":14,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9659,\"tagId\":21,\"value\":\"1\"},{\"orderLineTemplateTagSetId\":9660,\"tagId\":22,\"value\":\"4\"}]}}},{\"orderLineTemplateSetId\":3180,\"templateType\":2,\"templateSubType\":2,\"orderLineTemplateVersionId\":3186,\"orderLineTemplateVersion\":{\"templateVersionId\":923,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3192,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9661,\"tagId\":6,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9662,\"tagId\":23,\"value\":\"Def SMS greeting\"}]}}}]},\"orderLineDetails\":[]},{\"id\":1243,\"status\":1,\"orderId\":795,\"totalQuantity\":0,\"emailQuantity\":0,\"smsQuantity\":0,\"defaultExpirationDate\":\"1900-01-01T00:00:00Z\",\"voucherReservationCode\":null,\"needShortUrl\":false,\"expirationPolicyId\":16,\"messageEncoding\":\"Big5\",\"publishedQuantity\":0,\"needTrustAccount\":false,\"uniqueExternalOrderId\":null,\"productVersionId\":2579,\"productVersion\":{\"productVersionId\":2579,\"skuId\":2183,\"product\":{\"productCode\":\"PHT6MMDD11\",\"productName\":\"必勝客六吋個人鬆厚比薩任選兌換券\",\"productType\":1,\"isMaster\":false}},\"orderLineTemplateId\":1159,\"orderLineTemplate\":{\"orderLineTemplateSet\":[{\"orderLineTemplateSetId\":3181,\"templateType\":1,\"templateSubType\":1,\"orderLineTemplateVersionId\":3187,\"orderLineTemplateVersion\":{\"templateVersionId\":36,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3193,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9663,\"tagId\":6,\"value\":\"必勝客六吋個人鬆厚比薩任選兌換券\"},{\"orderLineTemplateTagSetId\":9664,\"tagId\":9,\"value\":\"<table border=\\\"0\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" style=\\\"line-height: 150%; font-size: 9pt;\\\" width=\\\"100%\\\">\\r\\n\\t<tbody>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t1</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\" width=\\\"95%\\\">\\r\\n\\t\\t\\t\\t本券可於全台Pizza Hut門市使用(南港餐廳店、高雄成功店、巨城鮮饗站不適用)，結帳前請出示本券(簡訊)，實體券請自行列印、彩色黑白皆可、唯僅能列印一次。使用須知如下：<br />\\r\\n\\t\\t\\t\\t<div style=\\\"color: rgb(126, 126, 126);\\\">\\r\\n\\t\\t\\t\\t\\t(1)本券兌換之產品僅限外帶使用，恕無法與一般產品合併外送。<br />\\r\\n\\t\\t\\t\\t\\t(2)列印時請注意本票券之條碼應為清晰可辨識，以確保您的使用權益。<br />\\r\\n\\t\\t\\t\\t\\t(3)為節省等待的時間，消費者可先撥打412-9889訂購專線訂購餐點（手機直播請加02），告知欲使用電子禮券結帳並告知完整11碼序號，恕不拘受手抄或口述序號；於指定時間至門市出示電子禮券，即可兌換本產品。</div>\\r\\n\\t\\t\\t</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t2</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t本券限兌換券上所載之指定商品，恕無法更換或加價兌換其他商品，商品圖片僅供參考，實際商品請以店內為準。如遇門市菜單簡化時間不提供該項商品，以店內公告為主。部分門市非販售全部商品，建議兌換前先電洽門市詢問。</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t3</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t本券無法兌換現金且無法與其他行銷活動合併使用。</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t4</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t本券電子序號及條碼具唯一性，僅限兌換一次，一經兌換即不可再重複使用。</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t5</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t消費者務必善盡保管責任，並謹慎使用，若轉讓本券予他人使用，即表示同意本券所載之注意事項，若本券因已被使用而造成消費者本人無法兌換，由消費者自行負責，本券恕不補發。</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t6</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t本券具有效使用期限，請於指定日期前兌換完畢，逾期恕無法使用。</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t7</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t本券重複印製使用無效，如涉及偽造情節重大者，宜睿智慧(股)公司及必勝客將依法追究。</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td class=\\\"attentionDetailNo\\\" valign=\\\"top\\\">\\r\\n\\t\\t\\t\\t8</td>\\r\\n\\t\\t\\t<td class=\\\"attentionDetail\\\">\\r\\n\\t\\t\\t\\t若對本券使用上有任何疑問請洽宜睿智慧電子兌換券客服中心：<span class=\\\"skype_c2c_print_container\\\">02-5572-3060</span>。專人服務時間：周一至周五上午10:00至下午6:00。</td>\\r\\n\\t\\t</tr>\\r\\n\\t</tbody>\\r\\n</table>\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<br />\\r\\n<br />\\r\\n\"},{\"orderLineTemplateTagSetId\":9665,\"tagId\":11,\"value\":\"1095\"},{\"orderLineTemplateTagSetId\":9666,\"tagId\":13,\"value\":\"s\"}]}}},{\"orderLineTemplateSetId\":3182,\"templateType\":2,\"templateSubType\":2,\"orderLineTemplateVersionId\":3188,\"orderLineTemplateVersion\":{\"templateVersionId\":756,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3194,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9667,\"tagId\":6,\"value\":\"\"}]}}}]},\"orderLineDetails\":[]},{\"id\":1244,\"status\":1,\"orderId\":795,\"totalQuantity\":0,\"emailQuantity\":0,\"smsQuantity\":0,\"defaultExpirationDate\":null,\"voucherReservationCode\":null,\"needShortUrl\":false,\"expirationPolicyId\":8,\"messageEncoding\":\"Big5\",\"publishedQuantity\":0,\"needTrustAccount\":false,\"uniqueExternalOrderId\":null,\"productVersionId\":10738,\"productVersion\":{\"productVersionId\":10738,\"skuId\":1023,\"product\":{\"productCode\":\"MSD03001\",\"productName\":\"Mister Donut一入甜甜圈兌換券\",\"productType\":1,\"isMaster\":false}},\"orderLineTemplateId\":1160,\"orderLineTemplate\":{\"orderLineTemplateSet\":[{\"orderLineTemplateSetId\":3183,\"templateType\":1,\"templateSubType\":1,\"orderLineTemplateVersionId\":3189,\"orderLineTemplateVersion\":{\"templateVersionId\":1363,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3195,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9668,\"tagId\":4,\"value\":\"order-testing.com\"},{\"orderLineTemplateTagSetId\":9669,\"tagId\":6,\"value\":\"For order\"},{\"orderLineTemplateTagSetId\":9670,\"tagId\":13,\"value\":\"Def Email greeting\"}]}}},{\"orderLineTemplateSetId\":3184,\"templateType\":2,\"templateSubType\":2,\"orderLineTemplateVersionId\":3190,\"orderLineTemplateVersion\":{\"templateVersionId\":1196,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3196,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9671,\"tagId\":4,\"value\":\"test short URL\"},{\"orderLineTemplateTagSetId\":9672,\"tagId\":12,\"value\":\"\"}]}}}]},\"orderLineDetails\":[]},{\"id\":1252,\"status\":1,\"orderId\":795,\"totalQuantity\":4,\"emailQuantity\":4,\"smsQuantity\":0,\"defaultExpirationDate\":\"2025-12-18T23:59:59Z\",\"voucherReservationCode\":null,\"needShortUrl\":false,\"expirationPolicyId\":16,\"messageEncoding\":\"Big5\",\"publishedQuantity\":0,\"needTrustAccount\":false,\"uniqueExternalOrderId\":\"RB_RCN-102\",\"productVersionId\":10940,\"productVersion\":{\"productVersionId\":10940,\"skuId\":5147,\"product\":{\"productCode\":\"BGKYMMDD18\",\"productName\":\"漢堡王小華堡超省餐即享券(10組)\",\"productType\":3,\"isMaster\":false}},\"orderLineTemplateId\":1158,\"orderLineTemplate\":{\"orderLineTemplateSet\":[{\"orderLineTemplateSetId\":3179,\"templateType\":1,\"templateSubType\":1,\"orderLineTemplateVersionId\":3185,\"orderLineTemplateVersion\":{\"templateVersionId\":1537,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3191,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9652,\"tagId\":4,\"value\":\"http://www.burgerking.com.tw/store.php\"},{\"orderLineTemplateTagSetId\":9653,\"tagId\":6,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9654,\"tagId\":9,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9655,\"tagId\":11,\"value\":\"1095\"},{\"orderLineTemplateTagSetId\":9656,\"tagId\":12,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9657,\"tagId\":13,\"value\":\"\"},{\"orderLineTemplateTagSetId\":9658,\"tagId\":14,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9659,\"tagId\":21,\"value\":\"1\"},{\"orderLineTemplateTagSetId\":9660,\"tagId\":22,\"value\":\"4\"}]}}},{\"orderLineTemplateSetId\":3180,\"templateType\":2,\"templateSubType\":2,\"orderLineTemplateVersionId\":3186,\"orderLineTemplateVersion\":{\"templateVersionId\":923,\"orderLineTemplateTagValue\":{\"orderLineTemplateTagValueId\":3192,\"orderLineTemplateTagValueSet\":[{\"orderLineTemplateTagSetId\":9661,\"tagId\":6,\"value\":\"漢堡王小華堡超省餐即享券(10組)\"},{\"orderLineTemplateTagSetId\":9662,\"tagId\":23,\"value\":\"Def SMS greeting\"}]}}}]},\"orderLineDetails\":[{\"id\":793,\"orderLineId\":1252,\"voucherId\":2384,\"mobile\":null,\"email\":\"test@outlook.com\",\"activeDate\":\"2023-12-25T02:53:28.523Z\",\"expirySchemeId\":16,\"expiryDate\":\"2024-01-07T23:59:59Z\",\"eDOrderNumber\":null,\"memo\":\"testMemo\",\"name\":\"testName\",\"address\":null,\"postCode\":null,\"languageId\":null,\"clientOrderNumber\":\"202310054421\",\"faceValue\":null,\"faceValueWithTax\":null,\"soldPrice\":null,\"soldPriceWithTax\":null,\"isEmailDelivered\":null,\"isSmsDelivered\":null}]}],\"orderChannelId\":null}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.ts
+  fetchOrderDetails() {
+    this.orderSvc
+      .getOrderById(this.orderId)
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+
+
+  getOrderById(id: number) {
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query Orders {
+                orders(where: {id: {eq: ${id}}}) { items {
+                  id
+                  clientQuotationId
+                  clientId
+                  orderNumber
+                  mode
+                  isDirectDelivery
+                  publishDateTime
+                  status
+                  executingStatus
+                  executingResponse
+                  packageReceiver
+                  packagePassword
+                  orderName
+                  shortUrlAuthCodeGenerationWay
+                  indirectFileFormat
+                  mwvEmailTemplateId
+                  exportBarcodeInfo
+                  voucherSupplierId
+                  packagePinReceiver
+                  emailAttachShortUrlImageId
+                  urlType
+                  generateSequenceNumber
+                  memo
+                  orderActivateMode
+                  afterPublished
+                  fixedDate
+                  emailGreeting
+                  emailSubject
+                  smsGreeting
+                  createdDateTime
+                  orderLines {
+                      id
+                      status
+                      orderId
+                      totalQuantity
+                      emailQuantity
+                      smsQuantity
+                      defaultExpirationDate
+                      voucherReservationCode
+                      needShortUrl
+                      expirationPolicyId
+                      messageEncoding
+                      publishedQuantity
+                      needTrustAccount
+                      productVersionId
+                      productVersion {
+                        productVersionId
+                        skuId
+                        product {
+                          productCode
+                          productName
+                          productType
+                          isMaster
+                        }
+                      }
+                      orderLineTemplateId
+                      orderLineTemplate {
+                        orderLineTemplateSet {
+                            orderLineTemplateSetId
+                            templateType
+                            templateSubType
+                            orderLineTemplateVersionId
+                            orderLineTemplateVersion {
+                                templateVersionId
+                                orderLineTemplateTagValue {
+                                    orderLineTemplateTagValueId
+                                    orderLineTemplateTagValueSet {
+                                        orderLineTemplateTagSetId
+                                        tagId
+                                        value
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                      orderLineDetails {
+                          id
+                          orderLineId
+                          voucherId
+                          mobile
+                          email
+                          activeDate
+                          expirySchemeId
+                          expiryDate
+                          eDOrderNumber
+                          memo
+                          name
+                          address
+                          postCode
+                          languageId
+                          clientOrderNumber
+                          faceValue
+                          faceValueWithTax
+                          soldPrice
+                          soldPriceWithTax
+                          isEmailDelivered
+                          isSmsDelivered
+                      }
+                  }
+                  orderChannelId
+              }
+          }
+        }`,
+    };
+    return (this.http.post(url, body) as Observable<BaseResponse>).pipe(
+      map((response: BaseResponse) => {
+        if (response.success) {
+          return JSON.parse(response.data)?.orders?.items[0];
+        }
+      })
+    );
+  }
+
+
+
+
+
+
+
+
+
+

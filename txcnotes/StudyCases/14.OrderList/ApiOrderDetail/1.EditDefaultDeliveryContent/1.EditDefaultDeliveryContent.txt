@@ -1,0 +1,88 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.html
+
+  <app-view-form-accordion
+    (showChildProduct)="onShowChildProduct($event)"
+    [showEdit]="
+      showEditBtn &&
+      orderStatus !== orderStatuses.UnderReview &&
+      orderStatus !== orderStatuses.Publishing &&
+      orderStatus !== orderStatuses.Closed
+    "
+    [isPrimary]="true"
+    [sectionCollapsed]="orderReferenceCollapsed"
+    [sectionTitle]="'Default delivery content'"
+    (editClicked)="
+      onOrderDetailsStateChange(editOrderDetailsType.DefaultDeliveryContent)
+    "
+  >
+
+
+
+      <ng-container *ngSwitchCase="editOrderDetailsType.DefaultDeliveryContent">
+        <div class="col-12 mt-2">
+          <app-order-delivery-details
+            [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+            [productList]="productList"
+            [orderStep]="deliveryContentStep"
+            (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked()"
+          ></app-order-delivery-details>
+        </div>
+        <ng-container *ngTemplateOutlet="saveAndCancelButtons"></ng-container>
+      </ng-container>
+
+
+
+
+
+  onOrderDetailsStateChange(editOrderDetailsType: number, save = false) {
+    if (
+      editOrderDetailsType !== EditOrderDetailsEnum.Attachment &&
+      !this.isPublishedApi
+    ) {
+      // scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    switch (editOrderDetailsType) {
+      case EditOrderDetailsEnum.BasicInfo: {
+        // basic info and settings always disabled
+        this.basicInfoFormGroup.disable();
+        this.settingsFormGroup.disable();
+
+        this.originalOrderValues = this.deepCopy(
+          this.basicPropertiesFormGroup.getRawValue()
+        );
+
+        this.attachmentFieldsDefinition = new OrderAttachmentFieldsDefinition();
+        this.basicPropertiesFormGroup.markAsPristine();
+        this.takeAllRow = false;
+        this.orderDetailsState = EditOrderDetailsEnum.BasicInfo;
+        break;
+      }
+      case EditOrderDetailsEnum.Attachment: {
+        this.formEmitterService.emitEvent.next('attachments');
+        break;
+      }
+      case EditOrderDetailsEnum.SelectedProductList: {
+        if (this.isPublishedApi) {
+          this.selectProductOnPublishedApi();
+          break;
+        }
+
+        this.originalProductList = [...this.productList];
+        this.isProductListDirty = false;
+        this.orderDetailsState = EditOrderDetailsEnum.SelectedProductList;
+        break;
+      }
+      case EditOrderDetailsEnum.DefaultDeliveryContent: {				<=============================
+        this.originalOrderValues = this.deliveryDetailsFormGroup.getRawValue();
+        this.deliveryDetailsFormGroup.markAsPristine();
+        this.takeAllRow = false;
+        this.orderDetailsState = EditOrderDetailsEnum.DefaultDeliveryContent;
+        break;
+      }
+      case EditOrderDetailsEnum.ViewDirectDeliveryDetails: {
+        this.orderDetailsState =
+          this.editOrderDetailsType.ViewDirectDeliveryDetails;
+        break;
+      }

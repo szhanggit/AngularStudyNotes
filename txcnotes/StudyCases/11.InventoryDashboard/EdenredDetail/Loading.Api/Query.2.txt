@@ -1,0 +1,48 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+{"query":"\n        query {\n      skuById(skuId: 1) {\n          contractSKUCosts {\n              costWithTax\n              validStartDate\n              validEndDate\n                skuCostContract {\n                      merchant {\n                          name\n                          merchantId\n                      }\n                  }\n          }\n          skuName\n          skuNumber\n      }\n  }"}
+
+
+
+{
+    "data": "{\"skuById\":[{\"contractSKUCosts\":[{\"costWithTax\":269.85,\"validStartDate\":\"2014-10-31T16:00:00Z\",\"validEndDate\":\"2014-12-31T00:00:00Z\",\"skuCostContract\":{\"merchant\":{\"name\":\"LONGTABLE\",\"merchantId\":8}}},{\"costWithTax\":269.85,\"validStartDate\":\"2017-02-28T16:00:00Z\",\"validEndDate\":\"2017-04-01T15:59:59Z\",\"skuCostContract\":{\"merchant\":{\"name\":\"OPENPOINT\",\"merchantId\":85}}}],\"skuName\":\"LONGTABLE 300元餐點抵用券\",\"skuNumber\":\"LTB03001\"}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.ts
+  getBasicInfo(): void {
+    this.inventoryApiService.getSkuDetailsBySkuId(+this.skuId).pipe(
+      takeUntil(this.destroy$)
+    )
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\inventory-api.service.ts
+  getSkuDetailsBySkuId(skuId: number): Observable<BaseResponse> {
+    const query = `
+        query {
+      skuById(skuId: ${skuId}) {
+          contractSKUCosts {
+              costWithTax
+              validStartDate
+              validEndDate
+                skuCostContract {
+                      merchant {
+                          name
+                          merchantId
+                      }
+                  }
+          }
+          skuName
+          skuNumber
+      }
+  }`;
+    return this.graphqlApiService.postQuery(query);
+  }

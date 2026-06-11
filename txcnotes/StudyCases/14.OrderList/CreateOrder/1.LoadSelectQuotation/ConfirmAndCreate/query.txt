@@ -1,0 +1,47 @@
+{"query":"query {\n        dictionaries (where: { category: { eq: \"Channel\"}}) { \n          dictionaryId,\n          name,\n          displayName \n        }\n      }"}
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":184,\"name\":\"MOWeb\",\"displayName\":\"MOWeb\"},{\"dictionaryId\":383,\"name\":\"MPS\",\"displayName\":\"MPS\"},{\"dictionaryId\":411,\"name\":\"ADORAWeb\",\"displayName\":\"ADORAWeb\"},{\"dictionaryId\":412,\"name\":\"Internal\",\"displayName\":\"Internal\"},{\"dictionaryId\":413,\"name\":\"SCV\",\"displayName\":\"SCV\"},{\"dictionaryId\":414,\"name\":\"SmartVoucher\",\"displayName\":\"SmartVoucher\"},{\"dictionaryId\":415,\"name\":\"POS\",\"displayName\":\"POS\"},{\"dictionaryId\":416,\"name\":\"Test\",\"displayName\":\"Test\"},{\"dictionaryId\":417,\"name\":\"Switch\",\"displayName\":\"Switch\"}]}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.ts
+    // get channels
+    if (this.selectedTenant === BusinessUnitEnum.Taiwan) {
+      this.dictionaryService
+        .getChannels()
+        .pipe(
+          takeUntil(this.destroyed$),
+          map((response) => JSON.parse(response.data).dictionaries)
+        )
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\dictionary.service.ts
+
+  getChannels(): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query {
+        dictionaries (where: { category: { eq: "Channel"}}) { 
+          dictionaryId,
+          name,
+          displayName 
+        }
+      }`,
+    };
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+

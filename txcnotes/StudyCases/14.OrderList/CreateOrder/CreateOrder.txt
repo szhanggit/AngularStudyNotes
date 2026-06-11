@@ -1,0 +1,283 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/order/create
+
+
+Use this 202312074426 quotation number in TW.
+
+-------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\order-routing.module.ts
+{ path: 'create', component: CreateOrderComponent },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\create-order\create-order.component.html
+
+
+
+
+1.PNG	2.PNG
+
+
+  <ng-container *ngSwitchDefault>
+    <div class="container-fluid order-list">
+      <div class="row my-3">
+        <div class="col-xl-10 col-lg-8 col-md-12 col-sm-12">
+          <h3 class="text-dark">Select Quotation</h3>
+        </div>
+      </div>
+      <div class="bg-white p-3 rounded">
+        <div class="text-dark font-16 mb-3">
+          <strong>Search signed quotation for this order </strong
+          ><span class="text-danger">*</span>
+        </div>
+        <div class="row font-14">
+          <div class="text-secondary">
+            Find quotation by searching quotation number, client name, or
+            project name.
+          </div>
+        </div>
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        <ng-container *ngIf="loading$ | async; else searchResults">
+          <app-loader></app-loader>
+        </ng-container>
+      </div>
+      <div class="col-12 px-2 py-3">
+        <div class="row">
+          <div class="col-xl-7 col-lg-6 col-md-4"></div>
+          <div class="col-xl-5 col-lg-6 col-md-8 d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-secondary rounded-pill px-5"
+              [routerLink]="['/order']"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary rounded-pill px-5 ml-2"
+              (click)="onConfirm()"
+              [disabled]="!selectedQuotation"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+
+---------------------------------
+3.PNG
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\create-order\create-order.component.ts
+  onConfirm() {
+    this.modalRef = this.modalSvc.open(SelectOrderTypeComponent, {
+      size: 'md',
+      backdrop: 'static',
+      centered: true,
+    });
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\create-order\select-order-type\select-order-type.component.html
+
+
+
+---------------------------------
+3.jpeg
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\create-order\create-order.component.html
+    <app-order-wizard
+      [basicPropertiesFormGroup]="basicPropertiesFormGroup"
+      [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+      [step]="step"
+      [stepsReached]="stepsReached"
+      [stepsWithIssue]="stepsWithIssue"
+      [productList]="productList"
+      [orderLines]="orderLines"
+      [fromUpload]="fromUpload"
+      [isProductSelectionDirty]="isProductSelectionDirty"
+      [toast]="toast"
+      (manualSelectProductClicked)="onManualProductSelectionClicked($event)"
+      (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked()"
+      (productListChanged)="onProductListChanged($event)"
+      (fileUploaded)="onFileUploaded($event)"
+    >
+    </app-order-wizard>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-wizard\order-wizard.component.html
+      <ng-container *ngSwitchCase="threeStepWizard.BasicProperties">
+        <div class="col-12 mt-2">
+          <app-order-reference-details></app-order-reference-details>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-basic-info
+            (formInvalid)="checkFormInvalidValues($event)"
+            [basicInfoFormGroup]="basicInfoFormGroup"
+          ></app-order-basic-info>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-settings
+            [settingsFormGroup]="settingsFormGroup"
+          ></app-order-settings>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-memo [memoFormGroup]="memoFormGroup"></app-order-memo>
+        </div>
+        <div class="col-12 mt-2">
+          <app-order-attachment
+            [attachmentFormGroup]="attachmentFormGroup"
+          ></app-order-attachment>
+        </div>
+      </ng-container>
+
+
+---------------------------------
+4.PNG
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-wizard\order-wizard.component.html
+        <app-order-product-selection
+          [productSelectionOnInitialState]="productSelectionOnInitialState"
+          [productSelectionErrorMessages]="productSelectionErrorMessages"
+          [productList]="productList"
+          [fromUpload]="fromUpload"
+          [activationDate]="activationDate"
+          (manualSelectProductClicked)="onManualProductSelectionClicked($event)"
+          (productSelectionChanged)="onProductSelectionChanged($event)"
+          (fileUploaded)="onFileUploaded($event)"
+        ></app-order-product-selection>
+
+
+5.PNG	WrongProductSelection.PNG
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-product-selection\order-product-selection.component.html
+
+            <ng-template #selectProduct>
+              <button
+                class="btn btn-primary font-12 px-3"
+                (click)="openModal()"
+              >
+                Select product
+              </button>
+            </ng-template>
+
+  openModal() {
+    const modalRef = this.modalService.open(
+      OrderProductSelectionModalComponent,
+      {
+        size: 'md',
+        backdrop: 'static',
+        centered: true,
+      }
+    );
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-product-selection\order-product-selection-modal\order-product-selection-modal.component.html
+
+
+---------------------------------
+DeliveryDetails.PNG	
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-wizard\order-wizard.component.html
+      <ng-container *ngSwitchCase="fourStepWizard.DeliveryDetails">
+        <app-order-delivery-details
+          [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+          [productList]="productList"
+          [orderStep]="step"
+          (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked($event)"
+          (formInvalid)="checkFormInvalidValues($event)"
+        ></app-order-delivery-details>
+      </ng-container>
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-delivery-details\order-delivery-details.component.html
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-product-selection\order-product-selection.component.html
+
+
+
+
+---------------------------------
+ReviewAndConfirm.jpeg	WrongReviewAndConfirm.jpeg	
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-wizard\order-wizard.component.html
+      <ng-container *ngSwitchDefault>
+        <app-order-review-and-confirm
+          [estimatedTotal]="estimatedTotal"
+          [productList]="productList"
+          [basicInfoFormGroup]="basicInfoFormGroup"
+          [settingsFormGroup]="settingsFormGroup"
+          [memoFormGroup]="memoFormGroup"
+          [attachmentFormGroup]="attachmentFormGroup"
+          (jumpToStep)="onJumpToStep($event)"
+        >
+        </app-order-review-and-confirm>
+      </ng-container>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-review-and-confirm\order-review-and-confirm.component.html
+
+
+
+
+
+
+---------------------------
+After edit button on accordion is clicked:
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\dumb\view-form-accordion\view-form-accordion.component.ts
+  onEdit() {
+    this.editClicked.emit();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

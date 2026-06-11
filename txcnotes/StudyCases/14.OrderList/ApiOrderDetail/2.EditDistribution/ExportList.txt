@@ -1,0 +1,108 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.html
+
+    <app-view-form-accordion
+      [sectionTitle]="'Distribution'"
+      [editText]="'Export'"
+      [showEdit]="false"
+      [showEditDropdown]="canExportDeliveryStatus"		<=====================
+      [isPrimary]="true"
+      [dropdownItems]="dropdownItems"
+    >
+      <div class="row mt-3">
+        <div class="col-6">
+          <span class="font-16 mt-3"><strong>SMS</strong></span>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <a
+            class="text-primary text-decoration-underline cursor-pointer"
+            (click)="onSyncClicked(2)"
+            >Sync status & history</a				<=====================
+          >
+        </div>
+      </div>
+      <app-table
+        [tableModel]="smsTableModel"
+        [greyHeader]="true"
+        [isStripedTable]="false"
+      ></app-table>
+      <div class="row mt-3">
+        <div class="col-6">
+          <span class="font-16 mt-3"><strong>Email</strong></span>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <a
+            class="text-primary text-decoration-underline cursor-pointer"
+            (click)="onSyncClicked(1)"
+            >Sync status & history</a				<=====================
+          >
+        </div>
+      </div>
+      <app-table
+        [tableModel]="emailTableModel"
+        [greyHeader]="true"
+        [isStripedTable]="false"
+      ></app-table>
+    </app-view-form-accordion>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  onSyncClicked(event: number) {
+    const syncStatusHistoryModalRef = this.modalSvc.open(
+      SyncStatusHistoryComponent,
+      {
+        size: 'lg',
+        backdrop: 'static',
+        centered: true,
+      }
+    );
+    syncStatusHistoryModalRef.componentInstance.templateType = event;
+    syncStatusHistoryModalRef.componentInstance.orderId = this.orderId;
+    syncStatusHistoryModalRef.componentInstance.voucherIds =
+      this.orderVoucherIds;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

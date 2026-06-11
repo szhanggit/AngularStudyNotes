@@ -1,0 +1,46 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+
+{"query":"\n      query { \n        dictionaries (where: { category: { eq: \"CultureCode\"}}) { \n          dictionaryId,\n          name,\n          displayName \n        }\n      }"}
+
+
+
+{
+    "data": "{\"dictionaries\":[{\"dictionaryId\":63,\"name\":\"zh-HK\",\"displayName\":\"Chinese - Hong Kong SAR\"},{\"dictionaryId\":64,\"name\":\"zh-CN\",\"displayName\":\"Chinese - China\"},{\"dictionaryId\":65,\"name\":\"zh-SG\",\"displayName\":\"Chinese - Singapore\"},{\"dictionaryId\":66,\"name\":\"zh-TW\",\"displayName\":\"Chinese - Taiwan\"},{\"dictionaryId\":67,\"name\":\"en\",\"displayName\":\"English\"},{\"dictionaryId\":68,\"name\":\"en-US\",\"displayName\":\"English - United States\"},{\"dictionaryId\":69,\"name\":\"ko\",\"displayName\":\"Korean\"},{\"dictionaryId\":70,\"name\":\"ko-KR\",\"displayName\":\"Korean - Korea\"},{\"dictionaryId\":371,\"name\":\"zh-MO\",\"displayName\":\"Chinese - Macao\"},{\"dictionaryId\":372,\"name\":\"fil-PH\",\"displayName\":\"Filipino - Philippines\"},{\"dictionaryId\":373,\"name\":\"id-ID\",\"displayName\":\"Indonesian - Indonesia\"},{\"dictionaryId\":374,\"name\":\"ja-JP\",\"displayName\":\"Japanese - Japan\"},{\"dictionaryId\":375,\"name\":\"ms-BN\",\"displayName\":\"Malay - Brunei Darussalam\"},{\"dictionaryId\":376,\"name\":\"ms-MY\",\"displayName\":\"Malay - Malaysia\"},{\"dictionaryId\":377,\"name\":\"th-TH\",\"displayName\":\"Thai - Thailand\"},{\"dictionaryId\":378,\"name\":\"vi-VN\",\"displayName\":\"Vietnamese - Vietnam\"}]}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\dictionary.service.ts
+
+
+
+  getLanguages(): Observable<Dictionary[]> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `
+      query { 
+        dictionaries (where: { category: { eq: "CultureCode"}}) { 
+          dictionaryId,
+          name,
+          displayName 
+        }
+      }`,
+    };
+    return (
+      this.http.post(url, body) as Observable<BaseResponse>
+    ).pipe(map((response) => JSON.parse(response.data).dictionaries));
+  }
+
+
+
+
+
+
+
+

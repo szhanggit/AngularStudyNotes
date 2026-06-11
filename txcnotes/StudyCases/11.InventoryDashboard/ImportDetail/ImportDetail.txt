@@ -1,0 +1,24 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/voucher/inventory/sku-details/7876
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'voucher',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.voucherPath,
+      exposedModule: './voucher.module'
+    }).then(m => m.VoucherModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\voucher-routing.module.ts
+  {
+    path: 'inventory/sku-details/:id',
+    component: InventorySkuDetailsComponent,
+    // canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.html

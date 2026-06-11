@@ -1,0 +1,75 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"\n    query {  \n      inventoryBatches (\n        take:25\n        skip:0\n        where: { \n          \n          skuId: { eq: 1 } \n        }\n        order: [{ createdOn: DESC }]\n      ) {    \n          totalCount\n          pageInfo {\n            hasNextPage\n          }     \n          items {\n            skuId\n            reservationCode\n            remainingQuantity\n            expiryDate\n            isDefault\n        } \n        }        \n    }"}
+
+
+{
+    "data": "{\"inventoryBatches\":{\"totalCount\":20,\"pageInfo\":{\"hasNextPage\":false},\"items\":[{\"skuId\":1,\"reservationCode\":\"2023Dec261528\",\"remainingQuantity\":10,\"expiryDate\":\"2026-01-01T15:59:59Z\",\"isDefault\":false},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true},{\"skuId\":1,\"reservationCode\":null,\"remainingQuantity\":300,\"expiryDate\":null,\"isDefault\":true}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.ts
+  getInventorySkuList() {
+    switch (this.source) {
+      case this.skuDetailSourceTypeEnum.EDENRED:
+        this.inventoryApiService.getEdenredInventory(+this.skuId, this.pageInfo.pageSize, this.pageInfo.currentPage === 1 ? 0 : (+this.pageInfo.currentPage - 1) * this.pageInfo.pageSize).pipe(
+          takeUntil(this.destroy$)
+        )
+          .subscribe({
+            next: (res: any) => {
+              const data = JSON.parse(res.data);
+              console.log(data);
+              const totalCount = data.inventoryBatches.totalCount;
+              this.calPageInfo(totalCount);
+              const remainingQuantity = data.inventoryBatches.items.filter((item: any) => item.isDefault === true);
+              this.inventoryList = data.inventoryBatches.items
+                .filter((item: any) => item.isDefault !== true)
+                .map((e: any) => {
+                  e.inStockQty = +e.remainingQuantity
+                  return e;
+                });
+              if (remainingQuantity.length > 0) {
+                this.safetyStockQty = remainingQuantity[0]?.remainingQuantity;
+              }
+            },
+            error: (err: any) => {
+              this.toast.showDanger(err.message);
+            },
+          });
+        break
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\inventory-api.service.ts
+
+  getEdenredInventory(skuId: number, take: number, skip: number, reservationCode?: string): Observable<BaseResponse> {
+    const reservationCodeQuery = `reservationCode: { eq: "${reservationCode}" }, `
+    const query = `
+    query {  
+      inventoryBatches (
+        take:${take}
+        skip:${skip}
+        where: { 
+          ${reservationCode ? reservationCodeQuery : ''}
+          skuId: { eq: ${skuId} } 
+        }
+        order: [{ createdOn: DESC }]
+      ) {    
+          totalCount
+          pageInfo {
+            hasNextPage
+          }     
+          items {
+            skuId
+            reservationCode
+            remainingQuantity
+            expiryDate
+            isDefault
+        } 
+        }        
+    }`;
+    return this.graphqlApiService.postQuery(query);
+  }

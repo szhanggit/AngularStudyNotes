@@ -1,0 +1,31 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\components\voucher-operations-list\voucher-operations-list.component.html
+    <lib-header
+      title="Batch Voucher Operations List"
+      [buttons]="actionButtons"
+    ></lib-header>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\components\voucher-operations-list\voucher-operations-list.component.ts
+  actionButtons = [
+    {
+      buttonText: 'Batch voucher operations',
+      buttonClass: 'btn-primary',
+      buttonAction: () => this.openModalWindow(),
+    },
+  ];
+
+
+
+  openModalWindow() {
+    this.modalService.open(UploadBatchOperationsModalComponent, {
+      size: 'md',
+      backdrop: 'static',
+      centered: true,
+    });
+  }
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\components\voucher-operations-list\upload-batch-operations-modal\upload-batch-operations-modal.component.html
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\components\action-modal\action-modal.component.html
+
+

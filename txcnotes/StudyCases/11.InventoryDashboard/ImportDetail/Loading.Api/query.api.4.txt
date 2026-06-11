@@ -1,0 +1,68 @@
+{"query":"\n    query {    \n      inventoryImportAggregations (\n        take:25\n        skip:0\n        order: [{ expiryDate: DESC }, { trustAccountEndDate: DESC }]\n        where: {\n          skuId :{eq:1041}\n          remainingQuantity: { gt: 0 }      \n      }) {       \n        totalCount\n        pageInfo {\n          hasNextPage\n        } \n        items {          \n            issueAvailableStartDate\n            issueAvailableEndDate\n            expiryDate\n            trustAccountEndDate\n            remainingQuantity\n        }    \n      }        \n    }"}
+
+
+{
+    "data": "{\"inventoryImportAggregations\":{\"totalCount\":1,\"pageInfo\":{\"hasNextPage\":false},\"items\":[{\"issueAvailableStartDate\":\"1970-01-01T00:00:00Z\",\"issueAvailableEndDate\":\"2025-01-01T00:00:00Z\",\"expiryDate\":\"2025-01-01T00:00:00Z\",\"trustAccountEndDate\":null,\"remainingQuantity\":13}]}}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.ts
+
+  getWatermarks() {
+    this.inventoryApiService.getWatermarks(+this.skuId).pipe(
+      takeUntil(this.destroy$)
+    )
+      .subscribe({
+        next: (res: any) => {
+          const data = JSON.parse(res.data);
+          const inventoryQtys = data.inventorySKUBatches.items[0];
+          this.inStockWatermark = inventoryQtys.warningWaterLevel;
+          this.apiBuffer = inventoryQtys.apiOrderBuffer;
+          this.replenishmentQty = inventoryQtys.replenishQuantity;
+          this.thresholdWatermark = inventoryQtys.warningWaterLevel;
+          this.regenerateTo = inventoryQtys.procurementQuantity;
+        },
+        error: (err: any) => {
+          this.toast.showDanger(err.message);
+        },
+      });
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\inventory-api.service.ts
+
+
+
+  getImportInventory(skuId: number, take: number, skip: number): Observable<BaseResponse> {
+    const query = `
+    query {    
+      inventoryImportAggregations (
+        take:${take}
+        skip:${skip}
+        order: [{ expiryDate: DESC }, { trustAccountEndDate: DESC }]
+        where: {
+          skuId :{eq:${skuId}}
+          remainingQuantity: { gt: 0 }      
+      }) {       
+        totalCount
+        pageInfo {
+          hasNextPage
+        } 
+        items {          
+            issueAvailableStartDate
+            issueAvailableEndDate
+            expiryDate
+            trustAccountEndDate
+            remainingQuantity
+        }    
+      }        
+    }`;
+    return this.graphqlApiService.postQuery(query);
+  }
+
+
+
+
+

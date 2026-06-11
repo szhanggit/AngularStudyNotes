@@ -1,0 +1,23 @@
+localhost:4200/order/795
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\order-routing.module.ts
+{ path: ':id', component: OrderDetailsComponent },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.html
+
+
+
+                <a ngbDropdownItem class="font-12" (click)="openHistoryModal()" *ngIf="canViewOrder"
+                  >View Operation History</a
+                >
+
+
+  openHistoryModal() {
+    const historyModalRef = this.modalSvc.open(OrderHistoryComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      centered: true,
+    });
+    historyModalRef.componentInstance.orderId = this.orderId;
+  }

@@ -1,0 +1,97 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-product-selection\order-product-selection.component.html
+
+    <app-product-selection-table
+      *ngIf="productList.length"
+      [tableModel]="productSelectionTableModel"
+      [productList]="productList"
+      [showChildProduct]="showChildProduct"
+      [displaySearchBar]="isDirectOrderDeliveryDetails"
+      [isDirectOrderDeliveryDetails]="isDirectOrderDeliveryDetails"
+      [deliveryDetailsFormGroup]="deliveryDetailsFormGroup"
+      (productEditClicked)="onProductEditClicked($event)"
+      (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked($event)"
+      (productDeleted)="onProductDeleted($event)"
+      (statusChanged)="onStatusChanged($event)"
+    ></app-product-selection-table>
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-product-selection\product-selection-table\product-selection-table.component.html
+
+
+<ng-container *ngFor="let product of productList; index as i">    <=====Iteration
+
+          <ng-container>
+            <td *ngIf="isDirectOrderDeliveryDetails">
+              <ul class="list-unstyled" *ngIf="!product.isChildProduct">
+                <li>
+                  <a
+                    class="text-primary text-decoration-underline"
+                    href=""
+                    (click)="onEditDeliveryDetailsClicked(product, $event)"
+                    >{{ editLabel }}</a		<========= Here!
+                  >
+                </li>
+                <li>
+                  <a
+                    class="text-primary text-decoration-underline"
+                    href=""
+                    (click)="showPreview(1, product, $event)"
+                    >Preview voucher page</a       <========= Here!
+                  >
+                </li>
+                <li *ngIf="selectedOrderMode.key !== orderModes.IndirectNonAPI">
+                  <a
+                    class="text-primary text-decoration-underline"
+                    href=""
+                    (click)="showPreview(2, product, $event)"
+                    >Preview SMS</a
+                  >
+                </li>
+              </ul>
+            </td>
+          </ng-container>
+
+
+
+
+--------------------------------
+
+  onEditDeliveryDetailsClicked(product: Product, event: Event): void {
+    window.scroll(0, 0);
+    event.preventDefault();
+
+    if (
+      !this.templateStateService.productTemplateList.some(
+        (productTemplate) =>
+          productTemplate.productVersionId === product.productVersionId
+      ) || 
+      product.isEditMode
+    ) {
+      this.getTemplate(product, TemplateTypeEnum.Email, false);
+      return;
+    }
+
+    this.editDeliveryDetailsClicked.emit(product.productVersionId);
+    this.templateStateService.setProductTemplatesByProductVersionId(
+      product.productVersionId,
+      product.orderLineTemplateId
+    );
+  }
+
+
+
+
+
+  showPreview(type: number, product: Product, event: Event) {
+    event.preventDefault();
+
+    if (
+      !this.templateStateService.productTemplateList.some(
+        (productTemplate) =>
+          productTemplate.productVersionId === product.productVersionId
+      )
+    ) {
+      this.getTemplate(product, type, true);
+    } else {
+      this.previewTemplate(product, type);
+    }
+  }

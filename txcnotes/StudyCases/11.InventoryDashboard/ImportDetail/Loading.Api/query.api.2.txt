@@ -1,0 +1,75 @@
+{"query":"\n    query {\n      productInfo(where: {\n          skuId: {\n              eq:1041\n          }\n      }\n          take: 5\n          order: [{ productCode: DESC }]\n      ) {\n          totalCount\n          items\n          {\n              productName\n              productCode\n              productId\n              productType\n          }\n      }\n  }"}
+
+
+{
+    "data": "{\"productInfo\":{\"totalCount\":1,\"items\":[{\"productName\":\"7-ELEVEN CITY CAFE 45元咖啡系列兌換券\",\"productCode\":\"SEV03003\",\"productId\":1041,\"productType\":1}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.ts
+  getProductList(takeAmount: number): void {
+    this.inventoryApiService.getProductListBySkuId(+this.skuId, takeAmount).pipe(
+      takeUntil(this.destroy$)
+    )
+      .subscribe({
+        next: (res: any) => {
+          const data = JSON.parse(res.data);
+          this.productList = data?.productInfo?.items;
+          this.productListTotalCount = data?.productInfo?.totalCount;
+        },
+        error: (err: any) => {
+          this.toast.showDanger(err.message);
+        },
+      });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\inventory-api.service.ts
+
+
+
+  /** Inventory */
+  getProductListBySkuId(skuId: number, takeAmount: number = 100): Observable<BaseResponse> {
+    const query = `
+    query {
+      productInfo(where: {
+          skuId: {
+              eq:${skuId}
+          }
+      }
+          take: ${takeAmount}
+          order: [{ productCode: DESC }]
+      ) {
+          totalCount
+          items
+          {
+              productName
+              productCode
+              productId
+              productType
+          }
+      }
+  }`;
+    return this.graphqlApiService.postQuery(query);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

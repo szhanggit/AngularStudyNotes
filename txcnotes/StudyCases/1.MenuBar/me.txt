@@ -1,0 +1,83 @@
+[
+    {
+        "access_token": "",
+        "expires_on": "2023-12-23T15:32:30.4525635Z",
+        "id_token": "",
+        "provider_name": "aad",
+        "user_claims": [
+            {
+                "typ": "aud",
+                "val": "b1ce5559-5b2b-42fe-baf0-83fa61a3e8fb"
+            },
+            {
+                "typ": "iss",
+                "val": "https:\/\/login.microsoftonline.com\/4c1d9e0f-5c27-4228-a35a-de7b4083ff7b\/v2.0"
+            },
+            {
+                "typ": "iat",
+                "val": "1703340648"
+            },
+            {
+                "typ": "nbf",
+                "val": "1703340648"
+            },
+            {
+                "typ": "exp",
+                "val": "1703344548"
+            },
+            {
+                "typ": "aio",
+                "val": "AYQAe\/8VAAAAG5cTT\/KXIE3DWbztbcgaFLEvL0VR+E\/VCc36I40I+v8HPxgeRUgmDsOcwkzeS0VnytlSIBa7S0pusU6ZAB7yX3BdFzmfIpG\/zLi1dRzjvG6Y6GssMXhRdlcEOuJeFhQtKZ7LX6y\/\/Zo2IqjLp86zrzkfr0R\/1NPN8bXW26reuBs="
+            },
+            {
+                "typ": "c_hash",
+                "val": "TUv_en2vM9eRAFqLYUg5vw"
+            },
+            {
+                "typ": "cc",
+                "val": "CgEAEgtlZGVucmVkLmNvbRoSChBzLZ6x1N8vRIFBzDuobqbyIhIKEE8WvceNhAFLsAAG6+mvKwEyAkVVOAA="
+            },
+            {
+                "typ": "http:\/\/schemas.xmlsoap.org\/ws\/2005\/05\/identity\/claims\/emailaddress",
+                "val": "Steven.ZHANG@edenred.com"
+            },
+            {
+                "typ": "name",
+                "val": "ZHANG Steven"
+            },
+            {
+                "typ": "nonce",
+                "val": "082059c829e4469ba78fbedee2099e77_20231223142045"
+            },
+            {
+                "typ": "http:\/\/schemas.microsoft.com\/identity\/claims\/objectidentifier",
+                "val": "2bfdbd5e-ada4-423e-b3d5-ee019b5059a2"
+            },
+            {
+                "typ": "preferred_username",
+                "val": "Steven.ZHANG@edenred.com"
+            },
+            {
+                "typ": "rh",
+                "val": "0.AYIAD54dTCdcKEKjWt57QIP_e1lVzrErW_5CuvCD-mGj6PuCAG8."
+            },
+            {
+                "typ": "http:\/\/schemas.xmlsoap.org\/ws\/2005\/05\/identity\/claims\/nameidentifier",
+                "val": "03qbELAxMw51SQ14qlMQUCvn2lmmZBM95fPLUERqnEo"
+            },
+            {
+                "typ": "http:\/\/schemas.microsoft.com\/identity\/claims\/tenantid",
+                "val": "4c1d9e0f-5c27-4228-a35a-de7b4083ff7b"
+            },
+            {
+                "typ": "uti",
+                "val": "Txa9x42EAUuwAAbr6a8rAQ"
+            },
+            {
+                "typ": "ver",
+                "val": "2.0"
+            }
+        ],
+        "user_id": "Steven.ZHANG@edenred.com"
+    }
+]

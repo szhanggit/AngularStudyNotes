@@ -1,0 +1,128 @@
+https://api-staging.txc.edenred.net/gateway/api/Order/Create
+
+
+POST
+ClientQuotationNo: 202109013873
+Mode: 1
+orderName: oipoipipi
+publishDate: 2023-12-28T07:42:00Z
+activationType: 2
+activationDate: 2023-12-29T07:42:00Z
+afterPublished: 1
+excelFormat: 1
+excelShortUrl: 1
+barcodeInfo: 1
+emailAttachment: 1
+shortUrlAuthCodeGenerationWay: 1
+generateSequenceNumber: false
+channelId: 411
+memo: iouiouu
+OrderLines[0][ProductVersionId]: 15021
+OrderLines[0][ExpirationPolicyId]: 10
+OrderLines[0][ExpiryDate]: 
+OrderLines[0][TotalQuantity]: 1
+OrderLines[0][VoucherReservationCode]: 
+OrderLines[0][ClientOrderNo]: 
+OrderLines[0][NeedShortUrl]: false
+OrderLines[0][NeedTrustAccount]: false
+OrderLines[0][EmailQuantity]: 0
+OrderLines[0][SlmsQuantity]: 0
+
+
+
+{
+    "data": {
+        "errorValidationDto": [
+            {
+                "columnName": "Activation date",
+                "errorMessage": "Activation date must be empty",
+                "referenceKey": "NullValidator",
+                "rowNumber": null,
+                "severity": null,
+                "errorDetail": null
+            }
+        ]
+    },
+    "message": "Validation failed: \n -- Activation date: Activation date must be empty Severity: Error",
+    "success": false
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-wizard\order-wizard.component.ts
+  proceedWithCreateOrder() {
+    const { basicInfo: basicInfoFormModel, settings: settingsFormModel } =
+      this.getFormModels();
+    this.orderService
+      .createOrder(
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+
+  createOrder(
+    selectedQuotation: Quotation,
+    orderMode: OrderMode,
+    basicInfoFormModel: FormModel,
+    attachments: { attachments: File[] },
+    settingsFormModel: FormModel,
+    memo: { memo: string },
+    orderLines: OrderLine[],
+    deliveryDetails: {
+      emailTemplate: string;
+      emailSubject: string;
+      emailGreeting: string;
+      msgEncoding: string;
+      smsGreeting: string;
+    }
+  ) {
+    const url = `${this.getURL()}api/Order/Create`;
+    const formData: FormData = new FormData();
+    formData.append('ClientQuotationNo', selectedQuotation.quotationNumber);
+    formData.append('Mode', orderMode.key.toString());
+
+    this.prepareFirstStep(
+      formData,
+      basicInfoFormModel,
+      attachments.attachments,
+      settingsFormModel,
+      memo.memo
+    );
+
+    // order lines
+    this.prepareOrderLines(formData, orderLines, orderMode.key);
+
+    // default direct delivery and API
+    if (
+      [OrderModeEnum.DirectNonAPI, OrderModeEnum.API].includes(orderMode.key)
+    ) {
+      formData.append(
+        `DefaultDeliveryContent.EmailTemplateId`,
+        deliveryDetails.emailTemplate
+      );
+      formData.append(
+        `DefaultDeliveryContent.EmailSubject`,
+        deliveryDetails.emailSubject
+      );
+      formData.append(
+        `DefaultDeliveryContent.EmailGreeting`,
+        deliveryDetails.emailGreeting ? deliveryDetails.emailGreeting : ''
+      );
+      formData.append(
+        `DefaultDeliveryContent.SlmsGreeting`,
+        deliveryDetails.smsGreeting ? deliveryDetails.smsGreeting : ''
+      );
+      formData.append(
+        `DefaultDeliveryContent.MessageEncodingId`,
+        deliveryDetails.msgEncoding
+      );
+    }
+
+    return this.http
+      .post<BaseResponse>(url, formData, {
+        headers: this.authorizationLibraryService
+          .getAMMHeaders()
+          .delete('content-type', 'application/json'),
+      })
+      .pipe(map((response) => response));
+  }
+

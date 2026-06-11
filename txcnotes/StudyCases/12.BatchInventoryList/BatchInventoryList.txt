@@ -1,0 +1,31 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/batch-processor/voucher/inventory-list
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'batch-processor',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.batchProcessorPath,
+      exposedModule: './batch-processor.module'
+    }).then(m => m.BatchProcessorModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\batch-processor-routing.module.ts
+{ path: 'voucher/inventory-list', component: InventoryListComponent }, 
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\components\inventory-list\inventory-list.component.html
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\shared\base-batch-list\base-batch-list.component.html
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\shared\common-table-filter\common-table-filter.component.html
+
+
+
+

@@ -1,0 +1,271 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/order/773
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\order-routing.module.ts
+{ path: ':id', component: OrderDetailsComponent },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.html
+
+
+
+
+
+
+Main Context
+(
+	The components:	
+	<app-form/>
+	D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\dumb\form\form.component.html
+	<app-view-form-accordion/>
+	D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\dumb\view-form-accordion\view-form-accordion.component.html		
+)
+-----------------------------------------------------
+
+      <ng-container *ngSwitchDefault>
+        <!-- REFERENCE PANEL -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            [showEdit]="false"
+            [sectionCollapsed]="orderReferenceCollapsed"
+            [sectionTitle]="'Reference details of this order'"
+          >
+            <app-order-reference-details
+              [viewMode]="true"
+            ></app-order-reference-details>
+          </app-view-form-accordion>
+        </div>
+        <!-- BASIC INFO PANEL -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            [sectionCollapsed]="basicPropertiesCollapsed"
+            [sectionTitle]="'Basic Properties'"
+            [showEdit]="
+              showEditBtn &&
+              (orderStatus === orderStatuses.Created ||
+                orderStatus === orderStatuses.Rejected)
+            "
+            [isPrimary]="true"
+            (editClicked)="
+              onOrderDetailsStateChange(editOrderDetailsType.BasicInfo)
+            "
+          >
+            <app-form [formModel]="basicInfoFormModel" [viewMode]="true">
+              <ng-container #dateContent dateContent>
+                {{ getComputedActivatedDate() }}</ng-container
+              >
+              <ng-container #selectContent selectContent>
+                {{ getNdaysFromPublishDate() }}</ng-container
+              >
+            </app-form>
+            <app-form
+              [formModel]="settingsFormModel"
+              [viewMode]="true"
+            ></app-form>
+            <app-form [formModel]="memoFormModel" [viewMode]="true"></app-form
+          ></app-view-form-accordion>
+        </div>
+        <!-- ATTACHMENT PANEL -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            [showEdit]="
+              showEditBtn &&
+              orderStatus !== orderStatuses.Publishing &&
+              orderStatus !== orderStatuses.Closed
+            "
+            [isPrimary]="true"
+            [sectionCollapsed]="attachmentCollapsed"
+            [editText]="'Upload file'"
+            [sectionTitle]="'Attachment'"
+            (editClicked)="
+              onOrderDetailsStateChange(editOrderDetailsType.Attachment)
+            "
+          >
+            <app-form
+              [formModel]="attachmentFormModel"
+              [disableAllInput]="
+                !(
+                  showEditBtn &&
+                  orderStatus !== orderStatuses.Publishing &&
+                  orderStatus !== orderStatuses.Closed
+                )
+              "
+              [hideTitle]="true"
+              (fileEventWithApi)="fileEvent($event)"
+            ></app-form>
+          </app-view-form-accordion>
+        </div>
+        <!-- PRODUCT LIST -->
+        <div class="col-12 mt-2">
+          <app-view-form-accordion
+            (showChildProduct)="onShowChildProduct($event)"
+            [showChildProductToggle]="true"
+            [showEdit]="
+              (showEditBtn &&
+                (orderStatus === orderStatuses.Created ||
+                  orderStatus === orderStatuses.Rejected)) ||
+              (showActiveAllProductList &&
+                orderStatus === orderStatuses.Published)
+            "
+            [hasSecondaryButton]="showActiveAllProductList"
+            [isSecondaryButtonDisabled]="isActiveAllDisabled"
+            [editText]="showActiveAllProductList ? 'Select product' : 'Edit'"
+            [isPrimary]="true"
+            [sectionCollapsed]="productSelectionCollapsed"
+            [sectionTitle]="'Selected product list'"
+            (secondaryButtonClicked)="onActiveAllClicked()"
+            (editClicked)="
+              onOrderDetailsStateChange(
+                editOrderDetailsType.SelectedProductList
+              )
+            "
+            [disableChildToggle]="disableChildToggle"
+            [isShowChildProduct]="showChildProduct"
+          >
+            <app-product-selection-table
+              *ngIf="productList?.length"
+              [viewMode]="true"
+              [tableModel]="productSelectionTableModel"
+              [productList]="productList"
+              [orderStatus]="orderStatus"
+              [displaySearchBar]="true"
+              [showActionColumn]="
+                !(
+                  selectedOrderMode?.key === orderModes.PaperVoucher &&
+                  selectedTenant !== businessUnits.Taiwan
+                )
+              "
+              [disableEditOnTrustAccount]="!showTrustAccountActionBtn || !showEditBtn"
+              [isViewOnlyTrustAccount]="isViewOnlyTrustAccount"
+              [showChildProduct]="showChildProduct"
+              [showViewDirectDeliveryDetails]="
+                orderStatus === orderStatuses.Published
+              "
+              [enableForCreatorOnly]="isOrderEditor"
+              (editDeliveryDetailsClicked)="onEditDeliveryDetailsClicked()"
+              (directDeliveryDetailsClicked)="
+                onDirectDeliveryDetailsClicked($event)
+              "
+              (statusChanged)="onStatusChanged($event)"
+            >
+              <app-product-list-summary
+                [totalQuantities]="totalQuantities"
+                [estimatedTotal]="estimatedTotal"
+                [orderStatus]="orderStatus"
+              ></app-product-list-summary>
+            </app-product-selection-table>
+          </app-view-form-accordion>
+        </div>
+        <!-- DEFAULT DELIVERY -->
+        <div
+          class="col-12 mt-2"
+          *ngIf="selectedOrderMode?.key !== orderModes.PaperVoucher"
+        >
+          <ng-container
+            *ngTemplateOutlet="defaultDeliveryContent"
+          ></ng-container>
+        </div>
+        <!-- DISTRIBUTION -->
+        <div class="col-12 mt-2">
+          <ng-container *ngTemplateOutlet="distribution"></ng-container>
+        </div>
+        <!-- ACTION BUTTONS -->
+        <div class="col-12">
+          <div class="row my-3">
+            <div [class]="{'col-9': !isThreeButtons, 'col-6': isThreeButtons}"></div>
+            <div [class]="{'col-3': !isThreeButtons, 'col-6': isThreeButtons}">
+              <div class="row">
+                <!-- PLACEHOLDER FOR SPACING -->
+                <div [class]="{'col-6': !isThreeButtons || isThreeButtons && !showApproveBtn, 'col-3': isThreeButtons, 'col-9': isThreeButtons && !showRejectBtn}" 
+                  *ngIf="showPlaceholderBtn"></div>
+                <!-- CLOSE ORDER BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showCloseOrderBtn">
+                  <button
+                    class="btn rounded-pill w-100 p-1 font-12"
+                    [ngClass]="{'btn-danger': !showRejectBtn, 'btn-secondary': showRejectBtn}"
+                    (click)="closeOrder(closeModalEnum.Close)"
+                  >
+                    Close order
+                  </button>
+                </div>
+                <!-- REJECT BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showRejectBtn">
+                  <button
+                    class="btn btn-danger rounded-pill w-100 p-1 font-12"
+                    (click)="closeOrder(closeModalEnum.Reject)"
+                  >
+                    Reject
+                  </button>
+                </div>
+                <!-- APPROVE BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showApproveBtn">
+                  <button
+                    class="btn btn-success rounded-pill w-100 p-1 font-12"
+                    (click)="submitOrder(orderStatus)"
+                  >
+                    Approve
+                  </button>
+                </div>
+                <!-- SUBMIT BTN -->
+                <div [class]="{'col-6': !isThreeButtons, 'col-3': isThreeButtons}" *ngIf="showSubmitBtn">
+                  <button
+                    class="btn btn-primary rounded-pill w-100 p-1 font-12"
+                    (click)="submitOrder(orderStatus)"
+                  >
+                    {{
+                      orderStatus === orderStatuses.Failed
+                        ? "Republish"
+                        : "Submit"
+                    }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

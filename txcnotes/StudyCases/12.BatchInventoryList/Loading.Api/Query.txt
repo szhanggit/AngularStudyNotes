@@ -1,0 +1,43 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+	
+
+
+
+
+
+{"query":"query {\n        batchInventories(\n          skip: 0 take: 20\n          domain: INVENTORY\n          where: {\n            and: [\n              {\n                or: [\n                  { batchNumber: { contains: \"\" } }\n                  { fileName: { contains: \"\" } }\n                ]\n              }\n              { batchStatus: { contains: \"\" } }\n              \n              { createdOn: { gte: \"0001-01-01\" } }\n              { createdOn: { lte: \"9999-12-31\" } }\n            ]\n          }\n        ) {\n          totalCount,\n          items {\n            batchId\n            batchStatus\n            batchNumber\n            fileName\n            source\n            createdOn\n            canCancel\n            operator\n            batchDetail {\n              totalCount\n              failedCount\n              successCount\n              processedStartDate\n              processedEndDate\n            }\n          }\n        }\n      }\n      "}
+
+
+
+
+
+{
+    "data": "{\"batchInventories\":{\"totalCount\":12,\"items\":[{\"batchId\":16,\"batchStatus\":\"Initializing Error\",\"batchNumber\":\"2023122200016\",\"fileName\":\"rain-check-51.xlsx\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-22T13:12:07.193Z\",\"canCancel\":true,\"operator\":\"rbacareza\",\"batchDetail\":{\"totalCount\":1,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-22T13:12:13.097Z\",\"processedEndDate\":null}},{\"batchId\":18,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122200018\",\"fileName\":\"rain-inv-002.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-22T13:19:13.293Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":7,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-22T13:19:14.39Z\",\"processedEndDate\":null}},{\"batchId\":20,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122200020\",\"fileName\":\"rain-check-55.xlsx\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-22T14:13:19.387Z\",\"canCancel\":false,\"operator\":\"rbacareza\",\"batchDetail\":{\"totalCount\":2,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-22T14:13:20.09Z\",\"processedEndDate\":null}},{\"batchId\":22,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600022\",\"fileName\":\"rain-inv-004.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:26:27.187Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:26:30.287Z\",\"processedEndDate\":null}},{\"batchId\":23,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600023\",\"fileName\":\"rain-inv-006.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:26:27.99Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:26:30.29Z\",\"processedEndDate\":null}},{\"batchId\":24,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600024\",\"fileName\":\"rain-inv-013.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:27:31.29Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:27:32.887Z\",\"processedEndDate\":null}},{\"batchId\":25,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600025\",\"fileName\":\"rain-inv-008.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:27:31.29Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:27:33.187Z\",\"processedEndDate\":null}},{\"batchId\":26,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600026\",\"fileName\":\"rain-inv-009.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:27:32.09Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:27:34.487Z\",\"processedEndDate\":null}},{\"batchId\":27,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600027\",\"fileName\":\"rain-inv-014.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:28:53.387Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:28:55.593Z\",\"processedEndDate\":null}},{\"batchId\":28,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600028\",\"fileName\":\"rain-inv-016.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:28:53.393Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:28:55.787Z\",\"processedEndDate\":null}},{\"batchId\":29,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600029\",\"fileName\":\"rain-inv-015.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:28:53.39Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:28:55.987Z\",\"processedEndDate\":null}},{\"batchId\":30,\"batchStatus\":\"Queuing\",\"batchNumber\":\"2023122600030\",\"fileName\":\"rain-inv-020.csv\",\"source\":\"MANUAL\",\"createdOn\":\"2023-12-26T09:30:06.39Z\",\"canCancel\":false,\"operator\":\"SYSTEM\",\"batchDetail\":{\"totalCount\":308,\"failedCount\":0,\"successCount\":0,\"processedStartDate\":\"2023-12-26T09:30:07.287Z\",\"processedEndDate\":null}}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

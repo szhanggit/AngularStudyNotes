@@ -1,0 +1,59 @@
+{"query":"\n    query {\n      inventorySKUBatches(\n        where: { skuId: { in: [1041]} }\n      ) {\n          items {\n              skuId\n              warningWaterLevel\n              apiOrderBuffer\n              procurementQuantity\n              replenishQuantity\n          }\n      }\n  }"}
+
+{
+    "data": "{\"inventorySKUBatches\":{\"items\":[{\"skuId\":1041,\"warningWaterLevel\":0,\"apiOrderBuffer\":0,\"procurementQuantity\":0,\"replenishQuantity\":0}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.ts
+  getWatermarks() {
+    this.inventoryApiService.getWatermarks(+this.skuId).pipe(
+      takeUntil(this.destroy$)
+    )
+      .subscribe({
+        next: (res: any) => {
+          const data = JSON.parse(res.data);
+          const inventoryQtys = data.inventorySKUBatches.items[0];
+          this.inStockWatermark = inventoryQtys.warningWaterLevel;
+          this.apiBuffer = inventoryQtys.apiOrderBuffer;
+          this.replenishmentQty = inventoryQtys.replenishQuantity;
+          this.thresholdWatermark = inventoryQtys.warningWaterLevel;
+          this.regenerateTo = inventoryQtys.procurementQuantity;
+        },
+        error: (err: any) => {
+          this.toast.showDanger(err.message);
+        },
+      });
+  }
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\inventory-api.service.ts
+
+  getWatermarks(skuId: number): Observable<BaseResponse> {
+    const skuIdQuery = `where: { skuId: { in: [${skuId}]} }`
+    const query = `
+    query {
+      inventorySKUBatches(
+        ${skuIdQuery}
+      ) {
+          items {
+              skuId
+              warningWaterLevel
+              apiOrderBuffer
+              procurementQuantity
+              replenishQuantity
+          }
+      }
+  }`;
+    return this.graphqlApiService.postQuery(query);
+  }
+
+
+
+
+

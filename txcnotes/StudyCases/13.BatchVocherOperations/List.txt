@@ -1,0 +1,52 @@
+https://esg-xcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/batch-processor/voucher/voucher-operations-list
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'batch-processor',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.batchProcessorPath,
+      exposedModule: './batch-processor.module'
+    }).then(m => m.BatchProcessorModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\batch-processor-routing.module.ts
+{ path: 'voucher/voucher-operations-list', component: VoucherOperationsListComponent},
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\components\voucher-operations-list\voucher-operations-list.component.html
+	<lib-header>
+	D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Shared-Library\projects\component-library\src\lib\components\header\header.component.html
+
+
+	<app-base-batch-list>
+	D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\shared\base-batch-list\base-batch-list.component.html
+		<lib-table>
+		D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Shared-Library\projects\component-library\src\lib\components\table\table.component.html	
+		
+
+		<app-common-table-filter>
+		D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\shared\common-table-filter\common-table-filter.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\BatchProcessor\src\app\batch-processor\shared\base-batch-list\base-batch-list.component.html

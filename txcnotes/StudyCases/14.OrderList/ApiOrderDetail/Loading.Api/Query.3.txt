@@ -1,0 +1,60 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"{\n        orderQuotationServedQuantities(where: {quotationId: {eq: 8474}}) {\n          items {\n            id\n            quotationId\n            productVersionId\n            remainingQuantity\n          }\n        }\n      }"}
+
+
+
+{
+    "data": "{\"orderQuotationServedQuantities\":{\"items\":[{\"id\":11,\"quotationId\":8474,\"productVersionId\":10940,\"remainingQuantity\":null}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-details\order-details.component.ts
+  fetchOrderDetails() {
+    this.orderSvc
+      .getOrderById(this.orderId)
+      .pipe(
+        // cross reference remaining quantity
+        switchMap((order: Order) => {
+          this.orderCreatedDateTime = order.createdDateTime;
+          return this.orderSvc
+            .getOrderRemainingQuantity(order.clientQuotationId)
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+
+
+  getOrderRemainingQuantity(quotationId: number) {
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `{
+        orderQuotationServedQuantities(where: {quotationId: {eq: ${quotationId}}}) {
+          items {
+            id
+            quotationId
+            productVersionId
+            remainingQuantity
+          }
+        }
+      }`,
+    };
+    return (this.http.post(url, body) as Observable<BaseResponse>).pipe(
+      map((response: BaseResponse) => {
+        if (response.success) {
+          return JSON.parse(response.data)?.orderQuotationServedQuantities
+            ?.items;
+        }
+      })
+    );
+  }
+
+
+
+
+

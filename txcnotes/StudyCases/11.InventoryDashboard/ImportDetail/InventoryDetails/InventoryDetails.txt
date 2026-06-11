@@ -1,0 +1,27 @@
+Click under "Inventory details(Total in stock quantity: 1000)"
+#1
+
+http://localhost:4200/voucher/inventory/inventory-batch-details/7876
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\TicketOperationCenterShell\src\app\app-routing.module.ts
+  {
+    path: 'voucher',
+    loadChildren: () => loadRemoteModule({
+      type: 'module',
+      remoteEntry: environment.voucherPath,
+      exposedModule: './voucher.module'
+    }).then(m => m.VoucherModule),
+    canActivate: [BusinessUnitGuard, PageAuthorizationGuard]
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\voucher-routing.module.ts
+  {
+    path: 'inventory/inventory-batch-details/:id',
+    component: InventoryBatchDetailsComponent,
+    // canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-batch-details\inventory-batch-details.component.html

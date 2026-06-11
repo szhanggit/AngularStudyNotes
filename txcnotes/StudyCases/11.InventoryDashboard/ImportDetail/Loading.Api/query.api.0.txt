@@ -1,0 +1,79 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"\n    query {\n      inventoryDashboard(\n        where: { skuId: { in: [1041]} }\n      ) {\n        items {\n          skuId\n          warningWaterLevel\n          totalRemainingQuantity\n          stockLevel\n          merchantSKU {\n            skuNumber\n            skuName\n            voucherNumberRule {\n              onDemand\n              voucherGenerateWay\n            }\n          }\n        }\n      }\n    }"}
+
+
+
+{
+    "data": "{\"inventoryDashboard\":{\"items\":[{\"skuId\":1041,\"warningWaterLevel\":0,\"totalRemainingQuantity\":13,\"stockLevel\":\"NORMAL\",\"merchantSKU\":[{\"skuNumber\":\"SEV03003\",\"skuName\":\"7-ELEVEN CITY CAFE 45元咖啡系列兌換券\",\"voucherNumberRule\":{\"onDemand\":false,\"voucherGenerateWay\":2}}]}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\components\inventory-dashboard\inventory-sku-details\inventory-sku-details.component.ts
+  getSkuDetaisBySkuId(): void {
+    this.inventoryApiService.getInventoryDetailsBySkuId(+this.skuId).pipe(
+      takeUntil(this.destroy$)
+    )
+      .subscribe({
+        next: (res: any) => {
+          const data = JSON.parse(res.data);
+          if (data.inventoryDashboard.items.length === 0) {
+            this.toast.showDanger('Loading data failed.');
+            return;
+          }
+          const item = data.inventoryDashboard.items[0];
+          this.isCritical = item.stockLevel === StockLevelEnum.CRITICAL;
+          this.totalStockQty = item.totalRemainingQuantity;
+          this.source = this.inventoryDashboardComponent.sourceMapper(item.merchantSKU[0]?.voucherNumberRule.voucherGenerateWay, item.merchantSKU[0]?.voucherNumberRule.onDemand)
+        },
+        error: (err: any) => {
+          this.toast.showDanger(err.message);
+        },
+        complete: () => {
+          this.getInventorySkuList();
+          this.setActionDropdown();
+        },
+      })
+  }
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Voucher\src\app\voucher\service\inventory-api.service.ts
+  getInventoryDetailsBySkuId(skuId: number): Observable<BaseResponse> {
+    const skuIdQuery = `where: { skuId: { in: [${skuId}]} }`
+    const query = `
+    query {
+      inventoryDashboard(
+        ${skuIdQuery}
+      ) {
+        items {
+          skuId
+          warningWaterLevel
+          totalRemainingQuantity
+          stockLevel
+          merchantSKU {
+            skuNumber
+            skuName
+            voucherNumberRule {
+              onDemand
+              voucherGenerateWay
+            }
+          }
+        }
+      }
+    }`;
+    return this.graphqlApiService.postQuery(query);
+  }
+
+
+
+
+
+
+

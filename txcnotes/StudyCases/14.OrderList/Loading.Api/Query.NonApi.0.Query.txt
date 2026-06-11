@@ -1,0 +1,100 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{orderByQuotationAndClient(skip: 0, take: 20 \n          where: { \n            and: [\n              { createdDateTime: { gte: \"2022-12-26T10:02:33Z\" } },\n              { createdDateTime:{ lte: \"2023-12-27T10:02:33Z\" } },\n              { mode: { in: [1,2,4] } },\n              { or: {} },\n              \n            ]\n          } \n          searchKeyword: \"\" \n          order : { createdDateTime: DESC }) \n          { totalCount \n            items {\n              id,\n              orderNumber,\n              orderName,\n              mode,\n              createdDateTime,\n              createdBy,\n              isDirectDelivery,\n              publishDateTime,\n              status,\n              orderLines { \n                id,\n                totalQuantity\n              }, \n              quotation { \n                id, \n                quotationNumber,\n                status, \n                clintById {\n                  clientName\n                },\n                projectName\n              }\n            }\n          }\n        }"}
+
+
+
+{
+    "data": "{\"orderByQuotationAndClient\":{\"totalCount\":554,\"items\":[{\"id\":817,\"orderNumber\":\"20231226170219\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T09:02:20.013Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":32,\"orderLines\":[{\"id\":1281,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":816,\"orderNumber\":\"20231226164543\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:45:44.37Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1280,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":815,\"orderNumber\":\"20231226162217\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:22:17.93Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1279,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":814,\"orderNumber\":\"20231226161834\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:18:34.883Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1278,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":813,\"orderNumber\":\"20231226161438\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:14:38.843Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1277,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":812,\"orderNumber\":\"20231226161133\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:11:33.84Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1276,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":811,\"orderNumber\":\"20231226160533\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:05:33.603Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1275,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":810,\"orderNumber\":\"20231226160342\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T08:03:43.343Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1274,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":809,\"orderNumber\":\"20231226155802\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:58:02.513Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1273,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":808,\"orderNumber\":\"20231226155303\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:53:04.293Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1272,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":807,\"orderNumber\":\"20231226155046\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:50:47.07Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1271,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":806,\"orderNumber\":\"20231226153753\",\"orderName\":\"Lean 35252 16\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:37:54.24Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1270,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":805,\"orderNumber\":\"20231226153043\",\"orderName\":\"Lean 35252 15\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:30:44.153Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1269,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":804,\"orderNumber\":\"20231226150600\",\"orderName\":\"Lean 35252 15\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:06:01.03Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1268,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":803,\"orderNumber\":\"20231226150040\",\"orderName\":\"Lean 35252 14\",\"mode\":1,\"createdDateTime\":\"2023-12-26T07:00:41.3Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1267,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":802,\"orderNumber\":\"20231226145551\",\"orderName\":\"Lean 35252 13\",\"mode\":1,\"createdDateTime\":\"2023-12-26T06:55:51.423Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1266,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":801,\"orderNumber\":\"20231226143154\",\"orderName\":\"Lean 35252 13\",\"mode\":1,\"createdDateTime\":\"2023-12-26T06:31:54.503Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1265,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":800,\"orderNumber\":\"20231226132509\",\"orderName\":\"Lean 35252 12\",\"mode\":1,\"createdDateTime\":\"2023-12-26T05:25:09.823Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1264,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":799,\"orderNumber\":\"20231226115117\",\"orderName\":\"Lean 35252 11\",\"mode\":1,\"createdDateTime\":\"2023-12-26T03:51:17.93Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":64,\"orderLines\":[{\"id\":1262,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":798,\"orderNumber\":\"20231226113830\",\"orderName\":\"Lean 35252 10\",\"mode\":1,\"createdDateTime\":\"2023-12-26T03:38:31.027Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":false,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1261,\"totalQuantity\":10}],\"quotation\":[{\"id\":8483,\"quotationNumber\":\"202312074426\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-list\order-list.component.ts
+  ngOnInit(): void {
+    this.orders$ = this.orderSvc.orders$.pipe(
+      map((orders) =>
+        orders.sort((a, b) => {
+          const dateA = new Date(a.createdDateTime);
+          const dateB = new Date(b.createdDateTime);
+          return dateB.getTime() - dateA.getTime();
+        })
+      )
+    );
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+
+
+  private getOrders(): Observable<BaseResponse> {
+    const {
+      page,
+      pageSize,
+      searchTerm,
+      orderStatus,
+      createdFrom,
+      createdTo,
+      currentTab,
+    } = this._state;
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const status = orderStatus !== 0 ? `{status:{ eq : ${orderStatus}}}` : '{}';
+    const pageNumber = page > 0 ? page - 1 : page;
+    const pagesToSkip = pageSize * pageNumber;
+    const modes =
+      currentTab === 1
+        ? [
+            OrderModeEnum.IndirectNonAPI,
+            OrderModeEnum.DirectNonAPI,
+            OrderModeEnum.PaperVoucher,
+          ]
+        : [OrderModeEnum.API];
+    const body = {
+      query: `query{orderByQuotationAndClient(skip: ${pagesToSkip}, take: ${pageSize} 
+          where: { 
+            and: [
+              { createdDateTime: { gte: "${createdFrom}" } },
+              { createdDateTime:{ lte: "${createdTo}" } },
+              { mode: { in: [${modes.join(',')}] } },
+              { or: ${status} },
+            ]
+          } 
+          searchKeyword: "${searchTerm}" 
+          order : { createdDateTime: DESC }) 
+          { totalCount 
+            items {
+              id,
+              orderNumber,
+              orderName,
+              mode,
+              createdDateTime,
+              createdBy,
+              isDirectDelivery,
+              publishDateTime,
+              status,
+              orderLines { 
+                id,
+                totalQuantity
+              }, 
+              quotation { 
+                id, 
+                quotationNumber,
+                status, 
+                clintById {
+                  clientName
+                }
+              }
+            }
+          }
+        }`,
+    };
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }

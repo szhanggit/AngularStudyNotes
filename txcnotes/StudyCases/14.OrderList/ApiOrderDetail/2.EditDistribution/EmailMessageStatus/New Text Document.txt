@@ -1,0 +1,48 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\dumb\view-form-accordion\view-form-accordion.component.html
+
+
+      <div ngbDropdownMenu>
+        <button
+          *ngFor="let item of dropdownItems"
+          ngbDropdownItem
+          class="font-12 text-secondary"
+          (click)="item.action(item.value)"
+        >
+          {{ item.text }}
+        </button>
+      </div>
+
+
+
+
+  dropdownItems: DropdownItem[] = [
+    {
+      text: 'Email message status',
+      value: TemplateTypeEnum.Email,
+      action: (val: number) => this.onExport(val, this.order),
+    },
+    {
+      text: 'SMS message status',
+      value: TemplateTypeEnum.SMS,
+      action: (val: number) => this.onExport(val, this.order),
+    },
+  ];
+
+
+
+
+  onExport(event: number, order: Order) {
+    const exportOrderModalRef = this.modalService.open(
+      ExportDeliveryComponent,
+      {
+        size: 'md',
+        backdrop: 'static',
+        centered: true,
+      }
+    );
+    exportOrderModalRef.componentInstance.eventType = event;
+    exportOrderModalRef.componentInstance.order = order;
+    exportOrderModalRef.componentInstance.orderMode = this.orderMode;
+    exportOrderModalRef.componentInstance.tab =
+      this.orderMode !== OrderModeEnum.API ? 1 : 2;
+  }

@@ -1,0 +1,113 @@
+https://api-staging.txc.edenred.net/gateway/api/GraphQL/Query
+
+
+{"query":"query{orderByQuotationAndClient(skip: 0, take: 20 \n          where: { \n            and: [\n              { createdDateTime: { gte: \"2022-12-26T10:02:33Z\" } },\n              { createdDateTime:{ lte: \"2023-12-27T10:02:33Z\" } },\n              { mode: { in: [3] } },\n              { or: {} },\n              \n            ]\n          } \n          searchKeyword: \"\" \n          order : { createdDateTime: DESC }) \n          { totalCount \n            items {\n              id,\n              orderNumber,\n              orderName,\n              mode,\n              createdDateTime,\n              createdBy,\n              isDirectDelivery,\n              publishDateTime,\n              status,\n              orderLines { \n                id,\n                totalQuantity\n              }, \n              quotation { \n                id, \n                quotationNumber,\n                status, \n                clintById {\n                  clientName\n                },\n                projectName\n              }\n            }\n          }\n        }"}
+
+
+
+
+{
+    "data": "{\"orderByQuotationAndClient\":{\"totalCount\":247,\"items\":[{\"id\":795,\"orderNumber\":\"20231223080127\",\"orderName\":\"RubyDummy 1223\",\"mode\":3,\"createdDateTime\":\"2023-12-23T08:01:27.847Z\",\"createdBy\":\"rblanco\",\"isDirectDelivery\":true,\"publishDateTime\":\"2023-11-25T00:00:00Z\",\"status\":64,\"orderLines\":[{\"id\":1241,\"totalQuantity\":0},{\"id\":1242,\"totalQuantity\":0},{\"id\":1243,\"totalQuantity\":0},{\"id\":1244,\"totalQuantity\":0},{\"id\":1252,\"totalQuantity\":4}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":773,\"orderNumber\":\"20231221005021\",\"orderName\":\"RubyDummy 1221\",\"mode\":3,\"createdDateTime\":\"2023-12-21T00:50:22.157Z\",\"createdBy\":\"rblanco\",\"isDirectDelivery\":true,\"publishDateTime\":\"2023-11-25T00:00:00Z\",\"status\":64,\"orderLines\":[{\"id\":1236,\"totalQuantity\":0},{\"id\":1237,\"totalQuantity\":0},{\"id\":1238,\"totalQuantity\":0},{\"id\":1239,\"totalQuantity\":2},{\"id\":1240,\"totalQuantity\":4},{\"id\":1147,\"totalQuantity\":0},{\"id\":1148,\"totalQuantity\":0},{\"id\":1149,\"totalQuantity\":12},{\"id\":1150,\"totalQuantity\":2},{\"id\":1157,\"totalQuantity\":6},{\"id\":1161,\"totalQuantity\":8},{\"id\":1162,\"totalQuantity\":3}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":756,\"orderNumber\":\"20231218054338\",\"orderName\":\"API Testing multivoucher\",\"mode\":3,\"createdDateTime\":\"2023-12-18T05:43:39.027Z\",\"createdBy\":\"rblanco\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":128,\"orderLines\":[{\"id\":1117,\"totalQuantity\":0},{\"id\":1118,\"totalQuantity\":0},{\"id\":1119,\"totalQuantity\":0},{\"id\":1120,\"totalQuantity\":0},{\"id\":1121,\"totalQuantity\":0},{\"id\":1122,\"totalQuantity\":0},{\"id\":1123,\"totalQuantity\":0},{\"id\":1124,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":750,\"orderNumber\":\"20231218014651\",\"orderName\":\"Ruby test API 1218\",\"mode\":3,\"createdDateTime\":\"2023-12-18T01:46:51.927Z\",\"createdBy\":\"rblanco\",\"isDirectDelivery\":true,\"publishDateTime\":\"2023-11-25T00:00:00Z\",\"status\":64,\"orderLines\":[{\"id\":1126,\"totalQuantity\":11},{\"id\":1131,\"totalQuantity\":50},{\"id\":1132,\"totalQuantity\":6},{\"id\":1133,\"totalQuantity\":9},{\"id\":1134,\"totalQuantity\":20},{\"id\":1105,\"totalQuantity\":0},{\"id\":1106,\"totalQuantity\":0},{\"id\":1107,\"totalQuantity\":0},{\"id\":1108,\"totalQuantity\":0},{\"id\":1109,\"totalQuantity\":0},{\"id\":1110,\"totalQuantity\":0},{\"id\":1111,\"totalQuantity\":49},{\"id\":1165,\"totalQuantity\":0},{\"id\":1193,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":747,\"orderNumber\":\"20231215072932\",\"orderName\":\"LeanSampleerrordec15 libdg test\",\"mode\":3,\"createdDateTime\":\"2023-12-15T07:29:32.73Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1102,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":746,\"orderNumber\":\"20231215060549\",\"orderName\":\"LeanSampleerrordec15 test2\",\"mode\":3,\"createdDateTime\":\"2023-12-15T06:05:50.29Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1101,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":745,\"orderNumber\":\"20231215134214\",\"orderName\":\"LeanSampleerrordec15tes4\",\"mode\":3,\"createdDateTime\":\"2023-12-15T05:42:15.053Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1100,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":744,\"orderNumber\":\"20231215133534\",\"orderName\":\"LeanSampleerrordec15test3\",\"mode\":3,\"createdDateTime\":\"2023-12-15T05:35:34.463Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1099,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":743,\"orderNumber\":\"20231215132108\",\"orderName\":\"LeanSampleerrordec15test3\",\"mode\":3,\"createdDateTime\":\"2023-12-15T05:21:09.093Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1098,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":742,\"orderNumber\":\"20231215131253\",\"orderName\":\"LeanSampleerrordec15test3\",\"mode\":3,\"createdDateTime\":\"2023-12-15T05:12:53.623Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1097,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":741,\"orderNumber\":\"20231215051056\",\"orderName\":\"LeanSampleerrordec15 test2\",\"mode\":3,\"createdDateTime\":\"2023-12-15T05:10:56.13Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1096,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":740,\"orderNumber\":\"20231215130759\",\"orderName\":\"LeanSampleerrordec15\",\"mode\":3,\"createdDateTime\":\"2023-12-15T05:07:59.407Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1095,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":734,\"orderNumber\":\"20231215041632\",\"orderName\":\"asda\",\"mode\":3,\"createdDateTime\":\"2023-12-15T04:16:32.663Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1088,\"totalQuantity\":0},{\"id\":1089,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":732,\"orderNumber\":\"20231215040345\",\"orderName\":\"asda\",\"mode\":3,\"createdDateTime\":\"2023-12-15T04:03:45.027Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1085,\"totalQuantity\":0},{\"id\":1086,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":731,\"orderNumber\":\"20231215040001\",\"orderName\":\"f\",\"mode\":3,\"createdDateTime\":\"2023-12-15T04:00:01.247Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1083,\"totalQuantity\":0},{\"id\":1084,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":730,\"orderNumber\":\"20231215115110\",\"orderName\":\"asd\",\"mode\":3,\"createdDateTime\":\"2023-12-15T03:51:10.677Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1082,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":728,\"orderNumber\":\"20231215033841\",\"orderName\":\"asd\",\"mode\":3,\"createdDateTime\":\"2023-12-15T03:38:41.58Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1080,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":727,\"orderNumber\":\"20231215113453\",\"orderName\":\"asd\",\"mode\":3,\"createdDateTime\":\"2023-12-15T03:34:54.103Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1079,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":726,\"orderNumber\":\"20231215033439\",\"orderName\":\"asd\",\"mode\":3,\"createdDateTime\":\"2023-12-15T03:34:39.46Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1078,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]},{\"id\":725,\"orderNumber\":\"20231215033410\",\"orderName\":\"asd\",\"mode\":3,\"createdDateTime\":\"2023-12-15T03:34:11.007Z\",\"createdBy\":\"pyoung\",\"isDirectDelivery\":true,\"publishDateTime\":null,\"status\":2,\"orderLines\":[{\"id\":1077,\"totalQuantity\":0}],\"quotation\":[{\"id\":8474,\"quotationNumber\":\"202309134439\",\"status\":32,\"clintById\":[{\"clientName\":\"1207\"}],\"projectName\":\"PY Quotation\"}]}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\components\order-list\order-list.component.ts
+  ngOnInit(): void {
+    this.orders$ = this.orderSvc.orders$.pipe(
+      map((orders) =>
+        orders.sort((a, b) => {
+          const dateA = new Date(a.createdDateTime);
+          const dateB = new Date(b.createdDateTime);
+          return dateB.getTime() - dateA.getTime();
+        })
+      )
+    );
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+  constructor(
+    private http: HttpClient,
+    private authorizationLibraryService: AuthorizationLibraryService,
+    private productTemplateStateService: ProductTemplateStateService
+  ) {
+    this._search$
+      .pipe(
+        tap(() => this._loading$.next(true)),
+        debounceTime(200),
+        switchMap(() => this.getOrders()),
+
+
+  private getOrders(): Observable<BaseResponse> {
+    const {
+      page,
+      pageSize,
+      searchTerm,
+      orderStatus,
+      createdFrom,
+      createdTo,
+      currentTab,
+    } = this._state;
+    const url = `${this.getURL()}api/GraphQL/Query`;
+    const status = orderStatus !== 0 ? `{status:{ eq : ${orderStatus}}}` : '{}';
+    const pageNumber = page > 0 ? page - 1 : page;
+    const pagesToSkip = pageSize * pageNumber;
+    const modes =
+      currentTab === 1
+        ? [
+            OrderModeEnum.IndirectNonAPI,
+            OrderModeEnum.DirectNonAPI,
+            OrderModeEnum.PaperVoucher,
+          ]
+        : [OrderModeEnum.API];
+    const body = {
+      query: `query{orderByQuotationAndClient(skip: ${pagesToSkip}, take: ${pageSize} 
+          where: { 
+            and: [
+              { createdDateTime: { gte: "${createdFrom}" } },
+              { createdDateTime:{ lte: "${createdTo}" } },
+              { mode: { in: [${modes.join(',')}] } },
+              { or: ${status} },
+            ]
+          } 
+          searchKeyword: "${searchTerm}" 
+          order : { createdDateTime: DESC }) 
+          { totalCount 
+            items {
+              id,
+              orderNumber,
+              orderName,
+              mode,
+              createdDateTime,
+              createdBy,
+              isDirectDelivery,
+              publishDateTime,
+              status,
+              orderLines { 
+                id,
+                totalQuantity
+              }, 
+              quotation { 
+                id, 
+                quotationNumber,
+                status, 
+                clintById {
+                  clientName
+                }
+              }
+            }
+          }
+        }`,
+    };
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+https://api-staging.txc.edenred.net/gateway/api/Order/ValidateUploadedProduct
+
+QuotationNumber: 202109013873
+ActivationDate: 2023-12-29
+File: (binary)
+OrderMode: 1
+
+
+{
+    "data": {
+        "orderProductList": [
+            {
+                "productId": 6257,
+                "productCode": "DFVCFR002",
+                "productName": "Carrefour ${FV} Voucher002",
+                "productType": 4,
+                "remainingQty": null,
+                "voucherQty": 1,
+                "faceValue": 0.0,
+                "soldPrice": 0.98,
+                "reservationCode": "",
+                "exchangeTime": null,
+                "expiryDateSchemeId": 10,
+                "expiryDateScheme": "Within 3 Months Expired After Activation",
+                "expiryDate": null,
+                "expiryTime": null,
+                "clientOrderNo": "",
+                "productVersionId": 15021,
+                "emailQty": 0,
+                "smsQty": 0,
+                "faceValueList": [
+                    {
+                        "faceValue": 5.0,
+                        "quantity": 1
+                    }
+                ],
+                "productBaseType": 2,
+                "needTrustAccount": false,
+                "trustAccountId": 0,
+                "trustAccountBatchNumber": "",
+                "trustAmount": 0.0,
+                "trustExpiryDateType": 0,
+                "trustExpiryDate": null,
+                "needShortUrl": false,
+                "isMaster": false,
+                "trustAccountFee": null,
+                "trustExpirySchemeId": null
+            }
+        ],
+        "errorValidationDto": [],
+        "orderLines": [
+            {
+                "productVersionId": 15021,
+                "expirationPolicyId": 10,
+                "expiryDate": null,
+                "totalQuantity": 1,
+                "voucherReservationCode": "",
+                "clientOrderNo": "",
+                "needShortUrl": false,
+                "needTrustAccount": false,
+                "emailQuantity": 0,
+                "slmsQuantity": 0,
+                "dfvProductDetails": [],
+                "orderLineDetails": [
+                    {
+                        "beneficiaryName": null,
+                        "email": "",
+                        "mobile": "",
+                        "faceValue": 5,
+                        "voucherQuantity": 1,
+                        "edOrderNo": "",
+                        "postCode": "",
+                        "address": "",
+                        "language": "",
+                        "activeDate": null,
+                        "expirySchemeId": 10,
+                        "expiryDate": null,
+                        "memo": ""
+                    }
+                ],
+                "voucherContent": null,
+                "smsContent": null,
+                "contentList": [],
+                "trustAccount": null
+            }
+        ]
+    },
+    "message": null,
+    "success": true
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\shared\core\order-product-selection\order-product-selection.component.ts
+  private fetchProducts(file: File): void {
+    this.orderSvc.saveTemporaryFile(file);
+    this.orderSvc
+      .getProductList(
+        this.quotationNumber,
+        this.activationDate,
+        file,
+        this.selectedOrderMode.key
+      )
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Order\src\app\order\services\order.service.ts
+
+  getProductList(
+    quotationNumber: string,
+    activationDate: string | null = '2020-01-04',
+    file: File,
+    orderMode: number
+  ): Observable<ProductDTOResponse> {
+    const url = `${this.getURL()}api/Order/ValidateUploadedProduct`;
+    const formData: FormData = new FormData();
+    formData.append('QuotationNumber', quotationNumber);
+    if (OrderModeEnum.API !== orderMode) {
+      formData.append('ActivationDate', activationDate || '');
+    }
+    formData.append('File', file, file.name);
+    formData.append('OrderMode', orderMode.toString());
+
+    return this.http
+      .post<any>(url, formData)
+      .pipe(map((response) => response as ProductDTOResponse));
+  }
