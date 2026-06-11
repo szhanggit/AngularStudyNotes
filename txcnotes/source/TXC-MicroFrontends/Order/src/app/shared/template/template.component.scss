@@ -1,0 +1,17 @@
+@import "../../../styles/variables";
+::ng-deep ngb-modal-window {
+  .table-centered {
+    display: table !important;
+
+    .modal-content {
+      min-width: 768px !important;
+      width: auto !important;
+    }
+  }
+}
+
+.content {
+  span {
+    color: $red;
+  }
+}
