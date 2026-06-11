@@ -1,0 +1,21 @@
+Displaying Field-Level Validation Messages
+
+<input class="form-control" name="name" [(ngModel)]="newProduct.name" #name="ngModel" required minlength="5" pattern="^[A-Za-z ]+$" />
+#name="ngModel"
+I create a template reference variable called name and set its value to ngModel. This use of an ngModel
+value is a little confusing: it is a feature provided by the ngModel directive to give access to the validation status.
+
+
+<ul class="text-danger list-unstyled" *ngIf="name.dirty && name.invalid">
+Table 14-6. The Validation Object Properties
+
+path      This property returns the name of the element.
+valid     This property returns true if the element’s contents are valid and false otherwise.
+invalid   This property returns true if the element’s contents are invalid and false otherwise.
+pristine  This property returns true if the element’s contents have not been changed. 
+dirty 	  This property returns true if the element’s contents have been changed.
+touched   This property returns true if the user has visited the element.
+untouched This property returns true if the user has not visited the element.
+errors    This property returns an object whose properties correspond to each attribute for which there is a validation error.
+value     This property returns the value of the element, which is used when defining custom validation rules, as described in the “Creating Custom Form Validators” section.
+

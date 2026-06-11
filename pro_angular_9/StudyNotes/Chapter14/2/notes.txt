@@ -1,0 +1,59 @@
+Using the ngModel Directive-----------------------------------
+You do not have to apply both an event and a property binding to the same element.
+<input [(ngModel)]="selectedProduct">
+input:            Host Element.
+[(ngModel)]       Directive (Banana in a box)
+"selectedProduct" Expression
+
+<input class="form-control" (input)="selectedProduct=$event.target.value" [value]="selectedProduct || ''" />
+<input class="form-control" [(ngModel)]="selectedProduct || ''" />
+
+
+Adding Form Data Validation-----------------------------------
+
+Table 14-4. The Built-in Angular Validation Attributes
+required        This attribute is used to specify a value that must be provided.
+minlength       This attribute is used to specify a minimum number of characters.
+maxlength       This attribute is used to specify a maximum number of characters. This type of validation cannot be applied directly to form elements because it conflicts with the HTML5 attribute of the same name. It can be used with model-based forms, which are described later in the chapter.
+pattern         This attribute is used to specify a regular expression that the value provided by the user must match.
+
+
+<form novalidate (ngSubmit)="addProduct(newProduct)">
+  <div class="form-group">
+    <label>Name</label>
+    <input class="form-control"
+            name="name"
+            [(ngModel)]="newProduct.name"
+            required
+            minlength="5"
+            pattern="^[A-Za-z ]+$" />
+  </div>
+  <button class="btn btn-primary" type="submit">
+    Create
+  </button>
+</form>
+
+Styling Elements Using Validation Classes----------------------------
+<style>
+  input.ng-dirty.ng-invalid { border: 2px solid #ff0000 }
+  input.ng-dirty.ng-valid { border: 2px solid #6bc502 }
+</style>
+<input class="form-control ng-pristine ng-invalid ng-touched"
+
+
+Table 14-5. The Angular Form Validation Classes:
+ng-untouchedng-touched    An element is assigned to the ng-untouched class if it has not been visited by the user, which is typically done by tabbing through the form fields. Once the user has visited an element, it is added to the ng-touched class.
+ng-pristineng-dirty       An element is assigned to the ng-pristine class if its contents have not been changed by the user and to the ng-dirty class otherwise. Once the contents have been edited, an element remains in the ng-dirty class, even if the user then returns to the previous contents.
+ng-validng-invalid        An element is assigned to the ng-valid class if its contents meet the criteria defined by the validation rules that have been applied to it and to the ng-invalid class otherwise.
+
+
+
+
+
+
+
+
+
+
+
+

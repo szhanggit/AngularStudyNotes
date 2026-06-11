@@ -1,0 +1,78 @@
+Validating the Entire Form
+
+The Object.keys() static method returns an array of a given object's own enumerable string-keyed property names.
+
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.keys(object1));
+// Expected output: Array ["a", "b", "c"]
+
+
+Object.keys(form.controls).forEach(k => {
+    this.getValidationMessages(form.controls[k], k).forEach(m => messages.push(m));
+});
+
+Object.keys(form.controls)  //returns name list of those controls in the form.
+k                           //is the control name in the form.
+form.controls[k]            //is the control in the form associated with the name.
+
+------------------------------------------------------------------------------------------------------------------------
+Using Model-Based Forms:
+
+Angular provides another approach, known as model-based forms, in which the details of the form and its validation are defined in code rather than a template.
+The model-based forms feature is defined in a module called ReactiveFormsModule, which is defined in the @angular/forms JavaScript module.
+
+
+
+add:
+src\app\form.model.ts
+The FormControl class is used to represent a single element in a form, such as input element, 
+and the FormGroup class is used to manage a form element and its contents.
+
+  The Validator Properties:
+    Validators.required; Validators.minLength; Validators.maxLength; Validators.pattern
+
+
+  category: new ProductFormControl("Category", "category", "",
+    Validators.compose([Validators.required,
+                        Validators.pattern("^[A-Za-z ]+$"),
+                        Validators.minLength(3),
+                        Validators.maxLength(10)])),
+
+
+
+
+
+src\app\template.html-------------------------------------------------
+  <form class="m-2" novalidate [formGroup]="formGroup2" (ngSubmit)="submitForm()">  //把model和form连在一起。
+
+  <div class="form-group" *ngFor="let control of formGroup2.productControls">   //Generating the Elements from the Model
+      <label>{{control.label}}</label>
+      <input class="form-control" name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}" />
+      <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || control.dirty) && control.invalid">
+          <li *ngFor="let error of control.getValidationMessages()">
+              {{error}}
+          </li>
+      </ul>
+  </div>
+
+src\app\component.ts-------------------------------------------------
+    formGroup: ProductFormGroup = new ProductFormGroup();
+
+    submitForm() {
+        Object.keys(this.formGroup.controls)
+            .forEach(c => this.newProduct[c] = this.formGroup.controls[c].value);   //克隆element
+        this.formSubmitted = true;
+        if (this.formGroup.valid) {   //触发
+            this.addProduct(this.newProduct);
+            this.newProduct = new Product();
+            this.formGroup.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+

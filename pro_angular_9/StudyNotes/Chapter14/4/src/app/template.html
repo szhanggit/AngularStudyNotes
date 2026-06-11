@@ -1,0 +1,32 @@
+<style>
+  input.ng-dirty.ng-invalid { border: 2px solid #ff0000 }
+  input.ng-dirty.ng-valid { border: 2px solid #6bc502 }
+</style>
+
+<form class="m-2" novalidate [formGroup]="formGroup2" (ngSubmit)="submitForm()">
+
+  <div class="bg-danger text-white p-2 mb-2" *ngIf="formSubmitted && formGroup2.invalid">
+      There are problems with the form
+      <ul>
+          <li *ngFor="let error of formGroup2.getFormValidationMessages()">
+              {{error}}
+          </li>
+      </ul>
+  </div>
+
+  <div class="form-group" *ngFor="let control of formGroup2.productControls">
+      <label>{{control.label}}</label>
+      <input class="form-control" name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}" />
+      <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || control.dirty) && control.invalid">
+          <li *ngFor="let error of control.getValidationMessages()">
+              {{error}}
+          </li>
+      </ul>
+  </div>
+
+  <button class="btn btn-primary" type="submit"
+      [disabled]="formSubmitted && formGroup2.invalid"
+      [class.btn-secondary]="formSubmitted && formGroup2.invalid">
+          Create
+  </button>
+</form>

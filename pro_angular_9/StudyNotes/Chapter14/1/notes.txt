@@ -1,0 +1,83 @@
+<td (mouseover)="selectedProduct=item.name">{{i + 1}}</td>
+selectedProduct is in Product type. A string can be assigned to the object and just display the string.
+Selected Product: {{selectedProduct || '(None)'}}
+
+When the browser triggers an event, it provides an object that describes it. ($event)
+type            This property returns a string that identifies the type of event that has been triggered.
+target          This property returns the object that triggered the event, which will generally be the object that represents the HTML element in the DOM.
+timeStamp       This property returns a number that contains the time that the event was triggered, expressed as milliseconds since January 1, 1970.
+
+$event.target.value
+Modify the value in the input box to control the highlight on the table.
+
+---------------------------------------------------------------------------------
+
+
+<ng-template #titleTemplate>
+    <h4 class="p-2 bg-success text-white">Repeated Content</h4>
+</ng-template>
+#titleTemplate is a template variable.
+
+<input #product class="form-control" (input)="false" />
+#product is a template variable.
+#product.value
+
+(input)="false" it makes Angular keeping evaluating.    (P303)
+
+---------------------------------------------------------------------------------
+
+  <div class="bg-info text-white p-2">
+    Selected Product: {{selectedProduct || '(None)'}}
+  </div>
+
+  <table class="table table-sm table-bordered">
+    <tr><th></th><th>Name</th><th>Category</th><th>Price</th></tr>
+    <tr *ngFor="let item of getProducts(); let i = index" [class.bg-info]="getSelected(item)">
+        <td (mouseover)="selectedProduct=item.name">{{i + 1}}</td>      // ==> Selected Product: {{selectedProduct || '(None)'}}
+        <td>{{item.name}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.price}}</td>
+    </tr>
+  </table>  
+
+  <input class="form-control" (input)="selectedProduct=$event.target.value" />  // ==> Selected Product: {{selectedProduct || '(None)'}}
+---------------------------------------------------------------------------------  
+
+
+
+  <div class="bg-info text-white p-2">
+    Selected Product: {{product.value || '(None)'}}
+  </div> 
+
+  <table class="table table-sm table-bordered">
+      <tr><th></th><th>Name</th><th>Category</th><th>Price</th></tr>
+      <tr *ngFor="let item of getProducts(); let i = index" [class.bg-info]="product.value==item.name">
+        <td (mouseover)="product.value=item.name">{{i + 1}}</td>        // ==> Selected Product: {{product.value || '(None)'}}
+        <td>{{item.name}}</td>                                          // ==> <input #product class="form-control" (input)="false" />
+        <td>{{item.category}}</td>
+        <td>{{item.price}}</td>
+      </tr>
+  </table>   
+
+  <input #product class="form-control" (input)="false" />       //Template reference variables are a form of template variable that can be used to refer to elements within the template.
+
+
+
+
+Using Two-Way Data Bindings---------------------------------------
+<div class="form-group">
+    <label>Product Name</label>
+    <input class="form-control" (input)="selectedProduct=$event.target.value"
+    [value]="selectedProduct || ''" />  //This part make it two way binded.
+</div>
+
+It can be simplied by gnModel directive.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,70 @@
+<style>
+  input.ng-dirty.ng-invalid { border: 2px solid #ff0000 }
+  input.ng-dirty.ng-valid { border: 2px solid #6bc502 }
+</style>
+
+<div class="m-2">
+    <div class="bg-info text-white p-2">
+      Selected Product: {{selectedProduct || '(None)'}}
+    </div> 
+    <table class="table table-sm table-bordered">
+      <tr><th></th><th>Name</th><th>Category</th><th>Price</th></tr>
+      <tr *ngFor="let item of getProducts(); let i = index" [class.bg-info]="getSelected(item)">
+        <td (mouseover)="selectedProduct=item.name">{{i + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.price}}</td>
+      </tr>
+    </table>
+    <div class="form-group">
+    <label>Product Name</label>
+      <input class="form-control" (input)="selectedProduct=$event.target.value" [value]="selectedProduct || ''" />
+    </div>
+    <div class="form-group">
+    <label>Product Name</label>
+      <input class="form-control" (input)="selectedProduct=$event.target.value" [value]="selectedProduct || ''" />
+    </div> 
+    <div class="form-group">
+      <label>Product Name</label>
+      <input class="form-control" [(ngModel)]="selectedProduct" />
+    </div>
+    <div class="form-group">
+      <label>Product Name</label>
+      <input class="form-control" [(ngModel)]="selectedProduct" />
+    </div>    
+</div>
+<div class="m-2">
+-------------------------------------------------------------------------------------------------------------------------------
+</div>
+<div class="m-2">
+    <div class="bg-info text-white mb-2 p-2">Model Data: {{jsonProduct}}</div>
+    <div class="form-group">
+      <label>Name</label>
+      <input class="form-control" [(ngModel)]="newProduct.name" />
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <input class="form-control" [(ngModel)]="newProduct.category" />
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input class="form-control" [(ngModel)]="newProduct.price" />
+    </div>
+    <button class="btn btn-primary" (click)="addProduct(newProduct)">Create</button>
+</div>    
+<div class="m-2">
+  -------------------------------------------------------------------------------------------------------------------------------
+</div>
+
+<div class="m-2">
+  <div class="bg-info p-2 mb-2">Model Data: {{jsonProduct}}</div>
+  <form novalidate (ngSubmit)="addProduct(newProduct)">
+    <div class="form-group">
+      <label>Name</label>
+      <input class="form-control ng-pristine ng-invalid ng-touched" name="name" [(ngModel)]="newProduct.name" required minlength="5" pattern="^[A-Za-z ]+$" />
+    </div>
+    <button class="btn btn-primary" type="submit">
+      Create
+    </button>
+  </form>
+</div>

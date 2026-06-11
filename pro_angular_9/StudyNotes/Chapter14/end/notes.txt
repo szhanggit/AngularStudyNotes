@@ -1,0 +1,49 @@
+Enabling Model-Based Forms Feature
+import { ReactiveFormsModule } from "@angular/forms";
+
+Model is here:
+src\app\form.model.ts
+export class ProductFormControl extends FormControl {...}
+export class ProductFormGroup extends FormGroup {...}
+
+
+The FormControl class is used to represent a single element in a form.
+The FormGroup class is used to manage a collection of FormControls in a form.
+
+------------------------------------------------------------------------------------------
+Creating Custom Form Validators------------------------
+加一个static class
+
+src\app\limit.formvalidator.ts
+export class LimitValidator {
+    static Limit(limit:number) {
+        return (control:FormControl) : {[key: string]: any} => {
+            let val = Number(control.value);
+            if (val != NaN && val > limit) {
+                return {"limit": {"limit": limit, "actualValue": val}};
+            } else {
+                return null;
+            }
+        }
+    }
+}
+
+
+src\app\form.model.ts
+            price: new ProductFormControl("Price", "price", "",
+                Validators.compose([Validators.required,
+                    LimitValidator.Limit(100),                    
+                    Validators.pattern("^[0-9\.]+$")]))
+
+
+
+
+
+
+
+
+
+
+
+
+
