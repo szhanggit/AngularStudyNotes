@@ -1,0 +1,45 @@
+<h5 class="text-uppercase"><i class="mdi mdi-briefcase me-1"></i>
+    Experience</h5>
+<div class="timeline-alt pb-0">
+    <div class="timeline-item" *ngFor="let item of experience;let i=index;">
+        <i class="mdi mdi-circle timeline-icon"
+            [class]="i%2==0 ? 'bg-info-lighten text-info' : 'bg-primary-lighten text-primary'"></i>
+        <div class="timeline-item-info">
+            <h5 class="mt-0 mb-1">{{item.title}}</h5>
+            <p class="font-14">{{item.company}} <span class="ms-2 font-12">Year : {{item.year}}</span></p>
+            <p class="text-muted mt-2 mb-0 pb-3">{{item.description}}</p>
+        </div>
+    </div>
+</div>
+<!-- end timeline -->
+<h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant me-1"></i>
+    Projects</h5>
+<div class="table-responsive">
+    <table class="table table-borderless table-nowrap mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Clients</th>
+                <th>Project Name</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let project of projects">
+                <td>{{project.id}}</td>
+                <td><img [src]="project.clientAvatar" alt="table-user" class="me-2 rounded-circle" height="24">
+                    {{project.clientName}}
+                </td>
+                <td>{{project.projectName}}</td>
+                <td>{{project.startDate}}</td>
+                <td>{{project.dueDate}}</td>
+                <td><span class="badge"
+                        [ngClass]="{'badge-info-lighten': project.status==='Work in Progress','badge-danger-lighten': project.status === 'Pending', 'badge-warning-lighten': project.status === 'Coming Soon','badge-success-lighten': project.status === 'Done'}">{{project.status}}</span>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

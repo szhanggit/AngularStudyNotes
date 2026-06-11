@@ -1,0 +1,97 @@
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="page-back-navigation">            
+            <button type="button" class="btn text-muted d-none d-sm-inline-block btn-link fw-semibold"><i class="mdi mdi-arrow-left"></i> Back to approval list</button>            
+            <button type="button" class="btn btn-light rounded-pill float-end">Approve</button>
+            <button type="button" class="btn btn-danger rounded-pill float-end me-1" (click)="onReject()">Reject</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">
+                <strong>Batch Number:</strong>
+                <span class="page-sub-title">20200925112008209ZDF</span></h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Approval Status: <span class="badge bg-warning">Pending</span></h4>
+
+                <div class="row">        
+                    <div class="col-xl-12 col-lg-12 col-sm-12">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-3">Rekected reason</dt><dd class="col-sm-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</dd>
+                        </dl>
+                    </div>            
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        
+                        <!-- <h5><i class="mdi mdi-information-outline" placement="top" ngbTooltip="Default tooltip"></i>Go to merchant page to manage merchant Information</h5> -->
+
+                        <dl class="row mb-0">
+                            <dt class="col-sm-6">Creator</dt><dd class="col-sm-6">UserName</dd>
+                            <dt class="col-sm-6">Import Date</dt><dd class="col-sm-6">12/10/2021 11:59:59 PM</dd>
+                            <dt class="col-sm-6">Total voucher number</dt><dd class="col-sm-6">N</dd>
+                       </dl>                                                    
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        
+                        <dl class="row mb-0">
+                            <dt class="col-sm-6">Approver</dt><dd class="col-sm-6">UserName</dd>
+                            <dt class="col-sm-6">Approval Date</dt><dd class="col-sm-6">01/03/2022 10:08:58 AM</dd>
+                       </dl>                                                    
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <button type="button" class="btn btn-outline-dark" (click)="downloadFile()">Download .xlsx</button>
+
+                <table class="table table-sm table-centered mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>PO No.</th>
+                            <th>Supplier Code</th>
+                            <th>Merchant Code</th>
+                            <th>Merchant SKU</th>
+                            <th>Program Code</th>
+                            <th>Voucher No.</th>
+                            <th>Barcode 1</th>
+                            <th>Barcode 2</th>
+                            <th>Ref Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of batch_detail_list;let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.po_no }}</td>
+                            <td>{{ item.supplier_code }}</td>
+                            <td>{{ item.merchant_code }}</td>
+                            <td>{{ item.merchant_sku }}</td>
+                            <td>{{ item.program_code }}</td>
+                            <td>{{ item.voucher_no }}</td>
+                            <td>{{ item.barcode1 }}</td>
+                            <td>{{ item.barcode2 }}</td>
+                            <td>{{ item.ref_code }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>

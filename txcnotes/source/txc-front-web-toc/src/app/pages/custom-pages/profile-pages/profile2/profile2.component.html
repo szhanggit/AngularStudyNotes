@@ -1,0 +1,40 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Profile 2"></app-page-title>
+
+
+<div class="row">
+    <div class="col-xl-4 col-lg-5">
+        <app-profile2-userbox [loggedInUser]="loggedInUser"></app-profile2-userbox>
+        <app-widget-messages></app-widget-messages>
+    </div> <!-- end col-->
+
+    <div class="col-xl-8 col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <ul ngbNav #nav="ngbNav" [(activeId)]="activeID" class="nav-pills bg-nav-pills nav-justified mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink class="rounded-0">About</a>
+                        <ng-template ngbNavContent>
+                            <app-profile2-about></app-profile2-about>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink class="rounded-0">Timeline</a>
+                        <ng-template ngbNavContent>
+                            <app-profile2-timeline></app-profile2-timeline>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink class="rounded-0">Settings</a>
+                        <ng-template ngbNavContent>
+                            <app-profile2-settings></app-profile2-settings>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav"></div>
+            </div> <!-- end card body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div>
+<!-- end row-->

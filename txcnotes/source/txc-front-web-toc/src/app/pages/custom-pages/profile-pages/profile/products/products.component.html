@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="header-title mb-3">My Products</h4>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of productList">
+                        <td>{{product.productName}}</td>
+                        <td>{{product.price | currency}}</td>
+                        <td><span class="badge bg-primary">{{product.stock}} Pcs</span></td>
+                        <td>{{product.totalAmount | currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> <!-- end table responsive-->
+    </div> <!-- end card-body-->
+</div> <!-- end card-->

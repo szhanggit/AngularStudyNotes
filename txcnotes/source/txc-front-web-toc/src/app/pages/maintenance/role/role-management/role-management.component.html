@@ -1,0 +1,55 @@
+<app-page-title [breadcrumbItems]="pageTitle" title="Role Management"></app-page-title>
+
+<div class="row mt-3">
+    <div class="col-3">
+        <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="filterRequest.searchKey" placeholder="Search" />
+            <span class="input-group-text" id="ImgBtnMagnifier" (click)="filterRoles()"><i class='uil uil-search-alt'></i></span>
+        </div>
+    </div>
+    <div class="col-2">
+        <select2 placeholder="All applications" [data]="applications" [(ngModel)]="filterRequest.appId" (ngModelChange)="filterRoles()" id="cboFilterByApp" #cboFilterByApp>
+            <option [ngValue]="0" selected>All applications</option>
+        </select2>
+    </div>
+    <div class="col-7">
+        <button class="btn btn-info btn-sm rounded-pill ms-2 float-end" routerLink="/maintenance/add-role" *ngIf="enabledCreate">Create role</button>
+        <button class="btn btn-light btn-sm rounded-pill float-end" (click)="clearFilters()">Reset</button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" >Role list</h4>
+                <ul class="nav nav-pills">
+                    <li class="nav-item" (click)="setTenantTab(0)">
+                        <a class="nav-link" [ngClass]="{'active': allTabSelected}" aria-current="page">All</a>
+                    </li>
+                    <ng-container *ngFor="let tenant of tenants">
+                        <li class="nav-item" (click)="setTenantTab(tenant.tenantId)">
+                            <a class="nav-link" [ngClass]="{'active': tenant.isActive}"
+                                aria-current="page">{{tenant.tenantName}}</a>
+                        </li>
+                    </ng-container>
+                </ul>
+                <div class="row mt-3">
+                    <div class="col-12">
+                      <ag-grid-angular class="ag-theme-alpine user-mgmt-grid" [rowData]="rolesData" [columnDefs]="roleMgmtCols"
+                        [gridOptions]="roleMgmtGridOptions" (gridReady)="onGridRead($event)"></ag-grid-angular>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                  <div class="p-2"><a [routerLink]="" (click)="next()" class="btn btn-info">NEXT</a></div>
+                  <div class="p-2"><a [routerLink]="" (click)="previous()" class="btn btn-info">PREV</a></div>
+                  <div class="p-2">{{endRow}}</div>
+                  <div class="p-2">TO</div>
+                  <div class="p-2">{{startRow}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

@@ -1,0 +1,82 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Profile"></app-page-title>
+
+<!-- end page title -->
+<app-profile-userbox [loggedInUser]="loggedInUser"></app-profile-userbox>
+
+<div class="row">
+    <div class="col-xl-4">
+        <!-- Personal-Information -->
+        <app-profile-seller-info [loggedInUser]="loggedInUser"></app-profile-seller-info>
+        <!-- Personal-Information -->
+        <!-- Toll free number box-->
+        <div class="card text-white bg-info overflow-hidden">
+            <div class="card-body">
+                <div class="toll-free-box text-center">
+                    <h4> <i class="mdi mdi-deskphone"></i> Toll Free : 1-234-567-8901</h4>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+        <!-- End Toll free number box-->
+
+        <!-- messages -->
+        <app-widget-messages></app-widget-messages>
+
+    </div> <!-- end col-->
+
+    <div class="col-xl-8">
+
+        <!-- Chart-->
+        <app-profile-revenue></app-profile-revenue>
+        <!-- End Chart-->
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card tilebox-one">
+                    <div class="card-body">
+                        <i class="dripicons-basket float-end text-muted"></i>
+                        <h6 class="text-muted text-uppercase mt-0">Orders</h6>
+                        <h2 class="m-b-20">1,587</h2>
+                        <span class="badge bg-primary me-1"> +11% </span> <span class="text-muted">From previous
+                            period</span>
+                    </div> <!-- end card-body-->
+                </div>
+                <!--end card-->
+            </div><!-- end col -->
+
+            <div class="col-sm-4">
+                <div class="card tilebox-one">
+                    <div class="card-body">
+                        <i class="dripicons-box float-end text-muted"></i>
+                        <h6 class="text-muted text-uppercase mt-0">Revenue</h6>
+                        <h2 class="m-b-20">$<span>46,782</span></h2>
+                        <span class="badge bg-danger me-1"> -29% </span> <span class="text-muted">From previous
+                            period</span>
+                    </div> <!-- end card-body-->
+                </div>
+                <!--end card-->
+            </div><!-- end col -->
+
+            <div class="col-sm-4">
+                <div class="card tilebox-one">
+                    <div class="card-body">
+                        <i class="dripicons-jewel float-end text-muted"></i>
+                        <h6 class="text-muted text-uppercase mt-0">Product Sold</h6>
+                        <h2 class="m-b-20">1,890</h2>
+                        <span class="badge bg-primary me-1"> +89% </span> <span class="text-muted">Last year</span>
+                    </div> <!-- end card-body-->
+                </div>
+                <!--end card-->
+            </div><!-- end col -->
+
+        </div>
+        <!-- end row -->
+
+        <!-- product list -->
+        <app-profile-products></app-profile-products>
+
+    </div>
+    <!-- end col -->
+
+</div>
+<!-- end row -->
