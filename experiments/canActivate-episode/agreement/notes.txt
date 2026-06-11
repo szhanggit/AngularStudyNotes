@@ -1,0 +1,47 @@
+cd D:\Study\AngularStudyNotes\experiments\canActivate-episode\agreement\src\app
+ng generate module message
+ng g c message --module message.module
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+app.component.html cannot understand <paMessage>?
+This component is under message.module.ts.
+First of all, need to register the component under message.module.ts.
+
+src\app\message\message.module.ts:
+import { MessageComponent } from './message.component';	//Connect the component with the module.
+  declarations: [	//The component can be seen inside the module. Without the declaration, exports cannot see it.
+    MessageComponent
+  ],
+exports: [MessageComponent],	//The component can be seen outside the module.
+
+
+
+Need root app.module.ts needs to see the component.
+import { MessageModule } from './message/message.module';	//Import the module.
+  imports: [				//The module can be seen globally.
+    BrowserModule,
+    AppRoutingModule,
+    MerchantModule,
+    MessageModule
+  ],
+
+
+Conclusion:
+1. Must exports the component in the original module.
+2. Must import the component in the root module.
+----------------------------------------------------------------------------------------------------------------------------------
+
+How to use a service?
+1. Create a service with @Injectable.
+2. Register it in the local module:
+	import { MessageService } from "./message.service";
+	providers: [MessageService]
+3. Use the service in a local component:
+	import { MessageService } from "./message.service";
+	constructor(messageService: MessageService, router: Router) { 
+4. Use the service in terms.guard.ts
+	import { MessageService } from "./message/message.service";
+	constructor(private messages: MessageService, private router: Router) { 
+
+
