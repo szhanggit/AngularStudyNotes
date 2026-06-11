@@ -1,0 +1,19 @@
+https://ag-grid.com/angular-data-grid/getting-started/
+ng new aggd-basic --routing
+npm install ag-grid-angular
+
+ng g c customButton
+
+------------
+Solve issues:
+https://stackoverflow.com/questions/77514292/angular-17-window-not-defined
+from:
+"server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
+to:
+"server": "src/main.server.ts",
+              "prerender": false,
+              "ssr": false
