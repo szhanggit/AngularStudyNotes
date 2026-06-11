@@ -1,0 +1,119 @@
+{"query":"query {\n        voucherNumberRules(\n            where: { \n                voucherNumberRuleId: { eq: 9359 },\n                merchantId: { eq: 2707 }\n            }\n            order: { voucherNumberRuleId: DESC }\n            take: 20\n            skip: 0\n        ) {\n            totalCount\n            items {\n                merchantId\n                voucherNumberRuleId\n                ruleName\n                voucherNumberPrefix\n                voucherNumberType\n                voucherNumberLength\n                barcodeType {\n                    id\n                    description\n                },\n                voucherGenerator {\n                    id\n                    description\n                },\n                barcodeType {\n                    id\n                    description\n                }\n                createdBy\n                createdDateTime\n                algorithmId\n                distVoucherNumUnderBarcode\n                generatedBy\n                algorithmId\n                requestExpiryDate\n                hasMultipleBarcode\n                onDemand\n                pinType {\n                    id\n                    description\n                }\n                contractSKU {\n                    id\n                }\n                vendor {\n                    vendorCode\n                    name\n                    id\n                }\n            }\n        }\n    }"}
+
+
+{
+    "data": "{\"voucherNumberRules\":{\"totalCount\":1,\"items\":[{\"merchantId\":2707,\"voucherNumberRuleId\":9359,\"ruleName\":\"Joni_3rdParty_SmartVoucher\",\"voucherNumberPrefix\":null,\"voucherNumberType\":2,\"voucherNumberLength\":10,\"barcodeType\":{\"id\":1,\"description\":\"Code39\"},\"voucherGenerator\":{\"id\":1,\"description\":\"Edenred\"},\"createdBy\":\"jabinsay\",\"createdDateTime\":\"2023-11-22T05:58:57.053Z\",\"algorithmId\":1,\"distVoucherNumUnderBarcode\":false,\"generatedBy\":null,\"requestExpiryDate\":true,\"hasMultipleBarcode\":false,\"onDemand\":false,\"pinType\":null,\"contractSKU\":[{\"id\":12317}],\"vendor\":null}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\voucher-number-rule.service.ts
+
+
+
+
+  getSpecificVoucherNumberRule(
+    merchantId: number | undefined,
+    voucherNumberRuleId: number | undefined
+  ) {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query {
+        voucherNumberRules(
+            where: { 
+                voucherNumberRuleId: { eq: ${voucherNumberRuleId} },
+                merchantId: { eq: ${merchantId} }
+            }
+            order: { voucherNumberRuleId: DESC }
+            take: 20
+            skip: 0
+        ) {
+            totalCount
+            items {
+                merchantId
+                voucherNumberRuleId
+                ruleName
+                voucherNumberPrefix
+                voucherNumberType
+                voucherNumberLength
+                barcodeType {
+                    id
+                    description
+                },
+                voucherGenerator {
+                    id
+                    description
+                },
+                barcodeType {
+                    id
+                    description
+                }
+                createdBy
+                createdDateTime
+                algorithmId
+                distVoucherNumUnderBarcode
+                generatedBy
+                algorithmId
+                requestExpiryDate
+                hasMultipleBarcode
+                onDemand
+                pinType {
+                    id
+                    description
+                }
+                contractSKU {
+                    id
+                }
+                vendor {
+                    vendorCode
+                    name
+                    id
+                }
+            }
+        }
+    }`
+    }
+    return this.http.post(url, body, { headers: this._authorizationLibraryService.getAMMHeaders() }).pipe(map((res: any) => {
+      const parsedRes = JSON.parse(res.data);
+
+      return parsedRes.voucherNumberRules.items?.map((item: any) => ({
+        ...item,
+        createdDateTime: this.timezoneService.shiftDateTimeByUtcOffset(
+          item.createdDateTime,
+          this.tenantConfigService.fetchLocalTimeFromUTC()
+        ),
+      }));
+    }))
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

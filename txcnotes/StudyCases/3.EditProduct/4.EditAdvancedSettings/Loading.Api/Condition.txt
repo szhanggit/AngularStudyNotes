@@ -1,0 +1,52 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Condition?ProductId=8577
+
+
+ProductId: 8577
+
+
+
+{
+    "data": {
+        "productId": 8577,
+        "minRedeemQuantity": 0,
+        "maxIssuingQuantity": null,
+        "validFrom": "1900-01-01T00:00:00Z",
+        "validTo": "3999-01-01T23:59:59Z",
+        "reverseLimitId": 2,
+        "preAuthorizationExpiryInterval": 0,
+        "preAuthorizationExpiryUnit": 0,
+        "reminderId": 323,
+        "useTimeControl": 0,
+        "useTimeControlInterval": 0,
+        "maxTotalRedeemAmountControl": 0,
+        "maxTotalRedeemAmountControlInterval": 0,
+        "maxSingleRedeemAmount": 0
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-external-properties\edit-external-properties.component.ts
+this._productSvc.getProductCondition(params.id).subscribe(res => {
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+  getProductCondition(id: Number): Observable<getProductConditionResponse> {
+    const url = `https://${environment.apiUrl}api/Product/Condition?ProductId=${id}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<getProductConditionResponse>
+  }
+
+
+
+
+
+
+
+
+
+
+

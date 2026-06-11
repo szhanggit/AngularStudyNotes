@@ -1,0 +1,86 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/
+
+PUT
+{"sameAsValidEndDateOnContract":false,"programId":"","productType":3,"productName":"Joni_3rdParty_SmartBookletVoucher","productDescription":"","productCode":"J3PSBV001","externalProductCode":"","productIssuer":0,"issueMerchant":0,"voucherIssuerId":null,"productTag":0,"brandId":2,"merchantId":2707,"skuId":12317,"acceptanceLoopId":3452,"isDeferredChild":false,"isCartVersion":false,"productCategory":0,"operationNote":"kljkljk","salesNote":"lkjlkjljk","customerServiceNote":"lkjlkj","canTopup":false,"minRedeemQuantity":0,"maxIssuingQuantity":0,"validFrom":null,"validTo":null,"redeemDateBlacklistId":0,"redeemTimeRestrictionId":0,"useTimeControl":0,"useTimeControlInterval":0,"maxTotalRedeemAmountControl":0,"maxTotalRedeemAmountControlInterval":0,"canIssue":false,"stopIssueTime":"","multipleSelectionType":0,"pinCodeType":0,"pinCodeLength":0,"canExtend":false,"extensionSchemeId":0,"maxExtendTimes":0,"extensionEndDate":null,"isIssueMerchantGroup":false,"issueMerchantGroupId":0,"isMerchantGroup":false,"merchantGroupId":0,"productId":8577,"lastUpdatedBy":"stzhang","description":""}
+
+
+
+{
+    "data": 0,
+    "message": "All merchants in the acceptance loop should have valid SKU cost and cost period.",
+    "success": false
+}
+
+
+
+-----------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-details\edit-product-details.component.html
+                <button class="btn btn-primary rounded-pill w-100 p-2 font-14"
+                    [disabled]="(actionLoading$ | async) || detailsFormGroup.invalid || (detailsFormGroup.valid && !detailsFormGroup.dirty)" (click)="saveEditedDetails()">
+                    {{ (actionLoading$ | async) ? 'Loading ...' : 'Save' }}
+                </button>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-details\edit-product-details.component.ts
+  saveEditedDetails() {
+......
+
+    this._productSvc.updateProduct(body).pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe(res => {
+......
+  }
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+  updateProduct(body: any): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/`;
+    return this.http.put(url, body, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

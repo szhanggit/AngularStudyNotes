@@ -1,0 +1,25 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\flexible-expiry-modal\flexible-expiry-modal.component.html
+
+            <button type="button" class="btn btn-primary rounded-pill font-12 mx-2 px-3" (click)="closeModal(true)" [disabled]="!getSelectedSchemes().length">Confirm ({{
+                getSelectedSchemes().length }})</button>
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\flexible-expi  closeModal(isConfirm: boolean) {
+    if (isConfirm) {
+      this.onSelectedExpirySchemesChanged.emit({
+        expirySchemes: this.expirySchemes,
+        selectedExpirySchemes: this.selectedExpirySchemes,
+      });
+      this.activeModal.close({
+        expirySchemes: this.expirySchemes,
+        selectedExpirySchemes: this.selectedExpirySchemes.map(e => ({
+          ...e,
+          fixExpiryDate: null,
+          isFixedExpiryPolicy: false
+        })),
+        expiryType: ExpiryTypeEnum.FLEXIBLE,
+      });
+    } else {
+      this.activeModal.close();
+    }
+  }ry-modal\flexible-expiry-modal.component.ts

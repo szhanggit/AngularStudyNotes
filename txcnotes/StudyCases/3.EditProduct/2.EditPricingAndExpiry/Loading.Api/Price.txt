@@ -1,0 +1,53 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Price?ProductId=8577
+
+
+ProductId: 8577
+
+
+
+{
+    "data": {
+        "productPriceId": 18497,
+        "sellingPricePrepaid": 28.5714,
+        "sellingPricePrepaidWithTax": 30.0,
+        "sellingPricePostpaid": 38.0952,
+        "sellingPricePostpaidWithTax": 40.0,
+        "customerFeePrepaid": null,
+        "customerFeePrepaidWithTax": null,
+        "customerFeePostpaid": null,
+        "customerFeePostpaidWithTax": null
+    },
+    "message": "success",
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-pricing-expiry\edit-pricing-expiry.component.ts
+priceInfo: this._productSvc.getProductPrice(params.id),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

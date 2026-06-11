@@ -1,0 +1,42 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/edit-template/8583
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/edit-template/:id',
+    component: EditProductTemplateComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-template\product-template.component.html
+
+
+				PagePreview
+				const modalRef = this._modalService.open(TemplatePreviewComponent, { size: 'md', backdrop: 'static', centered: true, keyboard: false, modalDialogClass: this.templateService.type === 1 ? 'table-centered' : '' });
+				D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-template\template-preview\template-preview.component.html
+
+
+				Voucher Page Design
+                                    <app-template-tag [templateTag]="templateTag"
+                                        [templateFormGroup]="templateFormGroup" [index]="0" class="mb-3">
+                                    </app-template-tag>
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-template\template-tag\template-tag.component.html
+
+
+https://ng-bootstrap.github.io/#/components/accordion/overview (All of the components come from here)
+<ng-container *ngIf="templateTag.type === tagType.Text">
+<ng-container *ngIf="templateTag.type === tagType.Image">
+<ng-container *ngIf="templateTag.type === tagType.RichText">
+<ng-container *ngIf="templateTag.type === tagType.RadioGroup">
+<ng-container *ngIf="templateTag.type === tagType.HTMLText">
+
+
+
+
+
+				SMS Design
+                                    <app-template-tag [templateTag]="templateTag" [templateFormGroup]="templateFormGroup"
+                                        class="mb-3" [index]="1">
+                                    </app-template-tag>
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-template\template-tag\template-tag.component.html

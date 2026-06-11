@@ -1,0 +1,69 @@
+{"query":"query{brands(skip:0, take:1000){ items{ brandName, createdBy, createdOn, id, mediaId, status }, totalCount}}"}
+
+{
+    "data": "{\"brands\":{\"items\":[{\"brandName\":\"Carrefour\",\"createdBy\":\"Bertha\",\"createdOn\":\"2021-02-08T11:27:26.43Z\",\"id\":1,\"mediaId\":2458,\"status\":1},{\"brandName\":\"7-ELEVEN\",\"createdBy\":\"Bertha\",\"createdOn\":\"2021-02-08T11:27:38.493Z\",\"id\":2,\"mediaId\":2457,\"status\":1},{\"brandName\":\"SOGO\",\"createdBy\":\"Zoelo\",\"createdOn\":\"2021-02-18T16:14:35.727Z\",\"id\":3,\"mediaId\":2459,\"status\":1},{\"brandName\":\"Cama\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:30:59.577Z\",\"id\":4,\"mediaId\":2465,\"status\":1},{\"brandName\":\"統一超商商品卡\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:31:34.843Z\",\"id\":5,\"mediaId\":2461,\"status\":1},{\"brandName\":\"85度C\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:39:33.707Z\",\"id\":6,\"mediaId\":2460,\"status\":1},{\"brandName\":\"bigcity遠東巨城\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:39:47.073Z\",\"id\":7,\"mediaId\":2462,\"status\":1},{\"brandName\":\"books博客來\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:39:59.877Z\",\"id\":8,\"mediaId\":2463,\"status\":1},{\"brandName\":\"eslite誠品生活\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:40:52.013Z\",\"id\":9,\"mediaId\":2466,\"status\":1},{\"brandName\":\"ezfly\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:41:02.143Z\",\"id\":10,\"mediaId\":2467,\"status\":1},{\"brandName\":\"feds遠東百貨\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:41:10.833Z\",\"id\":11,\"mediaId\":2468,\"status\":1},{\"brandName\":\"hanshin漢神\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:41:23.243Z\",\"id\":12,\"mediaId\":2469,\"status\":1},{\"brandName\":\"hilaifoods漢來\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:41:32.927Z\",\"id\":13,\"mediaId\":2470,\"status\":1},{\"brandName\":\"ldc雲朗\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:41:40.93Z\",\"id\":14,\"mediaId\":2471,\"status\":1},{\"brandName\":\"momo\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:41:50.78Z\",\"id\":15,\"mediaId\":2472,\"status\":1},{\"brandName\":\"pchome\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:42:05.257Z\",\"id\":16,\"mediaId\":2473,\"status\":1},{\"brandName\":\"rtm大潤發\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:42:17.887Z\",\"id\":17,\"mediaId\":2474,\"status\":1},{\"brandName\":\"sss爭鮮\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:42:26.487Z\",\"id\":18,\"mediaId\":2475,\"status\":1},{\"brandName\":\"taimall台茂\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:42:38.62Z\",\"id\":19,\"mediaId\":2476,\"status\":1},{\"brandName\":\"trg特力集團\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:42:51.477Z\",\"id\":20,\"mediaId\":2477,\"status\":1},{\"brandName\":\"ust統一時代台北\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:43:02.49Z\",\"id\":21,\"mediaId\":2478,\"status\":1},{\"brandName\":\"watsons屈臣氏\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:43:14.463Z\",\"id\":22,\"mediaId\":2479,\"status\":1},{\"brandName\":\"WOW王品集團\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:43:33.837Z\",\"id\":23,\"mediaId\":2480,\"status\":1},{\"brandName\":\"台北101\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:43:42.09Z\",\"id\":24,\"mediaId\":2481,\"status\":1},{\"brandName\":\"遠東sogo\",\"createdBy\":\"vyang\",\"createdOn\":\"2021-03-08T17:43:50.827Z\",\"id\":25,\"mediaId\":2482,\"status\":1},{\"brandName\":\"麥當勞\",\"createdBy\":\"Zoelo\",\"createdOn\":\"2021-03-22T11:49:21.323Z\",\"id\":26,\"mediaId\":2483,\"status\":1},{\"brandName\":\"Starbucks\",\"createdBy\":\"pacy\",\"createdOn\":\"2021-06-10T13:27:26.4Z\",\"id\":27,\"mediaId\":2488,\"status\":1},{\"brandName\":\"Rey Test Brand\",\"createdBy\":\"rgamboa\",\"createdOn\":\"2021-07-06T12:27:03.947Z\",\"id\":30,\"mediaId\":2570,\"status\":1},{\"brandName\":\"茶山房\",\"createdBy\":\"Bertha\",\"createdOn\":\"2021-07-08T15:42:42.93Z\",\"id\":31,\"mediaId\":2499,\"status\":1},{\"brandName\":\"美廉社\",\"createdBy\":\"Bertha\",\"createdOn\":\"2021-10-26T14:47:20.153Z\",\"id\":32,\"mediaId\":2550,\"status\":1},{\"brandName\":\"OK\",\"createdBy\":\"Bertha\",\"createdOn\":\"2021-10-26T14:49:11.407Z\",\"id\":33,\"mediaId\":2481,\"status\":1},{\"brandName\":\"OB嚴選\",\"createdBy\":\"vyang\",\"createdOn\":\"2022-01-10T18:44:19.02Z\",\"id\":34,\"mediaId\":2465,\"status\":1},{\"brandName\":\"iCarry\",\"createdBy\":\"myu\",\"createdOn\":\"2022-03-17T17:48:34.767Z\",\"id\":35,\"mediaId\":2476,\"status\":1},{\"brandName\":\"coco\",\"createdBy\":\"myu\",\"createdOn\":\"2022-03-25T14:13:01.513Z\",\"id\":36,\"mediaId\":2465,\"status\":1},{\"brandName\":\"ishatest\",\"createdBy\":\"ishuang\",\"createdOn\":\"2022-05-17T15:04:16.907Z\",\"id\":37,\"mediaId\":2472,\"status\":1},{\"brandName\":\"CKTest1\",\"createdBy\":\"clam\",\"createdOn\":\"2022-05-17T15:28:27.397Z\",\"id\":38,\"mediaId\":2479,\"status\":1},{\"brandName\":\"CKTest2\",\"createdBy\":\"clam\",\"createdOn\":\"2022-05-17T16:50:35.07Z\",\"id\":39,\"mediaId\":2458,\"status\":1},{\"brandName\":\"TST_TestProducts\",\"createdBy\":\"rblanco\",\"createdOn\":\"2022-06-06T17:32:53.21Z\",\"id\":40,\"mediaId\":2576,\"status\":1},{\"brandName\":\"KKBOX\",\"createdBy\":\"bwen\",\"createdOn\":\"2022-06-10T11:44:44.35Z\",\"id\":41,\"mediaId\":2577,\"status\":1},{\"brandName\":\"Häagen-Dazs\",\"createdBy\":\"myu\",\"createdOn\":\"2022-06-30T16:54:00.88Z\",\"id\":42,\"mediaId\":2580,\"status\":1},{\"brandName\":\"TW_Brand_0725\",\"createdBy\":\"msioson\",\"createdOn\":\"2022-07-25T20:51:48.28Z\",\"id\":43,\"mediaId\":2591,\"status\":0},{\"brandName\":\"BerthaTest\",\"createdBy\":\"bertha\",\"createdOn\":\"2022-07-27T12:18:02.963Z\",\"id\":44,\"mediaId\":2498,\"status\":1},{\"brandName\":\"brandName_RG_Staging_020\",\"createdBy\":\"rogamboa\",\"createdOn\":\"2022-09-09T06:09:09.207Z\",\"id\":45,\"mediaId\":2458,\"status\":1},{\"brandName\":\"RUbySTBrand\",\"createdBy\":\"rblanco\",\"createdOn\":\"2022-09-29T08:25:55.22Z\",\"id\":46,\"mediaId\":2462,\"status\":1},{\"brandName\":\"brandName_RG_TW_005\",\"createdBy\":\"rogamboa\",\"createdOn\":\"2022-10-19T15:52:47.113Z\",\"id\":47,\"mediaId\":2458,\"status\":1}],\"totalCount\":45}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\brand.service.ts
+  // get all brands using graphql endpoint
+  getAllBrands(take = 100): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{brands(skip:0, take:${take}){ items{ brandName, createdBy, createdOn, id, mediaId, status }, totalCount}}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

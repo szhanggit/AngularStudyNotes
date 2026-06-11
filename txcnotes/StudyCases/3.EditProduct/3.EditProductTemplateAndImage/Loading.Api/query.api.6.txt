@@ -1,0 +1,76 @@
+
+{"query":"\n      query {\n        templates(where:\n          {\n              and: [\n                  {status: { eq: 1}}\n                  {type: { eq: 1}}\n                  {subType: { eq: 1}}\n                  \n                  \n              ]\n          },\n          skip: 0,\n          take: 10\n        )\n        {\n          items {\n              templateId\n              templateName\n              type\n              defaultLanguage\n          }\n        }\n      }"}
+
+
+
+{
+    "data": "{\"templates\":{\"items\":[{\"templateId\":4,\"templateName\":\"Knight Test 001\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":5,\"templateName\":\"TEST_新單直列型_QRCODE\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":6,\"templateName\":\"Henry Test\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":7,\"templateName\":\"2015Number\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":8,\"templateName\":\"2015QRcode\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":9,\"templateName\":\"2015Barcode\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":10,\"templateName\":\"2016Barcode128\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":11,\"templateName\":\"7-ELEVEN券樣\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":12,\"templateName\":\"7-ELEVEN券樣2\",\"type\":1,\"defaultLanguage\":66},{\"templateId\":13,\"templateName\":\"2016多段條碼券樣-7-ELEVEN\",\"type\":1,\"defaultLanguage\":66}]}}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.ts
+private readonly _templateService: TemplateService,
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+  constructor(private http: HttpClient,
+    private readonly masterTemplateService: MasterProductTemplateService) {
+    this._search$.pipe(
+      tap(() => this._loading$.next(true)),
+      debounceTime(1000),
+      switchMap(() => this.masterTemplateService.getTemplatesList(this.type, this.type, this.templateName)),
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\master-product-template.service.ts
+
+  getTemplatesList(type: TemplateType, subType: TemplateSubType, term: string = "", templateId: number = 0): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const templateNameCondition = term ? `{templateName: {contains: "${term}"}}` : "";
+    const templateIdCondition = templateId > 0 ? `templateId: { eq: ${templateId}}}` : "";
+
+    const body = {
+      query: `
+      query {
+        templates(where:
+          {
+              and: [
+                  {status: { eq: 1}}
+                  {type: { eq: ${type}}}
+                  {subType: { eq: ${subType}}}
+                  ${templateNameCondition}
+                  ${templateIdCondition}
+              ]
+          },
+          skip: 0,
+          take: 10
+        )
+        {
+          items {
+              templateId
+              templateName
+              type
+              defaultLanguage
+          }
+        }
+      }`
+    }
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

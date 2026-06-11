@@ -1,0 +1,49 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Condition
+
+
+PUT
+ProductId: 8577
+MinRedeemQuantity: 0
+MaxIssuingQuantity: 100
+ReverseLimitId: 2
+PreAuthorizationExpiryInterval: 0
+PreAuthorizationExpiryUnit: 0
+ReminderId: 323
+useTimeControl: 0
+useTimeControlInterval: 0
+
+
+{"data":8577,"message":"Success","success":true}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-external-properties\edit-external-properties.component.ts
+this._productSvc.updateProductCondition(conditionFormData).subscribe(res => {
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+  updateProductCondition(body: ProductCondition): Observable<BaseResponse>{
+    const url = `https://${environment.apiUrl}api/Product/Condition`;
+    return this.http.put(url, body, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

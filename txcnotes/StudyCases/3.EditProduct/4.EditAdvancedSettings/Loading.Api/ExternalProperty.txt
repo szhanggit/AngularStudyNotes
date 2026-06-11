@@ -1,0 +1,35 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/ExternalProperty?ProductId=8577
+
+
+ProductId: 8577
+
+
+
+{"data":[],"message":"success","success":true}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-external-properties\edit-external-properties.component.ts
+this._productSvc.getProductExternalProperty(params.id).subscribe(res => {
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+  getProductExternalProperty(id: number): Observable<GetProductExternalPropertyResp> {
+    const url = `https://${environment.apiUrl}api/Product/ExternalProperty?ProductId=${id}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<GetProductExternalPropertyResp>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+

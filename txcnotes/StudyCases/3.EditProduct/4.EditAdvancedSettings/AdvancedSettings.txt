@@ -1,0 +1,34 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/edit-external-properties/8583
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/edit-external-properties/:id',
+    component: EditExternalPropertiesComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-external-properties\edit-external-properties.component.html
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-properties\product-properties.component.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

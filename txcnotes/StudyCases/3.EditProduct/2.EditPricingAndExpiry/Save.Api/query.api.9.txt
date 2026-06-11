@@ -1,0 +1,41 @@
+{"query":"query{tagsByTemplateVersionId(templateVersionId: 797) {displayName,applyToHtmlTemplate,applyToTextTemplate,category,defaultValue,displayName,description,reflectionType,scopeLevel,tagId,tagName,type}}"}
+
+
+
+{
+    "data": "{\"tagsByTemplateVersionId\":[{\"displayName\":\"VOUCHER_NUMBER\",\"applyToHtmlTemplate\":true,\"applyToTextTemplate\":true,\"category\":1,\"defaultValue\":\"PETER TEST\",\"description\":\"VOUCHER_NUMBER\",\"reflectionType\":null,\"scopeLevel\":0,\"tagId\":3,\"tagName\":\"{VOUCHER_NUMBER}\",\"type\":1},{\"displayName\":\"PRODUCT_NAME\",\"applyToHtmlTemplate\":true,\"applyToTextTemplate\":true,\"category\":2,\"defaultValue\":null,\"description\":\"PRODUCT_NAME\",\"reflectionType\":null,\"scopeLevel\":0,\"tagId\":6,\"tagName\":\"{PRODUCT_NAME}\",\"type\":1},{\"displayName\":\"END_DATE\",\"applyToHtmlTemplate\":true,\"applyToTextTemplate\":true,\"category\":1,\"defaultValue\":null,\"description\":\"END_DATE\",\"reflectionType\":null,\"scopeLevel\":0,\"tagId\":8,\"tagName\":\"{END_DATE}\",\"type\":1}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+
+
+  getTemplateTagsByVersionId(templateVersionId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{tagsByTemplateVersionId(templateVersionId: ${templateVersionId}) {displayName,applyToHtmlTemplate,applyToTextTemplate,category,defaultValue,displayName,description,reflectionType,scopeLevel,tagId,tagName,type}}`
+    }
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

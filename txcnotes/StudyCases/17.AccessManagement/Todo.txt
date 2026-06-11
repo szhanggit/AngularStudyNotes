@@ -1,0 +1,199 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\account\login\login1\login.component.ts
+Simple login
+
+----------------------------------------------
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\account\password-reset\password-reset1\password-reset.component.html
+
+
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\account\signup\signup1\signup.component.html
+
+----------------------------------------------
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\inventory\batch-detail\model\reject-reason\reject-reason.component.html
+Model with form.
+
+
+
+
+----------------------------------------------
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\supper-admin\key-login\key-login.component.ts
+form.resetForm();
+
+----------------------------------------------
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\pages\maintenance\tenant\tenant-details\tenant-details.component.ts	!!!
+
+
+
+https://www.geeksforgeeks.org/angular-ngx-bootstrap-progressbar-component/
+npm install ngx-bootstrap --save 
+https://stackblitz.com/edit/ngx-progressbar-v2?file=app%2Fapp.component.ts
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+17. RoleManagement
+17. AddUsers
+
+3.EditProduct
+3.EditProduct\1.EditProductDetails
+3.EditProduct\3.EditProductTemplateAndImage
+
+4.ProductList\BatchUpdateProduct
+4.ProductList\BatchUpdateProductCombo	!!!
+
+6.ApplyChildProductsToQuotation
+
+7.MediaLibrary	!!!
+
+8.TemplateList	(Preview)
+
+9.ClientList\ClientDetail\EditClientDetails
+
+13.BatchVocherOperations
+
+15.MerchantList\MerchantDetail\2.BatchUploadShops
+
+15.MerchantList\MerchantDetail\6.CreateContract
+
+15.MerchantList\MerchantDetail\7.AddSKU
+
+
+-----------------------------------------------------------
+
+
+
+const textarea = this.elementRef.nativeElement.querySelector('#product-code-list');
+
+  convertHtmlToPlainText(html: string) {
+    if (!html)
+      return "";
+
+    let plainText = html;
+    // Replace <li> with bullet points
+    plainText = plainText.replace(this.PATTERN.LI, (_: any, li: string) => {
+      return `${this.PATTERN.BULLET}${li.trimStart()}`;
+    });
+
+    // Replace <a> with link
+    plainText = plainText.replace(this.PATTERN.LINK, (_, href, text) => {
+      return text;
+    });
+
+    // Replace <div> with line break
+    plainText = plainText.replace(this.PATTERN.DIV, this.PATTERN.LINEBREAK);
+    // Remove all HTML tags
+    plainText = plainText.replace(this.PATTERN.TAGS, "");
+
+    // remove extra spaces
+    plainText = plainText.trim().replace(this.PATTERN.SPACES, "");
+
+    //remove code generated from extra space
+    plainText = plainText.trim().replace(this.PATTERN.EXTRA_SPACE, String.fromCharCode(160));
+
+    // replace right arrow
+    plainText = plainText.replace(this.PATTERN.RIGHT_ARROW_HTML, this.PATTERN.RIGHT_ARROW);
+
+    // replace nbsp
+    plainText = plainText.replace(this.PATTERN.NBSP, " ");
+
+    // trim each line
+    plainText = plainText.split(this.PATTERN.LINEBREAK)
+      .map(line => line.trim())
+      .join(this.PATTERN.LINEBREAK);
+    return plainText;
+  }
+
+
+
+
+
+  onEnterClick(): void {
+    this.errorMessageList = [];
+    const codes = this.updateProductFormGroup.get('productCodeList')?.value.split(/\r?\n/);
+    const uniCodes = codes.filter((value: any, index: number, self: any) =>
+      index === self.findIndex((e: any) => e === value)
+    );
+    this.masterProductApiService
+      .getProductInfoByProductCodeList(uniCodes)
+      .pipe(
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.success) {
+            const data = JSON.parse(res.data);
+            this.onAddToConfirm(data.productInfoMassive.items);
+            const errCodes = uniCodes;
+            data.productInfoMassive.items.forEach((product: any) => {
+              const index = errCodes.findIndex((code: string) => {
+                return code === product.productCode
+              });
+              if (index >= 0) {
+                errCodes.splice(index, 1);
+              }
+            });
+            if (errCodes.length > 0) {
+              this.errorMessageList.push(`${this.ERROR_MESSAGE_NO_PRODUCT} ${errCodes.toString()}`);
+            }
+          }
+        },
+        error: (msg) => {
+        },
+        complete: () => {
+          this.autoGrowTextAreaZone(true);
+        },
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

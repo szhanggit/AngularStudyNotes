@@ -1,0 +1,117 @@
+In Angular, `sessionStorage` is a web API provided by the browser that allows you to store data for the duration of the page session. This means that the data stored in `sessionStorage` is available only while the browser window or tab is open. Once the window or tab is closed, the stored data is cleared. This is useful for temporarily storing data that needs to be accessible across different parts of your application during a single session, but doesn't need to persist across page reloads or browser restarts.
+
+### Using `sessionStorage` in Angular
+
+To use `sessionStorage` in Angular, you can directly interact with the `sessionStorage` object provided by the browser. Here’s a step-by-step guide on how to use it:
+
+#### Step-by-Step Guide
+
+1. **Set an Item in `sessionStorage`**: Use the `setItem` method to store data.
+2. **Get an Item from `sessionStorage`**: Use the `getItem` method to retrieve data.
+3. **Remove an Item from `sessionStorage`**: Use the `removeItem` method to delete a specific item.
+4. **Clear All Items in `sessionStorage`**: Use the `clear` method to remove all stored data.
+
+### Example Code
+
+#### Setting and Getting Items
+
+Here’s a basic example of how to set and get items in `sessionStorage`:
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <button (click)="saveData()">Save Data</button>
+    <button (click)="loadData()">Load Data</button>
+    <div>{{ data }}</div>
+  `
+})
+export class AppComponent {
+  data: string | null = '';
+
+  saveData() {
+    sessionStorage.setItem('key', 'This is the stored data');
+  }
+
+  loadData() {
+    this.data = sessionStorage.getItem('key');
+  }
+}
+```
+
+#### Removing Items and Clearing Storage
+
+Here’s how to remove specific items or clear all items from `sessionStorage`:
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <button (click)="saveData()">Save Data</button>
+    <button (click)="removeData()">Remove Data</button>
+    <button (click)="clearData()">Clear Data</button>
+    <button (click)="loadData()">Load Data</button>
+    <div>{{ data }}</div>
+  `
+})
+export class AppComponent {
+  data: string | null = '';
+
+  saveData() {
+    sessionStorage.setItem('key', 'This is the stored data');
+  }
+
+  removeData() {
+    sessionStorage.removeItem('key');
+  }
+
+  clearData() {
+    sessionStorage.clear();
+  }
+
+  loadData() {
+    this.data = sessionStorage.getItem('key');
+  }
+}
+```
+
+### Explanation
+
+- **`setItem(key, value)`**: Stores the key-value pair in `sessionStorage`.
+  ```typescript
+  sessionStorage.setItem('key', 'value');
+  ```
+
+- **`getItem(key)`**: Retrieves the value associated with the key.
+  ```typescript
+  const value = sessionStorage.getItem('key');
+  ```
+
+- **`removeItem(key)`**: Removes the key and its associated value.
+  ```typescript
+  sessionStorage.removeItem('key');
+  ```
+
+- **`clear()`**: Clears all key-value pairs in `sessionStorage`.
+  ```typescript
+  sessionStorage.clear();
+  ```
+
+### Use Cases for `sessionStorage`
+
+- **Session-Specific Data**: Store data that only needs to persist for the current session, such as temporary form data or filters.
+- **User Preferences**: Save user preferences or settings that apply to the current session.
+- **Temporary Authentication Tokens**: Store tokens or temporary credentials that should not persist beyond the current session.
+
+### Differences Between `localStorage` and `sessionStorage`
+
+- **Persistence**: `localStorage` data persists even after the browser is closed, whereas `sessionStorage` data is cleared when the page session ends.
+- **Scope**: `sessionStorage` is scoped to the browser tab or window, while `localStorage` is scoped to the origin and persists across tabs and windows.
+
+### Conclusion
+
+`sessionStorage` is a useful API for managing session-specific data in Angular applications. It provides an easy way to store and retrieve data that should only be available for the duration of the page session, making it suitable for a variety of temporary data storage needs.

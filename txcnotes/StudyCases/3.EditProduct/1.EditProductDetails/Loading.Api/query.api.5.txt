@@ -1,0 +1,76 @@
+{"query":"query {\n          merchantGroups(\n            \n            take: 20\n            skip: 0\n            order: { createdOn: DESC }\n          ) {\n            totalCount\n            items {\n              merchantGroupId\n              merchantId\n              merchant {\n                name\n                status\n                programId\n              }\n              merchantGroupMerchantMaps {\n                merchantGroupMerchantMapId\n                merchantGroupId\n                merchantId\n              }\n            }\n          }\n        }"}
+
+
+{
+    "data": "{\"merchantGroups\":{\"totalCount\":128,\"items\":[{\"merchantGroupId\":8517,\"merchantId\":2241,\"merchant\":{\"name\":\"StMG2023-08-14T19:02:13.997Z\",\"status\":0,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3489,\"merchantGroupId\":8517,\"merchantId\":2239},{\"merchantGroupMerchantMapId\":3490,\"merchantGroupId\":8517,\"merchantId\":2240}]},{\"merchantGroupId\":8516,\"merchantId\":2197,\"merchant\":{\"name\":\"StMG2023-08-11T13:53:12.174Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3487,\"merchantGroupId\":8516,\"merchantId\":2195},{\"merchantGroupMerchantMapId\":3488,\"merchantGroupId\":8516,\"merchantId\":2196}]},{\"merchantGroupId\":8515,\"merchantId\":2194,\"merchant\":{\"name\":\"StevenMG0811\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3484,\"merchantGroupId\":8515,\"merchantId\":2121},{\"merchantGroupMerchantMapId\":3485,\"merchantGroupId\":8515,\"merchantId\":2122},{\"merchantGroupMerchantMapId\":3486,\"merchantGroupId\":8515,\"merchantId\":2126}]},{\"merchantGroupId\":8514,\"merchantId\":2193,\"merchant\":{\"name\":\"StMG2023-08-11T13:40:20.246Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3482,\"merchantGroupId\":8514,\"merchantId\":2191},{\"merchantGroupMerchantMapId\":3483,\"merchantGroupId\":8514,\"merchantId\":2192}]},{\"merchantGroupId\":8513,\"merchantId\":2190,\"merchant\":{\"name\":\"StMG2023-08-11T13:38:19.078Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3480,\"merchantGroupId\":8513,\"merchantId\":2188},{\"merchantGroupMerchantMapId\":3481,\"merchantGroupId\":8513,\"merchantId\":2189}]},{\"merchantGroupId\":8512,\"merchantId\":2175,\"merchant\":{\"name\":\"StMG2023-08-10T10:55:31.855Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3478,\"merchantGroupId\":8512,\"merchantId\":2173},{\"merchantGroupMerchantMapId\":3479,\"merchantGroupId\":8512,\"merchantId\":2174}]},{\"merchantGroupId\":8511,\"merchantId\":2172,\"merchant\":{\"name\":\"StMG2023-08-10T10:47:53.429Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3476,\"merchantGroupId\":8511,\"merchantId\":2170},{\"merchantGroupMerchantMapId\":3477,\"merchantGroupId\":8511,\"merchantId\":2171}]},{\"merchantGroupId\":8510,\"merchantId\":2168,\"merchant\":{\"name\":\"StMG2023-08-10T10:43:51.525Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3474,\"merchantGroupId\":8510,\"merchantId\":2166},{\"merchantGroupMerchantMapId\":3475,\"merchantGroupId\":8510,\"merchantId\":2167}]},{\"merchantGroupId\":8509,\"merchantId\":2164,\"merchant\":{\"name\":\"StMG2023-08-10T09:37:22.380Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3472,\"merchantGroupId\":8509,\"merchantId\":2162},{\"merchantGroupMerchantMapId\":3473,\"merchantGroupId\":8509,\"merchantId\":2163}]},{\"merchantGroupId\":8508,\"merchantId\":2161,\"merchant\":{\"name\":\"StMG2023-08-10T09:36:02.283Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3470,\"merchantGroupId\":8508,\"merchantId\":2159},{\"merchantGroupMerchantMapId\":3471,\"merchantGroupId\":8508,\"merchantId\":2160}]},{\"merchantGroupId\":8507,\"merchantId\":2140,\"merchant\":{\"name\":\"StMG2023-08-08T15:44:47.592Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3468,\"merchantGroupId\":8507,\"merchantId\":2138},{\"merchantGroupMerchantMapId\":3469,\"merchantGroupId\":8507,\"merchantId\":2139}]},{\"merchantGroupId\":8506,\"merchantId\":2137,\"merchant\":{\"name\":\"StMG2023-08-08T15:21:05.520Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3466,\"merchantGroupId\":8506,\"merchantId\":2135},{\"merchantGroupMerchantMapId\":3467,\"merchantGroupId\":8506,\"merchantId\":2136}]},{\"merchantGroupId\":8505,\"merchantId\":2134,\"merchant\":{\"name\":\"StMG2023-08-08T14:47:48.826Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3464,\"merchantGroupId\":8505,\"merchantId\":2132},{\"merchantGroupMerchantMapId\":3465,\"merchantGroupId\":8505,\"merchantId\":2133}]},{\"merchantGroupId\":8504,\"merchantId\":2131,\"merchant\":{\"name\":\"StMG2023-08-08T14:38:23.352Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3462,\"merchantGroupId\":8504,\"merchantId\":2129},{\"merchantGroupMerchantMapId\":3463,\"merchantGroupId\":8504,\"merchantId\":2130}]},{\"merchantGroupId\":8503,\"merchantId\":2128,\"merchant\":{\"name\":\"StMG2023-08-08T14:32:53.087Z\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3460,\"merchantGroupId\":8503,\"merchantId\":2126},{\"merchantGroupMerchantMapId\":3461,\"merchantGroupId\":8503,\"merchantId\":2127},{\"merchantGroupMerchantMapId\":3497,\"merchantGroupId\":8503,\"merchantId\":2121},{\"merchantGroupMerchantMapId\":3498,\"merchantGroupId\":8503,\"merchantId\":2122}]},{\"merchantGroupId\":8502,\"merchantId\":2116,\"merchant\":{\"name\":\"RubyMerchG0731\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3457,\"merchantGroupId\":8502,\"merchantId\":2113},{\"merchantGroupMerchantMapId\":3458,\"merchantGroupId\":8502,\"merchantId\":2114},{\"merchantGroupMerchantMapId\":3459,\"merchantGroupId\":8502,\"merchantId\":2115}]},{\"merchantGroupId\":8501,\"merchantId\":2110,\"merchant\":{\"name\":\"Stev_test_group 1689151548349\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3451,\"merchantGroupId\":8501,\"merchantId\":2108},{\"merchantGroupMerchantMapId\":3452,\"merchantGroupId\":8501,\"merchantId\":2109},{\"merchantGroupMerchantMapId\":3454,\"merchantGroupId\":8501,\"merchantId\":169}]},{\"merchantGroupId\":8500,\"merchantId\":2107,\"merchant\":{\"name\":\"Stev_test_group 1689151309157\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3450,\"merchantGroupId\":8500,\"merchantId\":2105}]},{\"merchantGroupId\":8499,\"merchantId\":2104,\"merchant\":{\"name\":\"Stev_test_group 1689150601140\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3449,\"merchantGroupId\":8499,\"merchantId\":2103}]},{\"merchantGroupId\":8498,\"merchantId\":2102,\"merchant\":{\"name\":\"Stev_test_group 1689149949180\",\"status\":1,\"programId\":307},\"merchantGroupMerchantMaps\":[{\"merchantGroupMerchantMapId\":3448,\"merchantGroupId\":8498,\"merchantId\":2101}]}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\merchant-group.service.ts
+
+
+
+  private _getMerchantGroups(): Observable<BaseResponse> {
+    const searchCriteriaQuery = this.searchTerm.trim() ? `where: { merchant: { name: { contains: "${this.searchTerm.trim()}"} } }` : '';
+    const body = {
+      query:
+        `query {
+          merchantGroups(
+            ${searchCriteriaQuery}
+            take: ${this._state.pageSize}
+            skip: ${(this._state.page - 1) * this._state.pageSize}
+            order: { createdOn: DESC }
+          ) {
+            totalCount
+            items {
+              merchantGroupId
+              merchantId
+              merchant {
+                name
+                status
+                programId
+              }
+              merchantGroupMerchantMaps {
+                merchantGroupMerchantMapId
+                merchantGroupId
+                merchantId
+              }
+            }
+          }
+        }`
+    };
+  const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(this._graphQL, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

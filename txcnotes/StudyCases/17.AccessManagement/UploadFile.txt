@@ -1,0 +1,13 @@
+https://stackoverflow.com/questions/42980608/upload-an-excel-file-to-a-web-api
+https://www.thetechplatform.com/post/unlocking-excel-data-how-to-read-excel-files-in-a-web-api-using-c
+https://www.c-sharpcorner.com/article/import-excel-file-in-angular-7-using-web-api-and-sql-server/
+https://code-maze.com/upload-files-dot-net-core-angular/
+https://help.syncfusion.com/file-formats/xlsio/create-excel-files-in-asp-net-core-web-api
+
+
+
+
+
+
+
+https://github.com/JayKrishnareddy/UploadandDownloadFiles

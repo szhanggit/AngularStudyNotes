@@ -1,0 +1,153 @@
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.ts
+
+
+  OnSubmit() {
+    if (this.productTemplate) {
+      this.productTemplate.saveLastData$.next(true);
+    }
+
+    if (this.editDoneWaitingSaveLastDataFlag) {
+      return;
+    }
+
+    this.editDoneWaitingSaveLastDataFlag = true;
+    
+    this.productTemplate.editDoneWaitingSaveLastData$.subscribe((done: boolean) => {
+      if (done && this.editDoneWaitingSaveLastDataFlag) {
+        const stepFour: ProductWizardStepFour = new ProductWizardStepFour(this.templateFormGroup.getRawValue(), this._textEditorService);
+
+        let dirtyControls = 0;
+        if (stepFour) {
+          this.actionLoading$.next(true);
+
+          // wallet settings
+          if (this.f.walletStatus.dirty || this.f.walletImage.dirty || this.f.walletDescription.dirty) {
+            dirtyControls++;
+
+            const walletSettingsRequest = {
+              productId: this.product.productId,
+              addToWallet: stepFour.addToWallet,
+              walletDescription: stepFour.walletDescription,
+              walletStatus: stepFour.walletStatus,
+              walletImage: stepFour.walletImage,
+            };
+
+            this._productService.updateProductWalletSetting(walletSettingsRequest).pipe(		<==========================================
+              takeUntil(this.destroyed$)
+            ).subscribe(res => {
+              if (res.success) {
+                dirtyControls--;
+                this.templateFormGroup.markAsPristine();
+
+                if (!dirtyControls) {
+                  this.navigateToProductDetailsWithToast();
+                }
+              } else {
+                this.toast.showDanger('Error updating wallet settings. Please try again later.');
+              }
+
+              this.actionLoading$.next(false);
+            }, () => {
+              this.toast.showDanger('Error updating wallet settings. Please try again later.');
+              this.actionLoading$.next(false);
+            })
+          }
+
+          // banner settings
+          if (this.product.productType === ProductTypeEnum.DynamicFaceValue && (this.f.hexColor.dirty || this.f.pointX.dirty || this.f.pointY.dirty || this.f.fontSize.dirty)) {
+            dirtyControls++;
+
+            const bannerSettingRequest = {
+              productId: this.product.productId,
+              hexColor: stepFour.hexColor,
+              fontSize: stepFour.fontSize,
+              pointX: stepFour.pointX,
+              pointY: stepFour.pointY,
+            };
+
+            this._productService.updateBannerImageSettings(bannerSettingRequest)		<==========================================
+              .pipe(takeUntil(this.destroyed$))
+              .subscribe(res => {
+                if (res.success) {
+                  dirtyControls--;
+                  this.templateFormGroup.markAsPristine();
+
+                  if (!dirtyControls) {
+                    this.navigateToProductDetailsWithToast();
+                  }
+                } else {
+                  this.toast.showDanger('Error updating banner settings. Please try again later.');
+                }
+
+                this.actionLoading$.next(false);
+              }, () => {
+                this.toast.showDanger('Error updating banner settings. Please try again later.');
+                this.actionLoading$.next(false);
+              })
+          }
+
+          // product template
+          if (stepFour.productTemplateList) {
+            dirtyControls++;
+            for (const productTemplate of stepFour.productTemplateList) {
+              if (productTemplate.tagValueList?.some((tagValue: TagValue) => tagValue.tagId === 0)) {
+                productTemplate.tagValueList = productTemplate.templateType === 1 ? this.voucherTemplateValues : this.smsTemplateValues;
+                break;
+              }
+            }
+
+            const productTemplateRequest = {
+              productId: this.product.productId,
+              product_template_item: this.productTemplateList.map(template => {
+                return {
+                  templateType: template.templateType,
+                  templateSubType: template.templateSubType,
+                  templateVersionId: template.templateVersionId,
+                  templateTagValue: template.tagValueList?.map((e: any) => {
+                    
+                    if(e.tagName === '{FOOTNOTE}') {
+                      e.value = e.value.trim().replace(/&#10;/g, '').replaceAll('</li>', '</li>\r\n');
+                      return e;
+                    } else {
+                      return e;
+                    }
+                  })
+                }
+              })
+            };
+
+            this._productService.updateProductTemplate(productTemplateRequest)				<==========================================
+              .pipe(takeUntil(this.destroyed$))
+              .subscribe(res => {
+                if (res.success) {
+                  dirtyControls--;
+                  this.templateFormGroup.markAsPristine();
+                  this.actionLoading$.next(false);
+
+                  if (!dirtyControls) {
+                    this.navigateToProductDetailsWithToast();
+                  }
+                } else {
+                  this.toast.showDanger('Error updating product template. Please try again later.');
+                }
+                this.actionLoading$.next(false);
+              },
+                () => {
+                  this.toast.showDanger('Error updating product template. Please try again later.');
+                  this.actionLoading$.next(false);
+                },
+                () => {
+                  this.productTemplate.templateService.loading = false;
+                  this.editDoneWaitingSaveLastDataFlag = false;
+                });
+          } else {
+            if (!dirtyControls) {
+              this.navigateToProductDetailsWithToast();
+            }
+            this.templateFormGroup.markAsUntouched();
+            this.actionLoading$.next(false);
+          }
+        }
+      }
+    });
+  }

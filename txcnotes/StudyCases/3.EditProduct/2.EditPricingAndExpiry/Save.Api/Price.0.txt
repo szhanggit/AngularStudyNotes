@@ -1,0 +1,46 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Price
+
+PUT
+{"requiredExpiryList":1,"fixExpiryDate":null,"isFixedExpiryPolicy":true,"sellingPricePrepaidWithTax":30,"sellingPricePrepaid":"28.5714","sellingPricePostpaidWithTax":"42","sellingPricePostpaid":"40.0000","productId":8577}
+
+
+
+{"data":8577,"message":"Success","success":true}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-pricing-expiry\edit-pricing-expiry.component.ts
+
+
+this._productSvc.updateProductPrice(body).pipe(takeUntil(this.destroy$)).subscribe((res) => {
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+  updateProductPrice(body: ProductPrice): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/Price`;
+    return this.http.put(url, body, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+{"query":"query{\n        monoAcceptanceLoopByMerchantId(merchantId: 2707 \n          order: [{isDefault: DESC}, { createdOn: DESC }] \n          \n          \n          ) \n          {\n            totalCount\n              items {\n                acceptanceLoopId\n                code\n                description\n                isDefault\n                shopCountAvailableInAL\n                status\n                createdBy\n                createdOn\n              }\n          }\n        }"}
+
+
+{
+    "data": "{\"monoAcceptanceLoopByMerchantId\":{\"totalCount\":1,\"items\":[{\"acceptanceLoopId\":3452,\"code\":\"Joni_3rdParty_SmartVoucher_2707 (all shops)\",\"description\":null,\"isDefault\":true,\"shopCountAvailableInAL\":0,\"status\":true,\"createdBy\":\"by System\",\"createdOn\":\"2023-11-22T05:58:27.297Z\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\acceptance-loop.service.ts
+
+
+
+
+  public getMonoAcceptanceLoopByMerchantId(merchantId: number, skip?: number, take?: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const skipClause = skip ? `, skip: ${skip}` : '';
+    const takeClause = take ? `, take: ${take}` : '';
+    const body = { query: 
+      `query{
+        monoAcceptanceLoopByMerchantId(merchantId: ${merchantId} 
+          order: [{isDefault: DESC}, { createdOn: DESC }] 
+          ${skipClause}
+          ${takeClause}
+          ) 
+          {
+            totalCount
+              items {
+                acceptanceLoopId
+                code
+                description
+                isDefault
+                shopCountAvailableInAL
+                status
+                createdBy
+                createdOn
+              }
+          }
+        }`
+    }
+    return this.http.post(url, body,{ headers: this._getHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

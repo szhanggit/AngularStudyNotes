@@ -1,0 +1,48 @@
+
+
+
+{"query":"query{languageListByTemplateId(templateId: 6) {templateVersionId,languageId,isDefaultLanguage}}"}
+
+
+{
+    "data": "{\"languageListByTemplateId\":[{\"templateVersionId\":1491,\"languageId\":66,\"isDefaultLanguage\":true}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-template\product-template.component.ts
+          // get template languages available of the selected template
+          this.templateService.getTemplateLanguageByTemplateId(selectedTemplate.templateId).pipe(
+            distinctUntilChanged(),
+            takeUntil(this.destroyed$)
+          ).subscribe(res => {
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+
+  getTemplateLanguageByTemplateId(templateId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{languageListByTemplateId(templateId: ${templateId}) {templateVersionId,languageId,isDefaultLanguage}}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

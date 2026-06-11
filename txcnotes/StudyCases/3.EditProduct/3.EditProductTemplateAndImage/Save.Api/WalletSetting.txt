@@ -1,0 +1,43 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/WalletSetting
+
+PUT
+{"productId":8577,"addToWallet":true,"walletDescription":"k;kkl;k","walletStatus":1,"walletImage":1109}
+
+
+
+{"data":25474,"message":"Success","success":true}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.ts
+            this._productService.updateProductWalletSetting(walletSettingsRequest).pipe(
+              takeUntil(this.destroyed$)
+            ).subscribe(res => {
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+
+  updateProductWalletSetting(body: {productId: number, addToWallet: boolean, walletStatus: number, walletDescription: string, walletImage: number}): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/WalletSetting`;
+    return this.http.put(url, body, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+{"query":"query{ mediaById(mediaId: 2457) { account, blobName, fileContentType, fileName, height, keyword, mediaId, nodeUrl, type, width }}"}
+
+
+{
+    "data": "{\"mediaById\":[{\"account\":\"esgtxcnassestored\",\"blobName\":\"staging/media-library/5bbcfbeb-8991-432e-9f95-aa2cabdc59d7.jpg\",\"fileContentType\":\"image/jpeg\",\"fileName\":\"5bbcfbeb-8991-432e-9f95-aa2cabdc59d7\",\"height\":\"288\",\"keyword\":\"7-ELEVEN\",\"mediaId\":2457,\"nodeUrl\":\"https://esg-txc-cdn-edgio-d.azureedge.net/txc-tw/staging/media-library/5bbcfbeb-8991-432e-9f95-aa2cabdc59d7.jpg\",\"type\":4,\"width\":\"750\"}]}",
+    "message": null,
+    "success": true
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\media.service.ts
+
+
+    // get media by id using graphql endpoint
+    getMediaByIds(mediaIds: number[]): Observable<BaseResponse> {
+      const url = `${this._getURL()}api/GraphQL/Query`;
+      const ids = mediaIds.join(',');
+      const body = {
+        query: `query{allMediaURL(take : 100 
+          where : {
+              mediaId :{in:[${ids}]}
+          }
+      ) {items {  account, blobName, fileContentType, fileName, height, keyword, mediaId, nodeUrl, type, width}}}`
+      }
+      const headers = new HttpHeaders().append('loading-indicator', 'none');
+      return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

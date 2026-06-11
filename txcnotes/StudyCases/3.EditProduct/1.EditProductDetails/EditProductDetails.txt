@@ -1,0 +1,15 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/edit-details/8583
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/edit-details/:id',
+    component: EditProductDetailsComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-details\edit-product-details.component.html
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-details\product-details.component.html
+
+
+
+

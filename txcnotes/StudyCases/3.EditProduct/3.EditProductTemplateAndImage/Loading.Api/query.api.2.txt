@@ -1,0 +1,91 @@
+{"query":"\n      query{\n        templateVersionInfo (skip: 0, take: 100,\n          where: {              \n              or :[{\n                and: [\n                  {templateVersionId: {in: [1491]}}\n                  {type:  {eq: 1}}\n                ]}\n                {and: [\n                    {templateVersionId: {nin: [1491]}}\n                    {templateId: {eq: 6}}\n                    {isCurrentVersion: {eq: true}}\n                    {type:  {eq: 1}}\n                ]}\n              ]\n          }\n        ){            \n          items {\n            templateId,\n            subject1,\n            subject2,\n            subject3,\n            subType,\n            status,\n            content1,\n            content2,\n            content3,\n            isCurrentVersion,\n            attachmentTemplateVersionId,\n            defaultLanguage,\n            description,\n            languageId,\n            templateName,\n            type,\n            templateVersionId,\n            version\n          },\n          totalCount\n        }\n      }"}
+
+
+
+
+{
+    "data": "{\"templateVersionInfo\":{\"items\":[{\"templateId\":6,\"subject1\":\"{PRODUCT_NAME}\",\"subject2\":\"\",\"subject3\":null,\"subType\":1,\"status\":1,\"content1\":\"<p>\\r\\n\\t&nbsp;</p>\\r\\n<p>\\r\\n\\t{ShortUrl}{ShortUrlAuthCode}</p>\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<meta content=\\\"text/html; charset=utf-8\\\" http-equiv=\\\"Content-Type\\\" />\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<title></title>\\r\\n<!--{VOUCHER_NAME}--><!--新單直列型_QRCODE-->\\r\\n<style type=\\\"text/css\\\">\\r\\nbody{-webkit-text-size-adjust: none; }\\r\\n\\t.layout{\\r\\n\\tmargin:5px auto;\\r\\n\\tcolor:#444444;\\r\\n\\twidth:auto;\\r\\n\\tmax-width:624px !important;\\r\\n\\tbackground:#f6f5f3;\\r\\n\\tborder-right-width: 1px;\\r\\n\\tborder-left-width: 1px;\\r\\n\\tborder-right-style: solid;\\r\\n\\tborder-left-style: solid;\\r\\n\\tborder-right-color: #ddd8ce;\\r\\n\\tborder-left-color: #ddd8ce;\\t\\r\\n}\\r\\n\\t.piclogo{width:107px;height:32px;margin-top:1px;}\\r\\n\\t.MailTop,.MailBottom{display:block;width:100% !important;height:100% !important;mix-width:320px;max-height:8px;mix-height:4px;height:auto;}\\r\\n\\t.TDate{font:0.9em/16px 'Heiti TC';color:#444444;text-decoration:none;}\\r\\n \\t\\t.Date{font:1.05em/16px 'Heiti TC';color:#444444;text-decoration:none;}\\r\\n\\t.attentionTable *{background:#f6f5f3 !important;}\\r\\n\\t.attentionTable table{width:600px !important;}\\r\\n\\t.attentionDetail{ \\tfont:9pt/20px \\\"Trebuchet MS\\\",\\\"微軟正黑體\\\";  \\tcolor:#444444; \\tpadding:0px 15px 3px 10px; \\ttext-align:left; \\t}\\r\\n\\t.attentionDetailNo{ \\tfont:9pt/20px \\\"Verdana\\\";  \\tcolor:#444444; \\tpadding:0px 0px 3px 20px; \\ttext-align:center; \\t}\\r\\n\\t.hr{width:100%;border-top:1px #BBBBBB dashed;border-bottom:0px #BBBBBB dashed;margin:0px 0px 0px 0px;}\\r\\n\\t\\r\\n\\t@media screen and (max-device-width:480px) {\\r\\n\\ta{text-decoration:none;color:#444444 !important;}\\r\\n\\t.MailTop,.MailBottom{display:block;width:100%;mix-width:320px !important;max-height:4px;mix-height:4px;height:auto;}\\r\\n\\t.layout{color:#444444;width:302px;}\\r\\n\\t.TDate{font:0.9em/16px 'Heiti TC';color:#444444;}\\r\\n \\t.Date{font:1.05em/16px 'Heiti TC';color:#444444;}\\r\\n\\ttable[class=\\\"attentionTable\\\"]{width:100% !important;background:#f6f5f3 !important;}\\r\\n\\ttable[class=\\\"attentionTable\\\"] table{width:100% !important;}\\r\\n\\t.BarCodeTable{-webkit-box-shadow: 1px 3px 5px\\r\\n\\t\\trgba(0,0,0,0.2);box-shadow:1px 3px 5px rgba(0,0,0,0.2);width:95%;}\\r\\n\\t\\t.BarCodeText{-webkit-box-shadow: 1px 3px 5px\\r\\n\\t\\trgba(0,0,0,0.2);box-shadow:1px 3px 5px rgba(0,0,0,0.2);}\\r\\n\\t\\t.Barcode{margin:-10px 0px -10px 0px;width:85%;height:85%;}\\r\\n\\t\\t.QrTable{-webkit-box-shadow: 1px 3px 5px rgba(0,0,0,0.2);box-shadow:1px\\r\\n\\t\\t3px 5px rgba(0,0,0,0.2);}\\r\\n\\t\\t.QRcode{}\\r\\n\\t\\t.QRimg{}\\r\\n\\t\\t.QRimg img{width:181px;height:181px;}\\r\\n\\t.attentionDetail{ \\tfont:0.8em/150% \\\"Trebuchet MS\\\",\\\"微軟正黑體\\\";  \\tcolor:#444444; \\tpadding:0px 15px 3px 10px; \\ttext-align:left; \\t}\\r\\n\\t.attentionDetail a{text-decoration:none;color:#0065bd!important;}\\r\\n\\t.attentionDetailNo{ \\tfont:0.8em/150% \\\"Verdana\\\";  \\tcolor:#444444; \\tpadding:0px 0px 3px 20px; \\ttext-align:center; \\t}\\r\\n}\\r\\n.MailBottom1 {display:block;width:100% !important;height:100% !important;mix-width:320px;max-height:8px;mix-height:4px;height:auto;}\\r\\n.MailTop1 {display:block;width:100% !important;height:100% !important;mix-width:320px;max-height:8px;mix-height:4px;height:auto;}</style>\\r\\n<!--Start by setting up the style--><!--[if gte mso 9]>\\r\\n<style>\\r\\n#tableForOutlook {width:624px}\\r\\n</style>\\r\\n<![endif]--><!-- Targeting Windows Mobile --><!--[if IEMobile 7]>\\r\\n<style type=\\\"text/css\\\">\\r\\n#tableForOutlook {width:480px}\\r\\nimg { -ms-interpolation-mode: bicubic; }\\r\\n</style>\\r\\n<![endif]--><!--Next, create your first table-->\\r\\n<p>\\r\\n\\t&nbsp;</p>\\r\\n<table border=\\\"0\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"layout\\\">\\r\\n\\t<!--Then, test for Outlook and if found, create your second table--><!--[if gte mso 9]>\\r\\n<table id=\\\"tableForOutlook\\\" width=624 border=\\\"0\\\" cellspacing=\\\"0\\\" cellpadding=\\\"0\\\">\\r\\n<tr><td>\\r\\n<![endif]--><!--Now your content-->\\r\\n\\t<tbody>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td valign=\\\"bottom\\\">\\r\\n\\t\\t\\t\\t<img align=\\\"absbottom\\\" class=\\\"MailTop1\\\" src=\\\"http://www.ticketxpress.tw/MailVoucher/images/Top.jpg\\\" /></td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td style=\\\"background:#f6f5f3;font-size:0px;\\\">\\r\\n\\t\\t\\t\\t<!--表頭-->\\r\\n\\t\\t\\t\\t<table border=\\\"0\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"TitleTable\\\" width=\\\"100%\\\">\\r\\n\\t\\t\\t\\t\\t<tbody>\\r\\n\\t\\t\\t\\t\\t\\t<tr>\\r\\n\\t\\t\\t\\t\\t\\t\\t<td align=\\\"left\\\" style=\\\"padding:8px 10px 10px 12px;\\\">\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t<img class=\\\"piclogo\\\" src=\\\"{MERCHANT_LOGO}\\\" /></td>\\r\\n\\t\\t\\t\\t\\t\\t\\t<td align=\\\"right\\\" style=\\\"font:9pt/16px '微軟正黑體';color:#444444;padding:8px  8px 9px 0px;\\\">\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t<span class=\\\"TDate\\\">兌換期間至</span><br />\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t<span class=\\\"Date\\\" style=\\\"color:#444444;\\\">{END_DATE}</span></td>\\r\\n\\t\\t\\t\\t\\t\\t</tr>\\r\\n\\t\\t\\t\\t\\t</tbody>\\r\\n\\t\\t\\t\\t</table>\\r\\n\\t\\t\\t\\t<!--表頭--></td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td>\\r\\n\\t\\t\\t\\t<img class=\\\"product\\\" src=\\\"{BANNER_IMAGE}\\\" style=\\\"display:block;width:100%  !important;height:auto !important;\\\" /></td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td style=\\\"background:#f6f5f3;font:12pt/20px '微軟正黑體';color:#444444;padding:10px  0px 9px 10px;\\\">\\r\\n\\t\\t\\t\\t<span class=\\\"content\\\">{PRODUCT_NAME}</span></td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td style=\\\"background:#f6f5f3;padding:10px;\\\">\\r\\n\\t\\t\\t\\t<table align=\\\"center\\\" border=\\\"0\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"BarCodeTable\\\" style=\\\"margin-top:8px;border:1px #bbbbbb dashed;\\\" width=\\\"95%\\\">\\r\\n\\t\\t\\t\\t\\t<tbody>\\r\\n\\t\\t\\t\\t\\t\\t<tr>\\r\\n\\t\\t\\t\\t\\t\\t\\t<td align=\\\"center\\\" class=\\\"QRimg\\\" style=\\\"padding:10px 1px 10px 1px;background:#FFFFFF;\\\">\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t{QRCODE}</td>\\r\\n\\t\\t\\t\\t\\t\\t</tr>\\r\\n\\t\\t\\t\\t\\t\\t<tr>\\r\\n\\t\\t\\t\\t\\t\\t\\t<td align=\\\"center\\\" style=\\\"font:18px '微軟正黑體';padding:0px 0px 5px 0px;background:#FFFFFF;\\\">\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t<span class=\\\"SNNO\\\">{VOUCHER_NUMBER}</span></td>\\r\\n\\t\\t\\t\\t\\t\\t</tr>\\r\\n\\t\\t\\t\\t\\t</tbody>\\r\\n\\t\\t\\t\\t</table>\\r\\n\\t\\t\\t</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td bgcolor=\\\"#f6f5f3\\\">\\r\\n\\t\\t\\t\\t<hr class=\\\"hr\\\" style=\\\"width:100%;border-top:1px #BBBBBB dashed;border-bottom:0px #BBBBBB dashed;margin:0px 0px 0px 0px;\\\" />\\r\\n\\t\\t\\t\\t<table align=\\\"center\\\" border=\\\"0\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"attentionTable\\\" width=\\\"599\\\">\\r\\n\\t\\t\\t\\t\\t<tbody>\\r\\n\\t\\t\\t\\t\\t\\t<tr>\\r\\n\\t\\t\\t\\t\\t\\t\\t<td>\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t{FOOTNOTE}</td>\\r\\n\\t\\t\\t\\t\\t\\t</tr>\\r\\n\\t\\t\\t\\t\\t</tbody>\\r\\n\\t\\t\\t\\t</table>\\r\\n\\t\\t\\t\\t<hr class=\\\"hr\\\" style=\\\"width:100%;border-top:1px #BBBBBB dashed;border-bottom:0px #BBBBBB  dashed;margin:10px 0px 0px 0px;\\\" />\\r\\n\\t\\t\\t\\t<table align=\\\"center\\\" border=\\\"0\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"button\\\" style=\\\"border:0px #FFFFFF solid;\\\" width=\\\"25%\\\">\\r\\n\\t\\t\\t\\t\\t<tbody>\\r\\n\\t\\t\\t\\t\\t\\t<tr>\\r\\n\\t\\t\\t\\t\\t\\t\\t<td align=\\\"center\\\">\\r\\n\\t\\t\\t\\t\\t\\t\\t\\t<a href=\\\"{STORE_URL}\\\"><img border=\\\"0\\\" height=\\\"37\\\" src=\\\"http://www.ticketxpress.tw/MailVoucher/images/button.jpg\\\" style=\\\"margin:10px 0px 10px 0px;\\\" width=\\\"284\\\" /></a></td>\\r\\n\\t\\t\\t\\t\\t\\t</tr>\\r\\n\\t\\t\\t\\t\\t</tbody>\\r\\n\\t\\t\\t\\t</table>\\r\\n\\t\\t\\t</td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<tr>\\r\\n\\t\\t\\t<td style=\\\"background:#f6f5f3;\\\" valign=\\\"bottom\\\">\\r\\n\\t\\t\\t\\t<img align=\\\"absbottom\\\" class=\\\"MailBottom\\\" src=\\\"http://www.ticketxpress.tw/MailVoucher/images/Bottom.jpg\\\" /></td>\\r\\n\\t\\t</tr>\\r\\n\\t\\t<!--Close out your second table (only if Outlook was found)--><!--[if gte mso 9]>\\r\\n  </td></tr></table>\\r\\n<![endif]--><!--And finally, close out your first table-->\\r\\n\\t</tbody>\\r\\n</table>\",\"content2\":\"\",\"content3\":null,\"isCurrentVersion\":true,\"attachmentTemplateVersionId\":null,\"defaultLanguage\":66,\"description\":\"Test\",\"languageId\":66,\"templateName\":\"Henry Test\",\"type\":1,\"templateVersionId\":1491,\"version\":3}],\"totalCount\":1}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-template\product-template.component.ts
+    // get diff versions of the templates
+    this.masterProductTemplateService
+      .getTemplateDetailsByVersionIdAndTemplateId(index + 1, selectedTemplate?.templateId!, [selectedTemplate.templateVersionId])
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\master-product-template.service.ts
+  getTemplateDetailsByVersionIdAndTemplateId(type: number, templateId : number ,templateVersionIds: number[]): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const ids = templateVersionIds.join(',');
+    const body = {
+      query: `
+      query{
+        templateVersionInfo (skip: 0, take: 100,
+          where: {              
+              or :[{
+                and: [
+                  {templateVersionId: {in: [${ids}]}}
+                  {type:  {eq: ${type}}}
+                ]}
+                {and: [
+                    {templateVersionId: {nin: [${ids}]}}
+                    {templateId: {eq: ${templateId}}}
+                    {isCurrentVersion: {eq: true}}
+                    {type:  {eq: ${type}}}
+                ]}
+              ]
+          }
+        ){            
+          items {
+            templateId,
+            subject1,
+            subject2,
+            subject3,
+            subType,
+            status,
+            content1,
+            content2,
+            content3,
+            isCurrentVersion,
+            attachmentTemplateVersionId,
+            defaultLanguage,
+            description,
+            languageId,
+            templateName,
+            type,
+            templateVersionId,
+            version
+          },
+          totalCount
+        }
+      }`
+    }
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

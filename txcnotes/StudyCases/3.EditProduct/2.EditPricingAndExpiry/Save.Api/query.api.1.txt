@@ -1,0 +1,54 @@
+
+{"query":"query {\n        acceptanceLoops(where:{acceptanceLoopId: {eq: 3452}}) {\n          items {\n            acceptanceLoopId\n            code\n            description\n            status\n            acceptanceLoopMerchant {\n              merchantId\n            }\n          }\n        }\n      }"}
+
+
+
+{
+    "data": "{\"acceptanceLoops\":{\"items\":[{\"acceptanceLoopId\":3452,\"code\":\"Joni_3rdParty_SmartVoucher_2707 (all shops)\",\"description\":null,\"status\":true,\"acceptanceLoopMerchant\":[{\"merchantId\":2707}]}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\acceptance-loop.service.ts
+
+
+
+  public getAcceptanceLoopById(acceptanceLoopId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = { query: 
+      `query {
+        acceptanceLoops(where:{acceptanceLoopId: {eq: ${acceptanceLoopId}}}) {
+          items {
+            acceptanceLoopId
+            code
+            description
+            status
+            acceptanceLoopMerchant {
+              merchantId
+            }
+          }
+        }
+      }`
+    };
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body,{ headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

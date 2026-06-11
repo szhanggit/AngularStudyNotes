@@ -1,0 +1,14 @@
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\shared\expiry-scheme-fixed-flexible\expiry-scheme-flexible\expiry-scheme-flexible.component.html
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\flexible-expiry-modal\flexible-expiry-modal.component.html(this)
+
+
+
+
+
+
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\expiry-scheme-selector\expiry-scheme-selector.component.ts
+  emitOpenModal(expiryType: string) {
+    this.expiryType = expiryType;
+    this.getExpirationPolicies(expiryType, true);
+  }

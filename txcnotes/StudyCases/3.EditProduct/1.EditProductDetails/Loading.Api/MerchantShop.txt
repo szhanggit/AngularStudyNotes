@@ -1,0 +1,41 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantShop?SearchKeyword=&MerchantId=2707&RowCount=2147483647&PageNumber=1
+
+SearchKeyword=&MerchantId=2707&RowCount=2147483647&PageNumber=1
+
+
+
+{
+    "data": {
+        "shopDetailsModel": [],
+        "totalCount": 0
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-details\product-details.component.ts
+                    this._acceptanceLoopService.getMerchantShop(value.merchantId).pipe(takeUntil(this.destroyed$)).subscribe((res) => {
+                      if (res.success) {
+                        this.shopCount = res.data.totalCount;
+                      }
+                    });
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\acceptance-loop.service.ts
+  public getMerchantShop(merchantId: number): Observable<GetShopResponse> {
+      if (merchantId === 0) {
+          return of({
+              data: {
+                  shopDetailsModel: [],
+                  totalCount: 0
+              },
+              message: 'Success',
+              success: true
+          });
+      }
+      const url = `${this._getURL()}api/MerchantShop?SearchKeyword=${''}${'&MerchantId='}${merchantId}&RowCount=${2147483647}&PageNumber=${1}`;
+      return this.http.get(url, { headers: this._getHeaders() }) as Observable<GetShopResponse>;
+  }

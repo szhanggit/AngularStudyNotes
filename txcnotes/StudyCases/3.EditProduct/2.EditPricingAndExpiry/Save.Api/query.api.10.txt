@@ -1,0 +1,48 @@
+{"query":"query{templateVersionInfo(skip: 0, take: 10 \n          where: { \n            and: [\n              {templateVersionId: {eq: 797}}\n            ]\n          }\n          ) {items {templateId,type,subject1,subject2,subject3,content1,content2,content3,isCurrentVersion,attachmentTemplateVersionId,templateName,templateVersionId,version,defaultLanguage,languageId},totalCount}}"}
+
+
+{
+    "data": "{\"templateVersionInfo\":{\"items\":[{\"templateId\":240,\"type\":2,\"subject1\":null,\"subject2\":null,\"subject3\":null,\"content1\":\"Ticket Xpress即享券：{BREAKLINE}{PRODUCT_NAME}{BREAKLINE}序號：{VOUCHER_NUMBER}{BREAKLINE}使用期限:{END_DATE}止\",\"content2\":\"\",\"content3\":\"\",\"isCurrentVersion\":true,\"attachmentTemplateVersionId\":null,\"templateName\":\"[UAT_Test]TX電子禮券基本版 (含過期日)\",\"templateVersionId\":797,\"version\":1,\"defaultLanguage\":66,\"languageId\":66}],\"totalCount\":1}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+
+
+
+
+
+  getTemplateByVersionId(templateVersionId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{templateVersionInfo(skip: 0, take: 10 
+          where: { 
+            and: [
+              {templateVersionId: {eq: ${templateVersionId}}}
+            ]
+          }
+          ) {items {templateId,type,subject1,subject2,subject3,content1,content2,content3,isCurrentVersion,attachmentTemplateVersionId,templateName,templateVersionId,version,defaultLanguage,languageId},totalCount}}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+

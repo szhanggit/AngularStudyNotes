@@ -1,0 +1,41 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Template
+
+PUT
+{"productId":8577,"product_template_item":[{"templateType":2,"templateSubType":2,"templateVersionId":797,"templateTagValue":[{"tagId":6,"tagName":"{PRODUCT_NAME}","value":"","textValue":null}]},{"templateType":1,"templateSubType":1,"templateVersionId":1491,"templateTagValue":[]}]}
+
+
+
+{"data":25475,"message":"success","success":true}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.ts
+this._productService.updateProductTemplate(productTemplateRequest)
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+  updateProductTemplate(body: { productId: number, product_template_item: ProductTemplate[] }): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/Template`;
+    return this.http.put(url, body, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

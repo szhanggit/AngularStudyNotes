@@ -1,0 +1,84 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Template?ProductId=8577&TemplateType=1
+
+
+ProductId=8577&TemplateType=1
+
+
+
+
+{
+    "data": {
+        "productTemplate": [
+            {
+                "templateId": 6,
+                "templateName": "Henry Test",
+                "templateType": 1,
+                "templateSubType": 1,
+                "defaultLanguageId": 66,
+                "productTemplateVersion": [
+                    {
+                        "templateVersionId": 1491,
+                        "languageId": 66,
+                        "templateTagValue": []
+                    }
+                ]
+            }
+        ]
+    },
+    "message": "success",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.ts
+
+
+
+
+          //Product Template API Fetch For Voucher
+          forkJoin(
+            this._productService.getProductTemplate(params.id, 1),	<=============================
+            this._productService.getProductTemplate(params.id, 2),	
+            this._productService.getProductWalletSetting(params.id).
+              pipe(
+                takeUntil(this.destroyed$))
+          )
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+  getProductTemplate(id: Number, templateType: Number): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/Template?ProductId=${id}&TemplateType=${templateType}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

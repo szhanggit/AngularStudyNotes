@@ -1,0 +1,117 @@
+https://api-staging.txc.edenred.net/gateway/api/MerchantInfo?MerchantId=2707
+
+
+MerchantId: 2707
+
+
+
+{
+    "data": {
+        "merchantDetails": [
+            {
+                "merchantId": 2707,
+                "programId": 310,
+                "programCode": "00004",
+                "programName": "KKTV",
+                "identityCode": "000000000008116",
+                "merchantName": "Joni_3rdParty_SmartVoucher",
+                "externalCode": "",
+                "invoiceRegisterNumber": "123756876",
+                "securityKey": "FAACC1564AA13976615CCFEC81E72FC0",
+                "status": 1,
+                "tX1MerchantUID": "",
+                "isAutoCreateReimbursement": false,
+                "autoCreateReimbursementIntervalType": 0,
+                "reimbursementTaxType": 0,
+                "reimbursementType": 2,
+                "reimbursementReceivers": "",
+                "sameKeyWithShop": false,
+                "mamEmail": "johnino.abinsay@consulting-for.edenred.com",
+                "merchantAutoType": 0,
+                "notificationMerchantCode": "",
+                "merchantEmail": "johnino.abinsay@consulting-for.edenred.com",
+                "merchantAcquireId": 0,
+                "merchantAcquireName": null,
+                "needConsumerScan": false,
+                "memo": "",
+                "issuerType": 0,
+                "workKeyId": 0,
+                "workKey": null,
+                "workKeyExpireTime": "0001-01-01T00:00:00",
+                "workKeyCreatedTime": "0001-01-01T00:00:00",
+                "isLegacyMerchant": false,
+                "mainContact": "",
+                "mainPhone": "",
+                "autoCreateReimbursementDay": null,
+                "description": "",
+                "categoryId": 117,
+                "address": {
+                    "id": 393705,
+                    "detailAddressLine": "",
+                    "district": "",
+                    "cityId": 0,
+                    "stateOrProvinceId": 0,
+                    "postcode": "",
+                    "countryId": 0,
+                    "longitude": 0.0,
+                    "latitude": 0.0,
+                    "status": 0
+                },
+                "merchantContactEmailList": [],
+                "edenredContactEmailList": []
+            }
+        ],
+        "totalCount": 1
+    },
+    "message": "Success",
+    "success": true
+}
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+  selectedProduct$: Observable<Product | undefined> = this.select((state) => {
+    return state.products.find((product) => product.productId === state.selectedProductId);
+  });
+
+
+  getProduct(id: number, reset = false, product: Product | undefined = undefined): void {
+    const url = `https://${environment.apiUrl}api/Product/GetById?ProductId=${id}`;
+    if (reset && product) {
+      const removeIndex = this.state.products.findIndex(product => product.productId === id);
+      this.state.products.splice(removeIndex, 1);
+      this.setState({products: [...this.state.products, product], selectedProductId: id});
+      return;
+    }
+    this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }).subscribe((res: any) => {
+      this.setState({products: [...this.state.products, res.data.productBasicInfo as Product], selectedProductId: id});
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

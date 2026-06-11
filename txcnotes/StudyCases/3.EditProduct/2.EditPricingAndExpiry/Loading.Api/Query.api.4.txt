@@ -1,0 +1,61 @@
+{"query":"query {\n        products(\n            where: { productId: { eq: 8577 } }\n        ) {\n            items {\n                productName\n                isFixedExpiryPolicy\n                expiryDate\n            }\n        }\n    }"}
+
+
+{
+    "data": "{\"products\":{\"items\":[{\"productName\":\"Joni_3rdParty_SmartBookletVoucher\",\"isFixedExpiryPolicy\":true,\"expiryDate\":null}]}}",
+    "message": null,
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+
+  getExpiryPolicyType(id: number) {
+    const query = `query {
+        products(
+            where: { productId: { eq: ${id} } }
+        ) {
+            items {
+                productName
+                isFixedExpiryPolicy
+                expiryDate
+            }
+        }
+    }`;
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this._graphqlApiService.postQuery(query, headers);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+
+
+{"query":"query{tagsByTemplateVersionId(templateVersionId: 1491) {displayName,applyToHtmlTemplate,applyToTextTemplate,category,defaultValue,displayName,description,reflectionType,scopeLevel,tagId,tagName,type}}"}
+
+{"data":"{\"tagsByTemplateVersionId\":[]}","message":null,"success":true}
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-product-template\edit-product-template.component.ts
+        for (let template of smsDesignData.productTemplateVersion) {
+          this._templateService.getTemplateTagsByVersionId(template.templateVersionId)
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\template.service.ts
+
+  getTemplateTagsByVersionId(templateVersionId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query:
+        `query{tagsByTemplateVersionId(templateVersionId: ${templateVersionId}) {displayName,applyToHtmlTemplate,applyToTextTemplate,category,defaultValue,displayName,description,reflectionType,scopeLevel,tagId,tagName,type}}`
+    }
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+

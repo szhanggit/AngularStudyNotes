@@ -1,0 +1,46 @@
+{"query":"\n    query {\n      productReverseLimit {\n        items {\n          reverseLimitId \n          name \n          description\n        }\n      }\n    }"}
+
+
+{
+    "data": "{\"productReverseLimit\":{\"items\":[{\"reverseLimitId\":1,\"name\":\"CannotReversed\",\"description\":\"CannotReversed\"},{\"reverseLimitId\":2,\"name\":\"AlwaysCanReversed\",\"description\":\"AlwaysCanReversed\"},{\"reverseLimitId\":3,\"name\":\"Within24hrs\",\"description\":\"Within24hrs\"},{\"reverseLimitId\":4,\"name\":\"Within1week\",\"description\":\"Within1week\"},{\"reverseLimitId\":5,\"name\":\"Within2week\",\"description\":\"Within2week\"},{\"reverseLimitId\":6,\"name\":\"Within3month\",\"description\":\"Within3month\"},{\"reverseLimitId\":7,\"name\":\"Within4month\",\"description\":\"Within4month\"},{\"reverseLimitId\":8,\"name\":\"SameDayWithRedemption\",\"description\":\"SameDayWithRedemption\"}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-properties\product-properties.component.ts
+    forkJoin(
+      this._dictionaryService.getDictionaryItemsByCategory('ProductReminder'),
+      this._productService.getProductReverseLimit()).
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+  getProductReverseLimit() : Observable<BaseResponse>{
+    const query = `
+    query {
+      productReverseLimit {
+        items {
+          reverseLimitId 
+          name 
+          description
+        }
+      }
+    }`;
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this._graphqlApiService.postQuery(query, headers);
+  }
+
+
+
+
+
+
+
+
+
+
+

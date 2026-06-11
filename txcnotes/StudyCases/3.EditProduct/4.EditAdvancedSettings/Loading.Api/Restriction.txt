@@ -1,0 +1,85 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Restriction?ProductId=8577
+
+
+ProductId: 8577
+
+
+
+{
+    "data": {
+        "productTimeRestrictionList": [
+            {
+                "dayOfTheWeek": 0,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31511
+            },
+            {
+                "dayOfTheWeek": 1,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31512
+            },
+            {
+                "dayOfTheWeek": 2,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31513
+            },
+            {
+                "dayOfTheWeek": 3,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31514
+            },
+            {
+                "dayOfTheWeek": 4,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31515
+            },
+            {
+                "dayOfTheWeek": 5,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31516
+            },
+            {
+                "dayOfTheWeek": 6,
+                "hours": "0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;",
+                "productRedeemTimeRestrictionId": 7918,
+                "productRedeemTimeRestrictionSetId": 31517
+            }
+        ],
+        "productDateRestrictionList": [],
+        "productId": 8577
+    },
+    "message": "success",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-external-properties\edit-external-properties.component.ts
+this._productSvc.getProductRestriction(params.id).subscribe(res => {
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+  getProductRestriction(id: Number): Observable<getProductRestrictionResponse> {
+    const url = `https://${environment.apiUrl}api/Product/Restriction?ProductId=${id}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<getProductRestrictionResponse>
+  }
+
+
+
+
+
+
+
+
+
+
+
+

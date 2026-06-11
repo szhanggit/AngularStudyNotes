@@ -1,0 +1,63 @@
+https://esg-txcloud-new-reverseproxy-staging-asse-web-d.azurewebsites.net/move/products/product/edit-pricing/8583?productType=4
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\products-routing.module.ts
+  {
+    path: 'product/edit-pricing/:id',
+    component: EditPricingExpiryComponent,
+    canActivate: [PageAuthorizationGuard]
+  },
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-pricing-expiry\edit-pricing-expiry.component.html
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\product-pricing.component.html
+            <app-expiry-scheme-selector [selectedTenant]="selectedTenant" [merchantProgram]="merchantProgram"
+                [fixExpiryDate]="fixExpiryDate"
+                [isFixedExpiryPolicy$]="isFixedExpiryPolicy$"
+                [expirySchemeList]="expirySchemeList" 
+                [selectedExpirySchemes]="tableExpirySchemes"
+                (onSelectedExpirySchemesChanged)="OnSelectedExpirySchemesChanged($event)"
+                (openModalButtonClicked)="openModal($event)"
+                (removeFromSelectionClicked)="removeFromSelection($event)">
+            </app-expiry-scheme-selector>	
+
+
+
+
+
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\expiry-scheme-selector\expiry-scheme-selector.component.html (Can make sure)
+<button class="btn btn-primary font-12" (click)="emitOpenModal(expiryType)">{{ expiryType === expiryTypes.FLEXIBLE ? 'Select flexible expiry123' : 'Select fixed expiry' }}</button>
+
+
+
+
+
+D:\Git\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\flexible-expiry-modal\flexible-expiry-modal.component.html  (This is the model)
+
+
+
+
+
+This is the place to open model:
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\create-product\product-pricing\product-pricing.component.ts
+
+  openModal(expiryType: string) {
+    let modal;
+    let isFixedExpiryPolicy;
+    switch (expiryType) {
+      case ExpiryTypeEnum.FIXED:
+        modal = FixedExpiryModalComponent;
+        isFixedExpiryPolicy = true
+        break;
+      case ExpiryTypeEnum.FLEXIBLE:
+        modal = FlexibleExpiryModalComponent;
+        isFixedExpiryPolicy = false;
+    }
+
+    this.expiryPolicyTypeChanged.emit(isFixedExpiryPolicy)
+
+    const modalRef = this._modalService.open(modal, {
+      size: 'xl',
+      backdrop: 'static',
+      centered: true,
+    });
+

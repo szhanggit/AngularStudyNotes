@@ -1,0 +1,169 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/ExpirationPolicy?ProductId=8577
+
+ProductId: 8577
+
+
+
+{
+    "data": {
+        "productId": 8577,
+        "fixedExpiryDate": null,
+        "expirationPolicyList": [
+            {
+                "expirationPolicyId": 1,
+                "inUse": 1,
+                "expirationPolicyName": "NoExpireDate",
+                "typeId": 1,
+                "typeName": "NoExpiration",
+                "isEndOfDay": 1,
+                "validPeriod": null,
+                "productVoucherGenerator": 11
+            },
+            {
+                "expirationPolicyId": 8,
+                "inUse": 0,
+                "expirationPolicyName": "FixEndOfDay",
+                "typeId": 2,
+                "typeName": "Fixed",
+                "isEndOfDay": 1,
+                "validPeriod": null,
+                "productVoucherGenerator": 15
+            },
+            {
+                "expirationPolicyId": 18,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 1 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 1,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 19,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 2 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 2,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 20,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 3 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 3,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 21,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 4 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 4,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 22,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 5 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 5,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 23,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 6 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 6,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 25,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within End Of 12 Months Expired After Activation",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": 12,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 26,
+                "inUse": 0,
+                "expirationPolicyName": "ThirdParty FixEndOfDay",
+                "typeId": 6,
+                "typeName": "FixedDateDependsOnThirdParty",
+                "isEndOfDay": 1,
+                "validPeriod": null,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 42,
+                "inUse": 0,
+                "expirationPolicyName": "Child Flexible Date Deferred More Than Master Expiry Date",
+                "typeId": 9,
+                "typeName": "ChildFlexibleDateDependsOnMasterExpiry",
+                "isEndOfDay": 1,
+                "validPeriod": null,
+                "productVoucherGenerator": 8
+            },
+            {
+                "expirationPolicyId": 49,
+                "inUse": 0,
+                "expirationPolicyName": "Flexible Date Deferred Within 49 Days Expired After Activation",
+                "typeId": 8,
+                "typeName": "FixedDateDependsOnThirdPartyDays",
+                "isEndOfDay": 1,
+                "validPeriod": 49,
+                "productVoucherGenerator": 8
+            }
+        ]
+    },
+    "message": "success",
+    "success": true
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\components\main-product-details\edit\edit-pricing-expiry\edit-pricing-expiry.component.ts
+this._productSvc.getProductExpirationPolicy(params.id).pipe(takeUntil(this.destroy$)).subscribe(res => {
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+  getProductExpirationPolicy(id: number): Observable<GetProductExpirationPolicyResp> {
+    const url = `https://${environment.apiUrl}api/Product/ExpirationPolicy?ProductId=${id}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<GetProductExpirationPolicyResp>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

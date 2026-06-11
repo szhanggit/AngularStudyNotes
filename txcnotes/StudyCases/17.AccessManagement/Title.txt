@@ -1,0 +1,123 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app.module.ts
+--------------------------
+
+
+In Angular, the `Title` service provided by the `@angular/platform-browser` package is used to get and set the title of the current HTML document. This is particularly useful for dynamically changing the title of your web application based on the current view or route, enhancing both usability and SEO.
+
+### Importing and Using the `Title` Service
+
+#### Step-by-Step Example
+
+1. **Import the `Title` Service**: First, you need to import the `Title` service from `@angular/platform-browser`.
+
+2. **Inject the `Title` Service**: Inject the `Title` service into your component or service where you want to use it.
+
+3. **Set or Get the Title**: Use the methods provided by the `Title` service to set or get the document title.
+
+### Code Example
+
+Here is an example demonstrating how to use the `Title` service in an Angular component:
+
+#### App Component (app.component.ts)
+
+```typescript
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  constructor(private titleService: Title) {
+    this.setTitle('My Angular App');
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
+  public getTitle(): string {
+    return this.titleService.getTitle();
+  }
+}
+```
+
+### Explanation
+
+1. **Import the `Title` Service**: 
+   ```typescript
+   import { Title } from '@angular/platform-browser';
+   ```
+
+2. **Inject the `Title` Service**: 
+   Inject the `Title` service in the component's constructor.
+   ```typescript
+   constructor(private titleService: Title) { }
+   ```
+
+3. **Set the Document Title**: 
+   Use the `setTitle` method to set the document title.
+   ```typescript
+   this.setTitle('My Angular App');
+   ```
+
+4. **Get the Document Title**: 
+   Optionally, use the `getTitle` method to get the current document title.
+   ```typescript
+   public getTitle(): string {
+     return this.titleService.getTitle();
+   }
+   ```
+
+### Practical Usage
+
+The `Title` service can be particularly useful in the following scenarios:
+
+- **Dynamic Title Changes**: Change the document title based on the current route or view. For instance, in a blog application, you might want to set the title to the name of the current post.
+- **SEO Optimization**: Properly setting the document title for different pages can improve your site's SEO, making it easier for search engines to understand the content of each page.
+
+#### Example: Using `Title` Service with Router Events
+
+In an Angular application with routing, you might want to change the document title based on the route. Here is an example of how to achieve that:
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { filter, map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  constructor(private router: Router, private titleService: Title) { }
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.router.routerState.root)
+    ).subscribe((event) => {
+      let route = this.router.routerState.root;
+      while (route.firstChild) {
+        route = route.firstChild;
+      }
+      route.data.subscribe(data => {
+        const title = data['title'] ? data['title'] : 'Default Title';
+        this.titleService.setTitle(title);
+      });
+    });
+  }
+}
+```
+
+### Explanation
+
+- **Subscribe to Router Events**: Listen for `NavigationEnd` events to detect when the route changes.
+- **Extract Route Data**: Traverse the activated route tree to get the deepest child route.
+- **Set Title from Route Data**: Set the document title using the data property of the route.
+
+This approach ensures that the document title is updated whenever the route changes, based on the metadata defined in your route configurations.

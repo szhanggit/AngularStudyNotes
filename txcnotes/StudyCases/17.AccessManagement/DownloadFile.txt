@@ -1,0 +1,3 @@
+https://stackoverflow.com/questions/11125535/how-to-return-a-file-using-web-api
+https://forum.freecodecamp.org/t/handling-file-downloads-in-web-api-using-c-and-javascript/585573
+

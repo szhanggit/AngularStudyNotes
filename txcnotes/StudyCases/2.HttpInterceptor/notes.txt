@@ -1,0 +1,3 @@
+D:\git\TXC-MicroFrontends\TicketOperationCenterShell\src\app\shared\interceptors\header.interceptor.ts
+D:\git\TXC-MicroFrontends\TicketOperationCenterShell\src\app\shared\interceptors\loading.interceptor.ts
+D:\git\TXC-MicroFrontends\TicketOperationCenterShell\src\app\shared\interceptors\error.interceptor.ts

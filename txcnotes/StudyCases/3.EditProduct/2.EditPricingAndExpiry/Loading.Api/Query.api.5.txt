@@ -1,0 +1,49 @@
+{"query":"\n      query {\n        expirationPolicyByGeneratorEnum (\n          generatorEnums : [2]\n          order: [{ type: ASC  },{ validPeriod: ASC  }]         \n        ) {\n            id\n            name\n            displayName\n            validPeriod\n            type\n            productVoucherGenerator\n          }\n      }"}
+
+
+{
+    "data": "{\"expirationPolicyByGeneratorEnum\":[{\"id\":1,\"name\":\"NoExpireDate\",\"displayName\":\"NoExpireDate\",\"validPeriod\":null,\"type\":1,\"productVoucherGenerator\":11},{\"id\":8,\"name\":\"FixEndOfDay\",\"displayName\":\"FixEndOfDay\",\"validPeriod\":null,\"type\":2,\"productVoucherGenerator\":15}]}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product-api.service.ts
+
+
+  getExpirationPolicies(generatorEnums: string = '[0,1,2,4,8]') {
+    const query = `
+      query {
+        expirationPolicyByGeneratorEnum (
+          generatorEnums : ${generatorEnums}
+          order: [{ type: ASC  },{ validPeriod: ASC  }]         
+        ) {
+            id
+            name
+            displayName
+            validPeriod
+            type
+            productVoucherGenerator
+          }
+      }`;
+    return this.graphqlApiService.postQuery(query);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

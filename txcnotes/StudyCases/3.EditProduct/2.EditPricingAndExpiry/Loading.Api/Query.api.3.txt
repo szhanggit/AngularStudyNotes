@@ -1,0 +1,80 @@
+{"query":"query {\n          programs (\n              where: { id: { eq: 310} }\n          ) {\n              items {\n                  id\n                  name\n                  displayName\n                  isEdenred\n              }\n          }\n      }"}
+
+
+
+{
+    "data": "{\"programs\":{\"items\":[{\"id\":310,\"name\":\"KKTV\",\"displayName\":\"KKTV\",\"isEdenred\":false}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\program.service.ts
+
+
+
+  // get program by Id query and using graphql endpoint
+  getProgramById(id: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = { query:
+      `query {
+          programs (
+              where: { id: { eq: ${id}} }
+          ) {
+              items {
+                  id
+                  name
+                  displayName
+                  isEdenred
+              }
+          }
+      }`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, { headers }) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+https://codecraft.tv/courses/angular/routing/routing-strategies/
+
+HashLocationStrategy (with hash fragment)
+http://somedomain.com/page#routing-strategies
+Server only knows http://somedomain.com/page and does not care about routing-strategies. Routing shall all be handled on client side.
+PathLocationStrategy
+http://somedomain.com/page/routing-strategies
+Server needs to have the whole address. Server cannot just cache http://somedomain.com/page, but http://somedomain.com/page/routing-strategies and all of the other combinations. Routing cannot be all handled by client side.

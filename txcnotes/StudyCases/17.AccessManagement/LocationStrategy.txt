@@ -1,0 +1,91 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app.module.ts
+{ provide: LocationStrategy, useClass: HashLocationStrategy},
+-------------------------------------------------
+
+In Angular, `LocationStrategy` is an abstract class that provides the interface for interacting with the browser's URL. It defines how URL paths are managed and manipulated within the application. There are two main implementations of `LocationStrategy`:
+
+1. `PathLocationStrategy`
+2. `HashLocationStrategy`
+
+### Purpose of `LocationStrategy`
+`LocationStrategy` determines how Angular applications manage navigation and URLs. It influences how the application handles routing and how URLs are represented in the address bar.
+
+### Implementations of `LocationStrategy`
+
+#### 1. PathLocationStrategy
+`PathLocationStrategy` is the default strategy used in Angular applications. It uses the HTML5 `pushState` and `popState` APIs to manipulate the browser's URL without the need for a hash fragment. This strategy produces "clean" URLs that are similar to traditional server-rendered web applications.
+
+Example URL with `PathLocationStrategy`:
+```
+https://example.com/about
+```
+
+To use `PathLocationStrategy`, you typically don't need to do anything special, as it is the default. However, if you want to explicitly specify it, you can provide it in your application's module:
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot([
+      // Your routes here
+    ])
+  ],
+  providers: [
+    { provide: LocationStrategy, useClass: PathLocationStrategy }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### 2. HashLocationStrategy
+`HashLocationStrategy` uses the hash fragment of the URL to keep track of navigation states. It is useful for older browsers that do not support the HTML5 History API or when server configuration to support URL rewriting is not feasible.
+
+Example URL with `HashLocationStrategy`:
+```
+https://example.com/#/about
+```
+
+To use `HashLocationStrategy`, you need to provide it in your application's module:
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot([
+      // Your routes here
+    ])
+  ],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### Summary
+- `LocationStrategy` is an abstract class in Angular that defines how URLs are managed within an application.
+- `PathLocationStrategy` is the default and uses the HTML5 History API for clean URLs.
+- `HashLocationStrategy` uses the hash fragment in the URL, useful for older browsers or when server configuration is restrictive.
+- You can configure the desired strategy by providing it in the Angular module's providers array. 
+
+Choosing the appropriate `LocationStrategy` depends on your application's requirements and the environments in which it will be deployed.

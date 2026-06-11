@@ -1,0 +1,27 @@
+C:\AngularStudyNotes\txcnotes\source\txc-front-web-toc\src\app\app.module.ts
+TokenInterceptor
+HttpRequestInterceptor
+
+
+  providers: [
+    Title,
+    Location,
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
+    // provider used to create fake backend
+    FakeBackendProvider,
+    { provide: LOCALE_ID, useValue: 'en-US' },
+    SecurityGuard
+  ],
+
+
+
+Not used:
+TenantIdInterceptor
+FakeBackendInterceptor
+ErrorInterceptor
+JwtInterceptor
+JwtInterceptor

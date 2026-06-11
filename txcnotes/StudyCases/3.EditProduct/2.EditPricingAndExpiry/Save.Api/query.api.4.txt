@@ -1,0 +1,40 @@
+{"query":"query{ contractSKUDetails(where: { id:{eq: 12317}})\n        { items\n          { id, skuName, skuNumber, faceValueWithTax, faceValueWithoutTax, multiplier, merchantGroupId,\n            skuType { id value } \n            voucherNumberRule { voucherNumberRuleId ruleName onDemand vendorId } \n            contractSKUCosts { id, costWithTax, costWithoutTax, validStartDate, validEndDate, \n              skuCostContract { contractId, contractName, contractNumber, costSchemeId, startDate, endDate, merchantId, merchant { name } } } } }}"}
+
+
+{
+    "data": "{\"contractSKUDetails\":{\"items\":[{\"id\":12317,\"skuName\":\"Joni_3rdParty_SmartBooklet\",\"skuNumber\":\"J3PSB001\",\"faceValueWithTax\":500.0,\"faceValueWithoutTax\":476.1905,\"multiplier\":1,\"merchantGroupId\":null,\"skuType\":{\"id\":3,\"value\":\"Smart Booklet\"},\"voucherNumberRule\":{\"voucherNumberRuleId\":9359,\"ruleName\":\"Joni_3rdParty_SmartVoucher\",\"onDemand\":false,\"vendorId\":null},\"contractSKUCosts\":[{\"id\":26693,\"costWithTax\":455.0,\"costWithoutTax\":433.3333,\"validStartDate\":\"2023-11-23T16:00:00Z\",\"validEndDate\":\"2023-12-18T15:59:59Z\",\"skuCostContract\":{\"contractId\":23547,\"contractName\":\"Joni_3rdParty_SmartVoucher\",\"contractNumber\":\"0000000023547\",\"costSchemeId\":2,\"startDate\":\"2023-11-23T16:00:00Z\",\"endDate\":\"2023-12-18T15:59:59Z\",\"merchantId\":2707,\"merchant\":{\"name\":\"Joni_3rdParty_SmartVoucher\"}}}]}]}}",
+    "message": null,
+    "success": true
+}
+----------------------------------------------------------------------------------------------------------------
+
+
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\sku.service.ts
+
+
+  getSKUbySKUId(skuId: number): Observable<BaseResponse> {
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query: `query{ contractSKUDetails(where: { id:{eq: ${skuId}}})
+        { items
+          { id, skuName, skuNumber, faceValueWithTax, faceValueWithoutTax, multiplier, merchantGroupId,
+            skuType { id value } 
+            voucherNumberRule { voucherNumberRuleId ruleName onDemand vendorId } 
+            contractSKUCosts { id, costWithTax, costWithoutTax, validStartDate, validEndDate, 
+              skuCostContract { contractId, contractName, contractNumber, costSchemeId, startDate, endDate, merchantId, merchant { name } } } } }}`,
+    };
+    return this.http.post(url, body) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+

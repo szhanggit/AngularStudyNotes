@@ -1,0 +1,39 @@
+{"query":"query{brands(skip: 0, take: 1, where:{id:{eq:2}}){items{id,brandName,createdBy,createdOn,mediaId,status}}}"}
+
+
+{
+    "data": "{\"brands\":{\"items\":[{\"id\":2,\"brandName\":\"7-ELEVEN\",\"createdBy\":\"Bertha\",\"createdOn\":\"2021-02-08T11:27:38.493Z\",\"mediaId\":2457,\"status\":1}]}}",
+    "message": null,
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\brand.service.ts
+
+
+
+  getBrandsByBrandID(brandId: number) : Observable<BaseResponse>{
+    const url = `${this._getURL()}api/GraphQL/Query`;
+    const body = {
+      query : `query{brands(skip: 0, take: 1, where:{id:{eq:${brandId}}}){items{id,brandName,createdBy,createdOn,mediaId,status}}}`
+    }
+    const headers = new HttpHeaders().append('loading-indicator', 'none');
+    return this.http.post(url, body, {headers}) as Observable<BaseResponse>;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

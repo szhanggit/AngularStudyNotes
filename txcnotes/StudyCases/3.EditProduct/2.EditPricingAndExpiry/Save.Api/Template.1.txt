@@ -1,0 +1,58 @@
+https://api-staging.txc.edenred.net/gateway/api/Product/Template?ProductId=8577&TemplateType=2
+
+
+ProductId: 8577
+TemplateType: 2
+
+
+{
+    "data": {
+        "productTemplate": [
+            {
+                "templateId": 240,
+                "templateName": "[UAT_Test]TX電子禮券基本版 (含過期日)",
+                "templateType": 2,
+                "templateSubType": 2,
+                "defaultLanguageId": 66,
+                "productTemplateVersion": [
+                    {
+                        "templateVersionId": 797,
+                        "languageId": 66,
+                        "templateTagValue": [
+                            {
+                                "tagId": 6,
+                                "tagName": "{PRODUCT_NAME}",
+                                "value": "",
+                                "textValue": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "message": "success",
+    "success": true
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+D:\Study\AngularStudyNotes\txcnotes\source\TXC-MicroFrontends\Products\src\app\products\services\product.service.ts
+
+
+  getProductTemplate(id: Number, templateType: Number): Observable<BaseResponse> {
+    const url = `https://${environment.apiUrl}api/Product/Template?ProductId=${id}&TemplateType=${templateType}`;
+    return this.http.get(url, { headers: this._authorizationLibraryService.getAMMHeaders() }) as Observable<BaseResponse>
+  }
+
+
+
+
+
+
+
+
+
+
