@@ -1,0 +1,66 @@
+Start restful service:
+npm run json
+Run App:
+ng serve --open
+
+
+npm run json
+http://localhost:3500/db
+
+Username:	admin
+Password:	secret
+
+-------------------------------------------------------------------------
+npm config set strict-ssl false
+ng add @angular/pwa
+add ngsw-config.json
+
+
+https://letsencrypt.org, where you can get https certificate for free.
+
+
+Angular doesn’t provide an HTTP server for deployment!!!
+
+To install the packages that are required to create the HTTP/HTTPS server.
+npm install --save-dev express@4.17.1
+npm install --save-dev connect-history-api-fallback@1.6.0
+npm install --save-dev https@1.0.0
+
+
+Building and Testing the Application
+ng build --configuration production
+(After build, all of the packaged assets are in here: 
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter10\SportsStore\dist\sports-store)
+
+
+
+https://stackoverflow.com/questions/60372618/nodejs-listen-eacces-permission-denied-0-0-0-080
+In case of windows user, some other app or service is using port 80 that's why we get this error. You can check which all apps are using this service
+You can stop all services which are using port 80 by using following command in your command:
+
+net stop http
+
+node server.js
+
+
+
+
+
+
+
+!!!Although the progressive features will work only if you have configured an SSL/TLS certificate for the domain to which the application is deployed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

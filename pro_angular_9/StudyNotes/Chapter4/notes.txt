@@ -1,0 +1,13 @@
+1. creating a folder called HtmlCssPrimer
+2. package.json
+{
+"dependencies": {
+"bootstrap": "4.4.1"
+}
+}
+
+3. npm install
+4. npx lite-server@2.5.4
+
+http://getbootstrap.com
+

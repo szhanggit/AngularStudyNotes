@@ -1,0 +1,170 @@
+Start restful service:
+npm run json
+Run App:
+ng serve --open
+
+http://fontawesome.io
+
+
+
+
+addProductToCart(product: Product) {
+	this.cart.addLine(product);
+	this.router.navigateByUrl("/cart");
+}
+
+<button class="btn btn-sm bg-dark text-white"
+[disabled]="cart.itemCount == 0" routerLink="/cart">
+
+
+npm run json
+http://localhost:3500/db
+----------------------------------------------------------------
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter20.3\src\app\log.service.ts
+export const LOG_SERVICE = new InjectionToken("logger");
+
+@Injectable()
+export class LogService {}
+
+@Injectable()
+export class SpecialLogService extends LogService {}
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter20.3\src\app\app.module.ts
+{ provide: LOG_SERVICE, useClass: SpecialLogService }
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter20.3\src\app\discount.service.ts
+constructor( @Inject(LOG_SERVICE) private logger: LogService) { }
+
+----------------------------------------------------------------
+
+
+
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter20.4\src\app\app.module.ts
+      { provide: LOG_SERVICE, useClass: LogService, multi: true },
+      { provide: LOG_SERVICE, useClass: SpecialLogService, multi: true }
+
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter20.4\src\app\discount.service.ts
+    constructor( @Inject(LOG_SERVICE) loggers: LogService[]) {
+        this.logger = loggers.find(l => l.minimumLevel == LogLevel.DEBUG);	//Choose either LogService or SpecialLogService.
+    }
+
+----------------------------------------------------------------
+
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter8\SportsStore\src\app\model\model.module.ts
+    providers: [ProductRepository, Cart,
+                Order, OrderRepository, { provide: StaticDataSource, useClass: RestDataSource }]
+                /*when it needs to create an instance of a class with a StaticDataSource constructor parameter, it should
+use a RestDataSource instead P163. Since both objects define the same methods, the dynamic JavaScript type system means that the substitution is seemless.*/
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter8\SportsStore\src\app\model\product.repository.ts
+constructor(private dataSource: StaticDataSource)
+
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter8\SportsStore\src\app\model\order.repository.ts
+constructor(private dataSource: StaticDataSource) {}
+
+
+----------------------------------------------------------------
+C:\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter8\SportsStore\src\app\store\checkout.component.html
+<form *ngIf="!orderSent" #form="ngForm" novalidate (ngSubmit)="submitOrder(form)" class="m-2">
+    <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" #name="ngModel" name="name" [(ngModel)]="order.name" required />
+        <span *ngIf="submitted && name.invalid" class="text-danger">
+            Please enter your name
+        </span>
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input class="form-control" #address="ngModel" name="address" [(ngModel)]="order.address" required />
+        <span *ngIf="submitted && address.invalid" class="text-danger">Please enter your address</span>
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        <input class="form-control" #city="ngModel" name="city" [(ngModel)]="order.city" required />
+        <span *ngIf="submitted && city.invalid" class="text-danger">Please enter your city</span>
+    </div>
+    <div class="form-group">
+        <label>State</label>
+        <input class="form-control" #state="ngModel" name="state"[(ngModel)]="order.state" required />
+        <span *ngIf="submitted && state.invalid" class="text-danger">Please enter your state</span>
+    </div>
+    <div class="form-group">
+        <label>Zip/Postal Code</label>
+        <input class="form-control" #zip="ngModel" name="zip" [(ngModel)]="order.zip" required />
+        <span *ngIf="submitted && zip.invalid" class="text-danger">Please enter your zip/postal code</span>
+    </div>
+    <div class="form-group">
+        <label>Country</label>
+        <input class="form-control" #country="ngModel" name="country" [(ngModel)]="order.country" required />
+        <span *ngIf="submitted && country.invalid" class="text-danger">Please enter your country</span>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-secondary m-1" routerLink="/cart">Back</button>
+        <button class="btn btn-primary m-1" type="submit">Complete Order</button>
+    </div>
+</form>
+
+
+
+
+<input class="form-control" #country="ngModel" name="country" [(ngModel)]="order.country" required />
+P303
+Reference variables are defined using the # character, followed by the variable name. #country
+country.value就是上面的输入。
+
+#country="ngModel"
+P315
+To get validation working, I have to create a template reference variable to access the validation state in expressions.
+I create a template reference variable called country and set its value to ngModel. This use of an ngModel
+value is a little confusing: it is a feature provided by the ngModel directive to give access to the validation status.
+In order to display validation messages, you need to create a template reference variable and assign it ngModel to access the validation data for the input element.
+
+Then you can set: country.invalid
+
+Table 14-6. The Validation Object Properties
+
+path 		This property returns the name of the element.
+valid 		This property returns true if the element’s contents are valid and false otherwise.
+invalid 	This property returns true if the element’s contents are invalid and false otherwise.
+pristine 	This property returns true if the element’s contents have not been changed.
+dirty 		This property returns true if the element’s contents have been changed.
+touched 	This property returns true if the user has visited the element.
+untouched 	This property returns true if the user has not visited the element.
+errors 		This property returns an object whose properties correspond to each attribute for which there is a validation error.
+value 		This property returns the value of the element, which is used when defining custom validation rules, as described in the “Creating Custom Form Validators” section.
+
+
+<li *ngIf="name.errors.required">You must enter a product name</li>
+<li *ngIf="name.errors?.pattern">
+<li *ngIf="name.errors?.minlength">
+{{name.errors.minlength.requiredLength}}
+
+Table 14-7. The Angular Form Validation Error Description Properties
+required 			This property returns true if the required attribute has been applied to the input element. This is not especially useful because this can be deduced from the fact that the required property exists.
+minlength.requiredLength	This property returns the number of characters required to satisfy the minlength attribute.
+minlength.actualLength 		This property returns the number of characters entered by the user.
+pattern.requiredPattern 	This property returns the regular expression that has been specified using the pattern attribute.
+pattern.actualValue 		This property returns the contents of the element.
+
+
+P322
+<form novalidate ngForm="productForm" #form="ngForm" (ngSubmit)="submitForm(form)">
+The form element now defines a reference variable called form, which has been assigned to ngForm.
+This is how the ngForm directive provides access to its functionality.
+It is important to know that the validation information for the entire form can
+be accessed through the form reference variable.
+
+
+
+
+
+
+
+
+
+
+

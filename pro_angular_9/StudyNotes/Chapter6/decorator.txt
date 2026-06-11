@@ -1,0 +1,152 @@
+https://www.codemotion.com/magazine/backend/understanding-the-role-of-decorators-in-typescript/
+
+function simpleDecorator(constructor: Function) { 
+    console.log(`simpleDecorator called`); 
+} 
+
+@simpleDecorator
+class ClassWithSimpleDecorator {}
+
+
+
+We have not created an instance of the class named ClassWithSimpleDecorator as yet. 
+All that we have done is specify the class definition, added a decorator to it, 
+and the decorator has been called by the JavaScript runtime automatically. (Decorators are only invoked once, when a class is defined.)
+
+
+
+
+
+
+
+
+
+---------------------------------------
+function simpleDecorator(constructor: Function) { 
+    console.log(`simpleDecorator called`); 
+} 
+
+function secondDecorator(constructor: Function) { 
+    console.log(`secondDecorator called`); 
+} 
+
+@simpleDecorator
+@secondDecorator 
+class ClassWithSimpleDecorator {}
+
+
+output:
+secondDecorator called
+simpleDecorator called
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+    Class decorators – These are decorators that can be applied to a class definition. 
+    Property decorators – These are decorators that can be applied to a property within a class.  
+    Method decorators – These are decorators that can be applied to a method on a class. 
+    Parameter decorators – These are decorators that can be applied to a parameter of a method within a class. 
+
+
+
+
+-----------------------------------------------
+function classDecorator(constructor: Function) {} 
+function propertyDecorator(target: any, propertyKey: string) {} 
+function methodDecorator(target: any, methodName: string, descriptor?: PropertyDescriptor) {} 
+function parameterDecorator(target: any, methodName: string, parameterIndex: number) {} 
+
+
+@classDecorator 
+class ClassWithAllTypesOfDecorators { 
+    @propertyDecorator 
+    id: number = 1; 
+    @methodDecorator 
+    print() { } 
+    setId(@parameterDecorator id: number) { } 
+}     
+
+
+What is important to note about decorators is that it is the number of parameters and their types that distinguish whether they can be used as class, property, method, or parameter decorators. Again, the JavaScript runtime will fill in each of these parameters at runtime. 
+
+
+-----------------------------------------------
+
+
+
+function decoratorFactory(name: string) { 
+    return (constructor: Function) => { 
+        console.log(`decorator function called with : ${name}`); 
+    } 
+}
+
+@decoratorFactory('testName') 
+class ClassWithDecoratorFactory { } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

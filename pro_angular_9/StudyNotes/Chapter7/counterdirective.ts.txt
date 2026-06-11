@@ -1,0 +1,53 @@
+Reference: ~\pro_angular_9\StudyNotes\Chapter16.1\notes.txt
+Concise Structure Syntax----------------------------------
+@Directive({
+    selector: "[paForOf]"
+})
+
+<tr *paFor="let item of getProducts(); let i = index; let odd = odd; let even = even" [class.bg-info]="odd" [class.bg-warning]="even">
+	<td>{{i + 1}}</td>
+	<td>{{item.name}}</td>
+	<td>{{item.category}}</td>
+	<td>{{item.price}}</td>
+</tr>
+
+class PaIteratorContext {
+    constructor(public $implicit: any) {}   //Connecting with let-item on page.
+}
+
+
+
+src\app\store\counter.directive.ts---------------------
+@Directive({selector: "[counterOf]"})
+
+src\app\store\store.component.html---------------------
+<button *counter="let page of pageCount" (click)="changePage(page)" class="btn btn-outline-primary" [class.active]="page == selectedPage">
+	{{page}}
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+NodeJS
+The version I have used is 12.15.0
+https://nodejs.org/dist/v12.15.0
+
+npm -v
+6.13.4
+
+ng version
+Installing the angular-cli Package
+npm install --global @angular/cli@9.0.1
+ng --version
+
+npm uninstall -g @angular/cli
+npm cache clean
+
+
+
+Creating the Product:
+
+If you are using PowerShell on Windows, you may have to enable script execution with the Set-ExecutionPolicy RemoteSigned command before you can run the command.
+
+
+ng new todo --routing false --style css --skip-git --skip-tests
+it is the src/app folder that contains the application’s code and content and is the folder in which most development is done.
+
+
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter2\todo>ng serve	//an initial build process to prepare the application for the development session.
+http://localhost:4200/
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter2\todo>ctrl+c	//to exit
+
+
+
+
+The export keyword relates to JavaScript modules.
+
+
+
+
+install bootstrap
+npm install bootstrap@4.4.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,319 @@
+let myData = {
+  name: "Adam",
+  weather: "sunny"
+  };
+  console.log("Hello " + myData.name + ". ");
+  console.log("Today is " + myData.weather + ".");
+
+
+
+let myData = {
+    name: "Adam",
+    weather: "sunny",
+    printMessages: function () {
+    console.log("Hello " + this.name + ". ");
+    console.log("Today is " + this.weather + ".");
+  }
+};
+myData.printMessages();
+
+
+
+
+
+
+
+
+
+
+
+
+class MyClass {
+  name: string
+  weather: string
+  constructor(name :string, weather :string) {
+    this.name = name;
+    this.weather = weather;
+  }
+  printMessages() {
+    console.log("Hello " + this.name + ". ");
+    console.log("Today is " + this.weather + ".");
+  }
+}
+
+
+let myData = new MyClass("Adam", "sunny");
+myData.printMessages();
+
+
+
+
+
+
+
+
+class MyClass {
+  name: string
+  _weather: string
+  constructor(name: string, weather: string) {
+    this.name = name;
+    this._weather = weather;
+  }
+  set weather(value) {
+    this._weather = value;
+  }
+  get weather() {
+    return `Today is ${this._weather}`;
+  }
+  printMessages() {
+    console.log("Hello " + this.name + ". ");
+    console.log(this.weather);
+  }
+}
+
+let myData = new MyClass("Adam", "sunny");
+myData.printMessages();
+
+
+
+
+
+
+
+Using Class Inheritance:
+  class MyClass {
+  name :string
+  _weather :string
+    constructor(name :string, weather :string) {
+      this.name = name;
+      this._weather = weather;
+    }
+    set weather(value) {
+      this._weather = value;
+    }
+    get weather() {
+      return `Today is ${this._weather}`;
+    }
+    printMessages() {
+      console.log("Hello " + this.name + ". ");
+      console.log(this.weather);
+    }
+  }
+
+  class MySubClass extends MyClass {
+      city :string
+      constructor(name :string, weather :string, city :string) {
+      super(name, weather);
+      this.city = city;
+    }
+    override printMessages() {
+        super.printMessages();
+        console.log(`You are in ${this.city}`);
+    }
+  }
+  let myData = new MySubClass("Adam", "sunny", "London");
+  myData.printMessages();
+
+
+
+
+
+
+
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\modules\NameAndWeather.ts
+Creating and Using Modules:
+export class Name {
+    first :string
+    second :string
+    constructor(first :string, second :string) {
+        this.first = first;
+        this.second = second;
+    }
+    get nameMessage() {
+        return `Hello ${this.first} ${this.second}`;
+    }
+}
+
+export class WeatherLocation {
+    weather :string
+    city :string
+    constructor(weather :string, city :string) {
+        this.weather = weather;
+        this.city = city;
+    }
+    get weatherMessage() {
+        return `It is ${this.weather} in ${this.city}`;
+    }
+}
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\modules\DuplicateName.ts
+export class Name {
+    get message() {
+        return "Other Name";
+    }
+}
+
+
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\main.ts
+import { Name, WeatherLocation } from "./modules/NameAndWeather";
+import { Name as OtherName } from "./modules/DuplicateName";
+
+let name = new Name("Adam", "Freeman");
+let loc = new WeatherLocation("raining", "London");
+let other = new OtherName();
+console.log(name.nameMessage);
+console.log(loc.weatherMessage);
+console.log(other.message);
+
+
+Importing All of the Types in a Module:
+import * as NameAndWeatherLocation from "./modules/NameAndWeather";
+import { Name as OtherName } from "./modules/DuplicateName";
+let name = new NameAndWeatherLocation.Name("Adam", "Freeman");
+let loc = new NameAndWeatherLocation.WeatherLocation("raining", "London");
+let other = new OtherName();
+console.log(name.nameMessage);
+console.log(loc.weatherMessage);
+console.log(other.message);
+
+
+
+
+
+Using Type Annotations:
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\TempConverter.ts
+export class TempConverter {
+    static convertFtoC(temp :Number) :string {
+        return ((parseFloat(temp.toPrecision(2)) - 32) / 1.8).toFixed(1);
+    }
+}
+
+
+
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\main.ts
+import { TempConverter } from "./TempConverter";
+let cTemp = TempConverter.convertFtoC(38);
+
+
+
+
+
+Specifying Multiple Types or Any Type:
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\TempConverter.ts
+export class TempConverter {
+    static convertFtoC(temp: number | string): string {
+        let value: number = (<number>temp).toPrecision? <number>temp : parseFloat(<string>temp);
+        return ((parseFloat(value.toPrecision(2)) - 32) / 1.8).toFixed(1);
+    }
+}
+
+
+
+Any Type
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter5\JavaScriptPrimer\src\TempConverter.ts
+export class TempConverter {
+    static convertFtoC(temp: any): string {
+        let value: number;
+        if ((temp as number).toPrecision) {
+            value = temp;
+        } else if ((temp as string).indexOf) {
+            value = parseFloat(<string>temp);
+        } else {
+            value = 0;
+        }
+        return ((parseFloat(value.toPrecision(2)) - 32) / 1.8).toFixed(1);
+    }
+}
+
+
+
+Using Tuples:
+let tuple3: [string, string, string];
+tuple3 = ["London", "raining", TempConverter.convertFtoC("38")]
+console.log(`It is ${tuple3[2]} degrees C and ${tuple3[1]} in ${tuple3[0]}`);
+
+
+
+
+Using Indexable Types:
+let cities: { [index: string]: [string, string] } = {};
+cities["London"] = ["raining", TempConverter.convertFtoC("38")];
+cities["Paris"] = ["sunny", TempConverter.convertFtoC("52")];
+cities["Berlin"] = ["snowing", TempConverter.convertFtoC("23")];
+for (let key in cities) {
+    console.log(`${key}: ${cities[key][0]}, ${cities[key][1]}`);
+}
+
+
+
+Using Access Modifiers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

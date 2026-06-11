@@ -1,0 +1,118 @@
+Source Code:
+https://github.com/Apress/pro-angular-9
+
+Environment:
+Installing Node.js	https://nodejs.org/dist/v12.15.0
+node -v
+npm -v
+
+Installing the angular-cli Package
+npm install --global @angular/cli@9.0.1
+
+Go to: D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter7
+ng new SportsStore --routing false --style css --skip-git --skip-tests
+
+cd SportsStore
+npm install bootstrap@4.4.1
+npm install @fortawesome/fontawesome-free@5.12.1
+npm install --save-dev json-server@0.16.0
+npm install --save-dev jsonwebtoken@8.5.1
+
+
+Adding the CSS Style Sheets to the Application:
+Add "node_modules/bootstrap/dist/css/bootstrap.min.css"
+and "node_modules/@fortawesome/fontawesome-free/css/all.min.css" 
+into angular.json
+
+Preparing the RESTful Web Service:
+Add "json": "json-server data.js -p 3500 -m authMiddleware.js" into package.json
+
+
+
+Running the Example Application:
+ng serve --open
+npm run json
+
+
+Starting the RESTful Web Service:
+D:\Study\AngularStudyNotes\pro_angular_9\StudyNotes\Chapter7\SportsStore>npm run json
+http://localhost:3500/products/1
+
+
+It is enough to know that an Observable object represents an asynchronous task that will produce a result at
+some point in the future. Angular exposes its use of Observable objects for some features, including making
+HTTP requests, and this is why the getProducts method returns an Observable<Product[]> rather than
+simply returning the data synchronously.
+
+The @Injectable decorator has been applied to the StaticDataSource class. This decorator is used
+to tell Angular that this class will be used as a service, which allows other classes to access its functionality
+through a feature called dependency injection.
+
+
+
+
+Starting: main.ts
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
+if (environment.production) {
+	enableProdMode();
+}
+platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.log(err));	//app.module.ts is called from here.
+
+--------------------------------------------------------------------------
+
+Get array without duplication.
+src\app\model\product.repository.ts
+this.categories = data.map(p => p.category).filter((c, index, array) => array.indexOf(c) == index).sort();
+
+Generate page number:
+    get pageNumbers(): number[] {
+        return Array(this.pageCount).fill(0).map((x, i) => i + 1);
+    }
+
+--------------------------------------------------------------------------
+Category Menu
+
+<button class="btn btn-block btn-outline-primary" (click)="changeCategory('')">
+	Home
+</button>
+<button *ngFor="let cat of categories" class="btn btn-outline-primary btn-block" [class.active]="cat == selectedCategory" (click)="changeCategory(cat)">
+	{{cat}}
+</button>
+
+[class.active]="cat == selectedCategory"  Home will never be highlighted.
+
+--------------------------------------------------------------------------
+About category menu:
+P675 Ch26
+
+
+<button class="btn btn-secondary btn-block" routerLink="/" routerLinkActive="bg-primary">
+	All
+</button>
+<button *ngFor="let category of categories" class="btn btn-secondary btn-block px-3" [routerLink]="['/table', category]" routerLinkActive="bg-primary">
+	{{category}}
+</button>
+
+The important part of this example is the use of the routerLinkActive attribute, which is used to
+specify a CSS class that the element will be assigned to when the URL specified by the routerLink attribute
+matches the active route.
+
+
+localhost:4200/table		All will be highlighted.
+localhost:4200/table/soccer	Both All and Soccer will be highlighted.
+
+<button class="btn btn-secondary btn-block"
+routerLink="/table" routerLinkActive="bg-primary"
+[routerLinkActiveOptions]="{exact: true}">
+
+add routerLinkActiveOptions
+
+
+
+
+
+
+

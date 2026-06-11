@@ -1,0 +1,227 @@
+ng new JavaScriptPrimer --routing false --style css --skip-git --skip-tests
+ng serve --open
+
+
+
+let myFunc = function () {
+  console.log("This is a statement");
+  };
+myFunc();  
+
+
+
+
+let myFunc = function(name : string, weather : string) {
+  console.log("Hello " + name + ".");
+  console.log("It is " + weather + " today");
+  };
+  myFunc("Adam", "sunny");
+
+
+
+let myFunc = function (name : string, weather = "raining") {
+  console.log("Hello " + name + ".");
+  console.log("It is " + weather + " today");
+  };
+  myFunc("Adam");
+
+
+
+
+Rest parameters are used to capture any additional arguments when a function is invoked with additional arguments
+
+let myFunc = function (name : string, weather : string, ...extraArgs : string[]) {
+  console.log("Hello " + name + ".");
+  console.log("It is " + weather + " today");
+  for (let i = 0; i < extraArgs.length; i++) {
+  console.log("Extra Arg: " + extraArgs[i]);
+  }
+  };
+  myFunc("Adam", "sunny", "one", "two", "three");
+
+
+
+
+let myFunc = function(name :string) {
+  return ("Hello " + name + ".");
+  };
+  console.log(myFunc("Adam"));
+
+
+
+
+
+
+Pass function:
+let myFunc = function (nameFunction : Function) {
+  return ("Hello " + nameFunction() + ".");
+  };
+
+  console.log(myFunc(function () {
+  return "Adam";
+  }));
+
+
+
+
+
+Chaining Functions Calls:
+let myFunc = function (nameFunction : Function) {
+  return ("Hello " + nameFunction() + ".");
+  };
+  let printName = function (nameFunction :Function, printFunction :Function) {
+  printFunction(myFunc(nameFunction));
+  }
+  printName(function () { return "Adam" }, console.log);
+
+
+
+
+
+
+let myFunc = (nameFunction :Function) => ("Hello " + nameFunction() + ".");
+let printName = (nameFunction :Function, printFunction :Function) => printFunction(myFunc(nameFunction));
+printName(function () { return "Adam" }, console.log);
+
+
+
+
+
+Using Variables and Types:
+let messageFunction = function (name :string, weather :string) {
+  let message = "Hello, Adam";
+  if (weather == "sunny") {
+    let message = "It is a nice day";
+    console.log(message);
+  } else {
+    let message = "It is " + weather + " today";
+    console.log(message);
+  }
+  console.log(message);
+}
+
+messageFunction("Adam", "raining");
+
+
+
+
+
+Using Variable Closure:
+let myFunc = function(name :string) {
+    let myLocalVar = "sunny";
+    let innerFunction = function () {
+      return ("Hello " + name + ". Today is " + myLocalVar + ".");
+    }
+    return innerFunction();
+  };
+
+  console.log(myFunc("Adam"));
+
+
+
+
+Using Template Strings:
+let messageFunction = function (weather :string) {
+    let message = `It is ${weather} today`;
+    console.log(message);
+  }
+  messageFunction("raining");
+
+
+
+
+
+Converting Numbers to Strings:
+let myData1 = (5).toString() + String(5);
+console.log("Result: " + myData1);
+
+
+
+
+Converting Strings to Numbers:
+let firstVal = "5";
+let secondVal = "5";
+let result = Number(firstVal) + Number(secondVal);
+console.log("Result: " + result);
+
+
+
+Number(str) This method parses the specified string to create an integer or real value.
+parseInt(str) This method parses the specified string to create an integer value.
+parseFloat(str) This method parses the specified string to create an integer or real value.
+
+
+
+
+Working with Arrays:
+let myArray = new Array();
+myArray[0] = 100;
+myArray[1] = "Adam";
+myArray[2] = true;
+
+let myArray = [100, "Adam", true];
+
+myArray.forEach((value, index) => console.log("Index " + index + ": " + value));
+
+
+
+
+
+
+
+
+Using the Spread Operator:
+let myArray = [100, "Adam", true];
+let otherArray = [...myArray, 200, "Bob", false];
+for (let i = 0; i < otherArray.length; i++) {
+console.log(`Array item ${i}: ${otherArray[i]}`);
+}
+
+
+
+
+
+
+
+import { Name, WeatherLocation } from "./modules/NameAndWeather";
+import { Name as OtherName } from "./modules/DuplicateName";
+import { TempConverter } from "./TempConverter";
+
+let name = new Name("Adam", "Freeman");
+let loc = new WeatherLocation("raining", "London");
+let other = new OtherName();
+let cTemp = TempConverter.convertFtoC(38);
+
+let cities: { [index: string]: [string, string] } = {};
+cities["London"] = ["raining", TempConverter.convertFtoC("38")];
+cities["Paris"] = ["sunny", TempConverter.convertFtoC("52")];
+cities["Berlin"] = ["snowing", TempConverter.convertFtoC("23")];
+for (let key in cities) {
+    console.log(`${key}: ${cities[key][0]}, ${cities[key][1]}`);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+Start restful service:
+npm run json
+Run App:
+ng serve --open
+
+
+npm run json
+http://localhost:3500/db
+
+Username:	admin
+Password:	secret
+
+https://tools.ietf.org/html/rfc7519
+
+
+
+
+
+
+
+auth.component.ts
+this.router.navigateByUrl("/admin/main");
+
+admin.component.html
+<button class="btn btn-outline-info btn-block" routerLink="/admin/main/products" routerLinkActive="active">
+<button class="btn btn-outline-info btn-block" routerLink="/admin/main/orders" routerLinkActive="active">
+
+productTable.component.html
+<button class="btn btn-sm btn-warning m-1" [routerLink]="['/admin/main/products/edit', p.id]">
+
+productEditor.component.ts
+activeRoute.snapshot.params["mode"] == "edit"
+this.router.navigateByUrl("/admin/main/products");
+}
+}
+
+
+
+
+
+
+Routes can include route
+parameters, such as :mode or :id, that match any URL segment and that can be used to provide information
+to components that can be used to change their behavior.
+
+---------------------------------------------------------------------
+
+headers: new HttpHeaders({"Authorization": `Bearer<${this.auth_token}>`})
+
+
+    authenticate(user: string, pass: string): Observable<boolean> {
+        return this.http.post<any>(this.baseUrl + "login", {
+            name: user, password: pass
+        }).pipe(map(response => {
+            this.auth_token = response.success ? response.token : null;
+            return response.success;
+        }));
+    }
+
+先加pipe，再加map。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
