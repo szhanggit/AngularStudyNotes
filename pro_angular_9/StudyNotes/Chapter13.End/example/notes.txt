@@ -1,0 +1,112 @@
+Using the ngIf Directive
+
+<div *ngIf="getProductCount() > 4" class="bg-info p-2 mt-1">
+    There are more than 4 products in the model
+</div>
+
+---------------------------------------------------------------------------
+Using the ngSwitch Directive
+
+<div class="bg-info p-2 mt-1" [ngSwitch]="getProductCount()">
+    <span *ngSwitchCase="2">There are two products</span>
+    <span *ngSwitchCase="5">There are five products</span>
+    <span *ngSwitchDefault>This is the default</span>
+</div>
+
+<div class="bg-info p-2 mt-1" [ngSwitch]="getProduct(1).name">
+    <span *ngSwitchCase="targetName">Kayak</span>
+    <span *ngSwitchCase="'Lifejacket'">Lifejacket</span>
+    <span *ngSwitchDefault>Other Product</span>
+</div>
+---------------------------------------------------------------------------
+Using the ngFor Directive
+
+<tr *ngFor="let item of getProducts()">
+    <td>{{item.name}}</td>
+    <td>{{item.category}}</td>
+    <td>{{item.price}}</td>
+</tr>
+---------------------------------------------------------------------------
+Using Other Template Variables
+
+Table 13-4. The ngFor Local Template Values
+index; odd; even; first; last.
+
+<tr *ngFor="let item of getProducts(); let i = index">
+    <td>{{i +1}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.category}}</td>
+    <td>{{item.price}}</td>
+</tr>
+
+//odd is boolean
+<tr *ngFor="let item of getProducts(); let i = index; let odd = odd"
+class="text-white" [class.bg-primary]="odd" [class.bg-info]="!odd">
+    <td>{{i + 1}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.category}}</td>
+    <td>{{item.price}}</td>
+</tr>
+
+
+<ng-template ngFor let-item [ngForOf]="getProducts()" let-i="index" let-odd="odd">
+    <tr [class.bg-primary]="odd" [class.bg-info]="!odd">
+        <td>{{i + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.price}}</td>
+    </tr>
+</ng-template>
+---------------------------------------------------------------------------
+Using the First and Last Values
+
+//first is boolean
+<tr *ngFor="let item of getProducts(); let i = index; let odd = odd;
+let first = first; let last = last" class="text-white"
+[class.bg-primary]="odd" [class.bg-info]="!odd"
+[class.bg-warning]="first || last">
+    <td>{{i + 1}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.category}}</td>
+    <td *ngIf="!last">{{item.price}}</td>
+</tr>
+---------------------------------------------------------------------------
+Make updating efficient
+<tr *ngFor="let item of getProducts(); let i = index; let odd = odd;
+let first = first; let last = last; trackBy:getKey" class="text-white"
+[class.bg-primary]="odd" [class.bg-info]="!odd"
+[class.bg-warning]="first || last">
+    <td>{{i + 1}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.category}}</td>
+    <td *ngIf="!last">{{item.price}}</td>
+</tr>
+
+getKey(index: number, product: Product) {
+    return product.id;
+}
+---------------------------------------------------------------------------
+Using the ngTemplateOutlet Directive
+
+<ng-template #titleTemplate>
+    <h4 class="p-2 bg-success text-white">Repeated Content</h4>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+    Hello World
+<ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+
+
+---------------------------------------------------------------------------
+Providing Context Data
+
+<ng-template #titleTemplate let-text="title">
+    <h4 class="p-2 bg-success text-white">{{text}}</h4>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="titleTemplate" [ngTemplateOutletContext]="{title: 'Header'}"></ng-template>
+    asdf
+<ng-template [ngTemplateOutlet]="titleTemplate" [ngTemplateOutletContext]="{title: 'Footer'}"></ng-template>
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
