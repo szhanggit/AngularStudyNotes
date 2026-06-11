@@ -1,0 +1,7 @@
+{
+
+   "apiUrl": {
+      "tenant": "http://localhost:8000/api/"
+      , "media": "http://localhost:8001/api/"
+   }
+}
