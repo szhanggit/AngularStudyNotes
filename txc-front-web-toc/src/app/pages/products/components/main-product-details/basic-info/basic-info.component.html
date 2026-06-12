@@ -1,0 +1,106 @@
+<div class="row">
+    <div>
+        <span class="font-16"><strong>Basic Info</strong></span>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product name</div>
+                <div class="col-6 font-14"><strong>{{ product?.productName | titlecase }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product description</div>
+                <div class="col-6 font-14"><strong>{{ product?.description }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product code</div>
+                <div class="col-6 font-14"><strong>{{ product?.productCode | titlecase }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">External code</div>
+                <div class="col-6 bold"><strong>{{ product?.externalProductCode || '--' }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isGlobal(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Merchant Acquirer</div>
+                <!-- <div class="col-6 font-14"><strong>{{ product?.merchantSKUId }}</strong></div> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product Issuer</div>
+                <div class="col-6 font-14"><strong>{{ product?.productIssuer }} - {{ product?.productCategory
+                        }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isTaiwan(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product Tag</div>
+                <div class="col-6 font-14"><strong>{{ product?.productTag }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="productCustomizationService.isIndia(selectedTenant)">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Product Category</div>
+                <div class="col-6 font-14"><strong>{{ product?.productCategory }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Available Brand</div>
+                <div class="col-6 text-primary"><strong>{{ product?.brandId }}</strong></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row my-2">
+    <div><span class="font-16"><strong>Additional information</strong></span></div>
+    <div class="row my-2">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Note for internal used (Operation)</div>
+                <div class="col-6 font-14"><strong>{{ product?.operationNote || '--' }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Note for internal used (Sales)</div>
+                <div class="col-6 font-14"><strong>{{ product?.salesNote || '--' }}</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6 font-14">Note for internal used (Customer service)</div>
+                <div class="col-6 font-14"><strong>{{ product?.customerServiceNote || '--' }}</strong></div>
+            </div>
+        </div>
+    </div>
+</div>

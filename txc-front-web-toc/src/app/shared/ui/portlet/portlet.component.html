@@ -1,0 +1,36 @@
+<!-- Portlet card -->
+<div class="card mb-md-0 mb-3 bg-{{card.bgColor}} text-{{card.textColor}}">
+    <div class="card-body">
+        <div class="card-widgets">
+            <a href="javascript:void(0);" (click)="refreshContent()"><i class="mdi mdi-refresh"></i></a>
+            <a href="javascript:void(0)" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" role="button"
+                aria-expanded="false"><i [class]="isCollapsed ? 'mdi mdi-plus' : 'mdi mdi-minus'"></i></a>
+            <a href="javascript:void(0)" (click)="closeCard()"><i class="mdi mdi-close"></i></a>
+        </div>
+        <h5 class="card-title mb-0">Card title</h5>
+
+        <div id="cardCollpase{{card.id}}" class="collapse pt-3 show" #collapse="ngbCollapse"
+            [(ngbCollapse)]="isCollapsed">
+            Anim pariatur cliche reprehenderit, enim eiusmod high
+            life accusamus terry richardson ad squid. 3 wolf moon
+            officia aute,
+            non cupidatat skateboard dolor brunch. Food truck quinoa
+            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+            sunt aliqua
+            put a bird on it squid single-origin coffee nulla
+            assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+            craft beer
+            labore wes anderson cred nesciunt sapiente ea proident.
+            Ad vegan excepteur butcher vice lomo. Leggings occaecat
+            craft
+            beer farm-to-table, raw denim aesthetic synth nesciunt
+            you probably haven't heard of them accusamus labore
+            sustainable
+            VHS.
+        </div>
+    </div>
+
+    <div class="card-disabled" *ngIf="refreshRequsted">
+        <div class="card-portlets-loader"></div>
+    </div>
+</div> <!-- end card-->

@@ -1,0 +1,60 @@
+<!-- NAVBAR START -->
+<nav class="navbar navbar-expand-lg py-lg-3 navbar-dark">
+    <div class="container">
+
+        <!-- logo -->
+        <a [routerLink]="'/'" class="navbar-brand me-lg-5">
+            <img src="assets/images/logo.png" alt="" class="logo-dark" height="18" />
+        </a>
+
+        <button class="navbar-toggler" type="button" (click)="mobileMenuOpen=!mobileMenuOpen"
+            [attr.aria-expanded]="mobileMenuOpen" aria-label="Toggle navigation">
+            <i class="mdi mdi-menu"></i>
+        </button>
+
+        <!-- menus -->
+        <div class="collapse navbar-collapse" #collapse="ngbCollapse" [(ngbCollapse)]="!mobileMenuOpen"
+            id="navbarNavDropdown">
+
+            <!-- left menu -->
+            <ul class="navbar-nav me-auto align-items-center">
+                <li class="nav-item mx-lg-1">
+                    <a class="nav-link active" routerLink="/landing" (click)="mobileMenuOpen=!mobileMenuOpen">Home</a>
+                </li>
+                <li class="nav-item mx-lg-1">
+                    <a class="nav-link" routerLink="/landing" (click)="mobileMenuOpen=!mobileMenuOpen">Features</a>
+                </li>
+                <li class="nav-item mx-lg-1">
+                    <a class="nav-link" routerLink="/landing" (click)="mobileMenuOpen=!mobileMenuOpen">Pricing</a>
+                </li>
+                <li class="nav-item mx-lg-1">
+                    <a class="nav-link" routerLink="/landing" (click)="mobileMenuOpen=!mobileMenuOpen">FAQs</a>
+                </li>
+                <li class="nav-item mx-lg-1">
+                    <a class="nav-link" routerLink="/landing" (click)="mobileMenuOpen=!mobileMenuOpen">Clients</a>
+                </li>
+                <li class="nav-item mx-lg-1">
+                    <a class="nav-link" routerLink="/landing" (click)="mobileMenuOpen=!mobileMenuOpen">Contact</a>
+                </li>
+            </ul>
+
+            <!-- right menu -->
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item me-0">
+                    <a [routerLink]="['../account/login']"
+                        class="btn btn-sm btn-light rounded-pill d-none d-lg-inline-flex" *ngIf="!loggedInUser">
+                        Login
+                    </a>
+
+                    <a [routerLink]="['../account/logout']"
+                        class="btn btn-sm btn-light rounded-pill d-none d-lg-inline-flex" *ngIf="loggedInUser">
+                        Logout
+                    </a>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- NAVBAR END -->

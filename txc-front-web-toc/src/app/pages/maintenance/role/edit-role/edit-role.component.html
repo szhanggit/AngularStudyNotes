@@ -1,0 +1,96 @@
+<ng-progress #progressBar></ng-progress>
+
+<app-page-title [breadcrumbItems]="pageTitle" title="Edit Role"></app-page-title>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Basic properties</h4>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Role name</label>
+                        <input type="text" class="form-control" [(ngModel)]="roleToEdit.roleName">
+                    </div>
+                    <div class="col-2">
+                        <label class="form-label">Status</label>
+                        <div class="form-check form-switch">
+                            <label class="form-check-label" for="isEnabledSwitch" *ngIf="roleToEdit.status">Enabled</label>
+                            <label class="form-check-label" for="isEnabledSwitch" *ngIf="!roleToEdit.status">Disabled</label>
+                            <input type="checkbox" class="form-check-input" id="isEnabledSwitch" #isEnabledSwitch
+                                [(ngModel)]="roleToEdit.status">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Business unit</label>
+                        <input type="text" class="form-control" [(ngModel)]="roleToEdit.tenant" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Application</label>
+                        <input type="text" class="form-control" [(ngModel)]="roleToEdit.application" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Role description</label>
+                        <textarea class="form-control" rows="3" [(ngModel)]="roleToEdit.description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Permission details</h4>
+                <ng-container *ngIf="!roleToEdit.tenantId || !roleToEdit.appId">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-center">
+                                <p class="card-text">Select business unit and application above to have role options.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="roleToEdit.tenantId && roleToEdit.appId">
+                    <dl class="row mt-3">
+                        <ng-container *ngFor="let resource of roleToEdit.resources">
+                            <dt class="col-1">
+                                {{resource.resourceName}}
+                            </dt>
+                            <dd class="col-2">
+                                <ng-container *ngFor="let operation of resource.operations">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                            [id]="'operation' + operation.operationId"
+                                            [(ngModel)]="operation.isSelected">
+                                        <label [for]="'operation' + operation.operationId"
+                                            class="form-check-label">{{operation.operationName}}</label>
+                                    </div>
+                                </ng-container>
+                            </dd>
+                        </ng-container>
+                    </dl>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-end mb-3">
+            <button type="button" id="btnCancel" class="btn btn-light btn-md rounded-pill" routerLink="/maintenance/role-management">
+                Cancel
+            </button>
+            <button type="button" id="btnCreate" class="btn btn-info btn-md rounded-pill ms-2" (click)="editRole()" *ngIf="enabledUpdate">
+                Save
+            </button>
+        </div>
+    </div>
+</div>

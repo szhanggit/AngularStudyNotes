@@ -1,0 +1,305 @@
+<ng-progress #progressBar></ng-progress>
+<app-page-title [breadcrumbItems]="pageTitle" title="Edit User"></app-page-title>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Basic Information</h4>
+                <dl class="row mt-3">
+                    <dt class="col-3">Account name</dt>
+                    <dd class="col-3">{{ldapUser.userName}}</dd>
+                    <dt class="col-3">Email address</dt>
+                    <dd class="col-3">{{ldapUser.email}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-3">User name</dt>
+                    <dd class="col-3">{{ldapUser.displayName}}</dd>
+                    <dt class="col-3">Country</dt>
+                    <dd class="col-3">{{ldapUser.country}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-3">Department</dt>
+                    <dd class="col-3">{{ldapUser.department}}</dd>
+                    <dt class="col-3">Job title</dt>
+                    <dd class="col-3">{{ldapUser.title}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-3">User type</dt>
+                    <dd class="col-3" *ngIf="userToEdit.isAdUser == true">AD user</dd>
+                    <dd class="col-3" *ngIf="userToEdit.isAdUser == false">Non-AD user</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngFor="let appTenant of userToEdit.appTenants; let first = first; let index = index;">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex bd-highlight">
+                <div class="me-auto bd-highlight">
+                    <h4 class="header-title">Assigned roles</h4>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <button class="btn btn-link btn-sm" type="button" *ngIf="!first"
+                        (click)="removeTenantApplicationRole(index)">Delete</button>
+                </div>
+            </div>
+            <!-- existing app-tenant, can't edit -->
+            <ng-container *ngIf="appTenant.uatId > 0">
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Business unit</label>
+                        <input type="text" class="form-control" [(ngModel)]="appTenant.tenantName" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Application</label>
+                        <input type="text" class="form-control" [(ngModel)]="appTenant.appName" readonly>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- new app-tenant -->
+            <ng-container *ngIf="appTenant.uatId == 0">
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Business unit</label>
+                        <select2 [data]="tenants" [(ngModel)]="appTenant.tenantId"
+                            (ngModelChange)="setRolesRef(appTenant)" [value]="appTenant.tenantId">
+                        </select2>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Application</label>
+                        <select2 [data]="applications" [(ngModel)]="appTenant.appId"
+                            (ngModelChange)="setRolesRef(appTenant)" [value]="appTenant.appId">
+                        </select2>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <label class="form-label">Set default expiry</label>
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" [(ngModel)]="appTenant.specifyExpiration"
+                                [name]="'specifyExpiration'+index" [id]="'rdBtnNoExpirationDate'+index" [value]="false"
+                                class="form-check-input" (click)="clearDefaultDateRange(appTenant)">
+                            <label [for]="'rdBtnNoExpirationDate'+index">No expiration date</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" [(ngModel)]="appTenant.specifyExpiration"
+                                [name]="'specifyExpiration'+index" [id]="'rdBtnSpecifyExpirationDate'+index"
+                                [value]="true" class="form-check-input">
+                            <label [for]="'rdBtnSpecifyExpirationDate'+index">Specify the expiration date</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" *ngIf="appTenant.specifyExpiration == true">
+                    <ng-template #dayTemplate let-date let-focused="focused">
+                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date, appTenant)"
+                            [class.faded]="isHovered(date, appTenant) || isInside(date, appTenant)"
+                            (mouseenter)="appTenant.hoveredDate = date" (mouseleave)="appTenant.hoveredDate = null">
+                            {{ date.day }}
+                        </span>
+                    </ng-template>
+                    <label for="defaultExpirationDatePicker" class="form-label"></label>
+                    <input type="text" class="form-control date" id="defaultExpirationDatePicker"
+                        [value]="appTenant.selectedDateRange" ngbDatepicker #defaultExpirationDatePicker="ngbDatepicker"
+                        (dateSelect)="onDefaultRoleDateSelection($event, appTenant)" [displayMonths]="2"
+                        [dayTemplate]="dayTemplate" (click)="defaultExpirationDatePicker.toggle()"
+                        autoClose="'outside'">
+                </div>
+            </div>
+
+            <ng-container *ngIf="!appTenant.tenantId || !appTenant.appId">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center">
+                            <p class="card-text">Select business unit and application above to have role options.</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="appTenant.tenantId && appTenant.appId">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h4>Roles</h4>
+                        <ul class="ms-3">
+                            <li>Hover on each role to view role's description.</li>
+                            <li>Click "set custom expiry" to customize assignment expiration. Otherwise, the expiration
+                                date will be the same as above default expiry.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-1">
+                        <button class="btn btn-light btn-md rounded-pill"
+                            (click)="openFilterRoleModal(filterRoleModal, appTenant, index)">Filters</button>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [ngbTypeahead]="smartSearch"
+                                [(ngModel)]="appTenant.smartSearchValue" />
+                            <span class="input-group-text icon-btn" (click)="refresh(appTenant)"><i
+                                    class='uil uil-refresh'></i></span>
+                            <span class="input-group-text icon-btn" (click)="add(appTenant.smartSearchValue, index)"><i
+                                    class='uil uil-plus'></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-12" *ngFor="let role of appTenant.filteredRolesRef">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" [(ngModel)]="role.isAssigned"
+                                        [id]="'chkBxRole'+index+role.roleId" [disabled]="role.userRoleId != 0">
+                                    <label [for]="'chkBxRole'+index+role.roleId" class="form-check-label"
+                                        ngbTooltip="{{role.roleDescription}}"
+                                        placement="bottom">{{role.roleName}}</label>
+                                    <u class="ms-1 text-muted"
+                                        (click)="openCustomExpiryModal(customExpiryModal, appTenant, role)"
+                                        *ngIf="role.roleActive == null && role.roleExpiration == null">
+                                        <small>Set custom expiry</small>
+                                    </u>
+                                    <u class="ms-1 text-primary"
+                                        (click)="openCustomExpiryModal(customExpiryModal, appTenant, role)"
+                                        *ngIf="role.roleActive != null && role.roleExpiration != null">
+                                        <small>{{role.roleActive | date}} - {{role.roleExpiration | date}}</small>
+                                    </u>
+                                </div>
+                                <ul class="ms-2">
+                                    <li *ngFor="let resource of role.resources">
+                                        {{resource.resourceName}} / {{resource.operationDetails}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card icon-btn" (click)="addTenantApplicationRole()">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center">
+                            <h4><i class='uil uil-plus'></i> Assign more applications</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-end mb-3">
+            <button type="button" id="btnCancel" class="btn btn-light btn-md rounded-pill"
+                routerLink="/maintenance/user-management">
+                Cancel
+            </button>
+            <button class="btn btn-warning btn-md rounded-pill ms-2" (click)="resetEdit()">
+                Reset
+            </button>
+            <button type="button" id="btnCreate" class="btn btn-info btn-md rounded-pill ms-2" (click)="editUser()" *ngIf="enabledUpdate">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Set custom expiry date modal -->
+<ng-template #customExpiryModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Set custom expiry</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="rdBtnDefaultExpiration" [value]="false"
+                        [(ngModel)]="modalModel.roleCustom.setCustomExpiry" name="roleExpiration"
+                        class="form-check-input">
+                    <label for="rdBtnDefaultExpiration"
+                        *ngIf="modalModel.defaultActive != null && modalModel.defaultExpiration != null">
+                        Default expiry: {{modalModel.defaultActive | date}} - {{modalModel.defaultExpiration | date}}
+                    </label>
+                    <label for="rdBtnDefaultExpiration" *ngIf="modalModel.defaultExpiration == null">
+                        Default expiry: {{modalModel.defaultActive | date}} - <span class="text-danger">indefinite
+                            access</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="rdBtnCustomExpiration" [value]="true"
+                        [(ngModel)]="modalModel.roleCustom.setCustomExpiry" name="roleExpiration"
+                        class="form-check-input">
+                    <label for="rdBtnCustomExpiration">Customize expiry of selected role</label>
+                </div>
+
+                <ng-template #dayTemplate let-date let-focused="focused">
+                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date, modalModel)"
+                        [class.faded]="isHovered(date, modalModel) || isInside(date, modalModel)"
+                        (mouseenter)="modalModel.roleCustom.hoveredDate = date"
+                        (mouseleave)="modalModel.roleCustom.hoveredDate = null">
+                        {{ date.day }}
+                    </span>
+                </ng-template>
+
+                <input type="text" class="form-control date" *ngIf="modalModel.roleCustom.setCustomExpiry == true"
+                    [value]="modalModel.roleCustom.selectedDateRange" ngbDatepicker
+                    #customExpirationDatePicker="ngbDatepicker"
+                    (dateSelect)="onCustomRoleDateSelection($event, modalModel.roleCustom)" [displayMonths]="2"
+                    [dayTemplate]="dayTemplate" (click)="customExpirationDatePicker.toggle()" autoClose="'outside'">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary"
+            (click)="setRoleExpiration(modalModel);modal.close('Close click')">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #filterRoleModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">More filters</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <ng-container *ngFor="let resource of modalModel.appTenant.resourcesFilterRef">
+            <h4 class="mt-1">{{resource.resourceName}}</h4>
+            <div class="row mt-1">
+                <div class="col-6" *ngFor="let operation of resource.operations">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" [(ngModel)]="operation.isSelected"
+                            [id]="'chkBxOperationFilter'+modalModel.index+operation.operationId">
+                        <label [for]="'chkBxOperationFilter'+modalModel.index+operation.operationId"
+                            class="form-check-label">{{operation.operationName}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="clearOperations(modalModel.appTenant)">Clear all</button>
+        <button type="button" class="btn btn-primary"
+            (click)="filterRoles(modalModel.appTenant);modal.close('Close click')">Apply filters</button>
+    </div>
+</ng-template>
+<ngbd-toast-global></ngbd-toast-global>

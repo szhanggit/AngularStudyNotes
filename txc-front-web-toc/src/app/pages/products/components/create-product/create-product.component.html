@@ -1,0 +1,31 @@
+<div class="create-product">
+    <div class="row my-3">
+        <h3 class="text-secondary">{{ selectedType.value | createproducttitle }}</h3>
+        <app-product-wizard-stepper class="mt-2" *ngIf="step > 0" [step]="step" [selectedType]="selectedType" (stepperChanged)="OnStepChanged($event)"></app-product-wizard-stepper>
+    </div>
+
+    <app-product-type *ngIf="step < 1" [selectedType]="selectedType" [selectedTenant]="selectedTenant" (productSelectedEvent)="OnProductSelected($event)"></app-product-type>
+    <app-product-details *ngIf="step === 1" [selectedTenant]="selectedTenant" [selectedType]="selectedType" [detailsFormGroup]="detailsFormGroup"></app-product-details>
+    <app-product-combo *ngIf="step === 2 && masterVoucherKeys.includes(selectedType.key)"></app-product-combo>
+    <app-product-pricing *ngIf="step === 2 && !masterVoucherKeys.includes(selectedType.key) || step === 3 && masterVoucherKeys.includes(selectedType.key)" [selectedTenant]="selectedTenant" [selectedType]="selectedType" [pricingFormGroup]="pricingFormGroup"></app-product-pricing>
+    <app-product-template *ngIf="step === 3 && !masterVoucherKeys.includes(selectedType.key) || step === 4 && masterVoucherKeys.includes(selectedType.key)" [selectedTenant]="selectedTenant" [selectedType]="selectedType"></app-product-template>
+    <app-product-properties *ngIf="step === 4 && !masterVoucherKeys.includes(selectedType.key) || step === 5 && masterVoucherKeys.includes(selectedType.key)" [selectedTenant]="selectedTenant" [selectedExternalProperties]="currentExternalProperties" (onExternalPropertiesChanged)="OnExternalPropertyChanged($event)"></app-product-properties>
+    <app-product-review *ngIf="step === 5 && !masterVoucherKeys.includes(selectedType.key) || step === 6 && masterVoucherKeys.includes(selectedType.key)" [detailsFormGroup]="detailsFormGroup" (editStep)="OnStepChanged($event)"></app-product-review>
+
+    <div class="row my-2">
+        <div class="col-9">
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" (click)="prev()">{{ step |
+                        productwizardback }}</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary rounded-pill w-100 p-2 font-12" [disabled]="getNextValidity()"
+                        (click)="next()">{{ step | productwizardnext }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

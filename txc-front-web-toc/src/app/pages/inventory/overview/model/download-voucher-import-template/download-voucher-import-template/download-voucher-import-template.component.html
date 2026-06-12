@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title text-center w-100">Download voucher import template</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <h6>voucher import template</h6>
+    </div>
+    <div class="row">
+        <select class="form-select form-select-sm" (change)='onSelect(val.value)' #val>
+            <option >Select</option>
+            <option *ngFor="let item of options" [value]="item.templateid">
+            {{ item.templatename }}
+            </option>
+        </select>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6 text-center">
+            <button type="button" class="btn btn-light rounded-pill w-100" (click)="activeModal.close('Close click')">Cancel</button>
+        </div>
+        <div class="col-6 text-center">
+            <button type="button" class="btn btn-secondary rounded-pill w-100" type="submit">Download</button>
+        </div>
+    </div>
+</div>

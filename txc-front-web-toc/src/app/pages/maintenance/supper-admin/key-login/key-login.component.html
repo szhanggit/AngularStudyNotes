@@ -1,0 +1,32 @@
+<ng-progress #progressBar></ng-progress>
+<app-page-title [breadcrumbItems]="pageTitle" [title]="title"></app-page-title>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form #form ="ngForm" (ngSubmit)="onSubmit(form)">
+          <div class="row">
+            <div class="col-lg-6 col-sm-12 mt-2">
+              <label for="keyName" class="form-label">Key Name</label>
+              <input type="text" class="form-control" placeholder="Key Name" name="keyName" ngModel #keyName="ngModel" required>
+            </div>
+            <div class="col-lg-6 col-sm-12 mt-2">
+              <label for="keyValue" class="form-label">Key Value</label>
+              <input type="password" class="form-control" placeholder="Key value" name="keyValue" ngModel #keyValue="ngModel" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-lg-6 col-sm-12">
+              <button type="submit" class="btn" [ngClass]="{ 'btn-danger': !form.valid , 'btn-primary' : form.valid }">Validate</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ngbd-toast-global></ngbd-toast-global>

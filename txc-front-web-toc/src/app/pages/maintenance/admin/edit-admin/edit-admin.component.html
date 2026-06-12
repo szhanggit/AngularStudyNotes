@@ -1,0 +1,161 @@
+<ng-progress #progressBar></ng-progress>
+<app-page-title [breadcrumbItems]="pageTitle" title="Edit User"></app-page-title>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Basic Information</h4>
+                <dl class="row mt-3">
+                    <dt class="col-3">Account name</dt>
+                    <dd class="col-3">{{ldapUser.userName}}</dd>
+                    <dt class="col-3">Email address</dt>
+                    <dd class="col-3">{{ldapUser.email}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-3">User name</dt>
+                    <dd class="col-3">{{ldapUser.displayName}}</dd>
+                    <dt class="col-3">Country</dt>
+                    <dd class="col-3">{{ldapUser.country}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-3">Department</dt>
+                    <dd class="col-3">{{ldapUser.department}}</dd>
+                    <dt class="col-3">Job title</dt>
+                    <dd class="col-3">{{ldapUser.title}}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-3">User type</dt>
+                    <dd class="col-3" *ngIf="userToEdit.isAdUser == true">AD user</dd>
+                    <dd class="col-3" *ngIf="userToEdit.isAdUser == false">Non-AD user</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngFor="let appTenant of userToEdit.appTenants; let first = first; let index = index;">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex bd-highlight">
+                <div class="me-auto bd-highlight">
+                    <h4 class="header-title">Assigned application & roles</h4>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <button class="btn btn-link btn-sm" type="button" *ngIf="!first"
+                        (click)="removeTenantApplicationRole(index)">Delete</button>
+                </div>
+            </div>
+            <!-- existing app-tenant, can't edit -->
+            <ng-container *ngIf="appTenant.uatId > 0">
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Business unit</label>
+                        <input type="text" class="form-control" [(ngModel)]="appTenant.tenantName" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Application</label>
+                        <input type="text" class="form-control" [(ngModel)]="appTenant.appName" readonly>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- new app-tenant -->
+            <ng-container *ngIf="appTenant.uatId == 0">
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Business unit</label>
+                        <select2 [data]="tenants" [(ngModel)]="appTenant.tenantId"
+                            (ngModelChange)="setRolesRef(appTenant)" [value]="appTenant.tenantId" id="cboTenants"
+                            #cboTenants>
+                        </select2>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Application</label>
+                        <select2 [data]="applications" [(ngModel)]="appTenant.appId"
+                            (ngModelChange)="setRolesRef(appTenant)" [value]="appTenant.appId" id="cboApplications"
+                            #cboApplications>
+                        </select2>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <label class="form-label">Set default expiry</label>
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" [(ngModel)]="appTenant.specifyExpiration"
+                                [name]="'specifyExpiration'+index" [id]="'rdBtnNoExpirationDate'+index" [value]="false"
+                                class="form-check-input" (click)="clearDefaultDateRange(appTenant)">
+                            <label [for]="'rdBtnNoExpirationDate'+index">No expiration date</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" [(ngModel)]="appTenant.specifyExpiration"
+                                [name]="'specifyExpiration'+index" [id]="'rdBtnSpecifyExpirationDate'+index"
+                                [value]="true" class="form-check-input">
+                            <label [for]="'rdBtnSpecifyExpirationDate'+index">Specify the expiration date</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" *ngIf="appTenant.specifyExpiration == true">
+                    <ng-template #dayTemplate let-date let-focused="focused">
+                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date, appTenant)"
+                            [class.faded]="isHovered(date, appTenant) || isInside(date, appTenant)"
+                            (mouseenter)="appTenant.hoveredDate = date" (mouseleave)="appTenant.hoveredDate = null">
+                            {{ date.day }}
+                        </span>
+                    </ng-template>
+                    <label for="defaultExpirationDatePicker" class="form-label"></label>
+                    <input type="text" class="form-control date" id="defaultExpirationDatePicker"
+                        [value]="appTenant.selectedDateRange" ngbDatepicker #defaultExpirationDatePicker="ngbDatepicker"
+                        (dateSelect)="onDefaultRoleDateSelection($event, appTenant)" [displayMonths]="2"
+                        [dayTemplate]="dayTemplate" (click)="defaultExpirationDatePicker.toggle()"
+                        autoClose="'outside'">
+                </div>
+            </div>
+
+            <ng-container *ngIf="!appTenant.tenantId || !appTenant.appId">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center">
+                            <p class="card-text">Select business unit and application above to add Admin role.</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card" (click)="addTenantApplicationRole()" id="CardAddMoreApps">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center">
+                            <h4><i class='uil uil-plus'></i> Assign more applications</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-end mb-3">
+            <button type="button" id="btnCancel" class="btn btn-light btn-md rounded-pill"
+                routerLink="/maintenance/admin-management">
+                Cancel
+            </button>
+            <button class="btn btn-warning btn-md rounded-pill ms-2" (click)="resetEdit()">
+                Reset
+            </button>
+            <button type="button" id="btnCreate" class="btn btn-info btn-md rounded-pill ms-2"
+                [class.btn-info]="selectedRole" [disabled]="!selectedRole" (click)="editUser()" *ngIf="enabledUpdate">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

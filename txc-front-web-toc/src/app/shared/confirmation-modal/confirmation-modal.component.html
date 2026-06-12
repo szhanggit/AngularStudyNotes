@@ -1,0 +1,27 @@
+<div [class.show]="model.display"
+     [class.hide]="!model.display">
+     <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="modal-title">
+                {{model.title}}
+            </div>
+            <div class="modal-controls">
+                <button class="btn close-btn" (click)="btnCloseClick()">X</button>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="message">
+                {{model.message}}
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn" id="btnSave" (click)="btnYesClick()">Yes</button>
+            <button class="btn" id="btnCancel" (click)="btnNoClick()">No</button>
+        </div>
+    </div>
+    
+    
+    <div class="modal-overlay" id="modal-overlay">
+    </div>
+</div>

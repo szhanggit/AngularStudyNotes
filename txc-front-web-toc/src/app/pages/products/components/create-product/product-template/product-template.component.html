@@ -1,0 +1,107 @@
+<ng-container *ngTemplateOutlet="dynamicFaceValueSettings"></ng-container>
+<ng-container *ngTemplateOutlet="productDeliveryTemplate"></ng-container>
+<ng-container *ngTemplateOutlet="ImageForAppleWalletOrGooglePay"></ng-container>
+
+<ng-template #dynamicFaceValueSettings>
+    <div class="bg-white rounded px-3 py-2 my-3" *ngIf="selectedType.key === 4">
+        <span class="text-dark font-16"><strong>Dynamic Face Value Banner Settings</strong></span>
+        <div class="row mt-2 mb-3">
+            <div class="col-6">
+                <label for="faceValueTax" class="form-label">HEX color code <span
+                        class="text-danger">*</span></label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-6">
+                <label for="faceValueTax" class="form-label">Font size <span
+                    class="text-danger">*</span></label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-6">
+                <label for="faceValueTax" class="form-label">Point X <span
+                    class="text-danger">*</span></label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-6">
+                <label for="faceValueTax" class="form-label">Point Y <span
+                    class="text-danger">*</span></label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #productDeliveryTemplate>
+    <div class="bg-white rounded px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Product delivery template</strong></span>
+        <ul ngbNav #nav="ngbNav" [(activeId)]="templateType" class="nav-tabs nav-bordered font-14">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink [ngClass]="{'text-primary': templateType === 1}">Email design</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="emailDesign"></ng-container>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink [ngClass]="{'text-primary': templateType === 2}">SMS design</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="smsDesign"></ng-container>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="py-2 mt-2"></div>
+    </div>
+</ng-template>
+
+<ng-template #emailDesign>
+    <div class="row font-14">
+        <div class="col-6">
+            <label for="emailTemplate" class="form-label">Email template</label>
+            <select name="emailTemplate" class="form-select">
+                <option selected [value]="0">Select</option>
+            </select>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #smsDesign>
+    <div class="row font-14">
+        <div class="col-6">
+            <label for="smsTemplate" class="form-label">SMS template</label>
+            <select name="smsTemplate" class="form-select">
+                <option selected [value]="0">Select</option>
+            </select>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #ImageForAppleWalletOrGooglePay>
+    <div class="bg-white rounded px-3 py-2 my-3 font-14" *ngIf="productCustomizationSvc.isTaiwan(selectedTenant)">
+        <span class="text-dark font-16"><strong>Image for Apple Wallet / Google Pay</strong></span>
+        <div class="row my-3">
+            <div class="col-6">
+                <label for="walletStatus" class="form-label">Wallet status
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" [checked]="true">
+                    </div>
+                </label>
+            </div>
+            <div class="col-6">
+                <label for="descriptionWalletStatus" class="form-label">Description shown on Apple
+                    Wallet / Google Pay</label>
+                <input type="text" class="form-control" placeholder="Enter value" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="walletImage" class="form-label">Wallet image</label>
+                <div class="dashed d-flex justify-content-center p-3">
+                    <div class="d-flex flex-column text-center">
+                        <div class="border empty-img"></div>
+                        <div class="my-2">Test_Logo_image_750x288.png</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

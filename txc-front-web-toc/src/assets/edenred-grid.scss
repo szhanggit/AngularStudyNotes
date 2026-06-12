@@ -1,0 +1,29 @@
+.grid-container{
+    height: 100%;
+    width: 100%;
+    border: solid 0.5px rgb(161, 161, 161);
+
+    .g-header-body{
+        width: 100%;
+        height: calc(100% - 26px);
+        .g-header{
+            height: 30px;
+            background-color: rgb(230, 230, 230);
+            color: rgb(71, 71, 71);
+            border-bottom: solid 0.5px rgb(161, 161, 161);
+        }
+    
+        .g-body{
+            height: 100%;
+            overflow-y: auto;
+        }
+    }
+    
+
+    .g-footer{
+        height: 25px;
+        background-color: rgb(230, 230, 230);
+        color: rgb(71, 71, 71);
+        border-top: solid 0.5px rgb(161, 161, 161);
+    }
+}

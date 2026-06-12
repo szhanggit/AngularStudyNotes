@@ -1,0 +1,23 @@
+<div class="wrapper">
+    <div class="content-page">
+        <div class="content">
+            <!-- top bar-->
+            <app-topbar [hideLogo]="false" [cssClasses]="topbarCssClasses"
+                (settingsButtonClicked)="onSettingsButtonClicked()" layoutType="horizontal"
+                (mobileMenuButtonClicked)="onToggleMobileMenu()">
+            </app-topbar>
+
+            <!-- top bar menu -->
+            <app-horizontal-topnav [showMobileMenu]="showMobileMenu" [navbarTheme]="topnavTheme"
+                [navContainerCssClasses]="topnavContainerClasses"></app-horizontal-topnav>
+
+            <!-- content-->
+            <div class="container-fluid" *ngIf="reRender">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <app-footer></app-footer>
+    </div>
+</div>

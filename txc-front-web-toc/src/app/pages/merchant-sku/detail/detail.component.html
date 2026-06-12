@@ -1,0 +1,236 @@
+<div class="row pt-3">
+    <div class="col-12">
+        <div class="page-back-navigation">            
+            <button type="button" class="btn text-muted d-none d-sm-inline-block btn-link fw-semibold"><i class="mdi mdi-arrow-left"></i> Back to inventory overview</button>            
+                
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">
+                <strong>{{ "SKU_NO_0002: " }}</strong>
+                <span class="page-sub-title">{{ "Edented Virtual e-Gift Card 1,000" }}</span> <i class="mdi mdi-pencil px-1" placement="top" ngbTooltip="Edit" (click)="openEditMerchantSkuName()"></i></h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Basic Information<button type="button" class="btn btn-light btn-sm float-end" (click)="openEditAdditionalInfo()">Edit additional info</button></h4>
+
+                <div class="row">                    
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <h4>Merchant</h4>                        
+                        <h5><i class="mdi mdi-information-outline" placement="top" ngbTooltip="Default tooltip"></i>Go to merchant page to manage merchant Information</h5>
+
+                        <dl class="row mb-0">
+                            <dt class="col-sm-6">Merchant Name</dt><dd class="col-sm-6">Edenred Demo Corp</dd>
+                            <dt class="col-sm-6">Business Model</dt><dd class="col-sm-6">Prepaid or Postpaid</dd>
+                            <dt class="col-sm-6">Lead time</dt><dd class="col-sm-6">N days</dd>
+                            <dt class="col-sm-6">Merchant MOQ</dt><dd class="col-sm-6">1,000</dd>
+                            <dt class="col-sm-6">Merchant MOV</dt><dd class="col-sm-6">10,000</dd>
+                       </dl>                                                    
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <h4>Additonal</h4>
+                        
+                        <dl class="row mb-0">
+                            <dt class="col-sm-6">SKU MOQ</dt><dd class="col-sm-6"></dd>
+                            <dt class="col-sm-6">Default Cost Value</dt><dd class="col-sm-6"></dd>
+                       </dl>                                                    
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Voucher watermark rule <button type="button" class="btn btn-light btn-sm float-end" (click)="openEditVoucherWatermarkRule()">Manage rule</button></h4>
+
+                <div class="row">                    
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <h4>Stock level</h4>                        
+                        <!-- <h5><i class="mdi mdi-information-outline" placement="top" ngbTooltip="Default tooltip"></i>Go to merchant page to manage merchant Information</h5> -->
+
+                        <dl class="row mb-0">
+                            <dt class="col-sm-6">Instock low watermark</dt><dd class="col-sm-6">50</dd>
+                            <dt class="col-sm-6">Instock high watermark</dt><dd class="col-sm-6">200</dd>
+                            <dt class="col-sm-6">Replenishment Quantity</dt><dd class="col-sm-6">100</dd>
+                       </dl>                                                    
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <h4>Cache</h4>
+                        
+                        <dl class="row mb-0">
+                            <dt class="col-sm-6">Cache low watermark</dt><dd class="col-sm-6">5</dd>
+                            <dt class="col-sm-6">Cache high watermark</dt><dd class="col-sm-6">10</dd>
+                       </dl>                                                    
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Related Product Code <span class="text-muted">(Total : 25)</span></h4>
+
+                <div class="row">                    
+                    <div class="col-xl-12 col-lg-12 col-sm-12">
+                        <table class="table table-sm table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Product Code</th>
+                                    <th>Product Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SGC8MMDD09SNXYZ</td>
+                                    <td>(Edented) 7-11 Virtual e-Gift Card 1,000</td>
+                                </tr>
+                                <tr>
+                                    <td>SGC8MMDD09SNXYZ</td>
+                                    <td>(Edented) 7-11 Virtual e-Gift Card 1,000</td>
+                                </tr>
+                                <tr>
+                                    <td>SGC8MMDD09SNXYZ</td>
+                                    <td>(Edented) 7-11 Virtual e-Gift Card 1,000</td>
+                                </tr>
+                                <tr>
+                                    <td>SGC8MMDD09SNXYZ</td>
+                                    <td>(Edented) 7-11 Virtual e-Gift Card 1,000</td>
+                                </tr>
+                                <tr>
+                                    <td>SGC8MMDD09SNXYZ</td>
+                                    <td>(Edented) 7-11 Virtual e-Gift Card 1,000</td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <button type="button" class="btn btn-light rounded-pill w-100" (click)="openViewAllRelatedProductCode()">View all</button>                                                  
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Inventory Details</h4>
+
+                <div class="row">                    
+                    <div class="col-xl-12 col-lg-12 col-sm-12">
+                        <table class="table table-sm table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Available Start Date</th>
+                                    <th>Available End Date</th>
+                                    <th>Expiry Date</th>
+                                    <th>Trust Account End Date</th>
+                                    <th>In Stock Qty</th>
+                                    <th>Cache Qty</th>
+                                    <th>Total Stock Qty</th>  
+                                    <th>Action</th>  
+                                    <th></th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td (click)="openViewInventoryDetail()">#1</td>
+                                    <td (click)="openViewInventoryDetail()">5/5/2021</td>
+                                    <td (click)="openViewInventoryDetail()">10/28/2021</td>
+                                    <td (click)="openViewInventoryDetail()">10/28/2021 11:59:59 PM</td>
+                                    <td (click)="openViewInventoryDetail()">--</td>
+                                    <td (click)="openViewInventoryDetail()">4</td>
+                                    <td (click)="openViewInventoryDetail()">0</td>
+                                    <td (click)="openViewInventoryDetail()">4</td>
+                                    <td><button type="button" class="btn btn-dark btn-sm" disabled>Clear cache</button></td>
+                                    <td>
+                                        <div ngbDropdown class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openDownloadRemainingVoucherDetails()">Download remaining voucher details</a>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openEditDateInfo()">Edit date info</a>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openViewDownloadHistory()">View download history</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td (click)="openViewInventoryDetail()">#2</td>
+                                    <td (click)="openViewInventoryDetail()">3/8/2021</td>
+                                    <td (click)="openViewInventoryDetail()">10/4/2021</td>
+                                    <td (click)="openViewInventoryDetail()">10/4/2021 11:59:59 PM</td>
+                                    <td (click)="openViewInventoryDetail()">--</td>
+                                    <td (click)="openViewInventoryDetail()">6</td>
+                                    <td (click)="openViewInventoryDetail()">0</td>
+                                    <td (click)="openViewInventoryDetail()">6</td>
+                                    <td><button type="button" class="btn btn-dark btn-sm" disabled>Clear cache</button></td>
+                                    <td>
+                                        <div ngbDropdown class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openDownloadRemainingVoucherDetails()">Download remaining voucher details</a>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openEditDateInfo()">Edit date info</a>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openViewDownloadHistory()">View download history</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td (click)="openViewInventoryDetail()">#3</td>
+                                    <td (click)="openViewInventoryDetail()">3/17/2021</td>
+                                    <td (click)="openViewInventoryDetail()">9/17/2021</td>
+                                    <td (click)="openViewInventoryDetail()">9/17/2021 11:59:59 PM</td>
+                                    <td (click)="openViewInventoryDetail()">--</td>
+                                    <td (click)="openViewInventoryDetail()">20</td>
+                                    <td (click)="openViewInventoryDetail()">9</td>
+                                    <td (click)="openViewInventoryDetail()">29</td>
+                                    <td><button type="button" class="btn btn-dark btn-sm">Clear cache</button></td>
+                                    <td>
+                                        <div ngbDropdown class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openDownloadRemainingVoucherDetails()">Download remaining voucher details</a>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openEditDateInfo()">Edit date info</a>
+                                                <a class="dropdown-item" ngbDropdownItem (click)="openViewDownloadHistory()">View download history</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>

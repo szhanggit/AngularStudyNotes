@@ -1,0 +1,42 @@
+<div class="product-details">
+    <div class="row mt-3">
+        <a class="font-12 text-secondary" (click)="navigateBackToProductHistory()"><i class="uil-angle-left"></i> Back
+            to product history</a>
+        <div class="col-6 mt-2">
+            <span class="text-secondary font-22"><strong>{{ product?.productCode | titlecase }}</strong></span>
+            <span class="text-dark font-22 mx-2"><strong>{{ product?.productName | titlecase }}</strong></span>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-3">
+            <div class="font-16">
+                <strong class="border"
+                    [ngClass]="{ 'text-success' : product?.status, 'text-danger' : !product?.status }">{{
+                    product?.status ? 'Active' : 'Inactive' }}</strong>
+                <div class="vr font-16 mx-2"></div>
+                <span class="text-secondary font-16">
+                    Product type: {{ product?.productType | producttype }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="productDetails"></ng-container>
+    <ng-template #productDetails>
+        <div class="bg-white rounded px-3 py-2 my-2">
+            <div class="row">
+                <div class="col-10">
+                    <button class="btn rounded-circle btn-light btn-sm" (click)="pdCollapse.toggle()"
+                        [attr.aria-expanded]="!productDetailsCollapsed" aria-controls="collapseExample">
+                        <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                    </button>
+                    <span class="text-dark collapse-title font-16 m-2">
+                        <strong>Product Details</strong>
+                    </span>
+                </div>
+            </div>
+            <div #pdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productDetailsCollapsed">
+                <!-- BASIC INFO -->
+                <app-basic-info [selectedTenant]="selectedTenant" [product]="product"></app-basic-info>
+            </div>
+        </div>
+    </ng-template>

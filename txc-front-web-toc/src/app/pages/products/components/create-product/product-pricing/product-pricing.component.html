@@ -1,0 +1,292 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value must be less than 100 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.min">
+        Entered value must be greater than zero!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+
+<form [formGroup]="pricingFormGroup" (submit)="OnSubmit()">
+    <div class="bg-white rounded px-3 py-2 my-3 font-14">
+        <span class="text-dark font-16"><strong>Default pricing</strong></span>
+        <ng-container *ngIf="selectedType?.key !== 4; else dynamicFaceForm">
+            <div class="row">
+                <div class="col-6">
+                    <label for="faceValueTax" class="form-label">Face value (with tax) <span
+                            class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.faceValueWithTax?.invalid
+                    }" formControlName="faceValueWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.faceValueWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #faceValueWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(faceValueWithTaxTip, f.faceValueWithTax)"
+                        [disableTooltip]="!f.faceValueWithTax?.invalid">
+                </div>
+                <div class="col-6">
+                    <label for="faceValueTax" class="form-label">Face value</label>
+                    <input type="number" class="form-control" formControlName="faceValue">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="defaultSrpPreTax" class="form-label">Default selling price (<span
+                            class="text-primary">prepaid</span> with tax) <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.sellingPricePrepaidWithTax?.invalid
+                    }" formControlName="sellingPricePrepaidWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.sellingPricePrepaidWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #sellingPricePrepaidWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(sellingPricePrepaidWithTaxTip, f.sellingPricePrepaidWithTax)"
+                        [disableTooltip]="!f.sellingPricePrepaidWithTax?.invalid">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPre" class="form-label ">Default selling price (<span
+                            class="text-primary">prepaid</span>)</label>
+                    <input type="number" class="form-control"  formControlName="sellingPricePrepaid">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="selectedType?.key === 1 || selectedType?.key === 3">
+                <div class="col-6">
+                    <label for="defaultSrpPostTax" class="form-label ">Default selling price (<span class="text-success"
+                            [ngClass]="{'text-primary': selectedType?.key}">postpaid</span> with tax) <span
+                            class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.sellingPricePostpaidWithTax?.invalid
+                    }" formControlName="sellingPricePostpaidWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.sellingPricePostpaidWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #sellingPricePostpaidWithTaxTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(sellingPricePostpaidWithTaxTip, f.sellingPricePostpaidWithTax)"
+                        [disableTooltip]="!f.sellingPricePostpaidWithTax?.invalid">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPost" class="form-label ">Default selling price (<span class="text-success"
+                            [ngClass]="{'text-primary': selectedType?.key}">postpaid</span>)</label>
+                    <input type="number" class="form-control"  formControlName="sellingPricePostpaid">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="editMode">
+                <div class="col-6">
+                    <label for="productCost" class="form-label ">Default product cost (with tax)<span
+                            class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.costWithTax?.invalid
+                    }" formControlName="costWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.costWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #costWithTaxTip="ngbTooltip" (click)="toggleTooltipWithContext(costWithTaxTip, f.costWithTax)"
+                        [disableTooltip]="!f.costWithTax?.invalid">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPost" class="form-label ">Default product cost</label>
+                    <input type="number" class="form-control"  formControlName="cost">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="selectedType?.key === 2">
+                <div class="col-6">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPost" class="form-label ">Default selling price (<span
+                            class="text-primary">prepaid %</span>)</label>
+                    <input type="number" class="form-control"  formControlName="defaultSellingPrice">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="selectedType?.key === 3">
+                <div class="col-6">
+                    <label for="balance" class="form-label ">Balance <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.balance?.invalid
+                    }" formControlName="balance" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.balance?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #balanceTip="ngbTooltip" (click)="toggleTooltipWithContext(balanceTip, f.balance)"
+                        [disableTooltip]="!f.balance?.invalid">
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #dynamicFaceForm>
+            <div class="row">
+                <div class="col-6">
+                    <label for="faceValueTax" class="form-label">Default selling price (<span
+                            class="text-primary">prepaid</span> %) <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.defaultSellingPrice?.invalid
+                    }" formControlName="defaultSellingPrice" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.defaultSellingPrice?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #defaultSellingPriceTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(defaultSellingPriceTip, f.defaultSellingPrice)"
+                        [disableTooltip]="!f.defaultSellingPrice?.invalid">
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="editMode">
+                <div class="col-6">
+                    <label for="productCost" class="form-label ">Default product cost (with tax)<span
+                            class="text-danger">*</span></label>
+                    <input type="number" class="form-control" [ngClass]="{
+                        'is-invalid': f.costWithTax?.invalid
+                    }" formControlName="costWithTax" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.costWithTax?.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #costWithTaxTip="ngbTooltip" (click)="toggleTooltipWithContext(costWithTaxTip, f.costWithTax)"
+                        [disableTooltip]="!f.costWithTax?.invalid">
+                </div>
+                <div class="col-6">
+                    <label for="defaultSrpPost" class="form-label ">Default product cost</label>
+                    <input type="number" class="form-control"  formControlName="cost">
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="bg-white rounded px-3 py-2 my-3 font-14">
+        <div class="row mb-3">
+            <div class="col-6">
+                <span class="text-dark font-16"><strong>Expiry scheme <span class="text-danger">*</span></strong></span>
+            </div>
+            <div class="col-6" *ngIf="selectedExpirySchemes.length">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12" (click)="openModal(expirySchemeModal)">Select Expiry
+                        Condition</button>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngIf="selectedExpirySchemes.length > 0 else noExpiryScheme">
+            <div class="row font-12">
+                <div class="col-2 text-left"></div>
+                <div class="col-4 text-left"><strong>Expiry Date Type</strong></div>
+                <div class="col-4 text-left"><strong>Expiry Condition</strong></div>
+                <div class="col-2 text-center"><strong>Action</strong></div>
+                <hr class="my-2">
+            </div>
+            <div class="row" *ngFor="let expiryScheme of selectedExpirySchemes; let index = index">
+                <div class="col-2 text-left">{{ index + 1 }}</div>
+                <div class="col-4 text-left">{{ expiryScheme.expiryDateType }}</div>
+                <div class="col-4 text-left">{{ expiryScheme.expiryCondition }}</div>
+                <div class="col-2 text-center">
+                    <button class="btn btn-light" (click)="selectedExpirySchemes.splice(index,1)">
+                        <i class="uil-trash"></i>
+                    </button>
+                </div>
+                <hr class="my-2">
+            </div>
+        </ng-container>
+        <ng-template #noExpiryScheme>
+            <div class="row my-2">
+                <div class="text-center text-danger">
+                    <button class="btn btn-primary font-12" (click)="openModal(expirySchemeModal)">Select Expiry
+                        Condition</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</form>
+
+<ng-template #contract>
+    <div class="bg-white rounded px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Contract</strong></span>
+        <div class="row">
+            <div class="col-2 text-left">
+                <h6>Available Merchant</h6>
+            </div>
+            <div class="col-2 text-left">
+                <h6>Shop(s)</h6>
+            </div>
+            <div class="col-3 text-left">
+                <h6>Default Product Cost (with tax) <span class="text-danger">*</span></h6>
+            </div>
+            <div class="col-3 text-left">
+                <h6>Valid Period <span class="text-danger">*</span></h6>
+            </div>
+            <div class="col-2 text-left"></div>
+            <hr class="my-2">
+        </div>
+        <div class="row">
+            <div class="col-2 text-left">AvailableMerchantName01</div>
+            <div class="col-2 text-left">All (N Shops)</div>
+            <div class="col-3 text-left">
+                <input type="text" class="form-control">
+                <div class="mt-2">
+                    <h6>Product cost: 457.1429</h6>
+                </div>
+            </div>
+            <div class="col-3 text-left">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-2 text-left">
+                <button class="btn form-control btn-secondary">Apply to merchants</button>
+            </div>
+            <hr class="my-3">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #expirySchemeModal let-modal>
+    <div class="modal-body font-14">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>Select Expiry Condition</strong></span>
+        </div>
+
+        <div class="my-3 position-relative" id="stopIssueTimeContainer">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <select name="filter" class="form-select font-12" [(ngModel)]="selectedFilter">
+                        <option selected value="All">All expiry date type</option>
+                        <option *ngFor="let expirySchemeFilter of edenredExpirySchemeFilters"
+                            [value]="expirySchemeFilter.value">
+                            {{ expirySchemeFilter.value }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row font-12">
+                <div class="col-2 text-center font-14">
+                    <input type="checkbox" class="form-check-input" id="customCheck1" #toggleCheckbox
+                        (change)="toggleCheckboxes(toggleCheckbox.checked)" [checked]="toggleCheckboxStatus">
+                </div>
+                <div class="col-5">
+                    <strong>Expiry Date Type</strong>
+                </div>
+                <div class="col-5">
+                    <strong>Expiry Condition</strong>
+                </div>
+                <hr class="my-2">
+            </div>
+            <ng-container>
+                <ngx-simplebar style="max-height: 250px; overflow-x: hidden;">
+                    <div class="row" *ngFor="let expiryScheme of displayedExpirySchemes; let index = index">
+                        <div class="col-2 text-center">
+                            <input type="checkbox" class="form-check-input" id="customCheck1"
+                                [checked]="expiryScheme.checked" #checkbox
+                                (change)="expiryScheme.checked = checkbox.checked">
+                        </div>
+                        <div class="col-5">
+                            {{ expiryScheme.expiryDateType }}
+                        </div>
+                        <div class="col-5">
+                            {{ expiryScheme.expiryCondition }}
+                        </div>
+                        <hr class="my-2">
+                    </div>
+                </ngx-simplebar>
+            </ng-container>
+        </div>
+
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-secondary rounded-pill font-12"
+                    (click)="modal.close('Close click')">Cancel</button>
+                <button type="button" class="btn btn-primary rounded-pill font-12 mx-2" (click)="modal.close('Confirm')"
+                    [disabled]="!getSelectedSchemes().length">Confirm ({{ getSelectedSchemes().length }})</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

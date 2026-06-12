@@ -1,0 +1,170 @@
+<ng-progress #progressBar></ng-progress>
+<app-page-title [breadcrumbItems]="pageTitle" title="Add User"></app-page-title>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Basic Information</h4>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="font-label">User Type</label>
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="rdBtnADUser" [value]="true"
+                                    [(ngModel)]="createUserRequest.isAdUser" name="userType" class="form-check-input">
+                                <label for="rdBtnADUser">AD user</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="radioBtnNonADUser" [value]="false"
+                                    [(ngModel)]="createUserRequest.isAdUser" name="userType" class="form-check-input">
+                                <label for="radioBtnNonADUser">Non-AD user</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">User name</label><span class="ms-2"
+                            *ngIf="searching">Searching...</span>
+                        <div class="input-group">
+                            <input type="text" (keyup)="onSearchKeyUp($event)" class="form-control"
+                                [(ngModel)]="createUserRequest.userName" [disabled]="searching" />
+                            <span class="input-group-text" (click)="searchUser()" id="ImgBtnMagnifier"><i
+                                    class='uil uil-search-alt'></i></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Email address</label>
+                        <input type="text" [(ngModel)]="ldapUser.email" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="form-label">Department</label>
+                        <input type="text" value="{{ldapUser.department}}" class="form-control" disabled>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Job title</label>
+                        <input type="text" value="{{ldapUser.title}}" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" *ngFor="let item of createUserAppTenant; let first = first; let index = index">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex bd-highlight">
+                <div class="me-auto bd-highlight">
+                    <h4 class="header-title">Assigned application & roles</h4>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <button class="btn btn-link btn-sm" type="button" *ngIf="!first"
+                        (click)="removeTenantApplicationRole(index)">Delete</button>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-6">
+                    <label class="form-label">Business unit</label>
+                    <select2 [data]="tenants" [(ngModel)]="item.tenantId" (ngModelChange)="setRolesRef(item)"
+                        [placeholder]="'Select'" id="cboTenants" #cboTenants>
+                    </select2>
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Application</label>
+                    <select2 [data]="applications" [(ngModel)]="item.appId" (ngModelChange)="setRolesRef(item)"
+                        [placeholder]="'Select'" id="cboApplications" #cboApplications>
+                    </select2>
+                </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                  <label class="form-label">Set default expiry</label>
+                  <div class="mt-2">
+                      <div class="form-check form-check-inline">
+                          <input type="radio" [(ngModel)]="item.specifyExpiration"
+                              [name]="'specifyExpiration'+index" [id]="'rdBtnNoExpirationDate'+index" [value]="false"
+                              class="form-check-input" (click)="clearDefaultDateRange(item)">
+                          <label [for]="'rdBtnNoExpirationDate'+index" (click)="clearDefaultDateRange(item)">
+                              No expiration date
+                          </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input type="radio" [(ngModel)]="item.specifyExpiration"
+                              [name]="'specifyExpiration'+index" [id]="'rdBtnSpecifyExpirationDate'+index"
+                              [value]="true" class="form-check-input">
+                          <label [for]="'rdBtnSpecifyExpirationDate'+index">Specify the expiration date</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-6" *ngIf="item.specifyExpiration == true">
+                  <ng-template #dayTemplate let-date let-focused="focused">
+                      <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date, item)"
+                          [class.faded]="isHovered(date, item) || isInside(date, item)"
+                          (mouseenter)="item.hoveredDate = date" (mouseleave)="item.hoveredDate = null">
+                          {{ date.day }}
+                      </span>
+                  </ng-template>
+                  <label for="defaultExpirationDatePicker" class="form-label"></label>
+                  <input type="text" class="form-control date" id="defaultExpirationDatePicker"
+                      [value]="item.selectedDateRange" ngbDatepicker #defaultExpirationDatePicker="ngbDatepicker"
+                      (dateSelect)="onDefaultRoleDateSelection($event, item)" [displayMonths]="2"
+                      [dayTemplate]="dayTemplate" (click)="defaultExpirationDatePicker.toggle()"
+                      autoClose="'outside'">
+              </div>
+          </div>
+
+            <ng-container *ngIf="!item.tenantId || !item.appId">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center">
+                            <p class="card-text">Select business unit and application above to have role options.</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card" (click)="addTenantApplicationRole()" id="CardAddMoreApps">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-center">
+                            <h4><i class='uil uil-plus'></i> Assign more applications</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-end mb-3">
+            <button type="button" id="btnCancel" class="btn btn-light btn-md rounded-pill"
+                routerLink="/maintenance/user-management">
+                Cancel
+            </button>
+            <button type="button" id="btnCancel" class="btn btn-warning btn-md rounded-pill ms-2"
+                (click)="clearFields()">
+                Reset
+            </button>
+            <button type="button" id="btnCreate" class="btn btn-md rounded-pill ms-2"
+                [class.btn-info]="userFound || selectedRole" [disabled]="!userFound || !selectedRole"
+                (click)="addNewUser()">
+                Add
+            </button>
+        </div>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

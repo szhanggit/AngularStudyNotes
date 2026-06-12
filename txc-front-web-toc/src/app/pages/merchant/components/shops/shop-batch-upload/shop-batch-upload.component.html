@@ -1,0 +1,151 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<div class="row my-3">
+    <div class="col-6">
+        <span class="font-22 text-dark bold">
+            Create Shop
+        </span>
+    </div>
+
+    <div class="col-12">
+        <div class="bg-white rounded px-3 py-2 my-2 font-14">
+            <div class="row mt-3">
+                <div class="col-12 mb-2">
+                    <span class="font-16 text-dark bold">
+                        Uploaded shop details (Total amount: {{ shops.length }})
+                    </span>
+                    <div class="float-end">
+                        <input hidden #uploader type="file" accept=".xls" class="custom-file-input" id="customFile"
+                            name="myfile" (change)="uploadFile($event)">
+                        <button class="btn btn-primary font-12 px-3" (click)="uploader.click()">Reupload excel</button>
+                    </div>
+                </div>
+                <div class="col-12 mb-2">
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" id="sameExternalCode"
+                            [(ngModel)]="sameExternalCode" (change)="toggleExternalCodeCheckbox()">
+                        <label class="form-check-label font-12" for="sameExternalCode">Use shop external code as shop
+                            internal code</label>
+                    </div>
+                </div>
+                <div class="col-12" *ngIf="errorList.length">
+                    <div class="alert alert-danger text-dark border-0" role="alert">
+                        <ul>
+                            <li *ngFor="let error of errorList">
+                                <strong>{{error.reason}}:</strong> row {{error.index}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 mb-2" *ngIf="shops.length">
+                    <table class="table table-striped table-centered mt-2">
+                        <thead class="font-12 bold">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Shop name</th>
+                                <th scope="col">External Shop Code</th>
+                                <th scope="col">Shop Address</th>
+                                <th scope="col">Shop Phone Number</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-14">
+                            <ng-container *ngIf="show10; else showAll">
+                                <tr *ngFor="let shop of shops; index as i">
+                                    <ng-container *ngIf="i < 10">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ shop.name }}</td>
+                                        <td>{{ shop.externalCode }}</td>
+                                        <td>{{ shop.shopAddress || '--' }}</td>
+                                        <td>{{ shop.contactPhone || '--' }}</td>
+                                        <td>
+                                            {{ shop.status ? 'Active' : 'Inactive' }}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-light" (click)="removeFromShops(i)">
+                                                <i class="uil-trash"></i>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                            <ng-template #showAll>
+                                <tr *ngFor="let shop of shops; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ shop.name }}</td>
+                                    <td>{{ shop.externalCode }}</td>
+                                    <td>--</td>
+                                    <td>{{ shop.mainPhone }}</td>
+                                    <td>
+                                        {{ shop.status ? 'Active' : 'Inactive' }}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-light" (click)="removeFromShops(i)">
+                                            <i class="uil-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+
+                    <div class="text-center">
+                        <button class="btn btn-secondary-outline text-dark font-14" (click)="toggleCollapsibleTable()">
+                            <i [class]="show10 ? 'uil-angle-down mr-2' : 'uil-angle-up mr-2'"></i>
+                            <span>{{ show10 ? 'VIEW ALL ('+ shops.length +')'
+                                : 'COLLAPSE (' + shops.length + ')'}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="bg-white rounded px-3 py-2 my-2 font-14">
+            <div class="row my-3">
+                <div class="col-12 mb-2">
+                    <span class="font-16 text-dark bold">
+                        Add this shop to existing acceptance loop
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="row my-2">
+            <div class="col-9">
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                            (click)="navigateToMerchantDetails(false)">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                            [disabled]="errorList.length" (click)="batchUpload()">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

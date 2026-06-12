@@ -1,0 +1,15 @@
+<ngx-simplebar class="card-body py-0" style="max-height: 320px; overflow-x: hidden;">
+    <div class="row py-1 align-items-center" *ngFor="let transaction of transactionList">
+        <div class="col-auto">
+            <i class="{{transaction.icon}} text-{{transaction.variant}} font-18"></i>
+        </div>
+        <div class="col ps-0">
+            <a href="javascript:void(0);" class="text-body">{{transaction.title}}</a>
+            <p class="mb-0 text-muted"><small>{{transaction.transactionDate}}</small></p>
+        </div>
+        <div class="col-auto">
+            <span class="text-{{transaction.variant}} fw-bold pe-2">
+                {{transaction.variant==='danger' ? '-' : '+'}}{{transaction.amount | currency}}</span>
+        </div>
+    </div>
+</ngx-simplebar> <!-- end scroll -->

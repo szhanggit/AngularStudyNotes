@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <!-- left side bar-->
+    <app-left-side-bar [hideLogo]="false"></app-left-side-bar>
+
+    <div class="content-page">
+        <div class="content">
+            <!-- topbar -->
+            <app-topbar (settingsButtonClicked)="onSettingsButtonClicked()" [hideLogo]="true"
+                (mobileMenuButtonClicked)="onToggleMobileMenu()" layoutType="vertical"></app-topbar>
+            <!-- content -->
+            <div class="container-fluid" *ngIf="reRender">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <app-footer></app-footer>
+    </div>
+</div>

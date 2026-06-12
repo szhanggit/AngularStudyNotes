@@ -1,0 +1,31 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  namespace: txcuat
+  name: txc-front-web-toc
+  labels:
+    app: txc-front-web-toc
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: txc-front-web-toc
+  template:
+    metadata:
+      labels:
+        app: txc-front-web-toc
+        tier: backend
+    spec:
+      containers:
+        - name: txc-front-web-toc
+          image: esgaksacrd.azurecr.io/txc-front-web-toc:$(tagTXCUAT)
+          ports:
+          - containerPort: 80
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "128Mi"

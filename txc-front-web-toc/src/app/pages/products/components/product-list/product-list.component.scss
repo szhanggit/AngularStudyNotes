@@ -1,0 +1,29 @@
+.product-list {
+    .nav-tabs {
+        .nav-item {
+            .nav-link {
+                background-color: #dee2e6;
+            }
+
+            .active {
+                color: #0D8AFF;
+                font-weight: bold;
+            }
+        }
+    }
+    
+    table {
+        thead {
+            tr {
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+        tbody {
+            tr {
+                cursor: pointer;
+                font-size: 14px;
+            }
+        }
+    }
+}

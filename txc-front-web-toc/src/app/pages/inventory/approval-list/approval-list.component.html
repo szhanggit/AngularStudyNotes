@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <!-- <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Icons</a></li>
+                    <li class="breadcrumb-item active">Unicons</li>
+                </ol> -->
+            </div>
+            <h4 class="page-title">Approval List</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <div class="mb-3">
+            <select class="form-select" id="example-select">
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>Approved</option>
+                <option>Reject</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="input-group input-group-prefix-icon mb-3">            
+            <input type="text" class="form-control" placeholder="Search batch no., import date">
+            <span class="mdi mdi-magnify search-icon"></span>
+        </div>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-dark rounded-pill float-end" (click)="viewDownloadHistory()">View Download History</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+<table class="table table-centered mb-0">
+    <thead>
+        <tr>
+            <th>Batch No.</th>
+            <th>Creator</th>
+            <th>Import Date</th>
+            <th>Voucher Qty</th>
+            <th>Approval Status</th>
+            <th>Approver</th>
+            <th>Approval Date</th>
+            <th>Action<i class="mdi mdi-information-outline" placement="top" ngbTooltip="Can only download approved/pending file"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of approval_list;" (click)="onRowClick(item)">
+            <td>{{ item.batch_no }}</td>
+            <td>{{ item.creator }}</td>
+            <td>{{ item.import_date }}</td>
+            <td>{{ item.voucher_qty }}</td>
+            <td>
+                <span class="badge bg-warning" *ngIf="item.status=='Pending'">{{ item.status }}</span>
+                <span class="badge bg-light text-dark" *ngIf="item.status=='Approved'">{{ item.status }}</span>
+                <span class="badge bg-danger" *ngIf="item.status=='Rejected'" ngbPopover="{{item.reject_reason}}" triggers="mouseenter:mouseleave">{{ item.status }}</span>
+            </td>
+            <td>{{ item.approver }}</td>
+            <td>{{ item.approval_date }}</td>
+            <td>
+                <button *ngIf="item.status !='Rejected'" type="button" class="btn btn-secondary btn-sm" [disabled]="item.creator == currentUserName" (click)="downloadFile()" click-stop-propagation>Download File</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #accessdenied let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title text-center w-100" id="modal-basic-title">Access denied</h4>
+      <!-- <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button> -->
+    </div>
+    <div class="modal-body">
+      <p>For security reasons, you are not allowed to approve and review your own imported details. Please ask another approver to review it.</p>
+    </div>
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">OK</button>
+    </div> -->
+    <div class="modal-footer">
+        <div class="row w-100">
+            <div class="col-xl-12 col-lg-12 col-sm-12 text-center">
+                <button type="button" class="btn btn-dark rounded-pill ps-5 pe-5" (click)="modal.close('Close click')"> OK </button>
+            </div>
+        </div>
+      </div>
+  </ng-template>

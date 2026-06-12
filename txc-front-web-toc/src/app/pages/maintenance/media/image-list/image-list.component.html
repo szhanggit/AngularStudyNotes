@@ -1,0 +1,86 @@
+<div class="module-title">
+    Media Library
+    <hr>
+  </div>
+  
+  <div class="fn-container">
+    <div class="banner">
+      <ul>
+        <li (click)="onClickNav(1)">
+          <div class="items" [class.active]="type == 1">
+            CLIENT
+          </div>
+        </li>
+        <li (click)="onClickNav(2)">
+          <div class="items" [class.active]="type == 2">
+            BANNER
+          </div>
+        </li>
+        <li (click)="onClickNav(3)">
+          <div class="items" [class.active]="type == 3">
+            PRODUCTS
+          </div>
+        </li>
+        <li (click)="onClickNav(4)">
+          <div class="items" [class.active]="type == 4">
+            BRAND
+          </div>
+        </li>
+        <li (click)="onClickNav(5)">
+          <div class="items" [class.active]="type == 5">
+            LOGO
+          </div>
+        </li>
+        <li>
+            <input type="file" class="hide-file" accept="image/*" #file (change)="onFileChanged($event)" >
+            <button type="button" class="btn btn-success btn-select controls" (click)="replace = false;file.click()"><i class="fas fa-plus"></i> Select File</button>
+        </li>
+        <li>
+            <div class="search-container">
+              <div class="search-control">
+                <input type="text" [(ngModel)]="searchKeyword" (change)="onChangeSearch()" />
+                <div class="search-icon">
+                  <span>
+                    <i class="fas fa-search"></i>
+                  </span>
+                </div>
+              </div>
+              <button type="button" class="btn btn-success btn-search" (click)="getList()">Search</button>
+            </div>
+  
+        </li>
+      </ul>
+    </div>
+  
+    <div class="images-container">
+  
+      <div class="responsive" *ngFor="let item of list; let i = index">
+        <div class="gallery">
+            <img [src]="item.nodeUrl" alt="Cinque Terre" width="600" height="400" title="Click the image to replace" (click)="replaceImage(item); file.click()">
+  
+            <div class="desc" *ngIf="!editingFile[i]">
+              {{item.fileName}}
+              <span title="Click to edit the fileName" (click)="onEditFileClick(item,i)" >
+                <i class="fas fa-pen"></i>
+              </span>
+            </div>
+            <div class="desc" *ngIf="editingFile[i]">
+              <div class="editing-file">
+                <input type="text" [(ngModel)]="editingFileName" (change)="onChangeFileName(i)" />
+                <span (click)="onCancelEditClick(i)">
+                  <i class="fas fa-times-circle" ></i>
+                </span>
+              </div>
+            </div>
+  
+            <div class="desc">({{item.imageDimension}})</div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  

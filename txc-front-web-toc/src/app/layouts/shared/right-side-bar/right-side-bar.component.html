@@ -1,0 +1,31 @@
+<!-- Right Sidebar Start -->
+<div class="end-bar" (clickOutside)="hide()">
+    <!-- Title -->
+    <div class="rightbar-title">
+        <a href="javascript:void(0);" class="end-bar-toggle float-end" (click)="hide()">
+            <i class="dripicons-cross noti-icon"></i>
+        </a>
+        <h5 class="m-0">Settings</h5>
+    </div>
+
+    <!-- Sidebar -->
+    <ngx-simplebar class="rightbar-content h-100">
+
+        <div class="p-3">
+
+
+            <!-- Layout Settings -->
+            <h5 class="mt-3">Tenant</h5>
+            <hr class="mt-1" />
+            <div class="form-check form-switch mb-1" *ngFor="let tenant of tenantList">
+                <input type="radio" class="form-check-input" name="layout" [value]="tenant.name" id="vertical-check"
+                    [(ngModel)]="selectedTenant" (change)="changeTenant(tenant.name)" />
+                <label class="form-check-label" for="vertical-check">{{ tenant.name }}</label>
+            </div>
+        </div>
+
+    </ngx-simplebar>
+
+</div>
+<div class="rightbar-overlay"></div>
+<!-- Right Sidebar End -->

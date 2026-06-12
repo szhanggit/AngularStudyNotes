@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+        <div class="col-3">
+            <select class="form-select" [(ngModel)]="selectcontractStatus" (change)="pageChange()">
+                <option>All contract status</option>
+                <option *ngFor="let name of enumKeys" [value]="name"> {{contractStatus[name]}} </option>
+            </select>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-prefix-icon mb-1">            
+                <input type="text" class="form-control" placeholder="Search contact name or contract number" [(ngModel)]="searchTerm" (keyup)="onSearchChange()">
+                <span class="mdi mdi-magnify search-icon"></span>
+            </div>
+        </div>
+        <div class="col-5">
+            
+            <div class="row justify-content-end">
+                <div class="d-flex justify-content-end col-2">
+                    <span class="text-secondary align-self-center font-12">Display</span>
+                </div>
+                <div class="d-flex justify-content-end col-3">
+                    <select name="pageSize" class="form-select font-12" [(ngModel)]="pageSize" (change)="pageChange()">
+                        <option selected="10">10</option>
+                        <option [ngValue]="20">20</option>
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-start col-1 font-12">
+                    <span class="text-secondary align-self-center">list</span>
+                </div>
+            </div>
+        
+    </div>
+    </div>
+    </div>
+    <div class="col-12">
+        <table class="table table-sm table-centered mb-0">
+            <thead>
+            <tr class="font-12">
+                <th>Contract Name / <br> Contract Number</th>
+                <th>Contract Period</th>
+                <th>Payment Term <i class="mdi mdi-information-outline"></i></th>
+                <th>Price Option <i class="mdi mdi-information-outline"></i></th>
+                <th>Cost Scheme <i class="mdi mdi-information-outline"></i></th>
+                <th>Cost %</th>
+                <th>Contract Status</th>
+                <th>SKU Qty</th>
+                <th>Actions</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="font-14" *ngFor="let contract of contractList">
+                <td><p class="text-primary">{{ contract.contractName | titlecase }} <br> {{ contract.contractNumber }}</p></td>
+                <td> {{ contract.startDate | date :'yyyy-MM-dd' }} - <br> {{ contract.endDate | date :'yyyy-MM-dd' }}</td>
+                <td>{{ contract.contractPaymentTerm[0].value }}</td>
+                <td>{{ contract.contractPriceOption[0].value }}</td>
+                <td>{{ contract.contractCostScheme[0].value }}</td>
+                <td>{{ contract.costPercentage }}</td>
+                <td>
+                    <span [class]="getContractStatusUI(contract.statusId)" *ngIf="contract.statusId != 3">{{ contractStatus[contract.statusId]}}</span>
+                    <span [class]="getContractStatusUI(contract.statusId)" *ngIf="contract.statusId == 3" ngbPopover="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." triggers="mouseenter:mouseleave" popoverTitle="Reject Reson">{{ contractStatus[contract.statusId]}}</span>
+                </td>
+                <td>{{ contract.skuQuantity }}</td>
+                <td>
+                    <button type="button" class="btn btn-secondary btn-sm text-nowrap" *ngIf="!valid" [disabled]="disableEditContractPeriod(contract)">Edit contract period</button>
+                    <button type="button" class="btn btn-info btn-sm text-nowrap" *ngIf="valid" [disabled]="disableNeedReview(contract)">Need review</button>
+                </td>
+                <td *ngIf="valid">
+                    <button type="button" class="btn btn-secondary btn-sm text-nowrap" [disabled]="disableAddSKU(contract)"><i class="mdi mdi-plus me-1"></i>Add SKU</button>
+                </td>
+                <td *ngIf="valid">
+                    <div ngbDropdown class="d-inline-block">
+                    <i class="mdi mdi-dots-vertical fs-3" id="dropdownBasic1" ngbDropdownToggle></i>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button ngbDropdownItem [disabled]="disableEditContract(contract)" class="px-3">Edit contract</button>
+                        <button ngbDropdownItem [disabled]="disableEditContractPeriod(contract)" class="px-3">Edit contract period</button>
+                        <button ngbDropdownItem [disabled]="disableDuplicateContract(contract)" class="px-3">Duplicate contract&SKU</button>
+                      </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <span class="text-secondary font-12">
+            Displaying page {{ pageIndex }} of {{ pageCount }}, 
+            items {{ itemStart }} to {{ itemEnd }} of {{ totalCount }}
+        </span>
+    </div>
+    <div class="col-6">
+        <div class="float-end font-12">
+            <ngb-pagination [collectionSize]="totalCount" [(page)]="pageIndex" (pageChange)="pageChange()"
+                [pageSize]="pageSize" class="pagination-rounded">
+                <ng-template ngbPaginationPrevious>
+                    <i class="uil-angle-left"></i>
+                </ng-template>
+                <ng-template ngbPaginationNext>
+                    <i class="uil-angle-right"></i>
+                </ng-template>
+            </ngb-pagination>
+        </div>
+    </div>
+</div>

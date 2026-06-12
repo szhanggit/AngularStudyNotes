@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-12">        
+        <div class="page-title-box">
+            <h3 class="page-title">{{ isEdit ? "Edit" : "Create" }} Acceptance Loop</h3>
+        </div>
+    </div>
+</div>
+<form id="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-4">Acceptance Loop</h4>
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtName" class="form-label">Acceptance Loop Name <span class="text-danger"><strong>*</strong></span></label>
+                            <input type="text" id="txtName" class="form-control" [ngClass]="{'is-invalid': isFormInvalid && form.controls.name.invalid}" formControlName="name">
+                        </div>                        
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label for="txtDescription" class="form-label">Description</label>
+                            <input type="text" id="txtDescription" class="form-control" [ngClass]="{'is-invalid': isFormInvalid && form.controls.description.invalid}" formControlName="description">
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-4">Select Merchants and Shops
+                    <button type="button" class="btn btn-primary float-end" (click)="onSelectMerchantClick()"
+                    *ngIf="showMerchantList()">
+                        Select more merchant
+                    </button>
+                </h4>
+
+                <div class="row" *ngIf="!showMerchantList()">
+                    <div class="col-xl-12 col-lg-12 col-sm-12">
+                        <div class="mb-3 text-center">
+                            <button type="button" class="btn btn-primary ms-1" (click)="onSelectMerchantClick()">Select Merchants and Shops</button>
+                        </div>                        
+                    </div>
+                    
+                </div>
+
+                <table class="table table-centered table-sm mt-2" *ngIf="showMerchantList()">
+                    <thead>
+                    <tr>
+                        <th>
+                            Merchant
+                        </th> 
+                        <th>
+                            Shops
+                        </th>  
+                        <th>
+                            Actions
+                        </th>              
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of acceptanceLoop.acceptanceLoopMerchants ; index as i">
+                        <td>
+                              <p class="text-primary">{{item.merchant[0].name}}</p>  
+                        </td>
+                        <td>
+                            <p class="text-primary">{{getAvailableShop(item)}}</p>
+                        </td>
+                        <td>
+                            <span class="mdi mdi-delete fs-3 pe-3" (click)="onDeleteMerchant(i)"></span>
+                            <span class="mdi mdi-pencil fs-3" (click)="onEditMerchant(i)"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-end">
+        <button type="button" class="btn btn-dark rounded-pill" (click)="goBackToPrevPage()">Cancel</button>
+        <button type="submit" class="btn btn-primary rounded-pill ms-1" [disabled]="this.isFormInvalid" (click)="onConfirm()">{{ isEdit ? "Save" : "Create" }}</button>
+    </div>
+</div>
+</form>

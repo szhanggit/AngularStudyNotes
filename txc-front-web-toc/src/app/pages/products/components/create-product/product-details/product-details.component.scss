@@ -1,0 +1,37 @@
+// image input
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+
+    &.hover {
+        background: #D5D8DD;
+        opacity: 0.8;
+        border-radius: 4px;
+    }
+
+    .img-thumbnail {
+        height: 5rem;
+        width: 100%;
+    }
+
+    .show-on-hover {
+        position: absolute;
+        z-index: 2;
+        padding: 0rem 20rem 5rem 20rem;
+        background-color: #D5D8DD;
+        opacity: 0.8;
+    }
+}
+
+::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 100%;
+    margin-left: -45px !important;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="col-12">        
+        <div class="page-title-box">
+            <h3 class="page-title">Select Merchants & Shops</h3>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Select Merchant</h4>
+        <div class="row">
+            <div class="col-5">
+                <div class="input-group input-group-prefix-icon mb-1">            
+                    <input type="text" class="form-control" placeholder="Search" #search [(ngModel)]="searchTerm" [disabled]="disableSearch">
+                    <span class="mdi mdi-magnify search-icon"></span>
+                </div>
+            </div>
+            <div class="col-4">
+                
+                <button type="button" class="btn btn-secondary ms-1" (click)="onSearch()" [disabled]="disableSearch">Search</button>
+                
+            </div>
+        </div>
+        
+        <table class="table table-centered table-sm mt-2" *ngIf="merchantList && !disableSearch">
+            <thead>
+            <tr>
+                <th>
+                    
+                </th>
+                <th>
+                    Merchant Name
+                </th>
+                <th>
+                    Internal Code
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of merchantList.items ; index as i">
+                <td>
+                    <input type="radio" name="merchantSelect" class="form-check-input" (change)="onSelected(item)">
+                </td>
+                <td>
+                      <p class="text-primary">{{item.name}}</p>  
+                </td>
+                
+                <td>
+                    {{ item.identityCode }}
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+        <div class="row" *ngIf="currentMerchant && !disableSearch">
+            <div class="col-12 text-center">
+                
+                <button type="button" class="btn btn-primary ms-1" (click)="onShowShops()">Select Shop</button>
+                
+            </div>
+        </div>
+
+
+        <table class="table table-centered table-sm mt-2" *ngIf="currentMerchant && disableSearch">
+            <thead>
+            <tr>
+                <th>
+                    Merchant Name
+                </th>  
+                <th>
+                    Action
+                </th>              
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of [currentMerchant] ; index as i">
+                <td>
+                      <p class="text-primary">{{item.name}}</p>  
+                </td>
+                <td>
+                    <span class="mdi mdi-delete fs-3" (click)="onDeleteSelectedMerchant()"></span>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12" *ngIf="currentMerchant && disableSearch">
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="m-t-0 header-title mb-3">Select shops for this acceptance loop</h4>
+
+                <h5 class="m-t-0 mb-3">Selected Shops ( {{ shopSelectedList.length }} )</h5>
+                <table class="table table-centered table-sm mt-2">
+                    <thead>
+                    <tr>
+                        <th>
+                            Shop Name
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Internal Code
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of shopSelectedList ; index as i">
+                        <td>
+                              <p class="text-primary">{{item.name}}</p>  
+                        </td>
+                        <td>
+                            {{ item.status == 1 ? "Active": "De-active" }}
+                      </td>
+                        <td>
+                            {{ item.identityCode }}
+                        </td>
+                        <td>
+                            <span class="mdi mdi-delete fs-3" (click)="onDeleteShop(i, item , 'remove')"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+        
+                <h5 class="m-t-0 mb-3">Unselected Shops ( {{ shopUnselectedList.length }} )</h5>
+                <table class="table table-centered table-sm mt-2">
+                    <thead>
+                    <tr>
+                        <th>
+                            Shop Name
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Internal Code
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of shopUnselectedList ; index as i">
+                        <td>
+                              <p class="text-primary">{{item.name}}</p>  
+                        </td>
+                        <td>
+                            {{ item.status ? "Active": "De-active" }}
+                      </td>
+                        <td>
+                            {{ item.identityCode }}
+                        </td>
+                        <td>
+                            <span class="mdi mdi-plus-circle fs-3" (click)="onDeleteShop(i, item , 'add')"></span>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-end">
+            <button type="button" class="btn btn-dark rounded-pill" (click)="goBackToPrevPage()">Back</button>
+            <button type="submit" class="btn btn-primary rounded-pill ms-1" [disabled]="!currentMerchant && !disableSearch" (click)="onConfirm()">Confirm</button>
+        </div>
+    </div>
+</div>

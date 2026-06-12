@@ -1,0 +1,107 @@
+<div class="row pt-3">
+  <div class="col-12">
+    <div class="page-back-navigation">
+      <button type="button" class="btn text-muted d-none d-sm-inline-block btn-link fw-semibold"><i class="mdi mdi-arrow-left"></i> Back to inventory overview</button>
+
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-box">
+      <h4 class="page-title">
+        <strong>{{ "SKU_NO_0002: " }}</strong>
+        <span class="page-sub-title">{{ "Edented Virtual e-Gift Card 1,000" }}</span>
+      </h4>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-sm-12">
+            <dl class="row mb-0">
+              <dt class="col-sm-6">Available start date</dt>
+              <dd class="col-sm-6">5/5/2021</dd>
+
+              <dt class="col-sm-6">Available end date</dt>
+              <dd class="col-sm-6">10/28/2021</dd>
+
+              <dt class="col-sm-6">Expiry date</dt>
+              <dd class="col-sm-6">10/28/2021 11:59:59 PM</dd>
+
+              <dt class="col-sm-6">Trust account end date</dt>
+              <dd class="col-sm-6">--</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="m-t-0 header-title mb-3">Voucher batch list (Total: {{voucherBatchList.length}})</h4>
+    <div>
+      <table class="table table-sm table-centered mb-0">
+        <thead>
+          <tr class="row">
+            <th class="col-md-2">Batch Number</th>
+            <th class="col-md-2">Supplier</th>
+            <th class="col-md-1">Remaining/<br />Import Qty</th>
+            <th class="col-md-1">Face Value</th>
+            <th class="col-md-1">Cost</th>
+            <th class="col-md-2">Creator</th>
+            <th class="col-md-3">Import Date</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let batchDetail of voucherBatchList.slice(this.itemNumberStart - 1, this.itemNumberEnd); index as idx">
+          <tr class="row">
+            <td class="col-md-2">{{batchDetail.batch_number}}</td>
+            <td class="col-md-2">{{batchDetail.supplier}}</td>
+            <td class="col-md-1">{{batchDetail.remaining_qty}}/{{batchDetail.import_qty}}</td>
+            <td class="col-md-1">{{batchDetail.facevalue}}</td>
+            <td class="col-md-1">{{batchDetail.cost}}</td>
+            <td class="col-md-2">{{batchDetail.creator}}</td>
+            <td class="col-md-3">{{batchDetail.import_date}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row" style="padding-top:20px">
+        <div class="col-md-6 pagination-footer">Displaying page {{currentPage}} of {{maxPageCount}}, items {{itemNumberStart}} to {{itemNumberEnd}} of {{voucherBatchList.length}}.</div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3" style="margin-right:0">
+          <nav class="mb-0">
+
+            <div class="pagination pagination-rounded pagination-sm mb-0">
+              <span class="page-item" (click)="previousButtonClick()">
+                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </span>
+
+              <span *ngFor="let item of [].constructor(maxPageCount); let i = index">
+                <span class="page-item" [ngClass]="i + 1 == currentPage ?  'page-item active' : 'page-item'" (click)="pageNumberClick(i + 1)">
+                  <a class="page-link" href="javascript: void(0);">{{i + 1}}</a>
+                </span>
+              </span>
+
+              <span class="page-item" (click)="nextButtonClick()">
+                <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </span>
+            </div>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

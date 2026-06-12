@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h4 class="modal-title text-center w-100">Select Shops</h4>
+    <!-- <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button> -->
+  </div>
+  <div class="modal-body">
+    <table class="table table-centered mt-2">
+        <thead>
+            <tr>
+                <th><input type="checkbox" class="form-check-input" [checked]="allSelected" id="chkSelectAll" (change)="onSelectAllChange($event)"></th>
+                <th>Shop Name (Total : {{shopList.length}})</th>
+            </tr>
+        </thead>
+    <tbody>
+        <tr *ngFor="let item of shopList ; index as i">
+            <td><input type="checkbox" class="form-check-input" [checked]="isSelected(item.shopId)" (change)="onSelectChange($event, item)"></td>
+            <td>{{item.name}} <span class="text-muted">({{item.status ? "Active": "De-active"}}, {{item.identityCode}})</span></td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <div class="row w-100">
+        <div class="col-xl-6 col-lg-6 col-sm-6">
+            <button type="button" class="btn btn-secondary rounded-pill w-100" (click)="activeModal.close('Close click')">Cancel</button>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-sm-6">
+            <button type="button" class="btn btn-primary rounded-pill w-100" type="submit" (click)="OnSelectConfirm()">Select ({{shopList.length - selectedShop.length}} / {{shopList.length}})</button>
+        </div>
+    </div>
+  </div>

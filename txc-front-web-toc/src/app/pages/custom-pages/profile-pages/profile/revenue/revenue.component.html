@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="header-title mb-3">Orders & Revenue</h4>
+        <div dir="ltr">
+            <div style="height: 260px;" class="chartjs-chart">
+                <canvas id="high-performing-product" #profileChart baseChart [datasets]="profileChartData.datasets"
+                    type="bar" [labels]="profileChartData.labels" [options]="chartoptions"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

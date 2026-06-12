@@ -1,0 +1,471 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- develop
+
+resources:
+- repo: self
+
+variables:
+- group: Global-Dev
+- group: Global-Prod
+- name: imageRepository
+  value: 'txc-front-web-toc'
+  # Docker Paths
+- name: dockerfilePathDev
+  value: '**/DockerfileDev'
+- name: dockerfilePathStaging
+  value: '**/DockerfileStaging'
+- name: dockerfilePathUAT
+  value: '**/DockerfileUAT'
+- name: dockerfilePathTXCUAT
+  value: '**/DockerfileTXCUAT'
+- name: dockerfilePathProd
+  value: '**/DockerfileProd'
+  # Tag
+- name: version
+  value: '1.0.0'
+- name: tag # <version>.<buildnumber>.<commit-id>
+  value: "$(version).$(Build.BuildNumber).$(Build.SourceVersion)"
+- name: tagDev
+  value: '$(tag).dev'
+- name: tagStaging
+  value: '$(tag).staging'
+- name: tagUAT
+  value: '$(tag).uat'
+- name: tagTXCUAT
+  value: '$(tag).txcuat'
+- name: tagProd
+  value: '$(tag).prod'
+  # Envs
+- name: environmentDev
+  value: 'aks-dev-env'
+- name: environmentStaging
+  value: 'aks-staging-env'
+- name: environmentUAT
+  value: 'aks-uat-env'
+- name: environmentTXCUAT
+  value: 'aks-uat-env'
+- name: environmentProd
+  value: 'aks-prod-env'
+
+stages:
+- stage: DEV
+  displayName: DEV
+  jobs:
+  - job: Build
+    displayName: Build
+    workspace:
+      clean: all
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePathDev)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagDev)
+
+    - task: replacetokens@5
+      inputs:
+        targetFiles: 'manifests-dev/deployment.yml'
+        encoding: 'auto'
+        tokenPattern: 'azpipelines'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: false
+    
+    - upload: manifests-dev
+      artifact: manifests-dev
+
+  - deployment: Deploy_to_AKS
+    displayName: Deploy_to_AKS
+    dependsOn:
+    - Build
+    condition: succeeded('Build')
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    environment: $(environmentDev)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: Download Manifest
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              artifactName: 'manifests-dev'
+              downloadPath: '$(Pipeline.Workspace)'
+    
+          - task: KubectlInstaller@0
+            displayName: Install Kubectl
+            inputs:
+              kubectlVersion: 'latest'
+          
+          - task: AzureCLI@2
+            displayName: Deploy to AKS
+            inputs:
+              azureSubscription: 'esg-dev-aks-deploy-txc'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group apd-aks-dev-rg --name esg-aks-asse-aks-d --admin
+                az acr login -n=esgaksacrd
+                
+                kubectl apply -f $(Pipeline.Workspace)/manifests-dev/deployment.yml
+                kubectl apply -f $(Pipeline.Workspace)/manifests-dev/service.yml
+                
+                kubectl get pods -n dev
+
+- stage: STAGING
+  displayName: STAGING
+  dependsOn:
+  - DEV
+  condition: succeeded('DEV')
+  jobs:
+  - job: Build
+    displayName: Build
+    workspace:
+      clean: all
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePathStaging)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagStaging)
+
+    - task: replacetokens@5
+      inputs:
+        targetFiles: 'manifests-staging/deployment.yml'
+        encoding: 'auto'
+        tokenPattern: 'azpipelines'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: false
+    
+    - upload: manifests-staging
+      artifact: manifests-staging
+
+  - deployment: Deploy_to_AKS
+    displayName: Deploy_to_AKS
+    dependsOn:
+    - Build
+    condition: succeeded('Build')
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    environment: $(environmentStaging)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: Download Manifest
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              artifactName: 'manifests-staging'
+              downloadPath: '$(Pipeline.Workspace)'
+    
+          - task: KubectlInstaller@0
+            displayName: Install Kubectl
+            inputs:
+              kubectlVersion: 'latest'
+          
+          - task: AzureCLI@2
+            displayName: Deploy to AKS
+            inputs:
+              azureSubscription: 'esg-dev-aks-deploy-txc'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group apd-aks-dev-rg --name esg-aks-asse-aks-d --admin
+                az acr login -n=esgaksacrd
+                
+                kubectl apply -f $(Pipeline.Workspace)/manifests-staging/deployment.yml
+                kubectl apply -f $(Pipeline.Workspace)/manifests-staging/service.yml
+                
+                kubectl get pods -n staging
+
+
+- stage: UAT
+  displayName: UAT
+  dependsOn:
+  - STAGING
+  condition: succeeded('STAGING')
+  jobs:
+  - job: Build
+    displayName: Build
+    workspace:
+      clean: all
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePathUAT)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagUAT)
+
+    - task: replacetokens@5
+      inputs:
+        targetFiles: 'manifests-uat/deployment.yml'
+        encoding: 'auto'
+        tokenPattern: 'azpipelines'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: false
+    
+    - upload: manifests-uat
+      artifact: manifests-uat
+
+  - deployment: Deploy_to_AKS
+    displayName: Deploy_to_AKS
+    dependsOn:
+    - Build
+    condition: succeeded('Build')
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    environment: $(environmentUAT)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: Download Manifest
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              artifactName: 'manifests-uat'
+              downloadPath: '$(Pipeline.Workspace)'
+    
+          - task: KubectlInstaller@0
+            displayName: Install Kubectl
+            inputs:
+              kubectlVersion: 'latest'
+          
+          - task: AzureCLI@2
+            displayName: Deploy to AKS
+            inputs:
+              azureSubscription: 'esg-dev-aks-deploy-txc'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group apd-aks-dev-rg --name esg-aks-asse-aks-d --admin
+                az acr login -n=esgaksacrd
+                
+                kubectl apply -f $(Pipeline.Workspace)/manifests-uat/deployment.yml
+                kubectl apply -f $(Pipeline.Workspace)/manifests-uat/service.yml
+                
+                kubectl get pods -n uat
+
+- stage: TXCUAT
+  displayName: TXCUAT
+  dependsOn:
+  - STAGING
+  condition: succeeded('STAGING')
+  jobs:
+  - job: Build
+    displayName: Build
+    workspace:
+      clean: all
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePathTXCUAT)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagTXCUAT)
+
+    - task: replacetokens@5
+      inputs:
+        targetFiles: 'manifests-txcuat/deployment.yml'
+        encoding: 'auto'
+        tokenPattern: 'azpipelines'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: false
+    
+    - upload: manifests-txcuat
+      artifact: manifests-txcuat
+
+  - deployment: Deploy_to_AKS
+    displayName: Deploy_to_AKS
+    dependsOn:
+    - Build
+    condition: succeeded('Build')
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntu)
+    environment: $(environmentTXCUAT)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: Download Manifest
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              artifactName: 'manifests-txcuat'
+              downloadPath: '$(Pipeline.Workspace)'
+    
+          - task: KubectlInstaller@0
+            displayName: Install Kubectl
+            inputs:
+              kubectlVersion: 'latest'
+          
+          - task: AzureCLI@2
+            displayName: Deploy to AKS
+            inputs:
+              azureSubscription: 'esg-dev-aks-deploy-txc'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group apd-aks-dev-rg --name esg-aks-asse-aks-d --admin
+                az acr login -n=esgaksacrd
+                
+                kubectl apply -f $(Pipeline.Workspace)/manifests-txcuat/deployment.yml
+                kubectl apply -f $(Pipeline.Workspace)/manifests-txcuat/service.yml
+                
+                kubectl get pods -n txcuat
+
+- stage: PROD
+  displayName: PROD
+  dependsOn:
+  - UAT
+  condition: succeeded('UAT')
+  jobs:
+  - job: Build
+    displayName: Build
+    workspace:
+      clean: all
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntuProd)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePathProd)
+        containerRegistry: $(dockerRegistryServiceConnectionProd)
+        tags: |
+          $(tagProd)
+
+    - task: replacetokens@5
+      inputs:
+        targetFiles: 'manifests-prod/deployment.yml'
+        encoding: 'auto'
+        tokenPattern: 'azpipelines'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: false
+    
+    - upload: manifests-prod
+      artifact: manifests-prod
+
+  - deployment: Deploy_to_AKS
+    displayName: Deploy_to_AKS
+    dependsOn:
+    - Build
+    condition: succeeded('Build')
+    pool:
+      name: $(poolName)
+      demands:
+       - agent.name -equals $(agentNameUbuntuProd)
+    environment: $(environmentProd)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: Download Manifest
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              artifactName: 'manifests-prod'
+              downloadPath: '$(Pipeline.Workspace)'
+    
+          - task: KubectlInstaller@0
+            displayName: Install Kubectl
+            inputs:
+              kubectlVersion: 'latest'
+          
+          - task: AzureCLI@2
+            displayName: Deploy to AKS
+            inputs:
+              azureSubscription: $(azureSubscriptionProd)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group $(resourceGroupProd) --name esg-aks-asse-aks-p --admin
+                az acr login -n=$(azureAcrProd)
+                
+                kubectl apply -f $(Pipeline.Workspace)/manifests-prod/deployment.yml
+                kubectl apply -f $(Pipeline.Workspace)/manifests-prod/service.yml
+                
+                kubectl get pods -n prod

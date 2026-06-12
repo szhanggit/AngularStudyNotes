@@ -1,0 +1,15 @@
+<div class="product-wizard-stepper">
+    <div class="multisteps-form">
+        <div class="row">
+            <div class="col-12 col-lg-8 ml-auto mr-auto mb-2">
+                <div class="multisteps-form__progress">
+                    <button class="multisteps-form__progress-btn"
+                        *ngFor="let productStep of productSteps; let index = index"
+                        [class.pre-active]="index + 1 <= step" [class.active]="index + 1 === step" type="button"
+                        [title]="productStep"
+                        (click)="jumpStep(index + 1)">{{ productStep }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
