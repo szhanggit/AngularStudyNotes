@@ -1,0 +1,22 @@
+#page-content-wrapper {
+    min-width: 100vw;
+
+    margin-top: 70px;
+    margin-left: 196px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        scroll-behavior: smooth;
+    }
+}
+

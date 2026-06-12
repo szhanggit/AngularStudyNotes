@@ -1,0 +1,19 @@
+.item-list {
+    height: 340px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.popup-info {
+    height: 237px; 
+    width: 440px;
+}
+
+.input-group-text{
+    background-color: transparent;
+    border-left: 0px;
+    cursor: pointer;
+    ~ input{
+        border-right: 0px;
+    }
+}

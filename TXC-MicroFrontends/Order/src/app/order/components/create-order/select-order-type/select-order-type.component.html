@@ -1,0 +1,65 @@
+<div class="modal-body px-5">
+  <div class="text-center">
+    <h4 class="font-18" id="modalLabel">Select order mode & delivery method</h4>
+  </div>
+
+  <div class="my-3 position-relative font-14" id="stopIssueTimeContainer">
+    <div class="row">
+      <div class="col-12 text=secondary">
+        You are creating order from this quotation,
+      </div>
+    </div>
+    <div class="row my-1">
+      <div class="col-6 text-dark">Quotation number</div>
+      <div class="col-6 text-dark">
+        <strong>{{ selectedQuotation.quotationNumber }}</strong>
+      </div>
+    </div>
+    <div class="row my-1">
+      <div class="col-6 text-dark">Project name</div>
+      <div class="col-6 text-dark">
+        <strong>{{ selectedQuotation.projectName }}</strong>
+      </div>
+    </div>
+    <hr class="my-16" />
+    <div class="col-12" *ngFor="let orderMode of selectOrderModes">
+      <div class="card text-center">
+        <div
+          class="card-body text-center"
+          [ngClass]="{ active: orderMode.key === selectedMode?.key }"
+          (click)="selectMode(orderMode)"
+        >
+          <div
+            [ngClass]="{
+              'text-primary': orderMode.key === selectedMode?.key
+            }"
+          >
+            {{ orderMode.value }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-secondary w-100 rounded-pill font-12"
+        (click)="onModalCancel()"
+      >
+        Cancel
+      </button>
+    </div>
+    <div class="col-6">
+      <button
+        type="submit"
+        class="btn btn-primary w-100 rounded-pill font-12"
+        [disabled]="!selectedMode?.key"
+        (click)="onModalCreate()"
+      >
+        Create
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.foundMerchantList {
+    max-height: 600px;
+    table-layout: fixed; 
+    width:100%;
+
+    th:first-child {
+        width: 20%;
+    }
+
+    td:first-child {
+      width: 20%;
+    }
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-right: 0px;
+    ~ input{
+        border-left: 0px;
+    }
+}
+
+.deleteicon.textarea-deleteicon {
+    position: relative;
+    align-items: center;
+}
+
+.deleteicon span.h5 {
+    position: absolute;
+    display: block;
+    right: 15px;
+    top: 2px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.deleteicon input {
+    padding-right: 18px;
+    box-sizing: border-box;
+}

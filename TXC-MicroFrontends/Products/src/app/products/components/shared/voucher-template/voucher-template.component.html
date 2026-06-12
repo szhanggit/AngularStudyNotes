@@ -1,0 +1,177 @@
+<div class="row mb-2">
+  <div class="col-6 form-group">
+    <label for="templateSelector" class="form-label">Voucher template</label>
+    <div class="input-group">
+      <span class="input-group-text" id="search-addon">
+          <i class="mdi mdi-magnify"></i>
+      </span>
+      <input id="templateSelecor" type="text" class="form-control search" placeholder="Search template name"
+        #templateSelectorNgb="ngbTypeahead"
+        #templateSelectorRef
+        [(ngModel)]="selectedTemplate"
+        [ngbTypeahead]="searchTemplate"
+        [resultTemplate]="templateSearchResultTemplate" [inputFormatter]="templateSelecorFormatter"
+        (selectItem)="selecteTemplate($event)"
+        [editable]="false" />      
+    </div>
+  </div>
+  <div class="col-6 d-flex">  
+    <button type="button" class="btn btn-link preview" (click)="onPreviewClick()" *ngIf = "currentProductTemplate?.templateId ?? 0 > 0">Preview</button>
+    <button type="button" class="btn btn-link preview" (click)="onPreviewLatestVersionClick()" *ngIf = "currentProductTemplate?.templateId ?? 0 > 0 && !isCurrentVersion">Preview latest version</button>
+  </div>
+</div>
+<div class="row mt-2 mb-2" *ngIf = "currentProductTemplate?.templateId ?? 0 > 0">
+  <div class="col-6 form-group">
+    <label for="languageSelector" class="form-label">Language</label>
+    <select class="form-select" name="languageSelector" id="languageSelector" [(ngModel)]="selectedLanguageId"
+      [disabled]="languageList.length <= 0" (ngModelChange)="onLanguageChanged()">
+      <option *ngFor="let language of languageList" [value]="language.dictionaryId">
+        {{ language.displayName }}
+      </option>
+    </select>
+  </div>
+  <div class="col-6">
+    <label class="form-label">Apply Language</label><br />
+    <label class="switch font-18">
+      <div class="form-check form-switch mt-1">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="isLanguageApplied"
+          [disabled]="isDefaultLanguage || !this.selectedTemplateVersion"
+        />
+      </div>
+    </label>
+  </div>
+</div>
+
+<!-- Tags -->
+<div class="row">
+  <ng-container *ngFor="let tag of tagList">
+    <ng-container [ngSwitch]="tag.type">
+      <ng-container *ngSwitchCase="tagType.Text" [ngTemplateOutlet]="TextEditor"
+        [ngTemplateOutletContext]="{tag}"></ng-container>
+      <ng-container *ngSwitchCase="tagType.Image" [ngTemplateOutlet]="ImageEditor"
+        [ngTemplateOutletContext]="{tag}"></ng-container>
+      <ng-container *ngSwitchCase="tagType.RichText" [ngTemplateOutlet]="RichTextEditor"
+        [ngTemplateOutletContext]="{tag}"></ng-container>
+      <ng-container *ngSwitchCase="tagType.RadioGroup" [ngTemplateOutlet]="RadioGroupEditor"
+        [ngTemplateOutletContext]="{tag}"></ng-container>
+      <ng-container *ngSwitchCase="tagType.HTMLText" [ngTemplateOutlet]="HTMLTextEditor"
+        [ngTemplateOutletContext]="{tag}"></ng-container>
+      <ng-container *ngSwitchDefault></ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #TextEditor let-tag='tag'>
+  <div class="col-6 mb-2" >
+      <div class="mb-2">
+        <label [for]="tag.tagId" class="form-label">
+          {{tag.displayName}}
+        </label>
+        <input type="text" class="form-control" [id]="tag.tagId"
+          [(ngModel)]="tag.value" autocomplete="off" />
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #ImageEditor let-tag='tag'>
+  <div class="col-6 mb-2" >
+      <div>
+        <label for="imageSelector" class="form-label">
+          {{ tag.displayName }}
+        </label>
+        <div class="input-group" *ngIf="!tag.value">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="search-addon">
+                  <i class="mdi mdi-magnify"></i>
+              </span>
+          </div>
+          <input id="imageSelector" type="text" class="form-control search" placeholder="Search from media library"
+            [(ngModel)]="tag.image"
+            [ngbTypeahead]="searchImage"
+            #imageSelectorNgb="ngbTypeahead"
+            #imageSelectorRef
+            [resultTemplate]="imageSearchResultTemplate" [inputFormatter]="imageSelectorFormatter"
+            (ngModelChange)="selectImage(tag, $event)"
+          />
+        </div>
+      </div>
+    <div class="col-12">
+      <div class="image-container" *ngIf="tag.nodeUrl">
+        <img class="image" [src]="tag.nodeUrl">
+        <div class="overlay">
+          <button class="trash-icon" (click)="onDeleteImageClick(tag)">
+            <i class="mdi mdi-delete-outline"></i>
+          </button>
+          <p class="delete-text">Delete image</p>
+        </div>
+        <div class="text-center mt-1">
+          {{tag.image && tag.image.keyword}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #RichTextEditor let-tag='tag'>
+  <div class="row g-0 pb-1">
+    <div class="col-6 mt-0 mb-2 g-3">
+      <div>
+        <label class="form-label">
+          {{tag.displayName}} (HTML Content)
+        </label>
+        <div class="html-editor">
+          <angular-editor class="html-editor" [(ngModel)]="tag.value" [config]="HTML_EDITOR_CONFIG" (ngModelChange)="onRichTextChange(tag)"></angular-editor>
+        </div>
+      </div>
+    </div>    
+    <div class="col-6 mt-0 mb-2 g-3">
+      <label class="form-label">
+        {{tag.displayName}} (Text Content)
+      </label>
+        <textarea class="rich-text"  [(ngModel)]="tag.textValue">
+        </textarea>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #RadioGroupEditor let-tag='tag'>
+  <div class="col-6 mb-2">
+      <div class="mb-1">
+        <label class="form-label">
+          {{tag.displayName}}
+        </label>
+        <div class="form-check" *ngFor="let tagValue of tag.tagValueList">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  [(ngModel)]="tag.selectedItem" [value]="tagValue" (ngModelChange)="onRadioChange(tag)">
+          <label class="form-check-label" for="flexRadioDefault1">
+            {{tagValue.applyConditions[0].name}}
+          </label>
+        </div>        
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #HTMLTextEditor let-tag='tag'>
+  <div class="col-6 mb-2">
+      <label class="form-label">
+        {{tag.displayName}}
+        <span *ngIf="tag.category === tagCategory.SelectedBySystem" class="text-info font-12">
+          The content of {{ tag.displayName | titlecase}} defines in content tag based on order level.
+        </span>
+      </label>
+      <div class="html-editor">
+        <angular-editor [(ngModel)]="tag.value" [config]="HTML_EDITOR_CONFIG" *ngIf = "tag.category != tagCategory.SelectedBySystem"></angular-editor>        
+      </div>
+  </div>
+</ng-template>
+
+<ng-template #templateSearchResultTemplate let-r="result" let-t="term">
+  <ngb-highlight [result]="r.templateName" [term]="t"></ngb-highlight>
+</ng-template>
+
+<ng-template #imageSearchResultTemplate let-r="result" let-t="term">
+  <div class="image-option" [title]="r.keyword">
+    <img [src]="r.nodeUrl" class="me-1" width="64px">
+    <ngb-highlight [result]="r.keyword" [term]="r.mediaId">
+    </ngb-highlight>
+  </div>
+</ng-template>

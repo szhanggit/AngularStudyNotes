@@ -1,0 +1,8 @@
+<div class="row my-3">
+    <div class="col-6">
+        <span class="font-22 text-dark bold">
+           Edit SKU
+        </span>
+    </div>
+        <app-sku-form [merchantId]="merchantId" [contractId]="contractId" [skuId]="skuId"  [tenant]="tenant" [formGroup]="formGroup" [isEdit]="true" (onCancel)="onCancel($event)"></app-sku-form>      
+</div>

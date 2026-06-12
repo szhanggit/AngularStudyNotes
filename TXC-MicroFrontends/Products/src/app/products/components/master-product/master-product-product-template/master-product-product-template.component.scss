@@ -1,0 +1,11 @@
+.nav-link.active {
+    background-color: transparent;
+}
+
+::ng-deep ngb-typeahead-window.dropdown-menu {
+  width: 100% !important;
+}
+
+.outlet {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,62 @@
+<div class="row">
+    <table class="table table-centered mt-2" *ngIf="voucherNumberRuleList.length; else nodata">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col">{{ program.isEdenred ? 'Rule Name' : 'Rule Name / Program' }}</th>
+                <th scope="col" *ngIf="program.isEdenred">Prefix</th>
+                <th scope="col" *ngIf="!program.isEdenred">Require Expiry Date</th>
+                <th scope="col" *ngIf="program.isEdenred">Type</th>
+                <th scope="col" *ngIf="program.isEdenred">Length</th>
+                <th scope="col">Barcode Type</th>
+                <th scope="col">Display Text</th>
+                <th scope="col" *ngIf="!program.isEdenred && tenant == 'TW'">Multipart Barcode</th>
+                <th scope="col" *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">On Demand</th>
+                <th scope="col" *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">Vendor</th>
+                <th scope="col" *ngIf="tenant == 'IN'">PIN Type</th>
+                <th scope="col">Creator / Created Time</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let voucherNumberRule of voucherNumberRuleList; let index = index">
+                <td>
+                    <div [ngClass]="{'bold': !program.isEdenred}">{{ voucherNumberRule.ruleName }}</div>
+                    <div *ngIf="!program.isEdenred" class="font-12">{{ program.name }}</div>
+                </td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberPrefix }}</td>
+                <td *ngIf="!program.isEdenred">{{ voucherNumberRule.requestExpiryDate! | yesNo }}</td>
+                <td *ngIf="program.isEdenred">
+                    {{ voucherNumberRule.voucherNumberType | voucherNumberType }}
+                </td>
+                <td *ngIf="program.isEdenred">{{ voucherNumberRule.voucherNumberLength }}</td>
+                <td>{{ voucherNumberRule.barcodeType.description || '--' }}</td>
+                <td>
+                    {{ voucherNumberRule.distVoucherNumUnderBarcode === null ? 
+                        voucherNumberRule.displayText : (voucherNumberRule.distVoucherNumUnderBarcode | yesNo)}}
+                </td>
+                <td *ngIf="!program.isEdenred && tenant == 'TW'">{{ voucherNumberRule.hasMultipleBarcode! | yesNo }}</td>
+                <td *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">{{ voucherNumberRule.onDemand! | yesNo }}
+                </td>
+                <td *ngIf="!program.isEdenred && tenant != 'SG' && tenant != 'IN'">
+                    {{ voucherNumberRule.vendorCode && voucherNumberRule.vendorName ? voucherNumberRule.vendorCode
+                    + ' - ' + voucherNumberRule.vendorName : voucherNumberRule.vendorName ?
+                    voucherNumberRule.vendorName
+                    : '--' }}
+                </td>
+                <td *ngIf="tenant == 'IN'">{{ voucherNumberRule.pinType?.description || '--' }}</td>
+                <td>
+                    <div>{{ voucherNumberRule.createdBy }}</div>
+                    <div>{{ voucherNumberRule.createdDateTime | date : 'yyyy/MM/dd hh:mm:ss aa' }}</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #nodata>
+        <div class="text-center text-secondary font-14 py-3">
+            {{ errorMessage ? '' : 'Select available merchant & sku above to have related voucher number rule info' }}
+            <div *ngIf="errorMessage">
+                <div [innerHTML]="errorMessage"></div>
+            </div>
+        </div>
+    </ng-template>
+</div>

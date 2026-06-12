@@ -1,0 +1,27 @@
+<div>
+    <button class="btn send-security-button" (click)="confirmEmailAction(sendSecurityKeyModal)">Send security key</button>
+    <ng-template #sendSecurityKeyModal let-modal class="send-security-key-modal">
+        <div class="modal-header border-bottom-0">
+            <h4 class="modal-title text-center w-100 font-18 text-dark bold " id="modal-basic-title">Send security key</h4>
+        </div>
+        <div class="modal-body">
+            <p class="text-muted">
+                Please select a client email to send the security key ({{ maskedSecurityKey }}) to.
+            </p>
+            <div class="mb-1">
+                <label for="clientEmail">Client email</label>
+                <select class="form-select font-14 text-secondary" [(ngModel)]="clientContact">
+                    <option disabled value="">Select</option>
+                    <ng-container *ngFor="let contact of clientEmailList">
+                        <option *ngIf="contact.email" [value]="contact.clientContactId">{{ contact.email }}</option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer border-top-0 justify-content-center">
+            <button type="button" class="btn btn-secondary rounded-pill px-5 me-2" (click)="modal.close();">Cancel</button>
+            <button type="button" class="btn btn-primary rounded-pill px-5" (click)="sendSecurityKey();modal.close();" [disabled]="!clientContact">Send</button>
+        </div>
+    </ng-template>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

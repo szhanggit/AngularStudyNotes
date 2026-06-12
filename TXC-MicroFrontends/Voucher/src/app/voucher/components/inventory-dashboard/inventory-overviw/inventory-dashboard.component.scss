@@ -1,0 +1,49 @@
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search .search-box {
+    flex-grow: 2;
+}
+
+.search .icon {
+    width: 40px;
+    text-align: center;
+}
+
+.search .icon:last-child {
+    cursor: pointer;
+}
+
+.__skucode {
+    width: 200px;
+    select {
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+        border-right: 0px;
+    }
+}
+
+.__search {
+    width: 90%;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+.__search_btn {
+    width: 155px;
+    margin: auto;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.space-between {
+    justify-content:space-between;
+}

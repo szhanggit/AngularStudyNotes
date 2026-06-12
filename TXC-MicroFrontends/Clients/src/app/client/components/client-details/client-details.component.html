@@ -1,0 +1,468 @@
+<ng-container *ngIf="true">
+    <div class="client-details">
+        <div class="row mt-3">
+             <div class="col-9">
+                <span class="text-dark font-22 mx-2"><strong>{{ client?.clientName }}</strong>
+                </span>
+                |<span class="font-16 px-1" *ngIf="isClientHistory">Ver. {{versionId}}, {{ client?.createdOn | date : 'MM/dd/yyyy hh:mm:ss a': 'UTC' + selectedTenantUTC}}</span>
+                <span class="font-16 px-1" *ngIf="!isClientHistory">{{ client?.status==1 ? 'Active':'InActive' }}</span> 
+            </div>           
+            <div class="col-3" *ngIf="!isClientHistory" style="display: none;">
+                <button class="btn btn-primary rounded-pill float-end font-12 px-4" *ngIf="true" >+ Create quotation</button>
+            </div>
+        </div>  
+    </div>
+    <ng-container *ngTemplateOutlet="quotations"></ng-container>
+    <ng-container *ngTemplateOutlet="clientDetails"></ng-container>
+</ng-container>
+<!-- <ng-template  #quotations >
+    <div class="bg-white rounded-3 px-3 py-2 my-2" *ngIf="!isClientHistory">
+        <div class="row">
+            <div class="col-6">
+            <button class="btn rounded-circle btn-sm"
+                [class]="quotationCollapsed ? 'btn-light' : 'btn-secondary'"
+                 (click)="mdCollapse.toggle()"
+                [attr.aria-expanded]="!quotationCollapsed" >
+                <i [class]="quotationCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>Quotations</strong>
+            </span>
+            </div>
+        </div>
+        <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="quotationCollapsed">
+            <div class="row mb-2">
+                <div>
+                    <div class="col-12">
+                        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <p>Create quotation for ({{client?.clientName }})</p>
+                                    <button class="btn btn-primary font-12 px-4">Create quotation</button>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template> -->
+<ng-template  #quotations >
+    <div class="bg-white rounded-3 px-3 py-2 my-2" *ngIf="!isClientHistory">
+        <div class="row">
+            <div class="col-6">
+            <button class="btn rounded-circle btn-sm"
+                [class]="quotationCollapsed ? 'btn-light' : 'btn-secondary'"
+                 (click)="mdCollapse.toggle()"
+                [attr.aria-expanded]="!quotationCollapsed" >
+                <i [class]="quotationCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>Quotations</strong>
+            </span>
+            </div>
+        </div>
+        <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="quotationCollapsed">
+            <div class="row mb-2">
+                <div>
+                    <div class="col-12">
+                        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                            <div class="row">
+                                <app-quotation-list [clientIdentityCode]="clientIdentityCode"></app-quotation-list>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #clientDetails>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn rounded-circle btn-sm" *ngIf="!isClientHistory"
+                    [class]="clientDetailsCollapsed ? 'btn-light' : 'btn-secondary'"
+                     (click)="clientmdCollapse.toggle()"
+                    [attr.aria-expanded]="!clientDetailsCollapsed" >
+                    <i [class]="clientDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>Client details & contact info</strong>
+                </span>
+            </div>
+            <div class="col-6">
+                <div class="float-end" *ngIf="isClientViewer && !isClientHistory">
+                   <button  *ngIf="_clientPermissionService.isClientEditor || _clientPermissionService.isClientViewer" class="btn btn-secondary font-12 mx-3 px-4" (click)="navigateToclientHistory()">View version history</button>
+                   <button   *ngIf="_clientPermissionService.isClientEditor" class="btn btn-primary font-12 px-4" (click)="navigateToclientEdit()">Edit client details</button>
+                </div>
+            </div>
+        </div>
+        <div #clientmdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="clientDetailsCollapsed">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="bg-white rounded-3 px-3 py-1 my-1 font-14">    
+                            <div>
+                                <span class="font-16"><strong>Basic info</strong></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3 font-14">Client name</div>
+                                        <div class="col-9 font-14"><strong>{{ client?.clientName}}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row" *ngIf="voucherIssuerVisible">
+                                        <div class="col-6 font-14">Voucher issuer</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.voucherIssuer.length!=0 ? client?.voucherIssuer[0].displayName:"--" }} </strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3 font-14">Quotation default business type</div>
+                                        <div class="col-9 font-14 "><strong>{{ client?.businessType.length!=0 ? client?.businessType[0].displayName:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>        
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3 font-14">Description</div>
+                                        <div class="col-9 font-14"><strong>{{ client?.description ? client.description:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div>
+                                        <span class="font-16"><strong>Security</strong></span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6 font-14">Security key</div>
+                                                <div class="col-6 font-14"><strong>{{ client?.securityKey ? client.securityKey:"--" }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6 font-14">Security algorithm</div>
+                                                <div class="col-6 font-14"><strong>{{ client?.securityAlgorithm == 1 ? "DES" : "AES" }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6 font-14">Identity code</div>
+                                                <div class="col-6 font-14"><strong>{{ client?.identityCode ? client.identityCode:"--" }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div *ngIf="_clientPermissionService.isClientEditor && !isClientHistory" class="send-security-key d-flex justify-content-end">
+                                        <app-send-security-key 
+                                            [clientId]="clientId" 
+                                            [securityKey]="client.securityKey" 
+                                            [clientEmailList]="clientContactDetails">
+                                        </app-send-security-key>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div *ngIf="invoiceTitleVisible">
+                                <span class="font-16"><strong>Billing</strong></span>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="invoiceTitleVisible">
+                                        <div class="col-6 font-14">Invoice title</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.invoiceTitle ? client.invoiceTitle:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="invoiceNumberVisible">
+                                        <div class="col-6 font-14">Invoice number</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.invoiceRegisterNumber ? client.invoiceRegisterNumber:"--"  }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="mandatoryAutoBillingVisible">
+                                        <div class="col-6 font-14">Mandatory auto billing</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.mandatoryAutoBilling ? "Yes" : "No" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div>
+                                <span class="font-16"><strong>Distribution details</strong></span>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="statusSubscriptionVisible">
+                                        <div class="col-6 font-14">Status subscription</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.enableStatusSubscription ? "ON" : "OFF" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="statusProviderIdVisible">
+                                        <div class="col-6 font-14">Status provider id</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.statusProviderId ? client.statusProviderId:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="emailSenderNameVisible">
+                                        <div class="col-6 font-14">Email sender name
+                                        </div>
+                                        <div class="col-6 font-14"><strong>{{ client?.emailSenderName ? client.emailSenderName:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-12">
+                                    <div class="row" *ngIf="emailSenderAddressVisible">
+                                        <div class="col-3 font-14">Email sender address
+                                        </div>
+                                        <div class="col-9 font-14"><strong>{{ client?.emailSenderAddress ? client.emailSenderAddress:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="emailServiceProviderVisible">
+                                        <div class="col-6 font-14">Email service provider
+                                        </div>
+                                        <div class="col-6 font-14"><strong>{{ client?.emailServiceProvider.length!=0 ? client?.emailServiceProvider[0].name:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="smsSenderNameVisible">
+                                        <div class="col-6 font-14">SMS sender name
+                                        </div>
+                                        <div class="col-6 font-14"><strong>{{ client?.sMSSenderName ? client.sMSSenderName:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="smsServiceproviderVisible">
+                                        <div class="col-6 font-14">SMS service provider
+                                        </div>
+                                        <div class="col-6 font-14"><strong>{{ client?.smsServiceProvider.length!=0 ? client?.smsServiceProvider[0].name:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="smsEntityIdVisible">
+                                        <div class="col-6 font-14">SMS EntityId (for Netcore)
+                                        </div>
+                                        <div class="col-6 font-14"><strong>{{ client?.smsEntityId ? client.smsEntityId:"--"  }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="mt-2" ></div>
+                            <div>
+                                <span class="font-16" *ngIf="customization"><strong>Customization</strong></span>
+                            </div>
+                            <div class="row" >
+                                <div class="col-3">
+                                    <div *ngIf="customization">
+                                        <div class="col-6 font-14">Client logo</div>
+                                    </div>
+                                </div>
+                                <div  class="col-6" *ngIf="customization && clientLogo.nodeUrl =='' "><div class="font-14"><strong>--</strong></div></div>
+                            
+                            </div>
+                           
+                            <div class="row" *ngIf="customization && clientLogo.nodeUrl !='' ">
+                                <div class="col-12">
+                                    <div class="row mt-2">
+                                       <div class="col-6">                                       
+                                        <div class="wallet-image d-flex justify-content-center">                                       
+                                        <div class="d-flex flex-column text-center">                                       
+                                            <img class="imageAutoSize"  alt="" src={{clientLogo.nodeUrl}}  height={{clientLogo.height}} width={{clientLogo.width}} /> 
+                                        </div>                                       
+                                        </div>                                       
+                                        </div>                                        
+                                      </div>                                    
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-3">
+                                    <div class="row" *ngIf="customization">
+                                        <div class="col-6 font-14">Banner</div>
+                                    </div>
+
+                                </div>
+                                <div  class="col-6" *ngIf="customization && banner.nodeUrl =='' "><div class="font-14"><strong>--</strong></div></div>
+                            </div>
+
+                            <div class="row" *ngIf="customization && banner.nodeUrl !='' ">
+                                <div class="col-12">
+                                    <div class="row mt-2">
+                                       <div class="col-6">                                       
+                                        <div class="wallet-image d-flex justify-content-center">                                       
+                                        <div class="d-flex flex-column text-center">                                       
+                                            <img class="imageAutoSize" alt="" src= {{banner.nodeUrl}}  height={{banner.height}} width={{banner.width}}  />
+                                        </div>                                       
+                                        </div>                                       
+                                        </div>                                        
+                                      </div>                                    
+                                </div>
+                            </div>
+
+                         
+                            <div class="row" >
+                                <div class="col-6">
+                                    <div class="row" *ngIf="customization">
+                                        <div class="col-6 font-14">Sub url</div>
+                                        <div class="col-6 font-14"><strong>{{ client?.subURL ? client.subURL:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <hr>
+                            <div class="mt-2"></div>
+                            <div>
+                                <span class="font-16"><strong>Edenred contact info</strong></span>
+                            </div>
+                            <div class="row" >
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3 font-14">Sales email</div>
+                                        <div class="col-9 font-14"><strong>{{ client?.salesEmail ? client.salesEmail:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="mt-2">
+                                <div>
+                                <span class="font-16"><strong>Client contact info</strong></span>
+                                </div>
+                                <div class="row mt-2 m-1">
+                                    <div class="col-2">
+                                        <label for="contacPersonJobTitle">Position</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="contactPersonName">Name</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="contactEmail">Email</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="contactPhoneNumber">Phone</label>
+                                    </div>                                    
+                                 </div>
+                                 <hr>
+                                 <div  *ngIf="lstClientContact.length === 0">
+                                    <p class="m-2">No data found</p>
+                                 <hr>
+                                 </div>
+                                 <div *ngFor="let contact of lstClientContact;" >
+                                    <div class="row m-1 textWrap">
+                                    <div class="col-2 font-14">
+                                        {{contact.position? contact.position:"--"}}
+                                    </div>
+                                    <div class="col-3 font-14">
+                                        {{contact.name}}
+                                    </div>
+                                    <div class="col-3 font-14">
+                                        {{contact.email? contact.email:"--"}}
+                                    </div>
+                                    <div class="col-3 font-14">
+                                        {{contact.mobileNumber? contact.mobileNumber:"--"}}
+                                    </div>                                                                       
+                                    </div>                                
+                                 <hr>
+                                </div>
+                            
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-3 font-16"><strong>Client address</strong></div>                                       
+                                    </div>
+                                    <div class="row mt-2 m-1">
+                                        <div class="col-2">
+                                            <label for="Country">Country</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="State">State</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="City">City</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="District">District</label>
+                                        </div>  
+                                        <div class="col-3">
+                                            <label for="DetailedAddress">Detailed address</label>
+                                        </div>
+                                        <div class="col-1">
+                                            <label for="PostCode">Post Code</label>
+                                        </div>    
+                                                                      
+                                     </div>
+                                     <hr>
+                                     <div class="row m-1 textWrap" *ngIf="client?.address?.length>0">
+                                        <div class="col-2 font-14">
+                                            {{client.address[0].country[0].displayName}}
+                                        </div>
+                                        <div class="col-2 font-14">
+                                            {{client.address[0].state[0].displayName}}
+                                        </div>
+                                        <div class="col-2 font-14">
+                                            {{client.address[0].city[0].displayName}}
+                                        </div>
+                                        <div class="col-2 font-14">
+                                            {{client.address[0].district}}
+                                        </div>  
+                                        <div class="col-3 font-14">
+                                            {{client.address[0].detailAddressLine}}
+                                        </div>
+                                        <div class="col-1 font-14">
+                                            {{client.address[0].postCode}}
+                                        </div>                                  
+                                     </div>
+                                     <hr>
+                                </div>
+                            </div>   
+                                                    
+                            <div class="mt-2"></div>
+                            <div *ngIf="notesVisible">
+                                <span class="font-16"><strong>Memo</strong></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row" *ngIf="notesVisible">
+                                        <div class="col-3 font-14">Notes</div>
+                                        <div class="col-9 font-14"><strong>{{ client?.memo ? client.memo:"--" }}</strong></div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</ng-template>
+<ngbd-toast-global></ngbd-toast-global>

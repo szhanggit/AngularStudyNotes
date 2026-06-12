@@ -1,0 +1,184 @@
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.max">
+        Entered value exceeded maximum length!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidNumber">
+        Please enter valid number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.invalidPhoneNumber">
+        Please enter valid phone number!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors === null">
+        Incorrect email format!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="voucherNumberRuleForm" (submit)="OnSubmit()" *ngIf="!isLoadingReference">
+    <div class="col-12">
+        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+            <div class="font-16 text-dark bold mb-2">
+                Basic Rule Details
+            </div>
+            <div class="row my-2">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label for="ruleName">Rule name <span class="text-danger bold">*</span></label>
+                            <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                            'is-invalid': f.ruleName.invalid && f.ruleName.dirty
+                        }" formControlName="ruleName" triggers="manual" [ngbTooltip]="tipContent"
+                                [tooltipClass]="f.ruleName.invalid && f.ruleName.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                #ruleNameTip="ngbTooltip" (click)="toggleTooltipWithContext(ruleNameTip, f.ruleName)"
+                                [disableTooltip]="!(f.ruleName.invalid && f.ruleName.dirty)">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label for="programName">Program</label>
+                            <input type="text" class="form-control font-14 text-secondary"
+                                formControlName="programName">
+                            <div class="form-check mt-2">
+                                <input type="checkbox" class="form-check-input" id="sameKeyWithShop"
+                                    formControlName="requestExpiryDate">
+                                <label class="form-check-label font-14" for="sameKeyWithShop">Require expiry
+                                    date</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-2">
+                    <label for="barcodeTypeId">Barcode Type <span class="text-danger bold">*</span></label>
+                    <select name="barcodeTypeId" id="barcodeTypeId" class="form-select font-14" [ngClass]="{
+                        'is-invalid': f.barcodeTypeId.invalid && f.barcodeTypeId.dirty
+                    }" formControlName="barcodeTypeId" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.barcodeTypeId.invalid && f.barcodeTypeId.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #barcodeTypeIdTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(barcodeTypeIdTip, f.barcodeTypeId)"
+                        [disableTooltip]="!(f.barcodeTypeId.invalid && f.barcodeTypeId.dirty)">
+                        <option [value]="voucherNumberRuleBarCode.id"
+                            *ngFor="let voucherNumberRuleBarCode of voucherNumberRuleBarCodes">{{
+                            voucherNumberRuleBarCode.description }}</option>
+                    </select>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" id="displayVoucherNumberUnderBarcode"
+                            formControlName="displayVoucherNumberUnderBarcode">
+                        <label class="form-check-label font-14" for="displayVoucherNumberUnderBarcode">Display voucher
+                            number under barcode</label>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-2" *ngIf="tenant == 'TW'">
+                    <div class="row">
+                        <label for="hasMultipartBarcode" class="form-label font-14">Multipart barcode</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-check form-check-inline font-14">
+                                <input type="radio" id="hasMultipartBarcode" name="hasMultipartBarcode" [value]="true"
+                                    class="form-check-input" formControlName="hasMultipartBarcode">
+                                <label class="form-check-label" for="hasMultipartBarcode1">Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check form-check-inline font-14">
+                                <input type="radio" id="hasMultipartBarcode" name="hasMultipartBarcode" [value]="false"
+                                    class="form-check-input" formControlName="hasMultipartBarcode">
+                                <label class="form-check-label" for="hasMultipartBarcode2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-2" *ngIf="tenant == 'IN'">
+                    <label for="pinType">PIN Type</label>
+                    <select name="pinType" id="pinType" class="form-select font-14" formControlName="pinType">
+                        <option [value]="voucherNumberRulePinCode.id"
+                            *ngFor="let voucherNumberRulePinCode of voucherNumberRulePinCodes">{{
+                            voucherNumberRulePinCode.description }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14" *ngIf="tenant !== 'SG' && tenant !== 'TW'">
+            <div class="font-16 text-dark bold mb-2">
+                On demand setup
+            </div>
+            <div class="row">
+                <div class="col-6 mb-2">
+                    <div class="row">
+                        <label for="onDemand" class="form-label font-14">On demand</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-check form-check-inline font-14">
+                                <input type="radio" id="onDemand" name="onDemand" [value]="true"
+                                    class="form-check-input" formControlName="onDemand">
+                                <label class="form-check-label" for="onDemand1">Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-check form-check-inline font-14">
+                                <input type="radio" id="onDemand" name="onDemand" [value]="false"
+                                    class="form-check-input" formControlName="onDemand">
+                                <label class="form-check-label" for="onDemand2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 mb-2" *ngIf="f.onDemand.value === true">
+                    <label for="vendorId">Vendor <span class="text-danger bold">*</span></label>
+                    <select name="vendorId" id="vendorId" class="form-select font-14" 
+                        [ngClass]="{'is-invalid': f.vendorId.invalid && f.vendorId.dirty}" 
+                        formControlName="vendorId" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.vendorId.invalid && f.vendorId.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                        #vendorIdTip="ngbTooltip" (click)="toggleTooltipWithContext(vendorIdTip, f.vendorId)"
+                        [disableTooltip]="!(f.vendorId.invalid && f.vendorId.dirty)">
+                        <option value="">
+                            Select vendor
+                        </option>
+                        <option [value]="vendor.id" *ngFor="let vendor of vendors">
+                            {{ vendor.vendorCode }} - {{ vendor.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="row my-2">
+            <div class="col-9">
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                            (click)="navigateToMerchantDetails('cancel')">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="submit"
+                            [disabled]="voucherNumberRuleForm.invalid || (isLoading$ | async) || (isEdit && !voucherNumberRuleForm.dirty)">{{ (isLoading$ | async) ?
+                            'Loading ...' : isEdit ? 'Save' : 'Create' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ngbd-toast-global></ngbd-toast-global>

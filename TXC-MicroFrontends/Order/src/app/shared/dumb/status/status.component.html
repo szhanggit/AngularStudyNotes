@@ -1,0 +1,23 @@
+<span
+  class="bold font-12 default"
+  [class]="{
+    yellow: orderStatusEnum.UnderReview === orderStatus,
+    'light-cobalt': orderStatusEnum.Approved === orderStatus,
+    'light-olive': orderStatusEnum.ApprovedByFT === orderStatus,
+    pink: orderStatusEnum.Rejected === orderStatus,
+    'light-pink': orderStatusEnum.Failed === orderStatus,
+    'light-mint': orderStatusEnum.Published === orderStatus
+  }"
+>
+  <ng-container
+    *ngIf="
+      orderStatusEnum.ApprovedByFT === orderStatus;
+      else nonApprovedByFTStatus
+    "
+  >
+    Approved by FT
+  </ng-container>
+  <ng-template #nonApprovedByFTStatus>
+    {{ orderStatusEnum[orderStatus] | stringSplitByCapitalLetter }}
+  </ng-template>
+</span>

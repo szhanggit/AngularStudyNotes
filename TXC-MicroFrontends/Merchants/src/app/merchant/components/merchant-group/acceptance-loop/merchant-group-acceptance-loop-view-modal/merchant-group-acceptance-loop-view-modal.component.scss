@@ -1,0 +1,51 @@
+.item-list {
+    height: 290px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search .search-box {
+    flex-grow: 2;
+}
+
+.search .icon {
+    width: 40px;
+    text-align: center;
+}
+
+.search .icon:last-child {
+    cursor: pointer;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+.modal-footer button {
+    min-width: 160px;
+}
+
+.new-shop {
+    background-color: #FF5978;
+    border-radius: 30px;
+    display: inline-block;
+    width: 40px;
+    height: 19px;
+}
+
+.table-header {
+    font-weight: 500;
+}
+
+.list-padding {
+    padding-left: 1.5rem;
+}
+
+.clickable {
+    cursor: pointer;
+}

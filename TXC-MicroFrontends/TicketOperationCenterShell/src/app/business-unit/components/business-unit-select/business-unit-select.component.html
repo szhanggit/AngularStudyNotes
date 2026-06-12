@@ -1,0 +1,21 @@
+<div class="p-3 rounded" *ngIf="tenants.length">
+  <div class="modal-body">
+    <div class = "mb-3">
+      <h4 class="modal-title flex-fill text-center">Select BU</h4>
+    </div>
+    <div class="row my-3">
+      <div class="col-3 p-1" *ngFor="let tenant of tenants;">
+        <div *ngIf="tenant.name else nodata">
+          <button type="button" class="btn btn-secondary btn-lg rounded w-100"
+            [disabled]="tenant.isSelected" (click)="selectBu(tenant)">{{ tenant.name }}</button>
+        </div>
+        <ng-template #nodata>
+          <div class="loader"></div>
+        </ng-template>
+      </div>
+    </div>
+    <div *ngIf="this.tenantService.GetTenantFromLocalStorage()" class="d-flex flex-wrap justify-content-center">
+      <div class="my-2 w-50 btn btn-primary rounded-pill" (click)="activeModal.close(true)">Cancel</div>
+    </div>
+  </div>
+</div>

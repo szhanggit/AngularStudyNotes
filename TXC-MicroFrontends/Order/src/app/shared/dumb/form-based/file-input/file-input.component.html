@@ -1,0 +1,64 @@
+<ng-container *ngIf="value && value.length; else dropOrClickToUpload">
+  <div class="row font-12 bold mt-2">
+    <div class="col-3">File name</div>
+    <div class="col-3" *ngIf="!disabled">Action</div>
+  </div>
+  <hr />
+  <ng-container *ngFor="let file of value; let index = index">
+    <div class="row">
+      <div class="col-3 text-primary font-14 mt-2">
+        <span (click)="onFileDownload(file)" class="file-name">
+          {{ file.name }}
+        </span>
+      </div>
+      <div class="col-3" *ngIf="!disabled">
+        <button class="btn cursor-pointer" (click)="onFileRemove(index, file)">
+          <i class="uil-trash font-22"></i>
+        </button>
+      </div>
+    </div>
+    <hr />
+  </ng-container>
+  <ng-container *ngTemplateOutlet="supportText"></ng-container>
+</ng-container>
+
+<ng-template #dropOrClickToUpload>
+  <ng-container *ngTemplateOutlet="supportText"></ng-container>
+  <div class="row mt-1">
+    <div class="col-6">
+      <div
+        *ngIf="!disabled; else disabledFileInput"
+        appDnd
+        class="dashed d-flex justify-content-center p-3 cursor-pointer"
+        (click)="inputFile.click()"
+        (fileDropped)="onFileDropped($event)"
+      >
+        <div class="d-flex flex-column text-center">
+          <i class="uil uil-cloud-upload font-24"></i>
+          <span class="font-12"> Drop file here or click to upload </span>
+        </div>
+      </div>
+      <ng-template #disabledFileInput>
+        <span class="font-14 text-secondary"> No attachment uploaded </span>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #supportText>
+  <span class="text-muted font-12" *ngIf="!disabled">
+    Supported file types: PDF/xls/xlsx/doc/docx/png/tif/html/MSG(email). Maximum size per upload: 5MB
+  </span>
+</ng-template>
+
+<input
+  #inputFile
+  type="file"
+  name="inputFile"
+  id="inputFile"
+  (click)="$any($event.target).value = null"
+  (change)="onFileSelected($event)"
+  multiple="multiple"
+  hidden="true"
+  accept=".pdf,.xls,.xlsx,.doc,.docx,.png,.tif,.html,.msg"
+/>

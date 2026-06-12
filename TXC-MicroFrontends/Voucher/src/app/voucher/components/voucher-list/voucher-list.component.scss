@@ -1,0 +1,40 @@
+.deleteicon.textarea-deleteicon {
+    position: relative;
+    align-items: center;
+}
+
+.deleteicon span.h5 {
+    position: absolute;
+    display: block;
+    right: 15px;
+    top: 2px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.deleteicon input {
+    padding-right: 18px;
+    box-sizing: border-box;
+}
+
+.input-group-text{
+    background-color: transparent;
+    border-right: 0px;
+    ~ input{
+        border-left: 0px;
+    }
+}
+
+
+.pr-0 {
+    padding-right: 0px;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;;
+}
+
+.form-select:disabled {
+    border-color: #DDDDDD;
+}

@@ -1,0 +1,26 @@
+.send-security-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 30px;
+    width: 160px;
+    height: 36px;
+    background: #6D7787;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #FFFFFF;
+    &:hover, &:active, &:focus-visible{
+        background-color: #6D7787 !important;
+        color: #FFFFFF !important;
+    }
+}
+.send-security-key-modal{
+    .modal-dialog{
+        .modal-content{
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+        }
+    }
+}

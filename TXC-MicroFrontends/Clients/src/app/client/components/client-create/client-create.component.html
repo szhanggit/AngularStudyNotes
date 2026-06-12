@@ -1,0 +1,18 @@
+<ng-container *ngIf="clientFormGroup">
+    <app-client-form [clientFormGroup]="clientFormGroup" [tenant]="tenant" (onCancel)="onCancel(modalCancelConfrimation)" (onSubmit)="onSubmit()"></app-client-form>
+</ng-container>
+<ngbd-toast-global></ngbd-toast-global>
+<ng-template #modalCancelConfrimation let-modal>
+    <div class="modal-header border-bottom-0">
+		<h4 class="modal-title text-center w-100 font-18 text-dark bold " id="modal-basic-title">Cancel editing</h4>
+    </div>
+	<div class="modal-body">
+        <p class="text-muted text-center">
+            Are you sure you want to leave this page without saving?
+        </p>
+	</div>
+    <div class="modal-footer border-top-0 justify-content-center">
+        <button type="button" class="btn btn-secondary rounded-pill px-5" (click)="modal.close();">Discard</button>
+        <button type="button" class="btn btn-primary rounded-pill px-5" (click)="modal.dismiss();">Keep editing</button>
+    </div>
+</ng-template>

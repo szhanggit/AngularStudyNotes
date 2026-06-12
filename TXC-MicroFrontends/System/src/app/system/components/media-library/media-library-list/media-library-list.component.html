@@ -1,0 +1,163 @@
+<div class="container-fluid media-library">
+    <div class="row my-3">
+        <div class="col-xl-10 col-lg-9 col-md-6">
+            <h3 class=" text-dark">Media Library</h3>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-6 mt-2">
+            <div class="float-end">
+                <button type="button" class="btn btn-primary rounded-pill font-12 px-4 text-nowrap">
+                    <span class="mx-2">Upload file</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs nav-bordered mb-3" [(ngModel)]="activeMediaTab" ngDefaultControl>
+                <li [ngbNavItem]="tabIndexCategory.Edenred">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Edenred</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="edenredSection; context: { tab: tabIndexCategory.Edenred }"></ng-container>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="tabIndexCategory.Merchant">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Merchant</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="merchantSection; context: { tab: tabIndexCategory.Merchant }"></ng-container>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="tabIndexCategory.Product">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Products</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="productsSection; context: { tab: tabIndexCategory.Product }"></ng-container>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="tabIndexCategory.Brand">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Brand</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="brandSection; context: { tab: tabIndexCategory.Brand }"></ng-container>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div [ngbNavOutlet]="nav"></div>
+</div>
+
+<ng-template #edenredSection>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        <ng-container *ngIf="!(isLoading$ | async); else isLoadingData">
+            <ng-container *ngTemplateOutlet="edenredMedia"></ng-container>
+        </ng-container>
+        <ng-template #isLoadingData>
+            <div class="text-center">
+                <span class="text-secondary">
+                    Loading data ...
+                </span>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #merchantSection>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        <ng-container *ngIf="!(isLoading$ | async); else isLoadingData">
+            <ng-container *ngTemplateOutlet="merchantMedia"></ng-container>
+        </ng-container>
+        <ng-template #isLoadingData>
+            <div class="text-center">
+                <span class="text-secondary">
+                    Loading data ...
+                </span>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #productsSection>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        <ng-container *ngIf="!(isLoading$ | async); else isLoadingData">
+            <ng-container *ngTemplateOutlet="productsMedia"></ng-container>
+        </ng-container>
+        <ng-template #isLoadingData>
+            <div class="text-center">
+                <span class="text-secondary">
+                    Loading data ...
+                </span>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #brandSection>
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        <ng-container *ngIf="!(isLoading$ | async); else isLoadingData">
+            <ng-container *ngTemplateOutlet="brandMedia"></ng-container>
+        </ng-container>
+        <ng-template #isLoadingData>
+            <div class="text-center">
+                <span class="text-secondary">
+                    Loading data ...
+                </span>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #toolbar>
+    <div class="row mt-2 search-bar">
+        <div class="col-7">
+            <div class="row">
+                <div class="col-6">
+                        <div class="input-search mb-3">
+                            <i class="mdi mdi-magnify input-search-icon"></i>
+                            <input type="text" class="form-control font-12 input-search-field" placeholder="Search"
+                                aria-label="Search media" aria-describedby="search-addon" [(ngModel)]="_mediaService.searchTerm" />
+                        </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #edenredMedia>
+    <app-view-media 
+        [mediaList]="mediaLibData$ | async" (replaceImage)="OnReplaceMediaImage($event)" (editImage)="OnEditMediaImage($event)">
+    </app-view-media>
+</ng-template>
+
+<ng-template #merchantMedia>
+    <app-view-media 
+        [mediaList]="mediaLibData$ | async" (replaceImage)="OnReplaceMediaImage($event)" (editImage)="OnEditMediaImage($event)">
+    </app-view-media>
+</ng-template>
+
+<ng-template #productsMedia>
+    <app-view-media 
+        [mediaList]="mediaLibData$ | async" (replaceImage)="OnReplaceMediaImage($event)" (editImage)="OnEditMediaImage($event)">
+    </app-view-media>
+</ng-template>
+
+<ng-template #brandMedia>
+    <app-view-media 
+        [mediaList]="mediaLibData$ | async" (replaceImage)="OnReplaceMediaImage($event)" (editImage)="OnEditMediaImage($event)">
+    </app-view-media>
+</ng-template>
+<ngbd-toast-global></ngbd-toast-global>

@@ -1,0 +1,41 @@
+@import "../../../../../styles/variables";
+
+.apply-child-product-quotation {
+  .search-quotation {
+    background-color: $white-bg;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    textarea {
+      border: 1px solid $dark-grey;
+      border-radius: 4px;
+      padding: 11px 12px;
+      resize: none;
+      overflow-y: auto;
+      cursor: auto;
+      &::-webkit-scrollbar {
+        width: 18px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: $grey;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $dark-grey;
+      }
+      &::-webkit-scrollbar-track, &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-clip: padding-box;
+        border: 6px solid transparent;
+      }
+    }
+    .search-button {
+      border-radius: 4px;
+      box-shadow: none;
+    }
+  }
+  .quotation-with-expiry-info {
+    background-color: $white-bg;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+}

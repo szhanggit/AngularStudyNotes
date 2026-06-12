@@ -1,0 +1,99 @@
+<form [formGroup]="templateFormGroup">
+    <div formArrayName="productTemplateList">
+        <div [formGroupName]="index">
+            <ng-container *ngIf="templateTag.type === tagType.Text">
+                <div class="col-6" (mouseenter)="mediaOnHover = true">
+                    <label for="templateTag">{{ templateTag.displayName | titlecase }}</label>
+                    <input type="text" class="form-control font-14 text-secondary"
+                        [formControlName]="templateTag.displayName">
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="templateTag.type === tagType.Image">
+                <div class="col-12" (mouseenter)="mediaOnHover = true">
+                    <label for="templateTag">{{ templateTag.displayName | titlecase }}</label>
+                    <div *ngIf="getTemplateListFormGroup(index).controls[templateTag.displayName] && 
+                        getTemplateListFormGroup(index).controls[templateTag.displayName].value?.nodeUrl; else searchMedia"
+                        (click)="removeMedia()" (mouseout)="mediaOnHover = false">
+                        <div class="dashed d-flex justify-content-center p-3" [class.hover]="mediaOnHover"
+                            (mouseenter)="mediaOnHover = true">
+                            <div class="d-flex flex-column text-center">
+                                <img [src]="getTemplateListFormGroup(index).controls[templateTag.displayName].value?.nodeUrl"
+                                    [height]="getTemplateListFormGroup(index).controls[templateTag.displayName].value?.height"
+                                    [width]="getTemplateListFormGroup(index).controls[templateTag.displayName].value?.width"
+                                    class="img-thumbnail">
+                                <span class="text-secondary mt-2 font-14"><strong>{{
+                                        getTemplateListFormGroup(index).controls[templateTag.displayName].value?.keyword
+                                        |
+                                        titlecase }}</strong></span>
+                            </div>
+                            <div class="d-flex flex-column text-center show-on-hover pt-4" *ngIf="mediaOnHover">
+                                <span class="font-20">
+                                    <i class="uil-trash"></i>
+                                </span>
+                                <span class="font-14">
+                                    Delete file
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #searchMedia>
+                        <div class="col-6">
+                            <input type="text" class="form-control font-14 text-secondary"
+                                [formControlName]="templateTag.displayName" placeholder="Search from media library"
+                                [ngbTypeahead]="searchMediaImages" [inputFormatter]="mediaFormatter"
+                                [resultTemplate]="mediaResults" [focusFirst]="true"
+                                (focus)="focusMedia($any($event).target.value)"
+                                (click)="clickMediaKeyword$.next($any($event).target.value)" 
+                                (focusout)="checkMediaImageValue()"
+                                #instance="ngbTypeahead"
+                                triggers="manual">
+                            <ng-template #mediaResults let-r="result" let-t="term">
+                                <img [src]="r.nodeUrl" [alt]="r.keyword" width="100px" height="50px">
+                                <ngb-highlight [result]="r.keyword" [term]="t" class="ml-1"></ngb-highlight>
+                            </ng-template>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="templateTag.type === tagType.RichText">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="templateTag">{{ templateTag.displayName | titlecase }} (HTML Content)</label>
+                        <angular-editor class="htmlEditor" [config]="editorConfig" [formControlName]="templateTag.displayName"
+                            (ngModelChange)="onRichTextChanged($event, templateTag.displayName)"></angular-editor>
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label">
+                            {{ templateTag.displayName| titlecase }} (Text Content)
+                        </label>
+                        <textarea class="rich-text" [value]="richTextValue" disabled></textarea>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="templateTag.type === tagType.RadioGroup">
+                <label for="templateTag">{{ templateTag.displayName | titlecase}}</label>
+                <div class="row">
+                    <div class="col" *ngFor="let tagValue of tagValues">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" [name]="templateTag.displayName" [value]="tagValue.applyConditionId"
+                                class="form-check-input" [formControlName]="templateTag.displayName">
+                            <label class="form-check-label" [for]="templateTag.displayName">{{
+                                tagValue.applyConditionName }}</label>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="templateTag.type === tagType.HTMLText">
+                <label for="templateTag">{{ templateTag.displayName | titlecase}} <span *ngIf="templateTag.category === tagCategory.SelectedBySystem" class="text-info font-12">The content of {{ templateTag.displayName | titlecase}} defines in content tag based on order level.</span></label>
+                <ng-container *ngIf="templateTag.category !== tagCategory.SelectedBySystem">
+                    <angular-editor class="htmlEditor" [config]="editorConfig" [formControlName]="templateTag.displayName"></angular-editor>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</form>

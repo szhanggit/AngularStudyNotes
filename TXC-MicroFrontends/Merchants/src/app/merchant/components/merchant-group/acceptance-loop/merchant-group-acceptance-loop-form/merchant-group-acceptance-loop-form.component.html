@@ -1,0 +1,142 @@
+<form [formGroup]="acceptanceLoopFormGroup">
+    <div class="row my-3">
+        <div class="col-6">
+            <span class="font-22 text-dark bold">
+                {{ isEdit ? 'Edit Acceptance Loop' : 'Create Acceptance Loop' }}
+            </span>
+        </div>
+
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Acceptance Loop
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="code">Acceptance loop name <span class="text-danger bold">*</span></label>
+                                <input type="text" class="form-control font-14 text-secondary"
+                                    [ngClass]="{'is-invalid': acceptanceLoopFormGroup.controls.code.invalid && acceptanceLoopFormGroup.controls.code.dirty}"
+                                    formControlName="code" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="acceptanceLoopFormGroup.controls.code.invalid && acceptanceLoopFormGroup.controls.code.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #codeTip="ngbTooltip"
+                                    (click)="toggleTooltipWithContext(codeTip, acceptanceLoopFormGroup.controls.code, 'Only alphanumaric, space and chinese character allowed.')"
+                                    [disableTooltip]="!(acceptanceLoopFormGroup.controls.code.invalid && acceptanceLoopFormGroup.controls.code.dirty)" />
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label for="description">Description</label>
+                                <textarea rows="2" class="form-control font-14 text-secondary"
+                                    [ngClass]="{'is-invalid': acceptanceLoopFormGroup.controls.description.invalid && acceptanceLoopFormGroup.controls.description.dirty}"
+                                    formControlName="description" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="acceptanceLoopFormGroup.controls.description.invalid && acceptanceLoopFormGroup.controls.description.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #descriptionTip="ngbTooltip"
+                                    (click)="toggleTooltipWithContext(descriptionTip, acceptanceLoopFormGroup.controls.description)"
+                                    [disableTooltip]="!(acceptanceLoopFormGroup.controls.description.invalid && acceptanceLoopFormGroup.controls.description.dirty)">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-6 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Select merchant’s shops
+                        </span>
+                    </div>
+                </div>
+
+                <div class="px-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row pb-2  font-14 text-dark bold border-bottom">
+                                <div class="col-2 d-flex justify-content-center">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="selectAllMerchant"
+                                      [checked]="isAllMerchantSelected"
+                                      (change)="onSelectAllMerchant()"
+                                    >
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                    Merchant
+                                </div>
+                                <div class="col-5">
+                                    Shops
+                                </div>
+                            </div>
+                            <div class="row my-2 pb-2 border-bottom" *ngFor="let merchant of acceptanceLoopModel.acceptanceLoopMerchants">
+                                <div class="col-2 d-flex justify-content-center">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  [checked]="merchant.status"
+                                      [id]="merchant.merchantId" (change)="onSelectMerchant(merchant)"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="col-5 text-primary">
+                                    {{ merchant.merchantName }}
+                                </div>
+                                <div class="col-5">
+                                    <button
+                                        type="button"
+                                        class="btn btn-link px-0 py-0"
+                                        (click)="openModal(merchant.merchantId)"
+                                        [disabled]="merchant.merchantActiveShopCount === 0"
+                                    >
+                                        <span *ngIf="merchant.availableShopCount === merchant.merchantActiveShopCount">
+                                            All shops ({{merchant.merchantActiveShopCount}})
+                                        </span>
+                                        <span *ngIf="merchant.availableShopCount !== merchant.merchantActiveShopCount">
+                                            Limited ({{merchant.availableShopCount}})
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row my-2">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                                (click)="navigateToMerchantGroupDetails()">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" (click)="onSubmit()"
+                                [disabled]="acceptanceLoopFormGroup.invalid">{{ isEdit ? 'Save' : 'Create' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #tipContent let-formControl="formControl" let-message="message">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.pattern">
+        {{ message == '' ? 'Entered invalid pattern!' : message }}
+    </ng-container>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

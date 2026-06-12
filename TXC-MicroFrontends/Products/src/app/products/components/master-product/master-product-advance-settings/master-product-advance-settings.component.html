@@ -1,0 +1,128 @@
+<div class="bg-white rounded-3 px-3 py-2 my-3">
+    <div class="row">
+        <div class="col-8">
+            <span class="text-dark font-16 bold">External properties</span>
+        </div>
+        <div class="col-4" *ngIf="externalProperties.length">
+            <div class="float-end">
+                <button class="btn btn-primary font-12" (click)="openAddExternalPropertyModal(externalPropertyModal)">Add external property</button>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="externalProperties.length > 0 else noExternalProperties">
+        <table class="table table-centered mt-2" >
+            <thead class="font-12 bold">
+                <tr>
+                    <th scope="col" style="width: 20%;">Property Name</th>
+                    <th scope="col" style="width: 20%;">Property Value</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" style="width: 15%;">Action</th>
+                </tr>
+            </thead>
+            <tbody class="font-14">
+                <tr *ngFor="let externalProperty of externalProperties; let index = index">
+                    <td class="py-0">{{ externalProperty.propertyName }}</td>
+                    <td class="py-0">{{ externalProperty.propertyValue }}</td>
+                    <td class="py-0">{{ externalProperty.description }}</td>
+                    <td class="py-0">
+                        <button class="btn" (click)="deleteExternalProperty(index)">
+                            <i class="uil-trash"></i>
+                        </button>
+                        <button class="btn mx-2" (click)="openAddExternalPropertyModal(externalPropertyModal, index)">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-template #noExternalProperties>
+        <div class="row my-2">
+            <div class="text-center text-danger">
+                <button class="btn btn-primary font-12" (click)="openAddExternalPropertyModal(externalPropertyModal)">Add external property</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+
+<ng-template #externalPropertyModal let-modal>
+    <div class="modal-body px-5">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>{{ (editMode$ | async) ? EDIT : ADD }} external property</strong></span>
+        </div>
+
+        <div class="my-3 position-relative font-14">
+            <form [formGroup]="externalPropertyFormGroup">
+                <div class="row">
+                    <div class="col-12">
+                        <label [for]="PROPERTY_NAME" class="form-label">Property name <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" [ngClass]="{
+                        'is-invalid': f[PROPERTY_NAME].invalid && f[PROPERTY_NAME].dirty
+                    }" [formControlName]="PROPERTY_NAME" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f[PROPERTY_NAME].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #propertyNameTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(propertyNameTip, f[PROPERTY_NAME])"
+                            [disableTooltip]="!(f[PROPERTY_NAME].invalid && f[PROPERTY_NAME].dirty)"
+                            >
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-12">
+                        <label [for]="PROPERTY_VALUE" class="form-label">Property value <span
+                            class="text-danger">*</span></label>
+                        <input type="text" class="form-control" [ngClass]="{
+                            'is-invalid': f[PROPERTY_VALUE].invalid && f[PROPERTY_VALUE].dirty
+                        }" [formControlName]="PROPERTY_VALUE" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f[PROPERTY_VALUE].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #propertyValueTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(propertyValueTip, f[PROPERTY_VALUE])"
+                            [disableTooltip]="!(f[PROPERTY_VALUE].invalid && f[PROPERTY_VALUE].dirty)">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-12">
+                        <label [for]="DESCRIPTION" class="form-label">Description</label>
+                        <input type="text" class="form-control" [ngClass]="{
+                            'is-invalid': f[DESCRIPTION].invalid && f[DESCRIPTION].dirty
+                        }" [formControlName]="DESCRIPTION" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="f[DESCRIPTION].invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #descriptionTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(descriptionTip, f[DESCRIPTION])"
+                            [disableTooltip]="!f[DESCRIPTION].invalid">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(CLOSE)">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="externalPropertyFormGroup.invalid || externalPropertyFormGroup.pristine" (click)="closeModal$.next(true)">{{ (editMode$ | async) ? SAVE : ADD }}</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least {{ formControl.errors?.minlength?.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeds maximum {{ formControl.errors?.maxlength?.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.alreadyExists">
+        Entered name is already existed!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>

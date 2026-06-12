@@ -1,0 +1,16 @@
+@import "../../../styles/variables";
+
+.alert-danger {
+    color: black;
+    border: 1.5px solid $red;
+    background: $red-bg-color;
+    border-radius: 10px;
+
+    ul {
+        margin-bottom: 0px !important;
+    }
+
+    .type {
+        font-weight: bold;
+    }
+}

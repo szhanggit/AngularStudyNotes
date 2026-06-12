@@ -1,0 +1,23 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - 'TicketOperationCenterShell/*'
+    - 'Shared-Library/*'
+    exclude:
+    - '**/*.md'
+    - '**/nuget.config'
+
+stages:
+- template: ${{variables['System.DefaultWorkingDirectory']}}/DevOps-Templates/full-deploy/full-build-deploy-stage-template.yml
+  parameters:
+    MFEFolderName: 'TicketOperationCenterShell'
+    DistFolderName: 'shell'
+    ContainerName: '$web'

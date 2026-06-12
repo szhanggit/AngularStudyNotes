@@ -1,0 +1,21 @@
+input {
+    border-right: none;
+}
+
+.calendar-transparent {
+    background-color: transparent;
+    border-left: none;
+}
+
+.input-group {
+    position: relative;
+
+    .input-error {
+        position: absolute;
+        top: 38px;
+    }
+
+    &.form-control {
+        border-radius: 0.2rem;
+    }
+}

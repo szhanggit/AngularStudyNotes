@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-12">
+    <label
+      [class.form-label]="!selectModel?.style"
+      [style]="selectModel?.style"
+      [for]="selectModel.formControlName"
+      >{{ selectModel.label }}
+      <span *ngIf="selectModel.required" class="text-danger">*</span></label
+    >
+    <select2
+      [data]="selectModel.select2Data"
+      [name]="selectModel.formControlName"
+      ngDefaultControl
+      [(ngModel)]="value"
+      [id]="selectModel.formControlName"
+      [class]="customClass + (controlDir.control?.dirty && !controlDir.control?.valid && !controlDir.control?.disabled ? ' invalid-input' : '')"
+      (focus)="firstLoad = false"
+      (update)="onSelectUpdate($any($event).value)"
+      (blur)="onTouched(); blur.emit()"
+      [disabled]="disabledControl"
+      [placeholder]="selectModel.placeholder ?? ''"
+      displaySearchStatus="hidden"
+      resultMaxHeight="500px"
+    >
+    </select2>
+    <div *ngIf="controlDir.control?.dirty && !controlDir.control?.valid">
+      <ng-container *ngFor="let errorKey of controlErrors; let index = index">
+        <small class="text-danger">
+          {{ errorMessages[errorKey] }}
+        </small>
+      </ng-container>
+    </div>
+  </div>
+</div>

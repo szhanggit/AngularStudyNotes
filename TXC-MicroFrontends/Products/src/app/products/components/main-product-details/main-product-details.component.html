@@ -1,0 +1,680 @@
+<ngbd-toast-global></ngbd-toast-global>
+<div class="row my-2 font-12 bold text-center" *ngIf="(productDetailsLoading$ | async)">
+    <span class="alert alert-info">
+        Loading product details...
+    </span>
+</div>
+
+<div class="row my-2 font-12 bold text-center" *ngIf="!(productDetailsLoading$ | async) && !product">
+    <span class="alert alert-danger">
+        Error loading product details. Please try again later.
+    </span>
+</div>
+
+<div class="product-details-page" *ngIf="product">
+    <div class="product-details">
+        <div class="row mt-3">
+            <div class="col-6">
+                <span class="text-secondary font-22"><strong>{{ product?.productCode }}</strong></span>
+                <span class="text-dark font-22 mx-2"><strong>{{ product?.productName }}</strong></span>
+            </div>
+            <div class="col-6 banner-right">
+                <div class="float-end">
+                    <span ngbDropdown>
+                        <a class="btn btn-secondary rounded-circle menu-circle me-2" href="javascript:void(0)"
+                            role="button" id="dropdownLink" ngbDropdownToggle>
+                            <i class="uil uil-ellipsis-h"></i>
+                        </a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownLink" class="dropdown-menu">
+                            <a ngbDropdownItem class="font-12" (click)="navigateToProductHistory()">View Product
+                                History</a>
+                        </div>
+                    </span>
+
+                    <button *ngIf="isProductEditor && product?.status"
+                        class="btn btn-secondary rounded-pill me-2 font-12 txc-btn-block-height"
+                        (click)="openModal(stopIssueTimeModal)">
+                        {{ !stopIssueTime ? 'Set stop issue time' : 'Edit stop issue time' }}
+                    </button>
+
+                    <button [ngClass]="{'ml-2': !isProductEditor}" class="btn btn-primary rounded-pill font-12"
+                        disabled>View SKU inventory</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-12">
+                <div class="font-16">
+                    <strong [ngClass]="{ 'text-success' : product?.status, 'text-secondary' : !product?.status }">{{
+                        product?.status ? 'Active' : 'Inactive' }}</strong>
+                    <div class="vr font-16 mx-2"></div>
+                    <span class="text-secondary font-16">
+                        Product type: {{ product?.productType! | producttype }}
+                    </span>
+                </div>
+                <span *ngIf="product?.stopIssueTime && stopIssueTime" class="font-16"
+                    [ngClass]="{'text-success' : stopIssueTimeColor, 'text-danger' : !stopIssueTimeColor}">
+                    Stop issue time:
+                    <!-- No timezone conversion needed here because it is done in ts file to actually converse the value -->
+                    <span>{{ stopIssueTime | date : 'M/dd/yyyy hh:mm:ss aa' }}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngTemplateOutlet="productDetails"></ng-container>
+    <ng-container *ngTemplateOutlet="pricingContractExpiry"></ng-container>
+    <ng-container *ngTemplateOutlet="productTemplateImage"></ng-container>
+    <ng-container *ngTemplateOutlet="advanceSettings"></ng-container>
+
+    <ng-template #productDetails>
+        <div class="bg-white rounded-3 px-3 py-2 my-2" *ngIf="!(productDetailsLoading$ | async)">
+            <div class="row">
+                <div class="col-10">
+                    <button class="btn rounded-circle btn-sm collapse-circle-button"
+                        [ngClass]="[ productDetailsCollapsed ? 'btn-light' : 'btn-secondary']"
+                        (click)="pdCollapse.toggle()" [attr.aria-expanded]="!productDetailsCollapsed"
+                        aria-controls="collapseExample">
+                        <i [class]="productDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                    </button>
+                    <span class="text-dark collapse-title font-16 m-2">
+                        <strong>Product details</strong>
+                    </span>
+                </div>
+                <div *ngIf="isProductEditor" class="col-2">
+                    <div class="float-end">
+                        <button class="btn btn-primary font-12" (click)="navigateToEditProductDetails()">Edit</button>
+                    </div>
+                </div>
+            </div>
+            <div #pdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productDetailsCollapsed">
+                <!-- Basic Info -->
+                <app-basic-info [selectedTenant]="selectedTenant" [product]="product">
+                </app-basic-info>
+                <!-- Merchant and sku section -->
+                <div class="row my-2">
+                    <div class="mb-n2"><span class="font-16"><strong>Merchant & SKU</strong></span></div>
+                    <ng-container *ngIf="merchantSKUData && merchantDetails && merchantSKUData?.contractSKUCosts?.length">
+                        <app-merchant-sku [selectedSKU]="merchantSKUData" [selectedMerchant]="merchantDetails" [selectedType]="selectedType"
+                            [isMonoMerchant]="isMonoMerchant" [viewMode]="true">
+                        </app-merchant-sku>
+                    </ng-container>
+                </div>
+                <!-- Acceptance Loop Table  -->
+                <div class="mb-n2"><span class="font-16"><strong>Acceptance loop</strong></span></div>
+                <ng-container *ngIf="acceptanceLoopList.length > 0;  else noAcceptanceData">
+                    <app-acceptance-loop-table [acceptanceLoopList]="acceptanceLoopList"
+                        [selectedAcceptanceLoopId]="selectedAcceptanceLoopId"
+                        [errorMessage]="acceptanceLoopErrorMessage" [shopCount]="shopCount" [merchantId]="merchantId"
+                        [selectedMerchant]="merchantDetails" [isMonoMerchant]="isMonoMerchant" [isReview]="true">
+                    </app-acceptance-loop-table>
+                </ng-container>
+                <ng-template #noAcceptanceData>
+                    <div class="row my-2">
+                        <div class="text-center text-secondary font-14">
+                            No available acceptance loop for this merchant
+                        </div>
+                    </div>
+                </ng-template>
+                <!-- Voucher Number Rule -->
+                <div class="mb-n2"><span class="font-16"><strong>Voucher number rule</strong></span></div>
+                <ng-container *ngIf="voucherNumberRuleList.length > 0;  else noVoucherNumerRuleList">
+                    <app-voucher-number-rule-table [program]="merchantProgram"
+                        [voucherNumberRuleList]="voucherNumberRuleList" [errorMessage]="vnrErrorMessage">
+                    </app-voucher-number-rule-table>
+                </ng-container>
+                <ng-template #noVoucherNumerRuleList>
+                    <div class="row my-2">
+                        <div class="text-center text-secondary font-14">
+                            No available voucher number rule for this merchant
+                        </div>
+                    </div>
+                </ng-template>
+                <!-- Additional information section -->
+                <div class="row my-2">
+                    <div><span class="font-16"><strong>Additional information</strong></span></div>
+                    <div class="row my-1">
+                        <div class="col-4 font-14">Note for internal used (Operation)</div>
+                        <div class="col-8 font-14"><strong>{{ product?.operationNote || '--' }}</strong></div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-4 font-14">Note for internal used (Sales)</div>
+                        <div class="col-8 font-14"><strong>{{ product?.salesNote || '--' }}</strong></div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-4 font-14">Note for internal used (Customer service)</div>
+                        <div class="col-8 font-14"><strong>{{ product?.customerServiceNote || '--' }}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #pricingContractExpiry>
+        <div class="bg-white rounded-3 px-3 py-2 my-2" *ngIf="!(productPricingLoading$ | async)">
+            <div class="row">
+                <div class="col-10">
+                    <button class="btn rounded-circle btn-secondary btn-sm collapse-circle-button"
+                        [ngClass]="[ pricingContractExpiryCollapsed ? 'btn-light' : 'btn-secondary']"
+                        (click)="pceCollapse.toggle()" [attr.aria-expanded]="!pricingContractExpiryCollapsed"
+                        aria-controls="collapseExample">
+                        <i [class]="pricingContractExpiryCollapsed ? 'uil-angle-down': 'uil-angle-up'"></i>
+                    </button>
+                    <span class="text-dark collapse-title font-16 m-2">
+                        <strong>Pricing & expiry</strong>
+                    </span>
+                </div>
+                <div *ngIf="isProductEditor" class="col-2">
+                    <div class="float-end">
+                        <div class="float-end">
+                            <button class="btn btn-primary font-12"
+                                (click)="navigateToEditPricingExpiry()">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div #pceCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="pricingContractExpiryCollapsed">
+                <!-- Default pricing -->
+                <div class="row font-14" *ngIf="selectedType?.key === 1">
+                    <div class="mb-2">
+                        <span class="font-16"><strong>Default pricing</strong></span>
+                    </div>
+                    <div class="container-fluid px-3">
+                        <div class="row border-bottom py-1">
+                            <div class="col-4">Default selling price (prepaid with tax)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePrepaidWithTax }}</div>
+                            <div class="col-4">Default selling price (prepaid)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePrepaid }}</div>
+                        </div>
+                        <div class="row border-bottom py-1">
+                            <div class="col-4">Default selling price (postpaid with tax)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePostpaidWithTax }}</div>
+                            <div class="col-4">Default selling price (postpaid)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePostpaid }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row font-14" *ngIf="selectedType?.key === 2">
+                    <div class="mb-2">
+                        <span class="font-16"><strong>Default pricing</strong></span>
+                    </div>
+                    <div class="container-fluid px-3">
+                        <div class="row py-1">
+                            <div class="col-4">Default selling price (prepaid with tax)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePrepaidWithTax }}</div>
+                            <div class="col-4">Default selling price (prepaid)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePrepaid }}</div>
+                        </div>
+                        <div class="row border-bottom py-1">
+                            <div class="col-4 offset-6">Default selling price (prepaid %)</div>
+                            <div class="col-2 bold">{{ productPrice?.customerFeePrepaidWithTax }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row font-14" *ngIf="selectedType?.key === 3">
+                    <div class="mb-2">
+                        <span class="font-16"><strong>Default pricing</strong></span>
+                    </div>
+                    <div class="container-fluid px-3">
+                        <div class="row border-bottom py-1">
+                            <div class="col-4">Default selling price (prepaid with tax)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePrepaidWithTax }}</div>
+                            <div class="col-4">Default selling price (prepaid)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePrepaid }}</div>
+                        </div>
+                        <div class="row border-bottom py-1">
+                            <div class="col-4">Default selling price (postpaid with tax)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePostpaidWithTax }}</div>
+                            <div class="col-4">Default selling price (postpaid)</div>
+                            <div class="col-2 bold">{{ productPrice?.sellingPricePostpaid }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row font-14" *ngIf="selectedType?.key === 4">
+                    <div class="mb-2">
+                        <span class="font-16"><strong>Default pricing</strong></span>
+                    </div>
+                    <div class="container-fluid px-3">
+                        <div class="row border-bottom py-1">
+                            <div class="col-4">Default selling price (prepaid %)</div>
+                            <div class="col-2 bold">{{ productPrice?.customerFeePrepaidWithTax }}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Expiry scheme -->
+                <div class="row mt-2">
+                    <div class="mb-2">
+                        <span class="font-16 bold">Expiry scheme</span>
+                    </div>
+                    <div class="container-fluid px-3" *ngIf="selectedExpirySchemes.length > 0; else noExpirySchemeData">
+                        <div class="row font-12 border-bottom py-1">
+                            <div class="col-1 text-left"></div>
+                            <div class="col-4 text-left">
+                                <span class="bold">Expiry Date Type</span>
+                            </div>
+                            <div class="col-7 text-left">
+                                <span class="bold">Expiry Condition</span>
+                            </div>
+                        </div>
+                        <div class="row font-14 border-bottom py-1"
+                            *ngFor="let expiryScheme of selectedExpirySchemes | slice:expiryCountStart:expiryCountEnd; let index = index;">
+                            <div class="col-1 text-left">
+                                <span>{{ index + 1 }}</span>
+                            </div>
+                            <div class="col-4 text-left">
+                                <span>{{ expiryScheme.typeName | stringSplitByCapitalLetter }}</span>
+                            </div>
+                            <div class="col-7 text-left">
+                                <span>{{ expiryScheme.expirationPolicyName | stringSplitByCapitalLetter }}
+                                    <ng-container *ngIf="fixExpiryDate">
+                                        ({{fixExpiryDate | date: 'yyyy/MM/dd' : 'UTC'}})
+                                    </ng-container>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedExpirySchemes.length > 10" class="text-center">
+                            <button class="btn btn-primary btn-sm mt-1" (click)="showAllExpiryCount()">
+                                {{ showAllExpiryScheme ? 'Show All ( ' + selectedExpirySchemes.length + ')' :
+                                'Collapse'}}
+                            </button>
+                        </div>
+                    </div>
+                    <ng-template #noExpirySchemeData>
+                        <div class="row my-2">
+                            <div class="text-center text-secondary font-14">
+                                No Expiry Scheme List
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #productTemplateImage>
+        <div class="bg-white rounded-3 px-3 py-2 my-2" *ngIf="!(productTemplateLoading$ | async)">
+            <div class="row">
+                <div class="col-9">
+                    <button class="btn btn-sm rounded-circle btn-secondary collapse-circle-button"
+                        [ngClass]="[ productTemplateImageCollapsed ? 'btn-light' : 'btn-secondary']"
+                        (click)="ptiCollapse.toggle()" [attr.aria-expanded]="!productTemplateImageCollapsed"
+                        aria-controls="collapseExample">
+                        <i [class]="productTemplateImageCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                    </button>
+                    <span class="text-dark collapse-title font-16 m-2">
+                        <strong>Product template & image</strong>
+                    </span>
+                </div>
+                <div *ngIf="isProductEditor" class="col-3 align-right">
+                    <div class="row">
+                        <div class="col-9" *ngIf="showApplyToOrder">
+                            <div class="text-secondary font-10 align-right">
+                                Applying to order {{applyToOrderValue}}%
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': applyToOrderValue}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div [class]="{'col-3': showApplyToOrder, 'col-12': !showApplyToOrder}">
+                            <button class="btn btn-primary font-12" (click)="navigateToEditProductTemplate()">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div #ptiCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="productTemplateImageCollapsed">
+                <!-- Dynamic face value banner settings -->
+                <div class="row mt-2 mb-2" *ngIf="selectedType.key === ProductType.DynamicFaceValue">
+                    <div class="col-10">
+                        <div class="bold font-16">Dynamic face value banner settings</div>
+                        <div class="row font-14 mt-2">
+                            <div class="col-4">
+                                Hex Color Code
+                            </div>
+                            <div class="col-6 bold">
+                                {{ bannerSettingsDFV?.hexColor || '--' }}
+                            </div>
+                        </div>
+                        <div class="row font-14">
+                            <div class="col-4">
+                                Font size
+                            </div>
+                            <div class="col-6 bold">
+                                {{ bannerSettingsDFV?.fontSize || '--' }}
+                            </div>
+                        </div>
+                        <div class="row font-14">
+                            <div class="col-4">
+                                Point X
+                            </div>
+                            <div class="col-6 bold">
+                                {{ bannerSettingsDFV?.pointX || '--' }}
+                            </div>
+                        </div>
+                        <div class="row font-14">
+                            <div class="col-4">
+                                Point Y
+                            </div>
+                            <div class="col-6 bold">
+                                {{ bannerSettingsDFV?.pointY || '--' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <div class="bold font-16">
+                            Voucher page design
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Template name</div>
+                            </div>
+                            <div class="col-6">
+                                <ng-container
+                                    *ngIf="productTemplateData?.VoucherDesign?.templateName; else noVoucherName">
+                                    <div class="row">
+                                        <div class="col-6"><span class="bold">{{
+                                                productTemplateData?.VoucherDesign?.templateName || '--' }}</span>
+                                                <p class="text-success" *ngIf="!isEmailTemplateNew">(Latest version available)</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="javascript:void(0)" class="text-primary text-decoration-underline"
+                                                (click)="ShowPreview(1, $event)">Preview</a>
+                                            <a href="javascript:void(0)"
+                                                class="text-primary text-decoration-underline mx-2"
+                                                (click)="ExportTemplate(1, $event)">Export</a>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noVoucherName><span class="bold">--</span></ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-10">
+                        <div class="bold font-16">
+                            SMS design
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Template name</div>
+                            </div>
+                            <div class="col-6">
+                                <ng-container *ngIf="productTemplateData?.SMSDesign?.templateName; else noSMSName">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span class="bold">{{ productTemplateData?.SMSDesign?.templateName || '--'
+                                                }}</span>
+                                                <p class="text-success" *ngIf="!isSMSTemplateNew">(Latest version available)</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="" class="text-primary text-decoration-underline"
+                                                (click)="ShowPreview(2, $event)">Preview</a>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noSMSName><span class="bold">--</span></ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2" *ngIf="walletImageData?.addToWallet">
+                    <div class="col-10">
+                        <div class="bold font-16">
+                            Apple Wallet / Google Pay
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Wallet status</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ walletImageData?.walletStatus == 1 ? 'On' : 'Off'}}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Description show on Apple Wallet / Google Pay</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ walletImageData?.walletDescription }}</div>
+                            </div>
+                        </div>
+                        <div class="row mt-2" *ngIf="walletImageData?.media?.nodeUrl">
+                            <div class="col-4">
+                                <div>Wallet image</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="wallet-image d-flex justify-content-center">
+                                    <div class="d-flex flex-column text-center">
+                                        <img [src]="walletImageData?.media?.nodeUrl"
+                                            [height]="walletImageData?.media?.height"
+                                            [width]="walletImageData?.media?.width"
+                                            [alt]="walletImageData?.media?.keyword" class="img-thumbnail" />
+                                        <span class="text-secondary mt-2 font-14">
+                                            <strong>{{walletImageData?.media?.keyword }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #advanceSettings>
+        <div class="bg-white rounded-3 px-3 py-2 my-2" *ngIf="!(productAdvanceSettingsLoading$ | async)">
+            <div class="row">
+                <div class="col-10">
+                    <button class="btn btn-sm btn-secondary rounded-circle collapse-circle-button"
+                        [ngClass]="[ advanceSettingsCollapsed ? 'btn-light' : 'btn-secondary']"
+                        (click)="epCollapse.toggle()" [attr.aria-expanded]="!advanceSettingsCollapsed"
+                        aria-controls="collapseExample">
+                        <i [class]="advanceSettingsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                    </button>
+                    <span class="text-dark collapse-title m-2 font-16 bold">Advanced settings</span>
+                </div>
+                <div *ngIf="isProductEditor" class="col-2">
+                    <div class="float-end">
+                        <button class="btn btn-primary font-12"
+                            (click)="navigateToEditExternalProperties()">Edit</button>
+                    </div>
+                </div>
+            </div>
+            <div #epCollapse="ngbCollapse" class="mt-1" [(ngbCollapse)]="advanceSettingsCollapsed">
+                <div class="row font-14">
+                    <div class="col-6">
+                        <div class="my-2">
+                            <span class="font-16 bold">Merchant condition</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Minimum redeem quantity</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ productConditionData?.minRedeemQuantity }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div>Maximize issue quantity</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bold">{{ productConditionData?.maxIssuingQuantity }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row font-14">
+                    <div class="col-10">
+                        <div class="my-2">
+                            <span class="font-16 bold">Redemption settings</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Reminder</div>
+                            </div>
+                            <div class="col-8">
+                                <div class="bold">{{ productConditionData?.reminderId! | dictionarybynamepipe : reminders }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Reversal limit</div>
+                            </div>
+                            <div class="col-8">
+                                <div class="bold">{{ productConditionData?.reverseLimitId! | reverselimitpipe : reversalLimits }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Pre-authorization limit</div>
+                            </div>
+                            <div class="col-8">
+                                <div class="bold">
+                                    {{ productConditionData?.preAuthorizationExpiryInterval }}
+                                    {{ productConditionData?.preAuthorizationExpiryUnit! | intervalUnit }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="selectedType.key === 2 || selectedType.key === 4">
+                            <div class="col-4">
+                                <div>Redemption frequency</div>
+                            </div>
+                            <div class="col-8">
+                                <div *ngIf="productConditionData?.useTimeControl && productConditionData?.useTimeControlInterval; else noRedemptionFrequency"
+                                    class="bold">
+                                    {{ productConditionData?.useTimeControl }} within {{
+                                    productConditionData?.useTimeControlInterval }} days
+                                </div>
+                                <ng-template #noRedemptionFrequency>
+                                    <div class="bold">--</div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Redemption day & time</div>
+                            </div>
+                            <div class="col-8">
+                                <ul class="list-group list-unstyled list-group-flush w-100 flex-wrap flex-row"
+                                    *ngIf="productRestrictionData && productRestrictionData.productTimeRestrictionList!.length > 0; else noProductTimeRestrictionList">
+                                    <li class="bold" *ngFor="let dayTime of productRestrictionData?.productTimeRestrictionList; let i = index">
+                                        <ng-container *ngIf="dayTime.hours">
+                                            <span>{{ dayTime.dayOfTheWeek | dayOfTheWeekFilter }} </span>
+                                            <span>{{ dayTime.hours | hoursFilter }}</span>
+                                            <span class="mr-2" *ngIf="i<6">;</span>
+                                        </ng-container>
+                                    </li>
+                                </ul>
+                                <ng-template #noProductTimeRestrictionList>
+                                    <div class="bold">--</div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div>Redemption exclude date</div>
+                            </div>
+                            <div class="col-8">
+                                <div class="bold"
+                                    *ngIf="productRestrictionData && productRestrictionData.productDateRestrictionList!.length > 0; else noProductDateRestrictionList">
+                                    <span
+                                        *ngFor="let excluedDate of productRestrictionData?.productDateRestrictionList; let isLast=last">
+                                        {{ excluedDate.blackDate | txcLocalDateTime | date: 'dd/MM/yyyy' }}{{isLast ? '' : ','}}
+                                    </span>
+                                </div>
+                                <ng-template #noProductDateRestrictionList>
+                                    <div class="bold">--</div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 font-12">
+                    <div class="col-12">
+                        <div class="my-2">
+                            <span class="font-16 bold">External Properties</span>
+                        </div>
+                        <ng-container *ngIf="currentExternalProperties && currentExternalProperties.length > 0; else noExternalProperties">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Property Name</th>
+                                        <th>Property Value</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let externalProperty of currentExternalProperties">
+                                        <td>{{ externalProperty.propertyName }}</td>
+                                        <td>{{ externalProperty.propertyValue }}</td>
+                                        <td>{{ externalProperty.description }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-container>
+                        <ng-template #noExternalProperties>
+                            <div class="row my-2">
+                                <div class="text-center text-danger bold font-14">
+                                    NO EXTERNAL PROPERTY TO DISPLAY
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #stopIssueTimeModal let-modal>
+        <div class="modal-body">
+            <div class="text-center">
+                <span class="font-18 text-dark" id="modalLabel">
+                    <strong>{{ !stopIssueTime ? 'Set stop issue time' : 'Edit stop issue time' }}</strong>
+                </span>
+            </div>
+
+            <div class="my-3 position-relative" id="stopIssueTimeContainer">
+                <label class="form-label font-14">Stop issue time</label>
+                <div class="stopIssueTime_input_section">
+                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [min]="minDate"
+                        placeholder="MM/DD/YYYY 11:59 PM" class="form-control stopIssueTime_input"
+                        [(ngModel)]="modelStopIssueTime" />
+                    <owl-date-time #dt1 [startAt]="startDate" [hour12Timer]="true"></owl-date-time>
+                    <i class="mdi mdi-clock-time-three-outline timer_icon"></i>
+                    <a class="clearBtn" *ngIf="modelStopIssueTime" (click)="clearStopIssueTimeInput()">Clear</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="clearStopIssueTimeInput();modal.close('Close click')">Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary w-100 rounded-pill font-12"
+                        (click)="updateStopIssueTime();modal.close('Close click')">Save</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #returnToListModal let-modal>
+    <div class="modal-body">
+        <div class="text-center">
+            <span class="font-18 text-danger" id="modalLabel"><strong>PRODUCT NOT FOUND</strong></span>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-16"
+                    (click)="modal.close('return')">Return to Product List</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,56 @@
+<div class="row mb-3">
+    <div class="col-6">
+        <span class="text-dark font-16"><strong>Expiry scheme <span class="text-danger">*</span></strong></span>
+    </div>
+    <div class="col-6" *ngIf="selectedExpirySchemes.length">
+        <div class="float-end">
+            <button class="btn btn-primary font-12" (click)="emitOpenModal(expiryType)">{{ expiryType === expiryTypes.FLEXIBLE ? 'Select flexible expiry' : 'Select fixed expiry' }}</button>
+        </div>
+    </div>
+</div>
+
+<table class="table table-centered mt-2" *ngIf="selectedExpirySchemes.length > 0 else noExpiryScheme">
+    <thead class="font-12">
+        <th scope="col"></th>
+        <th scope="col"><strong>Expiry Date Type</strong></th>
+        <th scope="col"><strong>Expiry Condition</strong></th>
+        <th scope="col"><strong>Action</strong></th>
+    </thead>
+    <tbody>
+        <tr class="font-14" *ngFor="let expiryScheme of selectedExpirySchemes; let index = index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ expirationPolicyTypeEnum[expiryScheme.type] | stringSplitByCapitalLetter }}</td>
+            <td>
+                {{ expiryScheme?.displayName | stringSplitByCapitalLetter }} <ng-container *ngIf="expiryScheme?.fixExpiryDate || fixExpiryDate as fixExpiryDate">
+                    (
+                        <ng-container *ngIf="expiryScheme?.isFromModal; else utc">
+                            {{ fixExpiryDate | date: 'yyyy/MM/dd'}}
+                        </ng-container>
+                        <ng-template #utc>
+                            {{(fixExpiryDate) | date: 'yyyy/MM/dd' : 'UTC'}}
+                        </ng-template>
+                    )
+                </ng-container>
+            </td>
+            <td>
+                <button class="btn font-22" (click)="emitRemoveFromSelection(index)">
+                    <i class="uil-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noExpiryScheme>
+    <div class="row justify-content-center my-2">
+        <div class="col-auto">
+            <button class="btn btn-primary font-12" (click)="emitOpenModal(expiryTypes.FLEXIBLE)">
+                Select flexible expiry
+            </button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary font-12" (click)="emitOpenModal(expiryTypes.FIXED)">
+                Select fixed expiry
+            </button>
+        </div>
+    </div>
+</ng-template>

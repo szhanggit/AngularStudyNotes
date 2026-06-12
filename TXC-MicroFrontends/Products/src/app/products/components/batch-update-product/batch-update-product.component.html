@@ -1,0 +1,215 @@
+<div class="font-22 text-dark bold my-3">
+    Batch Update Products
+</div>
+<form [formGroup]="updateProductFormGroup">
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <span class="collapse-title my-2 bold" (click)="toggleConstainerGroup(CONTAINER_NAME_UPDATE_ITEM)">
+            <button class="btn ratio ratio-1x1 rounded-circle"
+                [ngClass]="{ 'btn-primary' : currentStep === 1, 'btn-secondary' : currentStep != 1 }"
+                [attr.aria-expanded]="!updateItemCollapsed" aria-controls="collapseExample">
+                <span style="font-size: 1.25em;">1</span>
+            </button>
+            <p class="step-title px-1"
+                [ngClass]="{ 'text-primary' : currentStep === 1, 'text-dark' : currentStep != 1 }">
+                Select & edit the item you would like to batch update to products
+            </p>
+        </span>
+        <div #spCollapse="ngbCollapse" class="mt-2 row" [(ngbCollapse)]="updateItemCollapsed">
+            <div class="col-6">
+                <label class="form-label font-14 mx-2" for="updateItem">Select batch update item</label>
+                <select class="form-select font-14 text-secondary mx-2" [attr.disabled]='true'
+                    formControlName="updateItem">
+                    <option selected value="">Select</option>
+                    <option *ngFor="let item of updateItemList" [value]="item">{{ item | titlecase }}</option>
+                </select>
+            </div>
+            <div class="col-6"></div>
+            <div class="row editor-area">
+                <div class="col-6">
+                    <label class="form-label font-14 m-2" for="htmlContent">HTML Content</label>
+                    <angular-editor class="htmlEditor mx-2" formControlName="htmlContent" [config]="HTML_EDITOR_CONFIG"
+                        (ngModelChange)="onRichTextChange()" [placeholder]="'Enter text here...'"></angular-editor>
+                </div>
+                <div class="col-6">
+                    <label class="form-label font-14 m-2" for="htmlContent">Text Content</label>
+                    <div>
+                        <textarea class="rich-text border">{{ htmlContentText }}</textarea>
+                    </div>
+    
+                </div>
+            </div>
+          
+            <div class="text-center">
+                <button class="btn btn-secondary font-12 px-4" (click)="resetHtmlContent()"
+                    [disabled]="!updateProductFormGroup.get('htmlContent')?.value">
+                    Reset
+                </button>
+                <button class="btn btn-primary font-12 mx-2 px-4" (click)="toggleConstainerGroup(CONTAINER_NAME_SEARCH)"
+                    [disabled]="!updateProductFormGroup.get('htmlContent')?.value">Next step
+                </button>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <span class="col-12 collapse-title my-2 bold" (click)="toggleConstainerGroup(CONTAINER_NAME_SEARCH)">
+            <button class="btn ratio ratio-1x1 rounded-circle"
+                [ngClass]="{ 'btn-primary' : currentStep === 2, 'btn-secondary' : currentStep != 2 }"
+                [attr.aria-expanded]="!searchCollapsed" aria-controls="collapseExample">
+                <span style="font-size: 1.25em;">2</span>
+            </button>
+            <p class="step-title px-1"
+                [ngClass]="{ 'text-primary' : currentStep === 2, 'text-dark' : currentStep != 2 }">
+                Search products you would like to apply this update
+            </p>
+        </span>
+        <div #spCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="searchCollapsed">
+            <ng-container>
+                <p class="my-2">
+                    Find products by entering product code or searching product name.
+                </p>
+                <div class="my-2">
+                    <div class="row font-14">
+                        <div class="col-6">
+                            <span class="deleteicon textarea-deleteicon w-100">
+                                <textarea class="form-control w-100" placeholder="Enter product code"
+                                    formControlName="productCodeList" (change)="autoGrowTextAreaZone()"
+                                    id="product-code-list"></textarea>
+                                <span class="h5" *ngIf="updateProductFormGroup.get('productCodeList')?.value"
+                                    (click)="autoGrowTextAreaZone(true)">x</span>
+                            </span>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary w-100" [disabled]="!updateProductFormGroup.get('productCodeList')?.value" (click)="onEnterClick()">Enter</button>
+                        </div>
+                    </div>
+
+                    <div class="row font-14 my-2">
+                        <div class="col-6">
+                            <div class="input-group mb-3 deleteicon">
+                                <span class="input-group-text"><span class="mdi mdi-magnify search-icon"></span></span>
+                                <input formControlName="searchKeyword" id="typeahead-custom" type="text"
+                                    class="form-control font-14" placeholder="Search product name" />
+                                <span class="h5" *ngIf="updateProductFormGroup.get('searchKeyword')?.value"
+                                    (click)="onSearchResetClick()">x</span>
+                                
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-secondary w-100" [disabled]="!updateProductFormGroup.get('searchKeyword')?.value" (click)="onSearchClick()">Search</button>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="searchProductList.length > 0 else showSvg">
+                        <div class="table-wrapper">
+                            <div class="row font-12 horizontal-rule vertical-center head-content">
+                                <div class="col-1 text-center">
+                                    <input type="checkbox" class="form-check-input" #toggleCheckbox
+                                        (change)="toggleCheckboxes(toggleCheckbox.checked)" [defaultChecked]="false">
+                                </div>
+                                <div class="col-3">Product Name</div>
+                                <div class="col-3">Product Code</div>
+                                <div class="col-2">Product Type</div>
+                            </div>
+                            <div class="row font-12 horizontal-rule vertical-center data-content"
+                                *ngFor="let product of searchProductList; let index = index">
+                                <div class="col-1 text-center">
+                                    <input type="checkbox" class="form-check-input" [checked]="product.checked"
+                                        #checkbox
+                                        (change)="onSelectionCheckClick(checkbox.checked, product.productCode)">
+                                </div>
+                                <div class="col-3">{{ product.productName }}</div>
+                                <div class="col-3">{{ product.productCode }}</div>
+                                <div class="col-2">{{ product.productType | producttype }}</div>
+                            </div>
+
+                            <div class="operation-content vertical-center">
+                                <button class="btn btn-primary font-12 mx-2"
+                                    (click)="onAddToConfirm(selectProductList)"
+                                    [disabled]="(selectProductList.length === 0)">Select products
+                                    ({{selectProductList.length}}/{{searchProductList.length}})
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template #showSvg>
+                        <div class="text-center" *ngIf="showNoResult">
+                            <span class="text-secondary">
+                                <svg-controller class="mt-2" svgName="no-result"></svg-controller>
+                                <span class="mt-3">No matches result. Please try other keywords. </span>
+                            </span>
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="bg-white rounded px-3 py-2 my-2">
+        <span class="col-12 collapse-title my-2 bold" (click)="toggleConstainerGroup(CONTAINER_NAME_COMFIRM)">
+            <button class="btn ratio ratio-1x1 rounded-circle"
+                [ngClass]="{ 'btn-primary' : currentStep === 3, 'btn-secondary' : currentStep != 3 }"
+                [attr.aria-expanded]="!confirmCollapsed" aria-controls="collapseExample">
+                <span style="font-size: 1.25em;">3</span>
+            </button>
+            <p class="step-title px-1"
+                [ngClass]="{ 'text-primary' : currentStep === 3, 'text-dark' : currentStep != 3 }">
+                Confirm selected product list
+            </p>
+        </span>
+        <div #spCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="confirmCollapsed">
+            <div class="vertical-center alarm-toast my-2 py-2" *ngIf="errorMessageList.length > 0">
+                <ul class="alarm-list">
+                    <li *ngFor="let errorMessage of errorMessageList"><span class="bold">{{errorMessage}}</span></li>
+                </ul>
+            </div>
+            <div *ngIf="confirmProductList.length > 0">
+                <div class="row font-12 horizontal-rule vertical-center head-content">
+                    <div class="col">{{CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME}}
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.None"
+                            svgName="sorting-indicator" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Ascending"
+                            svgName="sorting-indicator-down" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                        <svg-controller
+                            *ngIf="getConfirmProductTableSortingStatus(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME) === sortingStatusEnum.Descending"
+                            svgName="sorting-indicator-up" class="sortable"
+                            (click)="listSortingConfirmProductTable(CONFIRM_PRODUCT_TABLE_HEADER_PRODUCT_NAME)"></svg-controller>
+                    </div>
+                    <div class="col-2">Product Code</div>
+                    <div class="col-2">Product Type</div>
+                    <div class="col-1">Action</div>
+                </div>
+                <div class="row font-12 horizontal-rule vertical-center data-content"
+                    *ngFor="let product of confirmProductList; let index = index">
+                    <div class="col">{{ product.productName }}</div>
+                    <div class="col-2">{{ product.productCode }}</div>
+                    <div class="col-2">{{ product.productType | producttype }}</div>
+                    <div class="col-1">
+                        <button class="btn trash-btn" (click)="confirmProductList.splice(index, 1)">
+                            <i class="uil-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="operation-content vertical-center">
+                    <button class="btn btn-secondary font-12 mx-2 px-4" (click)="onConfirmResetClick()">Reset</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary rounded-pill px-4 font-12 float-end me-1" 
+        [disabled]="!updateProductFormGroup.get('htmlContent')?.value || confirmProductList.length === 0" 
+        (click)="save()">Save</button>
+        <button class="btn btn-secondary rounded-pill px-4 font-12 float-end me-1" (click)="cancel()">Cancel</button>
+    </div>
+</form>
+<ngbd-toast-global></ngbd-toast-global>

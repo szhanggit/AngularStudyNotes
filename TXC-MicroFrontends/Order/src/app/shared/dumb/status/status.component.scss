@@ -1,0 +1,41 @@
+@import "../../../../styles/variables";
+
+span {
+    /* Auto layout */
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 6px;
+    line-height: 14px;
+
+    color: $default-text-color;
+
+    &.default {
+        background: $grey;
+    }
+
+    &.yellow {
+        background: $yellow;
+    }
+
+    &.light-cobalt {
+        background-color: $blue-bg-color;
+    }
+
+    &.light-olive {
+        background-color: $light-olive;
+    }
+
+    &.pink {
+        background-color: $red;
+        color: white;
+    }
+
+    &.light-pink {
+        background-color: $light-pink;
+        color: $red;
+    }
+
+    &.light-mint {
+        background-color: $light-mint;
+    }
+}

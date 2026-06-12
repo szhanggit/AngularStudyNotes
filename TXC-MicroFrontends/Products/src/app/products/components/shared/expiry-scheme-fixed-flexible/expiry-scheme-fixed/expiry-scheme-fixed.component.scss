@@ -1,0 +1,13 @@
+.item-list {
+    height: 340px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.input-group-text{
+    background-color: transparent;
+    border-left: 0px;
+    ~ input{
+        border-right: 0px;
+    }
+}

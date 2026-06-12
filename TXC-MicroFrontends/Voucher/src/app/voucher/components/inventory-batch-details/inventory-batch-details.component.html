@@ -1,0 +1,338 @@
+<div class="row">
+    <span class="col-12 font-22 boGroup px-2 my-2">
+        <span class="text-dark">
+            <strong>
+                {{ skuDetails.skuCode }}:
+            </strong>
+        </span>
+        <span class="">
+            {{ skuDetails.skuName }}
+        </span>
+    </span>
+</div>
+
+
+<!-- Date Info -->
+<div class="bg-white rounded-3 px-3 py-2 my-2 font-14 mt-0">
+    <div class="row">
+        <div *ngIf="source === skuDetailSourceTypeEnum.IMPORT" class="row col-6">
+            <div class="col-6 ">
+                Available start date
+            </div>
+            <div class="col-6 bold" *ngIf="inventoryDetails?.issueAvailableStartDate">
+                {{ inventoryDetails?.issueAvailableStartDate  | txcLocalDateTime | date : 'yyyy/MM/dd' }}
+            </div>
+            <div class="col-6 bold" *ngIf="!inventoryDetails?.issueAvailableStartDate">
+                --
+            </div>
+            <div class="col-6 ">
+                Available end date
+            </div>
+            <div class="col-6 bold" >
+                {{ inventoryDetails?.issueAvailableEndDate  | txcLocalDateTime | date : 'yyyy/MM/dd' }}
+            </div>
+            <div class="col-6 ">
+                Expiry date
+            </div>
+            <div class="col-6 bold">
+                {{ inventoryDetails?.expiryDate  | txcLocalDateTime | date : 'yyyy/MM/dd hh:mm:ss aa' }}
+            </div>
+            <div class="col-6" *ngIf="tenant === TENANT_NAME_TW">
+                Trust account end date
+            </div>
+            <div class="col-6 bold" *ngIf="tenant === TENANT_NAME_TW && inventoryDetails?.trustAccountEndDate">
+                {{ inventoryDetails?.trustAccountEndDate  | txcLocalDateTime | date : 'yyyy/MM/dd' }}
+            </div>
+            <div class="col-6 bold" *ngIf="tenant === TENANT_NAME_TW && !inventoryDetails?.trustAccountEndDate">
+                --
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Voucher batch list -->
+<div class="bg-white rounded-3 px-3 py-2 my-2 font-14 mt-0">
+    <span class="text-dark font-16"><strong>Voucher batch list</strong></span>
+    <span class="font-16"> (Total: {{ totalCount }})</span>
+    <table class="table table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col" width="20%" *ngIf="source === skuDetailSourceTypeEnum.IMPORT">Batch Number</th>
+                <th scope="col">Import Date</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Import Qty</th>
+                <th scope="col">Remaining Qty</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let voucher of voucherBatchList; index as i">
+                <td *ngIf="source === skuDetailSourceTypeEnum.IMPORT"> {{ voucher.batchProcessorBatchId }} </td>
+                <td> {{ voucher.createdOn ? voucher.createdOn : '--' }} </td>
+                <td> {{ voucher.createdBy }} </td>
+                <td> {{ voucher.quantity }} </td>
+                <td> {{ voucher.remainingQuantity }} </td>               
+                <td>
+                    <div ngbDropdown class="d-inline-block" *ngIf="voucher.remainingQuantity ? +voucher.remainingQuantity > 0 : false">
+                        <i class="mdi mdi-dots-vertical fs-3" id="dropdownBasic1" ngbDropdownToggle></i>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem *ngFor="let action of actionList" class="px-3" (click)="onAction(action.actionName, voucher)">
+                                {{ action.actionName }}
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ pageInfo.currentPage }} of {{ pageInfo.pageCount }}, items
+                {{ pageInfo.itemStart }} to {{ pageInfo.itemEnd }} of {{ pageInfo.total }}
+            </span>
+        </div>
+        <div class="col-6 mt-2">
+            <div class="float-end font-12">
+                <ngb-pagination [collectionSize]="pageInfo.total" class="pagination-rounded"
+                    [(page)]="pageInfo.currentPage" [maxSize]="5" (pageChange)="getBatchInventoryDetailsByDates()"
+                    [pageSize]="pageInfo.pageSize || 0">
+                    <ng-template>
+                        <i class="uil-angle-left"></i>
+                    </ng-template>
+                    <ng-template>
+                        <i class="uil-angle-right"></i>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal template: Trahs batch -->
+<ng-template #trashBatchTemplate let-modal>
+    <div class="modal-body p-4">
+        <ng-container *ngIf="!isConfirmToTrash; else provideTrashReason ">
+            <div class="text-center">
+                <span class="font-18 text-dark my-3" id="modalLabel">
+                    <strong>Trash batch</strong>
+                </span>
+            </div>
+            <div class="my-3 text-dark font-14">
+                Are you sure you want to trash this batch?
+                <div class="text-danger font-14">
+                    Note: Once trashed, voucher number can not be reused.
+                </div>
+            </div>
+            <div class="row px-1">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="modal.close(null)">
+                        Cancel
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-danger w-100 rounded-pill font-12"
+                        (click)="isConfirmToTrash = true">
+                        Trash
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #provideTrashReason>
+            <div class="text-center">
+                <span class="font-18 text-dark my-3" id="modalLabel">
+                    <strong>Provide trash reason</strong>
+                </span>
+            </div>
+            <div class="my-3 text-dark font-14">
+                Provide a short description to describe the reason for trashing this batch.
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Trash reason</label>
+                <textarea [(ngModel)]="trashReason" type="text" class="form-control font-14 text-secondary"
+                    placeholder="text" maxlength="300"></textarea>
+            </div>
+            <div class="row px-1">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="modal.close(null)">Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill font-12" [disabled]="!trashReason"
+                        (click)="modal.close('trash')">
+                        Submit & Trash
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<!-- Modal template: Delete batch -->
+<ng-template #deleteBatchTemplate let-modal>
+    <div class="modal-body p-4">
+        <ng-container *ngIf="!isConfirmToDelete; else provideDeleteReason ">
+
+            <div class="text-center">
+                <span class="font-18 text-dark my-3" id="modalLabel">
+                    <strong>Delete batch</strong>
+                </span>
+            </div>
+            <div class="my-3 text-dark font-14">
+                Are you sure you want to delete this batch?
+            </div>
+            <div class="my-3 text-danger font-14">
+                Note: Voucher number will be deleted from database, and you will be able to import the same voucher
+                number.
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="modal.close(null)">Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-danger w-100 rounded-pill font-12"
+                        (click)="isConfirmToDelete = true">Delete</button>
+                </div>
+            </div>
+
+        </ng-container>
+        <ng-template #provideDeleteReason>
+            <div class="text-center">
+                <span class="font-18 text-dark my-3" id="modalLabel">
+                    <strong>Provide delete reason</strong>
+                </span>
+            </div>
+            <div class="my-3 text-dark font-14">
+                Provide a short description to describe the reason for deleting this batch.
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Delete reason</label>
+                <textarea [(ngModel)]="deleteReason" type="text" class="form-control font-14 text-secondary"
+                    placeholder="text" maxlength="300"></textarea>
+            </div>
+            <div class="row px-1">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                        (click)="modal.close(null)">Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill font-12" [disabled]="!deleteReason"
+                        (click)="modal.close('delete')">
+                        Submit & Delete
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+
+<!-- Modal template: Download batch -->
+<ng-template #downloadBatchTemplate let-modal>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span class="font-18 text-dark my-3" id="modalLabel">
+                <strong>Provide download reason</strong>
+            </span>
+        </div>
+        <div class="my-3 text-dark font-14">
+            Provide a short description to describe the reason for downloading the batch.
+        </div>
+        <div class="my-4 position-relative">
+            <label class="form-label font-14">Download reason</label>
+            <textarea [(ngModel)]="downloadReason" type="text" class="form-control font-14 text-secondary"
+                placeholder="text" maxlength="300"></textarea>
+        </div>
+        <div class="row px-1">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill font-12" [disabled]="!downloadReason"
+                    (click)="modal.close('download')">
+                    Submit & Download
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Modal template: Edit date information -->
+<ng-template #editDateInformationTemplate let-modal>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <span class="font-18 text-dark my-3" id="modalLabel">
+                <strong>Edit date information</strong>
+            </span>
+        </div>
+        <form [formGroup]="editDateInformationForm">
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Available start date</label><span class="text-danger bold">*</span>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="--" name="availableStartDate"
+                        formControlName="availableStartDate" ngbDatepicker #availableStartDatepicker="ngbDatepicker"
+                        (click)="availableStartDatepicker.toggle()" autoClose="'outside'">
+                    <i (click)="availableStartDatepicker.toggle()"
+                        class="mdi mdi-calendar input-group-text cursor-pointer"></i>
+                </div>
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Available end date</label><span class="text-danger bold">*</span>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="--" name="availableEndDate"
+                        formControlName="availableEndDate" ngbDatepicker #availableEndDatepicker="ngbDatepicker"
+                        (click)="availableEndDatepicker.toggle()" autoClose="'outside'">
+                    <i (click)="availableEndDatepicker.toggle()"
+                        class="mdi mdi-calendar input-group-text cursor-pointer"></i>
+                </div>
+
+            </div>
+            <div class="my-4 position-relative">
+                <label class="form-label font-14">Expiry date</label><span class="text-danger bold">*</span>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="--" name="expiryDate"
+                        formControlName="expiryDate" ngbDatepicker #expiryDatepicker="ngbDatepicker" [footerTemplate]="editDateInformationFooter"
+                        (click)="expiryDatepicker.toggle()" autoClose="'outside'">
+                    <i (click)="expiryDatepicker.toggle()" class="mdi mdi-calendar input-group-text cursor-pointer"></i>
+                </div>
+                 <!-- Footer template for calendar  -->
+                <ng-template #editDateInformationFooter>
+                    <hr class="my-0" />
+                    <button class="btn btn-secondary btn-sm m-2 mx-5"
+                        (click)="setNoExpiry();expiryDatepicker.close()">No expiration</button>
+                </ng-template>
+            </div>
+            <div *ngIf="tenant === TENANT_NAME_TW" class="my-4 position-relative">
+                <label class="form-label font-14">Trust account end date</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" [placeholder]="DATE_PLACEHOLDER"
+                        name="trustAccountEndDatepicker" ngbDatepicker #trustAccountEndDatepicker="ngbDatepicker"
+                        (click)="trustAccountEndDatepicker.toggle();"
+                        autoClose="'outside'" formControlName="trustAccountEndDate">
+                    <i (click)="trustAccountEndDatepicker.toggle();"
+                        class="mdi mdi-calendar input-group-text cursor-pointer"></i>
+                </div>
+               
+            </div>
+
+
+        </form>
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close(null)">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill font-12" [disabled]="!(editDateInformationForm.get('availableStartDate')?.value ||
+                                    editDateInformationForm.get('availableEndDate')?.value ||
+                                    editDateInformationForm.get('expiryDate')?.value ||
+                                    editDateInformationForm.get('trustAccountEndDate')?.value
+                )" (click)="modal.close('save-editDate')">Save</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ngbd-toast-global></ngbd-toast-global>

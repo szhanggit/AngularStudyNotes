@@ -1,0 +1,18 @@
+<!-- error messages goes here -->
+<div class="row font-14" 
+    [class]="{'my-3': addHorizontalMargin, 'mx-1': addVerticalMargin}" 
+    *ngIf="errorMessages.length">
+    <span class="alert alert-danger">
+      <ul>
+        <ng-container
+          *ngFor="let errorMessage of errorMessages"
+        >
+          <li>
+            <span class="type" *ngIf="showHeading">{{ errorMessage.type }} : </span>
+            {{ errorMessage.description }}
+          </li>
+        </ng-container>
+      </ul>
+      <span *ngIf="!(errorMessages.length < limit) && (limit > 0)" class="fw-bold">Please download the file to see the full list of errors</span>
+    </span>
+  </div>

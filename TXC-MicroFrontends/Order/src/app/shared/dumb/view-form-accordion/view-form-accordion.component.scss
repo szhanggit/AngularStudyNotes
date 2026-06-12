@@ -1,0 +1,35 @@
+@import "../../../../styles/variables";
+
+.ratio-1x1 {
+  height: 30px;
+  width: 30px;
+}
+
+.btn-sm.rounded-circle {
+  padding: 0;
+
+  [class^="uil-"]:before,
+  [class*=" uil-"]:before {
+    font-size: 2rem;
+  }
+}
+
+.collapse-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.remove-caret::after {
+  display: none !important;
+}
+
+.btn i {
+  display: inline-block;
+  line-height: 1.0625rem;
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+
+.ml-2 {
+  margin-left: 0.75rem;
+}

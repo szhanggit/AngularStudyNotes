@@ -1,0 +1,77 @@
+
+    <div class="row mb-2">
+        <div class="col-6 form-group">
+            <label for="smsTemplate" class="form-label">SMS template</label>
+            <div class="input-group" >
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="search-addon">
+                      <i class="mdi mdi-magnify"></i>
+                  </span>
+                </div>
+                <input class="form-control search" 
+                    placeholder="Search template name"
+                    [(ngModel)]="template"
+                    [ngbTypeahead]="search"
+                    #searchTemplate="ngbTypeahead"
+                    #searchTemplateRef
+                    [resultTemplate]="resultTemplate"
+                    [inputFormatter]="formatter"
+                    (selectItem)="selectedItem($event)"
+                    [editable]="false" 
+                />  
+            </div>
+        </div>
+        <div class="col-6 d-flex">
+            <button type="button" class="btn btn-link preview" (click)="onPreviewClick()" *ngIf = "template != null">Preview</button>
+            <button type="button" class="btn btn-link preview" (click)="onPreviewLatestVersionClick()" *ngIf = "template != null && templateVersion && !templateVersion?.isCurrentVersion">Preview latest version</button>
+        </div>
+    </div>    
+
+
+<div class="row mb-2" *ngIf = "template != null">
+    <div class="col-6 form-group">
+      <label for="language" class="form-label">Language</label>
+      <select class="form-select" name="smsTemplate" id="language"
+        [(ngModel)]="languageId" [disabled]="languages.length <= 0"
+        (ngModelChange)="setTemplateVersionId()">
+        <option *ngFor="let language of languages" [value]="language.dictionaryId">
+          {{ language.displayName }}
+        </option>
+      </select>
+    </div>
+    <div class="col-6">
+      <label class="form-label">Apply Language</label><br />
+      <label class="switch font-18">
+        <div class="form-check form-switch mt-1">
+          <input #inputApplyLanguage class="form-check-input" type="checkbox" [checked]="templateVersion && templateVersion.applyLanguage"  [disabled]="(templateVersion?.defaultLanguage??0) == (templateVersion?.languageId??0)"
+          (change)="onApplyLanguageChange(inputApplyLanguage.checked)"/>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let tag of tags">
+      <ng-container [ngSwitch]="tag.type">
+        <ng-container *ngSwitchCase="tagType.Text" [ngTemplateOutlet]="TextEditor"
+          [ngTemplateOutletContext]="{tag:tag}"></ng-container>      
+        <ng-container *ngSwitchDefault></ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  
+  <ng-template #TextEditor let-tag='tag'>
+    <div class="col-6 mb-2">
+        <div class="mb-2">
+          <label [for]="tag.tagId" class="form-label">
+            {{tag.displayName}}
+          </label>
+          <input type="text" class="form-control" [id]="tag.tagId" [placeholder]="tag.displayName" [(ngModel)]="tag.value" 
+           on-focusout="onTagfocusout()" />
+        </div>
+    </div>
+  </ng-template>
+
+  
+  <ng-template #resultTemplate let-r="result" let-t="term">
+    <ngb-highlight [result]="r.templateName" [term]="t"></ngb-highlight>
+  </ng-template>

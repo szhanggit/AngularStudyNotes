@@ -1,0 +1,88 @@
+// title
+
+.ratio-1x1 {
+    height: 30px;
+    width: 30px;
+}
+
+.title {
+    cursor: pointer;
+}
+
+// table
+
+.table-wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 0;
+}
+
+.head-content {
+    margin: 0;
+    min-height: 38px;
+    font-weight: bold;
+    text-align: left;
+    word-break: break-all;
+    font-size: 12px;
+}
+
+.data-content {
+    margin: 0;
+    min-height: 54px;
+    text-align: left;
+    word-break: break-all;
+    font-size: 14px;
+}
+
+.operation-content {    
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    min-height: 54px;
+    font-size: 12px;
+}
+
+.horizontal-rule {
+    border-bottom: 1px solid #aaa;
+}
+
+
+// icons
+
+.drag-icon {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 20px;
+    height: 14px;
+    border: 2px solid transparent;
+    cursor: move;
+  }
+  .drag-icon::after,
+  .drag-icon::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    height: 2px;
+    border-radius: 3px;
+    background: currentColor;
+  }
+  .drag-icon::before {
+    position: absolute;
+    top: 2px;
+    width: 16px
+  }
+  .drag-icon::after {
+    position: absolute;
+    width: 16px;
+    bottom: 2px
+  }
+  

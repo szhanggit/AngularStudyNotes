@@ -1,0 +1,31 @@
+<section class="media-library-section">
+    <div class="row align-items-end" *ngIf="mediaList?.items?.length > 0 else noMediaData">
+        <div class="col-2" *ngFor="let media of mediaList.items">
+            <div class="media-image">
+                <div class="media-image-view" (click)="openImage(media.nodeUrl)">
+                    <div class="image-action">
+                        <button class="image-action-button me-1" title="Replace" (click)="handleReplace(media.mediaId, $event)">
+                            <i class="mdi mdi-refresh"></i>
+                        </button>
+                        <button class="image-action-button" title="Edit" (click)="handleEdit(media.mediaId, $event)">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+                    </div>
+                    <div class="img-wrapper">
+                        <img [src]="mediaURL+media?.nodeUrl"
+                            [height]="media?.height"
+                            [width]="media?.width"
+                            [alt]="media?.keyword" />
+                    </div>
+                </div>
+                <div class="media-image-info">
+                  <p class="name">{{ media?.keyword }}</p>
+                  <p class="ratio">{{ media?.width }} X {{ media?.height }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noMediaData>            
+        <app-no-result [message]="errorMessage"></app-no-result>
+    </ng-template>
+</section>

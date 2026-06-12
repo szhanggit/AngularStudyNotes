@@ -1,0 +1,52 @@
+.collapse-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-light {
+    background-color: #D5D8DD;
+}
+
+.btn-sm.rounded-circle {
+    padding: 0;
+
+    [class^=uil-]:before,
+    [class*=" uil-"]:before {
+        font-size: 2rem;
+    }
+}
+
+hr {
+    height: 1px !important;
+    background: #D5D8DD !important;
+    opacity: 1 !important;
+}
+
+// image input
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+    pointer-events: none;
+
+    &.hover {
+        background: #D5D8DD;
+        opacity: 0.8;
+        border-radius: 4px;
+    }
+
+    .img-thumbnail {
+        height: 5rem;
+        width: 100%;
+        pointer-events: all;
+    }
+
+    .show-on-hover {
+        position: absolute;
+        z-index: 2;
+        width: 500px;
+        height: 135px;
+        background-color: #D5D8DD;
+        opacity: 0.8;
+        color: #6D7787;
+    }
+}

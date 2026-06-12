@@ -1,0 +1,14 @@
+@import "../../../../styles/variables";
+
+hr {
+    height: 1px !important;
+    background: $grey !important;
+    opacity: 1 !important;
+  }
+  
+  .attachment-link {
+    color: $light-blue;
+    &:hover {
+      cursor: pointer;
+    }
+  }

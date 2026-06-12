@@ -1,0 +1,318 @@
+<ng-container *ngIf="viewMode">
+  <ng-content></ng-content>
+</ng-container>
+
+<div
+  class="row"
+  [class]="isDirectOrderDeliveryDetails ? 'mt-3' : ''"
+  *ngIf="displaySearchBar"
+>
+  <div class="col-5">
+    <div class="input-group mb-1">
+      <span class="input-group-text" id="search-addon">
+        <i class="mdi mdi-magnify"></i>
+      </span>
+      <input
+        type="text"
+        class="form-control font-12"
+        (keyup)="onSearch($event)"
+        placeholder="Search Product name or Product code"
+        aria-label="Search Product name or Product code"
+        aria-describedby="search-addon"
+      />
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!noData; else noDataContent">
+  <table class="table table-centered mt-2">
+    <thead class="font-12">
+      <tr>
+        <ng-container *ngFor="let header of tableModel.tableHeaders">
+          <th *ngIf="!header.hidden" scope="col">
+            <ng-container
+              *ngIf="
+                (header.headerName === 'Actions' && showActionColumn) ||
+                (header.headerName !== 'Actions' && viewMode) ||
+                !viewMode
+              "
+            >
+              {{ header.headerName }}
+            </ng-container>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody class="font-14">
+      <ng-container *ngFor="let product of productList; index as i">
+        <tr
+          *ngIf="
+            (showChildProduct && product.isChildProduct) ||
+            !product.isChildProduct
+          "
+          [class]="{
+            'white-bg':
+              product.isChildProduct ||
+              (product.productType !== productTypeEnum.SuperVoucher &&
+                product.productType !== productTypeEnum.SmartChoiceVoucher),
+            'no-border-bottom':
+              product.isChildProduct ||
+              (product.productType !== productTypeEnum.SuperVoucher &&
+                product.productType !== productTypeEnum.SmartChoiceVoucher),
+            'border-bottom':
+              product.productType !== productTypeEnum.DynamicFaceValue
+          }"
+        >
+          <td>
+            {{ product.productCode }}
+            <div class="font-12">
+              {{ product.productName }}
+            </div>
+          </td>
+          <td>
+            <ng-container *ngIf="!product.isChildProduct">
+              {{ product.remainingQuantity || "-" }}
+            </ng-container>
+          </td>
+          <td *ngIf="selectedOrderMode?.key !== orderModes.API">
+            <ng-container *ngIf="!product.isChildProduct">
+              {{ product.voucherQuantity || "-" }}
+            </ng-container>
+          </td>
+          <ng-container
+            *ngIf="selectedOrderMode?.key === orderModes.DirectNonAPI"
+          >
+            <td>
+              <ng-container *ngIf="!product.isChildProduct">
+                {{ product.emailQuantity || "-" }}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!product.isChildProduct">
+                {{ product.smsQuantity || "-" }}
+              </ng-container>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="isPublishedApi">
+            <td>
+              <ng-container *ngIf="!product.isChildProduct">
+                {{ product.issuedQuantity || "-" }}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!product.isChildProduct">
+                {{ product.emailIssuedQuantity || "-" }}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!product.isChildProduct">
+                {{ product.smsIssuedQuantity || "-" }}
+              </ng-container>
+            </td>
+          </ng-container>
+          <td *ngIf="!isDirectOrderDeliveryDetails">
+            <ng-container *ngIf="!product.isChildProduct && product.productType !== productTypeEnum.DynamicFaceValue">
+              {{ product.faceValue | number : "1.2-2" || "-" }}
+            </ng-container>
+          </td>
+          <td *ngIf="!isDirectOrderDeliveryDetails">
+            <ng-container *ngIf="!product.isChildProduct">
+              <ng-container
+                *ngIf="
+                  product.productType !== productTypeEnum.DynamicFaceValue;
+                  else dfvPercentage
+                "
+              >
+                {{ product.sellingPrice | number : "1.4-4" }}
+              </ng-container>
+              <!-- dfv percentage -->
+              <ng-template #dfvPercentage>
+                {{ product.dfvPercentage | number : "1.4-4" }}%
+              </ng-template>
+            </ng-container>
+          </td>
+          <td *ngIf="!isDirectOrderDeliveryDetails">
+            <ng-container *ngIf="!product.isChildProduct">
+              {{ product.reservationCode || "-" }}
+            </ng-container>
+          </td>
+          <td>
+            {{ product.expirySchemeText | stringSplitByCapitalLetter }}
+            <div class="font-12">
+              {{ product.expiryDate | date : "yyyy/MM/dd" }}
+            </div>
+          </td>
+          <td *ngIf="!isDirectOrderDeliveryDetails && isWithClientOrderNo">
+            <ng-container *ngIf="!product.isChildProduct">
+              {{ product.clientOrderNumber || "-" }}
+            </ng-container>
+          </td>
+          <td *ngIf="isPublishedApi && !product.isChildProduct">
+            <div class="form-check form-switch mt-1">
+              <input
+                type="checkbox"
+                [(ngModel)]="product.isActive"
+                (change)="onStatusChanged(product.orderLineId, product.isActive)"
+                class="form-check-input"
+                [disabled]="!enableForCreatorOnly"
+              />
+            </div>
+          </td>
+          <ng-container *ngIf="!isDirectOrderDeliveryDetails">
+            <td class="overflow-hidden">
+              <div
+                ngbDropdown
+                container="body"
+                *ngIf="showActionColumn && !product.isChildProduct"
+              >
+                <button
+                  *ngIf="!product.isChildProduct"
+                  class="btn remove-caret"
+                  ngbDropdownToggle
+                  [disabled]="!viewMode && disableSingleUpload"
+                >
+                  <i class="uil uil-ellipsis-v"></i>
+                </button>
+                <div ngbDropdownMenu>
+                  <button
+                    *ngIf="!product.isChildProduct && !viewMode"
+                    ngbDropdownItem
+                    class="font-12 text-secondary"
+                    (click)="onProductEditClick(product.id)"
+                  >
+                    Edit product details
+                  </button>
+                  <button
+                    *ngIf="!product.isChildProduct && !viewMode"
+                    ngbDropdownItem
+                    class="font-12 text-secondary"
+                    (click)="onProductDelete(i)"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    *ngIf="selectedTenant === tenantEnum.Taiwan"
+                    ngbDropdownItem
+                    class="font-12 text-secondary"
+                    (click)="onOpenTrustAccount(product)"
+                  >
+                    View trust account info
+                  </button>
+                  <button
+                    *ngIf="
+                      isWithViewDirectDeliveryDetails &&
+                      showViewDirectDeliveryDetails
+                    "
+                    ngbDropdownItem
+                    class="font-12 text-secondary"
+                    (click)="onOpenDirectDeliveryDetails(product)"
+                  >
+                    View direct delivery details
+                  </button>
+                  <button
+                    *ngIf="isWithPreviewVoucherPage"
+                    ngbDropdownItem
+                    class="font-12 text-secondary"
+                    (click)="showPreview(1, product, $event)"
+                  >
+                    Preview voucher page
+                  </button>
+                  <button
+                    *ngIf="isWithPreviewSMS"
+                    ngbDropdownItem
+                    class="font-12 text-secondary"
+                    (click)="showPreview(2, product, $event)"
+                  >
+                    Preview SMS
+                  </button>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container>
+            <td *ngIf="isDirectOrderDeliveryDetails">
+              <ul class="list-unstyled" *ngIf="!product.isChildProduct">
+                <li>
+                  <a
+                    class="text-primary text-decoration-underline"
+                    href=""
+                    (click)="onEditDeliveryDetailsClicked(product, $event)"
+                    >{{ editLabel }}</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="text-primary text-decoration-underline"
+                    href=""
+                    (click)="showPreview(1, product, $event)"
+                    >Preview voucher page</a
+                  >
+                </li>
+                <li *ngIf="selectedOrderMode.key !== orderModes.IndirectNonAPI">
+                  <a
+                    class="text-primary text-decoration-underline"
+                    href=""
+                    (click)="showPreview(2, product, $event)"
+                    >Preview SMS</a
+                  >
+                </li>
+              </ul>
+            </td>
+          </ng-container>
+        </tr>
+        <ng-container
+          *ngIf="
+            product.productType === productTypeEnum.DynamicFaceValue &&
+            !isDirectOrderDeliveryDetails
+          "
+        >
+          <tr
+            class="white-bg no-border-bottom"
+            *ngFor="
+              let dfvProp of getProductDfvProps(product, selectedOrderMode.key);
+              index as j;
+              last as last
+            "
+            [class]="{
+              'border-bottom': last
+            }"
+          >
+            <td class="py-1"></td>
+            <td class="py-1"></td>
+            <ng-container *ngIf="isPublishedApi">
+              <td class="py-1"></td>
+              <td class="py-1"></td>
+              <td class="py-1"></td>
+            </ng-container>
+            <td *ngIf="selectedOrderMode?.key !== orderModes.API" class="py-1">
+              {{ dfvProp.voucherQuantity }}
+            </td>
+            <ng-container
+              *ngIf="selectedOrderMode?.key === orderModes.DirectNonAPI"
+            >
+              <td class="py-1">{{ dfvProp.emailQty || "-" }}</td>
+              <td class="py-1">{{ dfvProp.smsQty || "-" }}</td>
+            </ng-container>
+            <td class="py-1">
+              {{ dfvProp.faceValue ?? 0 | number : "1.1-1" }}
+            </td>
+            <td class="py-1">
+              {{ dfvProp?.sellingPrice ?? 0 | number : "1.2-2" }}
+            </td>
+            <ng-container *ngIf="selectedOrderMode?.key !== orderModes.API">
+              <td class="py-1"></td>
+              <td class="py-1"></td>
+              <td class="py-1"></td>
+              <td class="py-1"></td>
+              <td class="py-1"></td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #noDataContent>
+  <app-no-data></app-no-data>
+</ng-template>

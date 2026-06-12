@@ -1,0 +1,94 @@
+<div class="bg-white rounded-3 px-3 py-2 my-2">
+  <!-- TITLE SECTION -->
+  <div class="row">
+    <div class="col-9">
+      <button
+        class="btn btn-sm rounded-circle"
+        [class]="sectionCollapsed ? 'btn-light' : 'btn-secondary'"
+        (click)="pdCollapse.toggle()"
+        [attr.aria-expanded]="!sectionCollapsed"
+        aria-controls="collapseExample"
+      >
+        <i [class]="sectionCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+      </button>
+      <span class="text-dark collapse-title m-2 bold">
+        {{ sectionTitle }}
+      </span>
+      <div
+        class="form-check form-switch form-check-inline mt-2"
+        *ngIf="showChildProductToggle"
+      >
+        <input
+          type="checkbox"
+          id="isChildProduct"
+          name="isChildProduct"
+          (change)="onShowChildProductChanged()"
+          [(ngModel)]="isShowChildProduct"
+          class="form-check-input"
+          [disabled]="disableChildToggle"
+        />
+        <label for="isChildProduct" class="form-check-label"
+          >Child product</label
+        >
+      </div>
+    </div>
+    <!-- EDIT BUTTON -->
+    <div class="col-3" *ngIf="showEdit">
+      <div class="float-end" [ngClass]="hasSecondaryButton ? 'd-flex' : ''">
+        <button
+          *ngIf="hasSecondaryButton"
+          class="btn font-12 px-4 btn-secondary"
+          [disabled]="isSecondaryButtonDisabled"
+          (click)="onSecondaryButtonClicked()"
+        >
+          {{ secondaryButtonText }}
+        </button>
+        <button
+          class="btn font-12 px-4 ml-2"
+          [class]="{
+            'btn-outline-secondary': !isPrimary,
+            'btn-primary': isPrimary
+          }"
+          (click)="onEdit()"
+        >
+          {{ editText }}
+        </button>
+      </div>
+    </div>
+    <!-- EDIT BUTTON WITH DROPDOWN -->
+    <div class="col-3" ngbDropdown container="body">
+      <div *ngIf="showEditDropdown">
+        <div class="float-end">
+          <button
+            class="btn font-12 px-4 remove-caret"
+            [class]="{
+              'btn-outline-secondary': !isPrimary,
+              'btn-primary': isPrimary
+            }"
+            ngbDropdownToggle
+          >
+            {{ editText }}<i class="uil-angle-down"></i>
+          </button>
+        </div>
+      </div>
+      <div ngbDropdownMenu>
+        <button
+          *ngFor="let item of dropdownItems"
+          ngbDropdownItem
+          class="font-12 text-secondary"
+          (click)="item.action(item.value)"
+        >
+          {{ item.text }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- COLLAPSEABLE SECTION -->
+  <div
+    #pdCollapse="ngbCollapse"
+    class="mt-2"
+    [(ngbCollapse)]="sectionCollapsed"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

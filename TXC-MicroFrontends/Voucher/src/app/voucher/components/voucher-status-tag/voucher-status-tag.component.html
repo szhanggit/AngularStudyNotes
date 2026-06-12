@@ -1,0 +1,50 @@
+<span [ngSwitch]="tag">
+    <span
+        class="px-2 py-1 text-dark badge mint-green-tag"
+        *ngSwitchCase="voucherStatusEnum.ACTIVATED"
+    >
+        Activated
+    </span>
+    <span
+        class="bg-secondary-lighten px-2 py-1 text-dark badge light-grey-tag "
+        *ngSwitchCase="voucherStatusEnum.TRASHED"
+    >
+        Trashed
+    </span>
+    <span
+        class="bg-secondary-lighten px-2 py-1 text-dark badge light-grey-tag "
+        *ngSwitchCase="voucherStatusEnum.USED"
+    >
+        Used
+    </span>
+    <span
+        class="px-2 py-1 badge pink-tag "
+        *ngSwitchCase="voucherStatusEnum.BLOCKED"
+    >
+        Blocked
+    </span>
+    <span
+        class="bg-danger-lighten px-2 py-1 badge light-pink-tag"
+        *ngSwitchCase="voucherStatusEnum.EXPIRED"
+    >
+        Expired
+    </span>
+    <span
+        class="px-2 py-1 text-dark badge mint-green-tag"
+        *ngSwitchCase="voucherStatusEnum.ISSUED"
+    >
+        Issued
+    </span>
+    <span
+        class="bg-secondary-lighten px-2 py-1 text-dark badge light-grey-tag "
+        *ngSwitchCase="voucherStatusEnum.INVALID"
+    >
+        Invalid
+    </span>
+    <span
+        class="bg-warning-lighten text-warning px-2 py-1 badge "
+        *ngSwitchDefault
+    >
+        {{ status }}
+    </span>
+</span>

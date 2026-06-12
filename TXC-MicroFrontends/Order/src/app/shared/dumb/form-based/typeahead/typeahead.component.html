@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="form-group" [class]="{'col-12' : !typeaheadModel.takeAllRow, 'col-6': typeaheadModel.takeAllRow}">
+    <div class="d-flex justify-content-between">
+      <div class="mr-auto">
+        <label class="form-label" [for]="typeaheadModel.formControlName">{{ typeaheadModel.label }}
+        <span *ngIf="typeaheadModel.required" class="text-danger">*</span></label>
+    </div>
+    <div *ngIf="typeaheadModel.withPreview">
+      <a href="javascript:void(0)" class="font-14" (click)="onClickPreview()">Preview</a>
+    </div>
+  </div>
+    <div class="input-group input-group-md input-group-prefix-icon search-icon">
+      <span class="input-group-text">
+        <span class="mdi mdi-magnify search-icon"></span>
+      </span>
+      <input
+        id="typeahead-custom"
+        type="text"
+        class="form-control font-14"
+        [class]="{
+          'invalid-input':
+            controlDir.control?.dirty && !controlDir.control?.valid
+        }"
+        [placeholder]="typeaheadModel.placeholder ?? ''"
+        [(ngModel)]="value"
+        [ngbTypeahead]="searchList"
+        [inputFormatter]="formatter"
+        [resultTemplate]="results"
+        [focusFirst]="true"
+        (focus)="focusTypeahead$.next($any($event).target.value)"
+        (click)="clickTypeahead$.next($any($event).target.value)"
+        (input)="onChange($any($event.target).value)"
+        (change)="onTypeAheadChanged()"
+        #instance="ngbTypeahead"
+        triggers="manual"
+        (selectItem)="onSelectItem($event)"
+      />
+      <ng-template #results let-r="result" let-t="term">
+        <ngb-highlight [result]="r.keyword" [term]="t"></ngb-highlight>
+      </ng-template>
+    </div>
+    <div *ngIf="controlDir.control?.dirty && !controlDir.control?.valid">
+      <ng-container *ngFor="let errorKey of controlErrors; let index = index">
+        <small class="text-danger">
+          {{ errorMessages[errorKey] }}
+        </small>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="row mt-1">
+  <div class="col-12">
+    <label
+    class="form-label"
+      [for]="fileInput.formControlName"
+      >{{ fileInput.label }}
+      <span *ngIf="fileInput.required" class="text-danger">*</span></label
+    >
+    <div
+      appDnd
+      class="dashed d-flex justify-content-center p-3 cursor-pointer file-drop-zone"
+      (click)="inputFile.click()"
+      (fileDropped)="onFileDropped($event)"
+    >
+      <ng-container *ngIf="value && value.length; else dropOrClickToUpload">
+        <div>
+          <svg-controller svgName="uploaded-file"></svg-controller>
+        </div>
+        <span>{{value[0].name}}</span>
+        <div class="flex-column text-center show-on-hover" (click)="onFileRemove($event, 0, value[0])">
+            <span class="font-20">
+                <i class="uil-trash"></i>
+            </span>
+            <span class="font-14">
+                Delete file
+            </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #dropOrClickToUpload>
+  <div class="d-flex flex-column text-center">
+    <i class="uil uil-cloud-upload font-24"></i>
+    <span class="font-12"> Drop file here or click to upload </span>
+  </div>
+</ng-template>
+
+
+<ng-template #fileUploaded>
+  
+</ng-template> 
+
+<input
+  #inputFile
+  type="file"
+  name="inputFile"
+  id="inputFile"
+  (click)="$any($event.target).value = null"
+  (change)="onFileSelected($event)"
+  multiple="multiple"
+  hidden="true"
+  accept="fileTypes"
+/>

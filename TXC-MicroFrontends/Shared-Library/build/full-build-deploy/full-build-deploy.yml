@@ -1,0 +1,73 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger: none
+
+stages:
+- stage:
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      name: 'APAC agent pool'
+      demands:
+        - AZP_DEPLOYMENT_BUILD_AGENT -equals TXC-DEPLOY
+    steps:
+        - checkout: self
+          submodules: true
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '16.x'
+          displayName: 'Install Node.js'
+
+        - task: CmdLine@2
+          displayName: 'npm cache clean --force'
+          inputs:
+            script: |
+              dir
+              npm cache clean --force
+            workingDirectory: 'Shared-Library'
+
+        - task: CmdLine@2
+          displayName: 'npm cache clean --force'
+          inputs:
+            script: |
+              dir
+              npm cache clean --force
+            workingDirectory: 'Shared-Library'
+
+        - task: CmdLine@2
+          displayName: 'SharedLibrary npm install force'
+          inputs:
+            script: |
+              dir
+              npm install --force --save
+            workingDirectory: 'Shared-Library'
+
+        - task: CmdLine@2
+          displayName: 'SharedLibrary npm build'
+          inputs:
+            script: |
+              dir
+              npm run build
+            workingDirectory: 'Shared-Library'
+
+        - task: Npm@1
+          displayName: Publish Authrization Library
+          inputs:
+            command: 'publish'
+            workingDir: 'Shared-Library/dist/authorization-library/'
+            publishRegistry: 'useFeed'
+            publishFeed: '69ce1b3a-c186-4fa3-b834-9b732e774cb9/1a193b8c-7a90-4fa2-8c91-bbe03dfbaa01'
+          continueOnError: true
+        
+        - task: Npm@1
+          displayName: Publish Component Library
+          inputs:
+            command: 'publish'
+            workingDir: 'Shared-Library/dist/component-library/'
+            publishRegistry: 'useFeed'
+            publishFeed: '69ce1b3a-c186-4fa3-b834-9b732e774cb9/1a193b8c-7a90-4fa2-8c91-bbe03dfbaa01'
+          continueOnError: true

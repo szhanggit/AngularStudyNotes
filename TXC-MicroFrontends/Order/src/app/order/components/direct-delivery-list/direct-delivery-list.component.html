@@ -1,0 +1,40 @@
+<div class="row bg-white rounded-3 mt-2">
+    <app-product-details
+        [product]="product"
+    ></app-product-details>
+      
+    <div class="row mt-2 p-0">
+        <div class="col-8">
+            <div class="row p-0 mx-2">
+                <div class="col-6">
+                    <app-search
+                        [(searchTerm)]="deliveryService.searchTerm"
+                    ></app-search>  
+                </div>
+            </div>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+            <app-page-size
+                [pageSizes]="pageSizes"
+                [(pageSizeModel)]="pageSize"
+            ></app-page-size>
+        </div>
+    </div>
+    <div class="row p-0 px-2">
+        <app-table
+            [tableModel]="directDeliveryDetailsTableModel"
+            [isStripedTable]="false"
+        ></app-table>
+    </div>
+    <ng-container *ngTemplateOutlet="pagination"></ng-container>
+</div>
+
+<ng-template #pagination>
+    <div class="row p-0 mx-2">
+        <app-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [total$]="deliveryService.total$"
+        ></app-pagination>
+    </div>
+</ng-template>

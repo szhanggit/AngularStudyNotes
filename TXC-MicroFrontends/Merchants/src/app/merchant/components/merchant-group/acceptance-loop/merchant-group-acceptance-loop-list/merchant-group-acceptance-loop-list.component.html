@@ -1,0 +1,148 @@
+
+<div class="bg-white rounded-3 px-3 py-2 my-2">
+    <div class="row">
+        
+        <div class="col-4">
+            <button class="btn rounded-circle btn-sm" [class]="acceptanceListCollapsed ? 'btn-light' : 'btn-secondary'"
+            (click)="acceptanceListCollapse.toggle()" [attr.aria-expanded]="!acceptanceListCollapsed" aria-controls="collapseExample">
+            <i [class]="acceptanceListCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+        </button>
+        <span class="text-dark collapse-title font-16 m-2">
+            <strong>Acceptance Loop</strong>
+        </span>  
+        </div>
+        <div class="col-8">
+            <div class="float-end" *ngIf="isMerchantEditor">
+                <button class="btn btn-primary font-12 px-4" (click)="navigateToAcceptanceLoopCreate()">Create acceptance loop</button>
+            </div>
+        </div>
+        <div #acceptanceListCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="acceptanceListCollapsed">
+            <div class="row">
+                <ng-container *ngTemplateOutlet="list"></ng-container>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #list>
+        <div class="bg-white p-2 rounded">
+            <ng-container *ngIf="(acceptanceLoops$ | async)?.length; else nodata">
+                <ng-container *ngTemplateOutlet="table"></ng-container>
+                <ng-container *ngIf="pageInfo.total">
+                    <ng-container *ngTemplateOutlet="pagination"></ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-template #nodata>
+            </ng-template>
+        </div>
+    </ng-template>
+
+    <ng-template #table>
+        <table class="table table-centered mt-2">
+            <thead>
+                <tr class="font-12">
+                    <th width="20%">Acceptance Loop Name / Description</th>
+                    <th width="20%">Available Merchant</th>
+                    <th width="10%">Available Shops</th>
+                    <th width="10%">Product Amount</th>
+                    <th width="10%">Creator / Created Date</th>
+                    <th width="5%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of acceptanceLoops$ | async ; index as i">
+                        <tr *ngFor="let alm of item.merchantsDisplay; index as j"
+                            class="font-14" 
+                            [ngClass]="{'table-active' : item.isDefault, 'hide-bottom-border': item.merchantAggregation.length > MERCHANT_DEFAULT_SIZE}">
+
+                            <td *ngIf="j==0" [attr.rowspan]="item.merchantsDisplay.length" width="20%" [ngClass]="{'pb-0': item.merchantAggregation.length > MERCHANT_DEFAULT_SIZE}">                        
+                                {{item.code}} <br/>
+                                <span class="text-muted font-12">{{item.description}}</span>
+                            </td>
+                            <td width="20%" [ngClass]="{
+                                'pb-0': !((MERCHANT_DEFAULT_SIZE > item.merchantAggregation.length) && (j == item.merchantsDisplay.length-1)),
+                                'pt-0': j != 0,
+                                'hide-bottom-border': !((MERCHANT_DEFAULT_SIZE > item.merchantAggregation.length) && (j == item.merchantsDisplay.length-1))
+                            }">
+                                <span>
+                                    {{alm.merchantName}} 
+                                </span>
+                            </td>
+                            <td width="10%" class="text-primary"  [ngClass]="{
+                                'pb-0': !((MERCHANT_DEFAULT_SIZE > item.merchantAggregation.length) && (j == item.merchantsDisplay.length-1)),
+                                'pt-0': j != 0,
+                                'hide-bottom-border': !((MERCHANT_DEFAULT_SIZE > item.merchantAggregation.length) && (j == item.merchantsDisplay.length-1))
+                            }">
+                                <span>
+                                    <button type="text" class="btn btn-link px-0 py-0" (click)="clickShop(alm.merchantId, alm.acceptanceLoopMerchantId, item.isDefault)" [disabled]="alm.availableShopCount==0">
+                                        <span *ngIf="alm.availableShopCount === alm.merchantActiveShopCount">All </span>
+                                        <span *ngIf="alm.availableShopCount !== alm.merchantActiveShopCount">Limited </span>
+                                        ({{alm.availableShopCount}} shops)
+                                    </button>
+                                </span>
+                            </td>
+                            <td *ngIf="j==0" [attr.rowspan]="item.merchantsDisplay.length" width="10%" class="text-primary" [ngClass]="{'pb-0': item.merchantAggregation.length > MERCHANT_DEFAULT_SIZE}"
+                                >
+                                <button type="text" class="btn btn-link px-0 py-0" (click)="clickProduct(item.acceptanceLoopId)" [disabled]="item.products.totalCount==0" >
+                                    {{item.products.totalCount}} products
+                                </button>
+                            </td>
+                            <td *ngIf="j==0" [attr.rowspan]="item.merchantsDisplay.length" width="10%" [ngClass]="{'pb-0': item.merchantAggregation.length > MERCHANT_DEFAULT_SIZE}">
+                                {{item.createdBy}}<br/>
+                                <span class="font-12">{{item.createdOn | txcLocalDateTime | date : 'yyyy/MM/dd'}}</span>
+                            </td>
+                            <td *ngIf="j==0" [attr.rowspan]="item.merchantsDisplay.length" width="5%" class="table-action" [ngClass]="{'pb-0': item.merchantAggregation.length > MERCHANT_DEFAULT_SIZE}">
+                                <ng-container *ngIf="isMerchantEditor">
+                                    <button class="btn" (click)="navigateToAcceptanceLoopEdit(item)" [disabled]="item.isDefault">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </button>
+                                </ng-container> 
+                            </td>
+                        </tr>
+                        <tr *ngIf="item.merchantAggregation.length > MERCHANT_DEFAULT_SIZE" [ngClass]="{'table-active' : item.isDefault}">
+                            <td colspan="6" class="view-all">
+                                <button class="btn" (click)="toggleViewAll(i)"> 
+                                    <i [class]="item.isExpanded ? 'uil-angle-up' : 'uil-angle-down'"></i>
+                                    <span *ngIf="item.isExpanded"> COLLAPSE </span>
+                                    <span *ngIf="!item.isExpanded"> VIEW ALL ({{ item.merchantAggregation.length }}) </span>
+                                </button>
+                            </td>
+                        </tr> 
+                    
+                </ng-container>              
+                
+            </tbody>
+        </table>
+        
+    </ng-template>
+
+    <ng-template #pagination>
+        <div class="row">
+            <div class="col-6">
+                <span class="text-secondary font-12">
+                    Displaying page {{ pageInfo.currentPage }} of {{ pageInfo.pageCount }}, 
+                    items {{ pageInfo.itemStart }} to {{ pageInfo.itemEnd }} of {{ pageInfo.total }}
+                </span>
+            </div>
+            <div class="col-6">
+                <div class="float-end font-12">
+                    <ngb-pagination [collectionSize]="pageInfo.total" class="pagination-rounded"
+                        [(page)]="pageInfo.currentPage" [maxSize]="5" (pageChange)="getAcceptanceLoopList()"
+                        [pageSize]="pageInfo.pageSize || 0">
+                        <ng-template ngbPaginationPrevious>
+                            <i class="uil-angle-left"></i>
+                        </ng-template>
+                        <ng-template ngbPaginationNext>
+                            <i class="uil-angle-right"></i>
+                        </ng-template>
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div> 
+
+
+
+
+
+<ngbd-toast-global></ngbd-toast-global>

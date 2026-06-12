@@ -1,0 +1,286 @@
+<form [formGroup]="advanceSettingsFormGroup" *ngIf="!(loading$ | async)">
+    <ng-container *ngTemplateOutlet="merchantCondition"></ng-container>
+    <ng-container *ngTemplateOutlet="systemRelatedDetails"></ng-container>
+    <ng-container *ngTemplateOutlet="externalProperties"></ng-container>
+
+    <ng-template #merchantCondition>
+        <div class="bg-white rounded-3 px-3 py-2 my-3">
+            <div class="text-dark font-16 bold mb-2">Merchant condition</div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="minRedeemQuantity" class="form-label">Minimum redeem quantity</label>
+                    <input class="form-control" type="text" name="minRedeemQuantity" id="minRedeemQuantity"
+                        formControlName="minRedeemQuantity" [ngClass]="{
+                        'is-invalid': f.minRedeemQuantity.invalid && f.minRedeemQuantity.dirty
+                    }">
+                </div>
+                <div class="col-6">
+                    <label for="maxIssuingQuantity" class="form-label">Maximum issue quantity</label>
+                    <input type="text" name="maxIssuingQuantity" id="maxIssuingQuantity" class="form-control"
+                        formControlName="maxIssuingQuantity" [ngClass]="{
+                            'is-invalid': f.maxIssuingQuantity.invalid && f.maxIssuingQuantity.dirty
+                        }">
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #systemRelatedDetails>
+        <div class="bg-white rounded-3 px-3 py-2 my-3">
+            <div class="text-dark font-16 bold mb-2">Redemption settings</div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="reminder" class="form-label">Reminder</label>
+                    <select2 [data]="remindersSelect2Data" formControlName="reminderId" placeholder="Select"
+                        displaySearchStatus="hidden" resultMaxHeight="500px">
+                    </select2>
+                </div>
+                <div class="col-6">
+                    <label for="reversalLimit" class="form-label">Reversal limit</label>
+                    <select2 [data]="reversalLimitsSelect2Data" formControlName="reversalLimitId" placeholder="Select"
+                        displaySearchStatus="hidden" resultMaxHeight="500px">
+                    </select2>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="row">
+                        <label for="preAuthorizationLimit" class="form-label">Pre-authorization limit</label>
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="Enter value"
+                                formControlName="preAuthorizationExpiryInterval" />
+                        </div>
+                        <div class="col-6">
+                            <select2 [data]="preAuthorizationIntervalsSelect2Data" formControlName="preAuthorizationExpiryUnit"
+                                placeholder="Select" displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" *ngIf="selectedType.key === 2 || selectedType.key === 4">
+                    <div class="row">
+                        <label for="redemptionFreq" class="form-label">Redemption frequency</label>
+                        <div class="col-5">
+                            <input type="text" class="form-control" formControlName="useTimeControl">
+                        </div>
+                        <div class="col-1 d-flex align-items-center">within</div>
+                        <div class="col-5">
+                            <input type="text" class="form-control" formControlName="useTimeControlInterval">
+                        </div>
+                        <div class="col-1 d-flex align-items-center">days</div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="editMode">
+                <div class="row mb-3" formArrayName="redemptionDays">
+                    <label for="redemptionDay" class="form-label">Redemption day & time</label>
+                    <div class="d-flex flex-row justify-content-between align-items-center mb-2"
+                        *ngFor="let redemptionDay of f.redemptionDays.controls; let i = index" [formGroupName]="i">
+                        <div class="col-6">
+                            <select2 [data]="redemptionDays" id="selec2-2-{{i}}" multiple="false"
+                                formControlName="redemptionDay" displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+                        <div class="col-5">
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <div class="col-6 d-flex">
+                                    <span class="mx-2 align-self-center">From</span>
+                                    <select2 [data]="redemptionFrom" multiple="false" class="w-100"
+                                        formControlName="redemptionFrom" displaySearchStatus="hidden" placeholder="{{redemptionDay.value.redemptionFrom}}" resultMaxHeight="500px">
+                                    </select2>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <span class="mx-2 align-self-center">to</span>
+                                    <select2 [data]="redemptionTo" multiple="false" class="w-100"
+                                        formControlName="redemptionTo" displaySearchStatus="hidden" placeholder="{{redemptionDay.value.redemptionTo}}" resultMaxHeight="500px">
+                                    </select2>
+                                </div>
+                            </div>
+                            <div class="font-12 text-danger position-text-danger" *ngIf="f.redemptionDays.controls[i].errors?.required">Redemption from and to should be mandatory.</div>
+                            <div class="font-12 text-danger position-text-danger" *ngIf="f.redemptionDays.controls[i].errors?.incorrect">Redemption to should be greater than redemption from.</div>
+                        </div>
+                        <div class="mx-2">
+                            <ng-container *ngIf="i === 0; else deleteButton">
+                                <button class="btn" (click)="addRedemptionDays()">
+                                    <i class="dripicons-plus"></i>
+                                </button>
+                            </ng-container>
+                            <ng-template #deleteButton>
+                                <button type="button" class="btn" (click)="removeRedemptionDays(i)">
+                                    <i class="dripicons-trash"></i>
+                                </button>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3" formArrayName="redemptionExcludeDates">
+                    <div class="col-6">
+                        <div class="row">
+                            <label for="redemptionExcludeDates" class="form-label">Redemption exclude dates</label>
+                            <div class="row mb-2"
+                                *ngFor="let redemptionExcludeDate of f.redemptionExcludeDates.controls; let i = index"
+                                [formGroupName]="i">
+                                <div class="col-11">
+                                    <input type="text" class="form-control" name="datepicker1"
+                                        formControlName="redemptionExcludeDate" ngbDatepicker
+                                        #datepicker="ngbDatepicker" [footerTemplate]="footerTemplate"
+                                        [minDate]="minDate" (click)="datepicker.toggle()" autoClose="'outside'">
+                                </div>
+                                <ng-template #footerTemplate>
+                                    <hr class="my-0">
+                                    <div class="ngb-footer-button">
+                                        <button class="btn btn-secondary btn-sm "
+                                            (click)="datepicker.close()">Close</button>
+                                    </div>
+                                </ng-template>
+                                <div class="col-1">
+                                    <ng-container *ngIf="i === 0; else deleteButton">
+                                        <button class="btn" (click)="addRedemptionExcludeDates()">
+                                            <i class="dripicons-plus"></i>
+                                        </button>
+                                    </ng-container>
+                                    <ng-template #deleteButton>
+                                        <button type="button" class="btn" (click)="removeRedemptionExcludeDates(i)">
+                                            <i class="dripicons-trash"></i>
+                                        </button>
+                                    </ng-template>
+                                </div>
+                                <div class="font-12 text-danger pl-1" *ngIf="f.redemptionExcludeDates.controls[i].controls.redemptionExcludeDate.errors?.ngbDate?.minDate">Redemption exclude date should be grater or equal to today date.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </ng-template>
+
+    <ng-template #externalProperties>
+        <div class="bg-white rounded-3 px-3 py-2 my-3">
+            <div class="row">
+                <div class="col-8">
+                    <span class="text-dark font-16 bold">External properties</span>
+                </div>
+                <div class="col-4" *ngIf="selectedExternalProperties?.length">
+                    <div class="float-end">
+                        <button class="btn btn-primary font-12"
+                            (click)="openAddExternalPropertyModal(externalPropertyModal, 'add')">Add external property</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2" *ngIf="selectedExternalProperties?.length else noExternalProperties">
+                <div class="row my-2 bold font-12">
+                    <div class="col-2 text-left">Property Name</div>
+                    <div class="col-4 text-left">Property Value</div>
+                    <div class="col-4 text-left">Description</div>
+                    <div class="col-2 text-left">Action</div>
+                    <hr class="my-2">
+                </div>
+                <div class="row font-14" *ngFor="let externalProperty of selectedExternalProperties; let index = index">
+                    <div class="col-2 text-left">{{ externalProperty.propertyName || '--' }}</div>
+                    <div class="col-4 text-left">{{ externalProperty.propertyValue || '--' }}</div>
+                    <div class="col-4 text-left">{{ externalProperty.description || '--' }}</div>
+                    <div class="col-2 text-left">
+                        <button class="btn font-22" *ngIf="externalProperty.propertyName !== WALLETIMAGEPROPERTY"
+                            (click)="deleteExternalProperty(index)">
+                            <i class="uil-trash"></i>
+                        </button>
+                        <button class="btn mx-2 font-22" *ngIf="externalProperty.propertyName !== WALLETIMAGEPROPERTY"
+                            (click)="openAddExternalPropertyModal(externalPropertyModal, 'edit', index)">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+                    </div>
+                    <hr class="my-2">
+                </div>
+            </div>
+            <ng-template #noExternalProperties>
+                <div class="row my-2">
+                    <div class="text-center text-danger">
+                        <button class="btn btn-primary font-12"
+                            (click)="openAddExternalPropertyModal(externalPropertyModal, 'add')">Add external property</button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+</form>
+
+<ng-template #externalPropertyModal let-modal>
+    <div class="modal-body px-5">
+        <div class="text-center">
+            <span class="font-18 text-dark" id="modalLabel"><strong>{{ editModeForProperties ? 'Edit' : 'Add' }} external
+                    property</strong></span>
+        </div>
+
+        <div class="my-3 position-relative font-14" id="stopIssueTimeContainer">
+            <form [formGroup]="externalPropertyFormGroup">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="propertyName" class="form-label">Property name <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" [ngClass]="{
+                        'is-invalid': fm.propertyName.invalid && fm.propertyName.dirty
+                    }" formControlName="propertyName" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="fm.propertyName.invalid && fm.propertyName.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #propertyNameTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(propertyNameTip, fm.propertyName)"
+                            [disableTooltip]="!(fm.propertyName.invalid && fm.propertyName.dirty)">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-12">
+                        <label for="propertyValue" class="form-label">Property value <span
+                            class="text-danger">*</span></label>
+                        <input type="text" class="form-control" [ngClass]="{
+                            'is-invalid': fm.propertyValue.invalid && fm.propertyValue.dirty
+                        }" formControlName="propertyValue" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="fm.propertyValue.invalid && fm.propertyValue.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                            #propertyValueTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(propertyValueTip, fm.propertyValue)"
+                            [disableTooltip]="!(fm.propertyValue.invalid && fm.propertyValue.dirty)">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" [ngClass]="{
+                            'is-invalid': fm.description.invalid
+                        }" formControlName="description" triggers="manual" [ngbTooltip]="tipContent"
+                            [tooltipClass]="fm.description.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                            #descriptionTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(descriptionTip, fm.description)"
+                            [disableTooltip]="!fm.description.invalid">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary w-100 rounded-pill font-12"
+                    (click)="modal.close('Close click')">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill font-12"
+                    [disabled]="externalPropertyFormGroup.invalid" (click)="modal.close('Save')">{{ editMode? 'Save' :
+                    'Add' }}</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tipContent let-formControl="formControl">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least 2 characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value must be less than 100 characters!
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>

@@ -1,0 +1,245 @@
+<ng-template #tipContent let-formControl="formControl" let-message="errorMessage">
+    <ng-container>
+        This is a required field
+    </ng-container>
+</ng-template>
+
+<ng-template #tipCostWithTax let-formControl="formControl">
+    <ng-container>
+        Invalid cost with tax value: the maximum number is 99999999999.9999
+    </ng-container>
+</ng-template>
+
+<h3 class="text-dark my-3">{{ isEdit ? 'Edit SKU' : 'Create Group SKU' }}</h3>
+<form [formGroup]="skuGroupForm">
+    <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+        <div class="row my-3">
+            <div class="col-12 mb-2 rounded-3 error-list" *ngIf="basicErrorList.length > 0">
+                <ul>
+                    <li *ngFor="let basicError of basicErrorList">{{ basicError.errorMessage }}</li>
+                </ul>
+            </div>
+            <div class="col-12 mb-2">
+                <span class="font-16 text-dark bold">
+                    SKU basic info
+                </span>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6 mb-2">
+                        <label for="skuName">SKU name <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="skuName"
+                            maxlength="127"
+                            [ngClass]="{'is-invalid': skuGroupForm.get('skuName')?.invalid && skuGroupForm.get('skuName')?.touched}"
+                            [ngbTooltip]="tipContent" tooltipClass="tooltip-danger" #skuNameTip="ngbTooltip"
+                            (click)="toggleTooltipWithContext(skuNameTip, f.skuName)"
+                            [disableTooltip]="!(skuGroupForm.get('skuName')?.invalid && skuGroupForm.get('skuName')?.touched)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label for="skuNumber">SKU code <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary" formControlName="skuNumber"
+                            maxlength="127"
+                            [ngClass]="{'is-invalid': skuGroupForm.get('skuNumber')?.invalid && skuGroupForm.get('skuNumber')?.touched}"
+                            [ngbTooltip]="tipContent" tooltipClass="tooltip-danger"
+                            [disableTooltip]="!(skuGroupForm.get('skuNumber')?.invalid && skuGroupForm.get('skuNumber')?.touched)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label for="skuTypeId">SKU type <span class="text-danger bold">*</span></label>
+                        <select class="form-select" formControlName="skuTypeId" (change)="onSkuTypeChange()">
+                            <option selected value="">Select</option>
+                            <option [value]="skuType.id" *ngFor="let skuType of skuTypeDroupdown">{{ skuType.value }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2" *ngIf="+skuGroupForm.get('skuTypeId')?.value !== 4">
+                        <label for="faceValueWithTax">Face value <span class="text-danger bold">*</span></label>
+                        <input type="text" class="form-control font-14 text-secondary"
+                            formControlName="faceValueWithTax" maxlength="127" inputControl="decimal-2'"
+                            [ngClass]="{'is-invalid': skuGroupForm.get('faceValueWithTax')?.invalid && skuGroupForm.get('faceValueWithTax')?.touched}"
+                            [ngbTooltip]="f['faceValueWithTax']?.errors?.required ? 'This is a required field' : 'Invalid face value with tax: value should be 0~20000000'"
+                            tooltipClass="tooltip-danger" #faceValueWithTaxTip="ngbTooltip"
+                            [disableTooltip]="!(skuGroupForm.get('faceValueWithTax')?.invalid && skuGroupForm.get('faceValueWithTax')?.touched)">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label for="voucherNumberRuleId">Group voucher number rule <span
+                                class="text-danger bold">*</span></label>
+                        <select class="form-select" formControlName="voucherNumberRuleId">
+                            <option selected value="">Select</option>
+                            <option [value]="vnr.voucherNumberRuleId" *ngFor="let vnr of vnrList"> {{ vnr?.ruleName }}
+                            </option>
+                        </select>
+                        <p>Go to merchant group details page to create voucher number rule if needed.</p>
+                    </div>
+                    <div class="col-6 mb-2" *ngIf="+skuGroupForm.get('skuTypeId')?.value === 3">
+                        <label for="multiplier">Multiplier<span class="text-danger bold">*</span></label>
+                        <input type="number" class="form-control font-14 text-secondary" formControlName="multiplier"
+                            maxlength="127" inputControl="number-only'" min="1"
+                            [ngClass]="{'is-invalid': skuGroupForm.get('multiplier')?.invalid && skuGroupForm.get('multiplier')?.touched}"
+                            [ngbTooltip]="tipContent" tooltipClass="tooltip-danger" #multiplierTip="ngbTooltip"
+                            [disableTooltip]="!(skuGroupForm.get('multiplier')?.invalid && skuGroupForm.get('multiplier')?.touched)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+        <div class="row my-3">
+            <div class="col-12 mb-2">
+                <span class="font-16 text-dark bold">
+                    Merchant Contract & Cost
+                </span>
+            </div>
+            <div class="col-12 mb-2 rounded-3 error-list" *ngIf="contractErrorList.length > 0">
+                <ul>
+                    <li *ngFor="let contractError of contractErrorList">{{ contractError.errorMessage }}</li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6 mb-2">
+                        <label for="contractScheme">Cost scheme <span class="text-danger bold">*</span></label>
+                        <select class="form-select" formControlName="contractScheme"
+                            (change)="onContractSchemeChange()">
+                            <option [ngValue]="1">Percentage</option>
+                            <option [ngValue]="2">Fixed</option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2 d-flex align-content-end flex-wrap justify-content-end">
+                        <button class="btn btn-primary font-12 px-3" (click)="openModal()"
+                            *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Fixed">
+                            Add cost & period
+                        </button>
+                        <button class="btn btn-primary font-12 px-3" (click)="openModal()"
+                            *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Percentage">
+                            Add contract & cost
+                        </button>
+                    </div>
+                    <div class="table">
+                        <table class="table table-striped table-centered mt-1">
+                            <thead class="font-12 bold">
+                                <tr>
+                                    <th scope="col">Available Merchants</th>
+                                    <th scope="col">Shop(s)</th>
+                                    <th scope="col">Contract<span class="text-danger bold"> *</span></th>
+                                    <th scope="col" *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Percentage">Cost<span class="text-danger bold"> *</span></th>
+                                    <th scope="col" *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Fixed">Cost With Tax<span class="text-danger bold"> *</span></th>
+                                    <th scope="col" *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Fixed">Cost Without Tax</th>
+                                    <th scope="col">Cost Valid Period<span class="text-danger bold"> *</span></th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="font-14" formArrayName="contractSkuCosts">
+                                <tr *ngFor="let merchant of contractSkuCosts.controls ; index as i" [formGroupName]="i">
+                                    <td>
+                                        <span *ngIf="!isDuplicateMerchantDetails(i)">
+                                            {{ merchant.get('name')?.value }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="!isDuplicateMerchantDetails(i)">
+                                            All ({{ merchant.get('shopAmount')?.value }} shops)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <select class="form-select" (click)="getContractDetailsListByMerchantId(merchant.get('merchantId')?.value, i)" (change)="getCostAndPeriod(i)"
+                                            formControlName="contractId">
+                                            <option selected value="">Select</option>
+                                            <option [ngValue]="contract.contractId"
+                                                *ngFor="let contract of merchant.get('contractList')?.value">
+                                                {{ contract.contractName }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    
+                                    <td class="cost-percentage cost-with-tax">
+                                        <span
+                                            *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Percentage">
+                                            {{ (merchant.get('costWithTax')?.value).toString() ? merchant.get('costWithTax')?.value + '%' : 'N/A' }}
+                                        </span>
+                                        <input
+                                            *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Fixed"
+                                            (change)="calCostWithoutTax(i)"
+                                            [ngClass]="{'is-invalid': merchant.get('costWithTax')?.invalid && merchant.get('costWithTax')?.touched}"
+                                            [ngbTooltip]="tipCostWithTax" tooltipClass="tooltip-danger" #costWithTaxTip="ngbTooltip"
+                                            (click)="toggleTooltipWithContext(costWithTaxTip, merchant)"
+                                            [disableTooltip]="!(merchant.get('costWithTax')?.invalid && merchant.get('costWithTax')?.touched)"
+                                            type="text" class="form-control font-14 text-secondary"
+                                            formControlName="costWithTax" inputControl="PNdecimal-4">
+                                    </td>
+                                    <td class="cost-without-tax" *ngIf="+skuGroupForm.get('contractScheme')?.value === ContractSchemeEnum.Fixed">
+                                        <input
+                                            *ngIf="+skuGroupForm.get('contractScheme')?.value !== ContractSchemeEnum.Percentage"
+                                            type="text" class="form-control font-14 text-secondary"
+                                            formControlName="costWithoutTax" inputControl="PNdecimal-4">
+                                    </td>
+                                    <td>
+                                        <div class="date-picker-col"
+                                            *ngIf="((!isEdit || merchant.get('isNewEdited')?.value)) || (isEdit && !isLessThanToday(merchant.get('validStartDate')?.value)); else labelStartDate">
+                                            <lib-date-picker (datePickerValues)="dateChange($event, i)"
+                                                formControlName="period" [displayMonths]="2" [type]="'range'"
+                                                [disablePastDates]="true" [writeFullObject]="false">
+                                            </lib-date-picker>
+                                        </div>
+                                        <ng-template #labelStartDate>
+                                            <div class="__date">
+                                                <span class="m-auto mx-0">
+                                                    From {{ merchant.get('validStartDate')?.value | txcLocalDateTime |
+                                                    date : "yyyy/MM/dd" }} to
+                                                </span>
+                                                <span
+                                                    *ngIf="merchant.get('isExpiredPeriod')?.value ; else editableEndDate"
+                                                    class="m-auto mx-0">
+                                                    {{ merchant.get('validEndDate')?.value | txcLocalDateTime | date :
+                                                    "yyyy/MM/dd" }}
+                                                </span>
+                                                <ng-template #editableEndDate>
+                                                    <span style="width: 55%;">
+                                                        <lib-date-picker class="h-100"
+                                                            (datePickerValues)="dateChange($event, i)"
+                                                            formControlName="period" [displayMonths]="2"
+                                                            [type]="'simple'" [disablePastDates]="true"
+                                                            [writeFullObject]="false">
+                                                        </lib-date-picker>
+                                                    </span>
+                                                </ng-template>
+                                            </div>
+                                        </ng-template>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-transparent border-0 fixed__delete-btn"
+                                            (click)="deleteRow(i)"
+                                            [disabled]="isDeleteDisabled(merchant.get('validStartDate')?.value, merchant.get('isNewEdited')?.value)">
+                                            <i class="uil-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row my-2">
+            <div class="col-9">
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-secondary rounded-pill w-100 p-2 font-12"
+                            (click)="navigateToMerchantGroupDetails(merchantId)">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary rounded-pill w-100 p-2 font-12" type="button" (click)="save()"
+                            [disabled]="skuGroupForm.invalid || (skuGroupForm.get('contractSkuCosts')?.value.length === 0 && !isEdit)">{{
+                            isEdit? 'Save': 'Create'}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<ngbd-toast-global></ngbd-toast-global>

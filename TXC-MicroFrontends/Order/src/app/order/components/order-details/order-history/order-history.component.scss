@@ -1,0 +1,26 @@
+@import "../../../../../styles/variables";
+
+::ng-deep  {
+    .modal-content {
+        padding: 0.725rem !important;
+    }
+
+    .modal-header {
+        padding-bottom: 0px !important;
+    }
+
+    .modal-body {
+        padding: 0px !important;
+    }
+}
+
+.btn-outline-secondary {
+    border: 1px solid $grey;
+    color: $dark-grey;
+
+    &:hover {
+        border: 1px solid $light-blue;
+        background-color: $blue-bg-color;
+        color: $light-blue;
+    }
+}

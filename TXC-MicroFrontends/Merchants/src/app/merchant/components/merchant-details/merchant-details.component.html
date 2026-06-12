@@ -1,0 +1,381 @@
+<ng-container *ngIf="merchant && !(isLoadingDetails | async)">
+    <div class="merchant-details">
+        <div class="row mt-3">
+            <div class="col-12">
+                <span class="text-secondary font-22"><strong>{{ merchant.identityCode }}</strong></span>
+                <span class="text-dark font-22 mx-2"><strong>{{ merchant.merchantName }}</strong></span>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-12">
+                <div class="font-16">
+                    Status: {{ merchant.status ? 'Active' : 'Inactive' }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngTemplateOutlet="merchantDetails"></ng-container>
+    <ng-container *ngTemplateOutlet="shop"></ng-container>
+    <ng-container *ngTemplateOutlet="acceptanceLoop"></ng-container>
+    <ng-container *ngTemplateOutlet="voucherNumberRule"></ng-container>
+    <ng-container *ngTemplateOutlet="contract"></ng-container>
+    <ng-container *ngTemplateOutlet="sku"></ng-container>
+</ng-container>
+
+
+<ng-template #merchantDetails>
+    <div class="bg-white rounded-3 px-3 py-2 my-2">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn rounded-circle btn-sm"
+                    [class]="merchantDetailsCollapsed ? 'btn-light' : 'btn-secondary'" (click)="mdCollapse.toggle()"
+                    [attr.aria-expanded]="!merchantDetailsCollapsed" aria-controls="collapseExample">
+                    <i [class]="merchantDetailsCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+                </button>
+                <span class="text-dark collapse-title font-16 m-2">
+                    <strong>Merchant details & contact info</strong>
+                </span>
+            </div>
+            <div class="col-6">
+                <div class="float-end" *ngIf="!isMerchantViewer || isMerchantEditor">
+                    <button class="btn btn-primary font-12 px-4" (click)="navigateToUpdateMerchant()">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div #mdCollapse="ngbCollapse" class="mt-2" [(ngbCollapse)]="merchantDetailsCollapsed">
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Basic Info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant name</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.merchantName }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'GL'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant acquirer</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.merchantAcquireId || 0 | dictionarypipe : merchantAcquirers }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Program</div>
+                            <div class="col-6 font-14"><strong>{{ currentProgram.name }} - {{ currentProgram.isEdenred ?
+                                    'Edenred Program' : 'Third Party' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Product issuer</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.issuerType | issuertype }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant internal code</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.identityCode }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant external code</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.externalCode || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'TW'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Category</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.categoryId || 0 | dictionarypipe : categories
+                                    }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Description</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.description || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant !== 'TW' && tenant !== 'GR'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Support consumer scan</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.needConsumerScan ? 'Yes' : 'No' }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'SG'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant UEN</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.invoiceRegisterNumber || '--' }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>System & Security</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Security key</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.securityKey | uppercase }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Same key with shop</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.sameKeyWithShop ? 'Yes' : 'No' }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Notification Merchant</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.notificationMerchantCode || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="tenant === 'TW'">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">TX1 merchant UID</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.tX1MerchantUID || '--' }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2" *ngIf="tenant === 'TW'">
+                <div>
+                    <span class="font-16"><strong>Reimbursement</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Invoice number</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.invoiceRegisterNumber }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Tax type</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.reimbursementTaxType | reimbursementtaxtype
+                                    }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Settlement frequency</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.autoCreateReimbursementIntervalType |
+                                    autocreatereimbursement }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Settlement date</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.autoCreateReimbursementDay |
+                                    autocreatereimbursementday }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Reimbursement type</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.reimbursementType | reimbursementtype
+                                    }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Auto create reimbursement</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.isAutoCreateReimbursement ? 'Yes' : 'No'
+                                    }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant auto type</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.merchantAutoType | merchantautotype
+                                    }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-2 mb-3">
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Merchant contact info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Main contact</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.mainContact || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Main phone number</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.mainPhone || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Merchant's Email</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.merchantEmail || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Other merchant's Email</div>
+                            <div class="col-6 font-14">
+                                <div *ngFor="let emailAddress of merchant.merchantContactEmailList">
+                                    <strong>{{ emailAddress || '--' }} </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-3 font-14">Merchant's address</div>
+                            <div class="col-9 font-14">
+                                <strong>
+                                    <span *ngIf="merchant.address?.detailAddressLine">
+                                        {{ merchant.address?.detailAddressLine || '--' }}, </span>
+                                    <span *ngIf="merchant.address?.district">{{ merchant.address?.district || '--' }},
+                                    </span>
+                                    <span *ngIf="merchant.address?.cityId">{{ merchant.address?.cityId || 0 |
+                                        dictionarypipe : cities }}, </span>
+                                    <span *ngIf="merchant.address?.stateOrProvinceId">{{
+                                        merchant.address?.stateOrProvinceId || 0 | dictionarypipe :
+                                        statesOrProvinces }}, </span>
+                                    <span *ngIf="merchant.address?.postcode">{{ merchant.address?.postcode }} </span>
+                                    <span *ngIf="merchant.address?.countryId">{{ merchant.address?.countryId || 0 |
+                                        dictionarypipe : countries }}</span>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-2 mb-3">
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Edenred contact info</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">MAM Email</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.mamEmail || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Other internal Email</div>
+                            <div class="col-6 font-14">
+                                <div *ngFor="let emailAddress of merchant.edenredContactEmailList">
+                                    <strong>{{ emailAddress || '--' }} </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-2 mb-3">
+
+            <div class="row mb-2">
+                <div>
+                    <span class="font-16"><strong>Memo</strong></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6 font-14">Notes</div>
+                            <div class="col-6 font-14"><strong>{{ merchant.memo || '--' }} </strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #shop>
+    <app-shop-list [merchant]="merchant" [action]="action" [cities]="cities" [countries]="countries"
+        [statesOrProvinces]="statesOrProvinces"></app-shop-list>
+</ng-template>
+
+<ng-template #acceptanceLoop>
+    <app-merchant-acceptance-loop-list [merchant]="merchant" [tenant]="tenant" [action]="action">
+    </app-merchant-acceptance-loop-list>
+</ng-template>
+
+<ng-template #voucherNumberRule>
+    <app-voucher-number-rule-list [merchantId]="id" [tenant]="tenant" [toast]="toast" [program]="currentProgram"
+        [action]="action"></app-voucher-number-rule-list>
+</ng-template>
+
+<ng-template #contract>
+    <app-merchant-contract-list [merchant]="merchant" [action]="action"></app-merchant-contract-list>
+</ng-template>
+
+<ng-template #sku>
+    <app-merchant-sku-list [merchant]="merchant" [action]="action"></app-merchant-sku-list>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

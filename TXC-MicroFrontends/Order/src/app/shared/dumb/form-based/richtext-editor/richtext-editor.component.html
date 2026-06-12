@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-6">
+        <label class="form-label" [for]="richTextEditorModel.formControlName">{{ richTextEditorModel.label | standardCase }} (HTML content)</label>
+        <angular-editor [config]="editorConfig" [(ngModel)]="value" [name]="richTextEditorModel.formControlName" ngDefaultControl
+            (input)="onRichTextChanged($event)"></angular-editor>
+    </div>
+
+    <div class="col-6">
+        <label [for]="richTextEditorModel.formControlName" class="form-label">
+            {{ richTextEditorModel.label | standardCase }} (Text content)
+        </label>
+        <textarea class="rich-text" [value]="richTextValue" disabled></textarea>
+    </div>
+</div>

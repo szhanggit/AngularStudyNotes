@@ -1,0 +1,23 @@
+<div *ngIf="isVisibleExistingSection" class="component-section">
+    <app-product-combo-existing-section [parent]="this" [productComboAction]="productComboAction!"
+        [productType]="productType!" (addNewProductClicked)="addNewProductsClickEventHandler()">
+    </app-product-combo-existing-section>
+</div>
+
+<div *ngIf="isVisibleSearchSection" class="component-section" #searchSection>
+    <app-product-combo-search-section [parent]="this" [productComboAction]="productComboAction!"
+        [productType]="productType!">
+    </app-product-combo-search-section>
+</div>
+
+<div *ngIf="isVisibleConfirmSection" class="component-section" #confirmSection>
+    <app-product-combo-confirm-section [parent]="this" [productComboAction]="productComboAction!"
+        [productType]="productType!">
+    </app-product-combo-confirm-section>
+</div>
+
+<div class="component-section">
+    <app-product-combo-rearrange-section [parent]="this" [productComboAction]="productComboAction!"
+        [productType]="productType!">
+    </app-product-combo-rearrange-section>
+</div>

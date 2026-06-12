@@ -1,0 +1,86 @@
+<div>
+    <div class="modal-header border-0 pb-3">
+        <div class="fs-4 fw-bolder text-dark text-center w-100 mt-2 mb-0">
+            Preview
+        </div>
+    </div>  
+    <div class="modal-body my-0 py-0 mx-3" id="emailSubject1" *ngIf="this.templatePreview?.templateType == TEMPLATETYPE.HTML">
+        <div >
+            <ul ngbNav #nav="ngbNav" class="nav-tabs nav-bordered mb-3">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Part One</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <div  class="row">
+                            <b>Subject:</b>
+                            <div id="currentEmailSubject1"> {{ emailSubject1 }}</div>
+                        </div>
+                        <div class="row">
+                            <b>Content:</b>
+                            <ul [innerHTML]="sanitizeTemplate(emailContent1)"></ul>
+                        </div>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="2" *ngIf="this.emailSubject2 || this.emailContent2">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Part Two</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                    <div  class="row">
+                        <b>Subject:</b>
+                        <div id="currentEmailSubject2"> {{ emailSubject2 }}</div>
+                    </div>
+                    <div class="row">
+                        <b>Content:</b>
+                        <ul [innerHTML]="emailContent2"></ul>
+                    </div>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="3" *ngIf="this.emailSubject3 || this.emailContent3">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Part Three</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <div  class="row">
+                            <b>Subject:</b>
+                            <div id="currentEmailSubject3"> {{ emailSubject3 }}</div>
+                        </div>
+                        <div class="row">
+                            <b>Content:</b>
+                            <ul [innerHTML]="emailContent3"></ul>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul> 
+            <div [ngbNavOutlet]="nav"></div>
+        </div>        
+    </div>     
+    <div class="modal-body my-0 py-0 mx-3" id="smsContent" *ngIf="this.templatePreview?.templateType == TEMPLATETYPE.Text">
+        <div class="row">
+            <b>Content1:({{ smsContent1.length }})</b>
+            <div id="currentSmsSubject1">{{ smsContent1 }}</div>
+        </div>
+        <div class="row" *ngIf="this.smsContent2">
+            <b>Content2:({{ smsContent2.length }})</b>
+            <div id="currentSmsSubject2">{{ smsContent2 }}</div>
+        </div>
+        <div class="row" *ngIf="this.smsContent3">
+            <b>Content3:({{ smsContent3.length }})</b>
+            <div id="currentSmsSubject3">{{ smsContent3 }}</div>
+        </div>
+    </div> 
+    <div class="modal-footer my-0 d-flex justify-content-center">
+        <div class="col-3">
+            <button type="button" class="btn btn-secondary font-12 w-100 rounded-pill" (click)="closeModal()">Close</button>   
+        </div>  
+        <div class="col-3" *ngIf="isPreviewLatestVersion">
+            <button type="button" class="btn btn-primary font-12 w-100 rounded-pill" (click)="onApllyLatestVersionCheck()">Apply latest version</button>   
+        </div>     
+    </div>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

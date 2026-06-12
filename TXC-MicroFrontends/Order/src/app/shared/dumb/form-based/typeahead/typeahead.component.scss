@@ -1,0 +1,40 @@
+.input-group {
+    width: 100%;
+
+    .input-group-text {
+        z-index: 2;
+    }
+
+    input {
+        margin-left: -42px !important;
+        padding-left: 42px !important;
+        z-index: 1;
+    }
+}
+
+.input-group > ::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 100%;
+
+    button {
+        ngb-highlight {
+            word-break: break-word;
+            white-space: break-spaces;
+        }
+    }
+}
+
+a {
+    text-decoration: underline;
+}
+
+.input-group-prefix-icon>.input-group-text {
+    background-color: transparent;
+}
+
+.search-icon>.input-group-text {
+    border-right-width: 0px;
+}
+
+.search-icon>.form-control {
+    border-left-width: 0px;
+}

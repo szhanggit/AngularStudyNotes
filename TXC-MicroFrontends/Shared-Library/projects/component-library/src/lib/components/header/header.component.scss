@@ -1,0 +1,25 @@
+h1 {
+    font-size: 1.5rem;
+}
+
+.mr-2 {
+    margin-right: 1.5rem;
+}
+
+button.dropdown-toggle {
+    &::after {
+        display: none;
+    }
+}
+.btn {
+    &.btn-secondary {
+        &.rounded-circle {
+            width: 34.8px !important;
+            height: 34.8px !important;
+            padding-left: 8.8px !important;
+        }
+    }
+} 
+.dropdown-menu.show {
+    margin-top: 5px !important;
+}

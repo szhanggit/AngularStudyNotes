@@ -1,0 +1,39 @@
+.border-bottom-none {
+    border-bottom: none;
+}
+
+.dropdown-toggle::after{
+    display: none;
+}
+
+#download-reason {
+    textarea {
+        min-height: 150px;
+    }
+}
+
+.input-group {
+    input {
+        border-right: 0px;
+    }
+}
+
+.input-group-text{
+    background-color: transparent;
+    border-left: 0px;
+    ~ input{
+        border-right: 0px;
+    }
+}
+
+.mr-1 {
+    margin-right: 1rem;
+}
+
+.calendar-icon {
+    width: 42px;
+    position: absolute;
+    top: 29px;
+    border: transparent;
+    right: 0px;
+}

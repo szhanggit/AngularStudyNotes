@@ -1,0 +1,44 @@
+//
+// _rateit.scss
+//
+
+ngb-rating {
+    &:focus {
+        outline: none !important;
+    }
+}
+
+.star {
+    color: #{map-get($grays, "400")};
+    font-size: 1.5rem;
+
+    &.decimal {
+        position: relative;
+        display: inline-block;
+    }
+
+    .half {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        color: $warning;
+    }
+
+    &.filled {
+        color: $warning;
+    }
+
+    // filled variation
+    @each $color, $value in $theme-colors {
+        &.filled-#{$color} {
+            color: $value;
+        }
+    }
+}
+
+// Dark mode
+body[data-layout-color="dark"] {
+    .star {
+        color: #{map-get($dark-grays, "400")};
+    }
+}

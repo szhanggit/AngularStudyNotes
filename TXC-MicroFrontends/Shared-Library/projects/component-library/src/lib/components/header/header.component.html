@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-6">
+        <h1 class="text-dark">{{title}}</h1>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        <ng-container *ngFor="let button of buttons; index as i; last as last">
+            <div>
+                <button
+                *ngIf="!button.isDropdown"
+                [ngClass]="getButtonClasses(button, last)"
+                class="btn font-12 rounded-pill px-4"
+                (click)="button?.buttonAction($event)"
+                >
+                    {{ button.buttonText }}
+                </button>
+            </div>
+            <div *ngIf="button.isDropdown" ngbDropdown [ngClass]="last ? '' : 'mr-2'">
+                <button class="btn btn-secondary rounded-circle font-12" ngbDropdownToggle>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-three-dots">
+                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                    </svg>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="batchUpdateProductCombo">
+                    <a ngbDropdownItem class="text-secondary font-12" (click)="button?.buttonAction($event)">{{ button.buttonText }}</a>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

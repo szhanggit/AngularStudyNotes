@@ -1,0 +1,113 @@
+<div class="create-product">
+    <div class="row my-3">
+        <span class="text-dark bold font-22">Create Product <span class="text-secondary" *ngIf="selectedType.value">({{ selectedType.value }})</span></span>
+        <lib-stepper class="mt-2" *ngIf="step > 0" [step]="step" [stepTitles]="stepTitles" [stepsReached]="stepsReached" [stepsWithIssue]="stepsWithIssue" [selectedStep]="selectedType.key" (stepperChanged)="OnStepChanged($event)"></lib-stepper>
+    </div>
+    <app-product-type *ngIf="step < 1 && !isDraft" [selectedType]="selectedType" [selectedTenant]="selectedTenant" (productSelectedEvent)="OnProductSelected($event)"></app-product-type>
+    <app-product-details *ngIf="step === 1" 
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [brandList]="brandList"
+        [merchantAcquirers]="merchantAcquirers"
+        [selectedMerchant]="selectedMerchant"
+        [isMonoMerchant]="isMonoMerchant"
+        [selectedMerchantGroupId]="selectedMerchantGroupId"
+        [merchantProgram]="merchantProgram"
+        [selectedSKU]="selectedSKU"
+        [skuList]="skuList"
+        [selectedAcceptanceLoop]="selectedAcceptanceLoop"
+        [acceptanceLoopList]="acceptanceLoopList"
+        [acceptanceLoopPage]="acceptanceLoopPage"
+        [shopCount]="shopCount"
+        [voucherNumberRuleList]="voucherNumberRuleList"
+        [vnrErrorMessage]="vnrErrorMessage"
+        [detailsFormGroup]="detailsFormGroup"
+        [toast]="toast"
+        [stepsReached]="stepsReached"
+        (merchantSKUChanged)="OnMerchantChanged($event)"
+        (acceptanceLoopPaginationChanged)="OnAcceptanceLoopPaginationChanged($event)">
+    </app-product-details>
+    <app-product-combo *ngIf="step === 2 && masterVoucherKeys.includes(selectedType.key)">
+    </app-product-combo>
+    <app-product-pricing *ngIf="step === 2 && !masterVoucherKeys.includes(selectedType.key) || step === 3 && masterVoucherKeys.includes(selectedType.key)" 
+        [wizardKey]="wizardKey"
+        [selectedTenant]="selectedTenant" 
+        [selectedType]="selectedType" 
+        [selectedMerchant]="selectedMerchant"
+        [selectedSKU]="selectedSKU"
+        [merchantProgram]="merchantProgram"
+        [pricingFormGroup]="pricingFormGroup"
+        [expirySchemeList]="expirySchemeList"
+        [toast]="toast"
+        [isFixedExpiryPolicy$]="isFixedExpiryPolicy$"
+        (expiryPolicyIdListChanged)="OnExpiryListChanged($event)"
+        (expiryPolicyTypeChanged)="OnExpiryPolicyTypeChanged($event)">
+    </app-product-pricing>
+    <app-product-template #productTemplate *ngIf="step === 3 && !masterVoucherKeys.includes(selectedType.key) || step === 4 && masterVoucherKeys.includes(selectedType.key)" 
+        [templateFormGroup]="templateFormGroup"
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [voucherNumberRuleList]="voucherNumberRuleList"
+        [emailVersionTemplateTags]="emailVersionTemplateTags"
+        [smsVersionTemplateTags]="smsVersionTemplateTags"
+        [productTemplateList]="productTemplateList"
+        [toast]="toast"
+        (templateChanged)="OnTemplateChanged($event)"
+        (templateLanguageChanged)="OnProductTemplateLanguageChanged($event)"
+        (templateLanguageRemoved)="OnProductTemplateLanguageRemoved($event)">
+    </app-product-template>
+    <app-product-properties *ngIf="step === 4 && !masterVoucherKeys.includes(selectedType.key) || step === 5 && masterVoucherKeys.includes(selectedType.key)" 
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [selectedExternalProperties]="currentExternalProperties" 
+        [advanceSettingsFormGroup]="advanceSettingsFormGroup"
+        (onExternalPropertiesChanged)="OnExternalPropertyChanged($event)">
+    </app-product-properties>
+    <app-product-review *ngIf="step === 5 && !masterVoucherKeys.includes(selectedType.key) || step === 6 && masterVoucherKeys.includes(selectedType.key)"
+        [wizardKey]="wizardKey"
+        [selectedTenant]="selectedTenant"
+        [selectedType]="selectedType"
+        [detailsFormGroup]="detailsFormGroup"
+        [merchantAcquirers]="merchantAcquirers"
+        [selectedMerchant]="selectedMerchant"
+        [isMonoMerchant]="isMonoMerchant"
+        [selectedSKU]="selectedSKU"
+        [selectedAcceptanceLoop]="selectedAcceptanceLoop"
+        [acceptanceLoopList]="acceptanceLoopList"
+        [shopCount]="shopCount"
+        [merchantProgram]="merchantProgram"
+        [voucherNumberRuleList]="voucherNumberRuleList"
+        [pricingFormGroup]="pricingFormGroup"
+        [expirySchemeList]="expirySchemeList"
+        [templateFormGroup]="templateFormGroup"
+        [emailVersionTemplateTags]="emailVersionTemplateTags"
+        [smsVersionTemplateTags]="smsVersionTemplateTags"
+        [productTemplateList]="productTemplateList"
+        [selectedExternalProperties]="currentExternalProperties" 
+        [advanceSettingsFormGroup]="advanceSettingsFormGroup"
+        [toast]="toast"
+        (editStep)="OnStepChanged($event)"
+        (stepHasIssue)="OnStepHasIssue($event)"
+        (stepRemoveIssue)="OnStepRemoveIssue($event)">
+    </app-product-review>
+
+    <div class="row my-2">
+        <div class="col-9">
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-6" *ngIf="step === 0"></div>
+                <div class="col-6">
+                    <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" (click)="prev()">{{ step |
+                        productwizardback }}</button>
+                </div>
+                <div class="col-6" *ngIf="step > 0">
+                    <button class="btn btn-primary rounded-pill w-100 p-2 font-12" [disabled]="isNextDisabled || (productWizardService.loading$ | async)"
+                        (click)="next(step === 5 ? true : false)">{{ (productWizardService.loading$ | async) ? 'Loading ...' : step | productwizardnext }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngbd-toast-global></ngbd-toast-global>

@@ -1,0 +1,70 @@
+// image input
+.dashed {
+    border: 1px dashed #D5D8DD;
+    height: auto;
+    pointer-events: none;
+
+    &.hover {
+        background: #D5D8DD;
+        opacity: 0.8;
+        border-radius: 4px;
+    }
+
+    .img-thumbnail {
+        height: 5rem;
+        width: 100%;
+        pointer-events: all;
+    }
+
+    .show-on-hover {
+        position: absolute;
+        z-index: 2;
+        width: 500px;
+        height: 150px;
+        background-color: #D5D8DD;
+        opacity: 0.8;
+    }
+}
+
+.input-group > ::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 100%;
+    margin-left: -45px !important;
+}
+
+::ng-deep ngb-typeahead-window.dropdown-menu {
+    width: 20%;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
+.input-group-prepend > .input-group-text{
+    background-color: transparent !important;
+    border-right-width: 0px !important;
+}
+
+.input-group > .form-control{
+    border-left-width: 0px !important;
+}
+
+hr {
+    height: 1px !important;
+    background: #D5D8DD !important;
+    opacity: 1 !important;
+}
+
+.border-bottom-1px {
+    border-bottom: 1px #D5D8DD solid;
+}
+
+textarea {
+    resize: none;
+    overflow-x: hidden;
+}
+

@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-7">
+                <div class="row">
+      <!-- dropdown -->
+        <div class="col-7">
+            <div class="input-group input-group-sm input-group-prefix-icon mb-1 font-12">  
+                <span class="input-group-text"><span class="mdi mdi-magnify search-icon"></span></span>
+                <input type="text" class="form-control" placeholder="Search SKU name or SKU code" [(ngModel)]="searchTerm" (keyup)="onSearchChange()">
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="col-5">
+            <div class="row justify-content-end">
+                <div class="d-flex justify-content-end col-2">
+                    <span class="text-secondary align-self-center font-12">Display</span>
+                </div>
+                <div class="d-flex justify-content-end col-3">
+                    <select name="pageSize" class="form-select form-select-sm font-11" [(ngModel)]="pageSize" (change)="pageSizeChanged()">
+                        <option selected="10">10</option>
+                        <option [ngValue]="20">20</option>
+                        <option [ngValue]="50">50</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-start col-1 font-12">
+                    <span class="text-secondary align-self-center">list</span>
+                </div>
+        </div>
+        
+    </div>
+    </div>
+    </div>
+    <div class="col-12">
+        <table class="table table-sm table-centered mb-0">
+            <thead>
+            <tr class="font-12">
+                <th class="w-t-10">SKU Name / <br> SKU Code</th>
+                <th>SKU Type</th>
+                <th>Face Value</th>
+                <th>Cost</th>
+                <th>Cost Valid Period</th>
+                <th>Voucher Number Rule</th>
+                <th *ngIf="!contractId">Contract Name / <br>Contract Number</th>
+                <th *ngIf="contractId">Vendor SKU</th>
+                <th>Creator / <br> Created Time</th>
+                <th>SKU Cost Status</th>
+                <th *ngIf="valid && showSKUActions()">Actions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container  *ngFor="let sku of skuList">
+            <tr class="font-14" >
+                <td class="valignTop" attr.rowspan="{{sku.contractSKUCosts.length+1}}">{{ sku.skuName }} <br> {{ sku.skuNumber }}</td>
+                <tr class="font-14" *ngFor="let skucost of sku.contractSKUCosts">
+                <td>{{sku.skuType.value}}</td>
+                <td>{{sku.faceValueWithTax === null ? "NA" : sku.faceValueWithTax}}</td>
+                <td>
+                    <div>{{skucost.costWithTax}}{{ skucost.skuCostContract.contractCostScheme.id == 1 ? "%" : "" }}</div>
+                    <div *ngIf="utilityService.checkValidSKUStatus(sku.skuType.value)">({{ sku.faceValueWithTax | costCalculation: skucost.costWithTax }})</div>
+                </td>
+                <td>{{ skucost.validStartDate | txcLocalDateTime |  date : "yyyy/MM/dd" }} - {{ skucost.validEndDate | txcLocalDateTime |  date : "yyyy/MM/dd" }}</td>
+                <td>{{sku.voucherNumberRule.ruleName}}</td>
+                <td class="mouse-hover-pointer" *ngIf="!contractId"><a href="{{ getUrl(skucost.skuCostContract) }}" class="text-primary">{{ skucost.skuCostContract.contractName }} <br> {{ skucost.skuCostContract.contractNumber }}</a></td>
+                <td *ngIf="contractId">NA</td>
+                <td><div>{{sku.createdBy }}</div><div>{{ sku.createdDateTime  | txcLocalDateTime }}</div> </td>
+                <td>
+                <span [class]="getSKUStatusClass(skucost)">{{getSKUStatusLabel(skucost)}}</span>
+                </td>
+                <td *ngIf="valid && showSKUActions() && isEditBtnVisible(skucost) && (sku.skuType.id !== SkuTypeEnum.SmartChoiceVoucher && sku.skuType.id !== SkuTypeEnum.SuperVoucher)">
+                    <div ngbDropdown class="d-inline-block">
+                    <i class="mdi mdi-dots-vertical fs-3" id="dropdownBasic1" ngbDropdownToggle></i>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">                     
+                        <button ngbDropdownItem  class="px-3" *ngIf="!sku.merchantGroupId" (click)="navigateToSkuEdit(sku.id,skucost.skuCostContract.contractId)">Edit SKU</button>
+                        <button ngbDropdownItem  class="px-3" *ngIf="sku.merchantGroupId" (click)="navigateToEditGroupSku(sku.id,sku.merchantGroupId)">Edit group SKU</button>
+                      </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-container>
+        </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <span class="text-secondary font-12">
+            Displaying page {{ pageIndex }} of {{ pageCount }}, 
+            items {{ itemStart }} to {{ itemEnd }} of {{ totalCount }}
+        </span>
+    </div>
+    <div class="col-6">
+        <div class="float-end font-12">
+            <ngb-pagination [collectionSize]="totalCount" [(page)]="pageIndex" (pageChange)="pageChange()"
+                [pageSize]="pageSize" class="pagination-rounded" [maxSize]="5" [rotate]="true">
+                <ng-template ngbPaginationPrevious>
+                    <i class="uil-angle-left"></i>
+                </ng-template>
+                <ng-template ngbPaginationNext>
+                    <i class="uil-angle-right"></i>
+                </ng-template>
+            </ngb-pagination>
+        </div>
+    </div>
+</div>

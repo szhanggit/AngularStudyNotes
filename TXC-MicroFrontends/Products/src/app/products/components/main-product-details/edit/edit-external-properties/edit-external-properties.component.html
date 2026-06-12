@@ -1,0 +1,38 @@
+<div class="product-details">
+    <div class="row my-3">
+        <div class="col-12">
+            <span class="text-dark font-22"><strong>Edit Advanced Settings</strong></span>
+            <div class="vr font-16 mx-2"></div>
+            <span class="text-secondary font-22 mx-2"><strong>{{ product?.productName }}</strong></span>
+        </div>
+        <div class="text-info my-2 font-12" *ngIf="(loadingAdvanceSetting$ | async)">Loading product advanced settings...</div>
+    </div>
+</div>
+
+<app-product-properties *ngIf="!(this.loadingAdvanceSetting$ | async)"
+    [selectedTenant]="selectedTenant" 
+    [selectedType]="selectedType"
+    [selectedExternalProperties]="currentExternalProperties" 
+    [advanceSettingsFormGroup]="advanceSettingsFormGroup"
+    (onExternalPropertiesChanged)="OnExternalPropertyChanged($event)"
+    [editMode]="true">
+</app-product-properties>
+
+<div class="row my-2" *ngIf="advanceSettingsFormGroup">
+    <div class="col-9">
+    </div>
+    <div class="col-3">
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-secondary rounded-pill w-100 p-2 font-14"
+                    (click)="navigateBackToProductDetails()">Cancel</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary rounded-pill w-100 p-2 font-14"
+                    [disabled]="(actionLoading$ | async) || advanceSettingsFormGroup.invalid || !(advanceSettingsFormGroup.dirty)"
+                    (click)="saveAdvanceSettingsData()">{{ (actionLoading$ | async) ? 'Loading ...' : 'Save' }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

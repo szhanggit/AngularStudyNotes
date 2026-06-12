@@ -1,0 +1,148 @@
+<div class="row mb-1 mt-1">
+    <div class="col-12">
+        <button type="button" class="btn text-muted d-none d-sm-inline-block btn-link px-0" (click)="goBack()"><i class="mdi mdi-chevron-left"></i> Back to merchant details</button><br>            
+        <span class="font-22 text-dark bold px-2">
+            Contract & SKU Details
+        </span>
+        <ng-container *ngIf="_merchantPermissionService.isMerchantEditor">
+            <button class="btn btn-sm btn-primary rounded-pill float-end" *ngIf="isDraft" (click)="navigateToContractEdit(contract)">Edit Contract</button>
+            <button class="btn btn-sm btn-primary rounded-pill float-end ms-1" *ngIf="isValid" (click)="navigateToAddSKU()">Add SKU</button>
+            <button class="btn btn-sm btn-secondary rounded-pill float-end" *ngIf="false">Duplicate contract & SKU</button>
+        </ng-container>
+        <div class="alert alert-primary my-1" role="alert" *ngIf="isDraft">
+            <span class="font-14 fw-normal"><i class="mdi mdi-information-outline me-1"></i>Please add SKU(s) to activate this contract.</span>
+        </div>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <span class="font-16 text-dark bold">
+                        Contract <span class="mx-2" [class]="getContractStatusCSS(contract.displayStatus)">{{ contract.displayStatus }}</span>
+                    </span>
+                    <ng-container *ngIf="_merchantPermissionService.isMerchantEditor">
+                        <button class="btn btn-sm btn-primary float-end " (click)="openModal(contract)" *ngIf="isValid">Edit contract period</button>
+                    </ng-container>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Contract name
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractName}}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Contract number
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractNumber}}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Contract period
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.startDate | txcLocalDateTime | date : "yyyy/MM/dd" }} - {{ contract.endDate | txcLocalDateTime |  date : "yyyy/MM/dd" }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Payment term
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractPaymentTerm.value }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Price option
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractPriceOption.value }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Cost scheme
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractCostScheme.id == 1? "%" : "Fixed" }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Cost %
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractCostScheme.value == "Fixed" ? "N/A" : contract.costPercentage }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Rounding rule
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractCostRoundingRule.value }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Rounding decimal places
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.contractCostRoundingPlaces.value }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Creator
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.creator }}</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 font-14 mb-2">
+                                    Created time
+                                </div>
+                                <div class="col-6 font-14 mb-2">
+                                    <strong>{{ contract.createdTime | txcLocalDateTime }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <span class="font-16 text-dark bold">
+                        SKU
+                    </span>
+                </div>
+                <div class="col-12" *ngIf="showList">
+                    <app-sku-list [contractId]="contractId" [merchantId]="merchantId" [valid]="isValid || isFuture" (hasValidList)="hasList($event)" (hasInValidList)="hasList($event)"></app-sku-list>
+                </div>
+                <div class="col-12 mb-3 text-center" *ngIf="!showList">
+                    <p>You can manually add SKUs or upload an excel file to create batch of SKUs. It’s ok to add SKU later after contract created.</p>
+                    <button class="btn btn-sm btn-primary float-center" *ngIf="_merchantPermissionService.isMerchantEditor" (click)="navigateToAddSKU()">Go to add SKU</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>

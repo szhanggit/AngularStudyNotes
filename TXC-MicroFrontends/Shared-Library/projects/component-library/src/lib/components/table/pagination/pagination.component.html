@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-6">
+    <span class="text-secondary font-12">
+      Displaying page {{ page }} of {{ pageCount }}, items {{ itemStart }} to
+      {{ itemEnd }} of {{ total }}
+    </span>
+  </div>
+  <div class="col-6">
+    <div class="float-end font-12">
+      <ng-container>
+        <ngb-pagination
+          [collectionSize]="total"
+          [(page)]="page"
+          (pageChange)="onPageChange($event)"
+          [maxSize]="5"
+          [pageSize]="pageSize"
+          class="pagination-rounded"
+        >
+          <ng-template ngbPaginationPrevious>
+            <i class="uil-angle-left"></i>
+          </ng-template>
+          <ng-template ngbPaginationNext>
+            <i class="uil-angle-right"></i>
+          </ng-template>
+        </ngb-pagination>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col-12" [ngClass]="textBoxModel.subField ? 'pt-2' : ''">
+    <label
+    class="form-label"
+      *ngIf="!textBoxModel.hideLabel && !textBoxModel.subField"
+      [for]="textBoxModel.formControlName"
+      >{{ textBoxModel.label }}
+      <span *ngIf="textBoxModel.required" class="text-danger">*</span></label
+    >
+    <ng-container *ngIf="textBoxModel.isNumberOnly; else normalTextbox">
+      <ng-container *ngIf="!textBoxModel.inlineTextbox; else inlineTextbox">
+        <input
+          type="text"
+          class="form-control font-14"
+          [id]="textBoxModel.formControlName"
+          [(ngModel)]="value"
+          inputControl="number-only"
+          [class]="{
+            'invalid-input':
+              controlDir.control?.dirty && !controlDir.control?.valid
+          }"
+          (input)="onChange($any($event.target).value)"
+          (blur)="onTouched(); blur.emit()"
+          [disabled]="disabledControl"
+          [placeholder]="textBoxModel.placeholder ?? ''"
+        />
+      </ng-container>
+      <ng-template #inlineTextbox>
+        <div class="row">
+          <div class="col-3">
+            <input
+              type="text"
+              class="form-control font-14"
+              [id]="textBoxModel.formControlName"
+              [(ngModel)]="value"
+              inputControl="number-only"
+              [class]="{
+                'invalid-input':
+                  controlDir.control?.dirty && !controlDir.control?.valid
+              }"
+              (input)="onChange($any($event.target).value)"
+              (blur)="onTouched(); blur.emit()"
+              [disabled]="disabledControl"
+              [placeholder]="textBoxModel.placeholder ?? ''"
+            />
+          </div>
+          <div class="col-1 mt-1">{{ textBoxModel.inlineText }}</div>
+          <div class="col-4 mt-1">
+            <div *ngIf="textBoxModel.preview" class="text-muted">
+              ({{ textBoxModel.preview }})
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+    <ng-template #normalTextbox>
+      <ng-container
+        *ngIf="!textBoxModel.withCopyButton; else inputWithCopyButton"
+      >
+        <input
+          type="text"
+          class="form-control font-14"
+          [(ngModel)]="value"
+          [id]="textBoxModel.formControlName"
+          [attr.inputControl]="
+            textBoxModel.withInputControl ? textBoxModel.inputControl : ''
+          "
+          [class]="{
+            'invalid-input':
+              controlDir.control?.dirty && !controlDir.control?.valid
+          }"
+          (input)="onChange($any($event.target).value)"
+          (blur)="onTouched(); blur.emit()"
+          [disabled]="disabledControl"
+          [placeholder]="textBoxModel.placeholder ?? ''"
+        />
+      </ng-container>
+      <ng-template #inputWithCopyButton>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control font-14"
+            [(ngModel)]="value"
+            [id]="textBoxModel.formControlName"
+            [attr.inputControl]="
+              textBoxModel.withInputControl ? textBoxModel.inputControl : ''
+            "
+            [class]="{
+              'invalid-input':
+                controlDir.control?.dirty && !controlDir.control?.valid
+            }"
+            (input)="onChange($any($event.target).value)"
+            (blur)="onTouched(); blur.emit()"
+            [disabled]="disabledControl"
+            [readOnly]="textBoxModel.readonly"
+            [placeholder]="textBoxModel.placeholder ?? ''"
+          />
+          <div
+            class="input-group-text input-group-append"
+          >
+            <i class="mdi mdi-content-copy"></i>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+    <div *ngIf="controlDir.control?.dirty && !controlDir.control?.valid">
+      <ng-container *ngFor="let errorKey of controlErrors; let index = index">
+        <small class="text-danger">
+          {{ errorMessages[errorKey] }}
+        </small>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="textBoxModel?.subText as subText">
+  <span class="font-12 mt-1">{{ subText }}</span>
+</div>

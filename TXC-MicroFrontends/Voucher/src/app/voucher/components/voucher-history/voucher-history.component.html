@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-12">
+        <div class="my-3">
+            <span class="page-title text-dark font-22 bold">Voucher History</span>
+            <span class="text-secondary font-22 m-3 bold">
+                ({{ voucherInfo.voucherNumber }})
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <ul
+                    ngbNav
+                    #nav="ngbNav"
+                    class="nav-tabs nav-bordered mb-3"
+                >
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Success Records</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="successRecords; context: { tab: 1 }"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Failure Records</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="failureRecords; context: { tab: 2 }"></ng-container>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div [ngbNavOutlet]="nav"></div>
+        </div>
+    </div>
+
+</div>
+<ng-template #successRecords>
+    <div class="bg-white p-3 rounded m-0 overflow-x-scroll">
+        <ng-container *ngIf="successList.length > 0">
+            <ng-container *ngTemplateOutlet="historyTable"></ng-container>
+        </ng-container>
+
+        <div
+            class="text-center"
+            *ngIf="successList.length === 0"
+        >
+            <span class="text-secondary">
+                <svg-controller
+                    class="mt-2"
+                    svgName="no-data"
+                ></svg-controller>
+                <span class="mt-3">No data.</span>
+            </span>
+        </div>
+
+    </div>
+</ng-template>
+
+<ng-template #failureRecords>
+    <div class="bg-white p-3 rounded m-0 overflow-x-scroll">
+        <ng-container *ngIf="failureList.length > 0">
+            <ng-container *ngTemplateOutlet="historyTable"></ng-container>
+        </ng-container>
+
+        <div
+            class="text-center"
+            *ngIf="failureList.length === 0"
+        >
+            <span class="text-secondary">
+                <svg-controller
+                    class="mt-2"
+                    svgName="no-data"
+                ></svg-controller>
+                <span class="mt-3">No data.</span>
+            </span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #historyTable>
+    <ng-container>
+        <table class="table table-centered">
+            <thead class="font-12 bold">
+                <tr>
+                    <th class="" scope="col">Action Time</th>
+                    <th class="max-width-col-sm" scope="col">Action Type</th>
+                    <th class="max-width-col-lg" scope="col">Merchant</th>
+                    <th class="" scope="col">Merchant Code</th>
+                    <th class="max-width-col-lg" scope="col">Shop</th>
+                    <th class="max-width-col-lg" scope="col">Shop Code</th>
+                    <th scope="col">Amount</th>
+                    <th class=" max-width-col-lg" style="min-width: 400px;" scope="col">Transaction Code</th>
+                    <th class="max-width-col-lg" scope="col" *ngIf="currentTab === 2">Result</th>
+                    <th scope="col">Operator</th>
+                    <th class="" scope="col">Transaction Real Time</th>
+                    <th class="max-width-col-lg" scope="col">Reason</th>
+                    <th class="max-width-col-lg" scope="col">RSV1</th>
+                    <th class="" scope="col">Business Day</th>
+                </tr>
+            </thead>
+            <tbody class="font-14 border-bottom-hide">
+                <tr *ngFor="let item of list">
+                    <td> {{ item.actionTime | txcLocalDateTime | date : 'yyyy/MM/dd hh:mm:ss a'}}</td>
+                    <td> {{ item.actionType }}</td>
+                    <td> {{ item.merchant }}</td>
+                    <td> {{ item.merchantCode }}</td>
+                    <td> {{ item.shop }}</td>
+                    <td> {{ item.shopCode }}</td>
+                    <td> {{ item.amount }}</td>
+                    <td> {{ item.transactionCode }}</td>
+                    <td *ngIf="currentTab === 2"> {{ item.result }}</td>
+                    <td> {{ item.operator }}</td>
+                    <td> {{ item.transactionTime }}</td>
+                    <td> {{ item.reason }}</td>
+                    <td> {{ item.rsv1 }}</td>
+                    <td> {{ item.businessDate  | txcLocalDateTime | date : 'yyyy/MM/dd hh:mm:ss a'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+
+</ng-template>

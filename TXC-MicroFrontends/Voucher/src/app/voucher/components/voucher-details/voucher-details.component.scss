@@ -1,0 +1,15 @@
+button:active {
+    border-color: inherit !important;
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+.border-bottom-hide {
+    border-bottom: 0px white !important;
+}
+
+.break-word {
+    word-break: break-word;
+}

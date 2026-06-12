@@ -1,0 +1,25 @@
+<div class="row my-3">
+    <div class="col-6">
+        <span class="font-22 text-dark bold">
+            Edit Voucher Number Rule
+        </span>
+    </div>
+    <ng-container *ngIf="tenant && voucherNumberRule">
+        <ng-container *ngIf="isEdenredProgram; else thirdPartyProgram">
+            <app-voucher-number-rule-form 
+            [tenant]="tenant"
+            [merchantId]="merchantId"
+            [voucherNumberRuleForm]="voucherNumberRuleForm"
+            [voucherNumberRule]="voucherNumberRule"
+            [isMerchantGroup]="isMerchantGroup"
+            [isEdit]="true"></app-voucher-number-rule-form>
+        </ng-container>
+        <ng-template #thirdPartyProgram>
+            <app-third-party-voucher-number-rule-form [tenant]="tenant" [merchantId]="merchantId"
+                [voucherNumberRuleForm]="voucherNumberRuleForm" [voucherNumberRule]="voucherNumberRule" 
+                [isEdit]="true">
+            </app-third-party-voucher-number-rule-form>
+        </ng-template>
+        
+    </ng-container>
+</div>

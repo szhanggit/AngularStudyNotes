@@ -1,0 +1,29 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+
+parameters:
+  - name: MFEFolderName
+    type: string
+  - name: EnableUnitTest
+    type: boolean
+    default: false
+  - name: CodeCoverageTarget
+    type: string
+    default: '80'
+
+stages:
+- stage: PRBuild
+  displayName: PRBuild
+  jobs:
+  - template: job-templates/pr-build-Lint-job-template.yml
+    parameters:
+      MFEFolderName: ${{parameters.MFEFolderName}}
+      BuildConfiguration: 'build-dev'
+      LintConfig: 'lint'
+      UnitTest: 'test-no-watch'
+      EnableUnitTest: ${{parameters.EnableUnitTest}}
+      CodeCoverageTarget: ${{parameters.CodeCoverageTarget}}
+

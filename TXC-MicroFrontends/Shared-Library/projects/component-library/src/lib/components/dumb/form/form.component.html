@@ -1,0 +1,156 @@
+<div class="row g-0">
+    <div
+      class="col-12 bg-white rounded-3"
+    >
+      <div class="row">
+        <div class="col-12 text-center">
+          <span class="text-dark font-16"
+            ><strong>{{ formModel.title }}</strong></span
+          >
+        </div>
+        <div *ngIf="formModel.description" class="col-12 mt-3">
+          <span>{{ formModel.description }}</span
+          >
+        </div>
+        <div class="col-12">
+          <ng-container *ngIf="showActionButtons" class="btn-primary">
+            <ng-container *ngFor="let button of formModel.actionButtons">
+              <div >
+                <button
+                  class="btn btn-primary font-12 px-3"
+                  (click)="emitEvent(button.formControlName)"
+                >
+                  {{ button.text }}
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <form [formGroup]="formModel.formGroup">
+        <div class="row mb-2">
+          <ng-container
+            *ngFor="
+              let field of filteredFieldsDefinition;
+              index as index;
+              last as last
+            "
+          >
+            <div
+              class=" col-12 mt-2"
+              *ngIf="
+                !field.buSpecificField ||
+                (field.buSpecificField &&
+                  field.businessUnits!.includes(selectedTenant))
+              "
+            >
+              <ng-container [ngSwitch]="field.type">
+                <ng-container *ngSwitchCase="type.Select">
+                  <div class="row">
+                    <div [ngClass]="getFieldColumnClass(field)">
+                      <lib-select
+                        [selectModel]="formInputModelAsSelectModel(field)"
+                        [formControlName]="field.formControlName"
+                      ></lib-select>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="type.Date">
+                  <lib-datepicker
+                    [datepickerModel]="formInputModelAsDatepickerModel(field)"
+                    [formControlName]="field.formControlName"
+                  ></lib-datepicker>
+                </ng-container>
+                <ng-container *ngSwitchCase="type.Checkbox">
+                  <div class="row">
+                    <div class="col-12">
+                      <lib-checkbox
+                        [checkboxModel]="field"
+                        [formControlName]="field.formControlName"
+                      ></lib-checkbox>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="type.RadioButton">
+                  <div class="row">
+                    <div class="col-12">
+                      <lib-radio-button
+                        [radioButtonModel]="
+                          formInputModelAsRadioButtonModel(field)
+                        "
+                        [columns]="field.columns"
+                        [formControlName]="field.formControlName"
+                      ></lib-radio-button>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="type.FileInput">
+                  <div class="row">
+                    <div class="col-12">
+                      <lib-file-input
+                        [fileInput]="field"
+                        [formControlName]="field.formControlName"
+                        (fileEventWithApi)="emitfileEventWithApi($event)"
+                        (fileEvent)="emitFileEvent($event)"
+                      ></lib-file-input>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <a
+                        href="javascript:void(0)"
+                        class="text-decoration-underline"
+                        (click)="formModel.getSampleFile?.event($event)"
+                      >
+                        {{ formModel.getSampleFile?.text }}
+                    </a>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="type.Typeahead">
+                  <div class="row">
+                    <div class="col-12">
+                      <lib-typeahead
+                        [typeaheadModel]="formInputModelAsTypeaheadModel(field)"
+                        [formControlName]="field.formControlName"
+                      ></lib-typeahead>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <div class="row">
+                    <div class="col-12">
+                      <lib-textbox
+                        [textBoxModel]="field"
+                        [formControlName]="field.formControlName"
+                      ></lib-textbox>
+                    </div>
+                  </div>
+                </ng-container>
+                <div
+                  class="row"
+                  *ngIf="field.withCheckbox && field.checkBoxModel"
+                >
+                  <lib-checkbox
+                    [checkboxModel]="
+                      formInputCheckBoxModel(field.checkBoxModel)
+                    "
+                    [formControlName]="field.checkBoxModel.formControlName"
+                  ></lib-checkbox>
+                </div>
+              </ng-container>
+              <div *ngIf="field.hintMsg" class="text-secondary font-12">
+                {{ field.hintMsg }}
+              </div>
+              <ng-container *ngIf="field.withSubField">
+                <div class="row">
+                  <ng-content select="[subField]"></ng-content>
+                </div>
+              </ng-container>
+            </div>
+            <ng-container *ngIf="formModel.withHorizontalRule">
+              <hr class="mt-2" *ngIf="!last && (index + 1) % 2 === 0" />
+            </ng-container>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+  </div>

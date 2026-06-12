@@ -1,0 +1,16 @@
+hr {
+    height: 1px !important;
+    background: #D5D8DD !important;
+    opacity: 1 !important;
+}
+
+.border-bottom-1px {
+    border-bottom: 1px #D5D8DD solid;
+}
+
+// hotfix 35144 - wrap span in div width
+div {
+    span {
+        word-break: break-word;
+    }
+}

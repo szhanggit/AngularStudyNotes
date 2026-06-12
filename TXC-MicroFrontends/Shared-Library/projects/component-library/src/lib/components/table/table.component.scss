@@ -1,0 +1,26 @@
+@import "../../../styles/variables";
+.icon-button {
+  &:hover {
+    cursor: pointer;
+  }
+  margin-right: 0.5rem;
+}
+
+::ng-deep {
+  .custom-tooltip {
+    .tooltip-inner {
+      background-color: $dark-grey;
+    }
+
+    .tooltip-arrow::before {
+      border-bottom-color: $dark-grey;
+    }
+  }
+  .tooltip.show {
+    opacity: 1;
+  }
+
+  .action-container:not(:first-child) {
+    margin-left: 1rem;
+  }
+}

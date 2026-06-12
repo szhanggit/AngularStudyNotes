@@ -1,0 +1,389 @@
+<ng-template #tipContent let-formControl="formControl" let-formControlName="formControlName">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.minlength">
+        Entered value must be at least {{ formControl.errors?.minlength?.requiredLength }} characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters of {{ formControl.errors?.maxlength?.requiredLength }}!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.alreadyExists">
+        {{ formControl.value }} already exists!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.pattern">
+        <ng-container *ngIf="selectedType.key === 4 && formControlName === 'Product Name'; else invalidPattern">
+            {{'{FV}'}} tag is required in product name for Dynamic Face Value product
+        </ng-container>
+        <ng-template #invalidPattern>
+            {{ formControlName }} is invalid!
+        </ng-template>
+    </ng-container>
+    <ng-container *ngIf="!formControl?.invalid">
+        Entered value is valid
+    </ng-container>
+</ng-template>
+
+<form [formGroup]="detailsFormGroup">
+    <div class="bg-white rounded-3 px-3 py-2">
+        <span class="text-dark font-16"><strong>Basic Info</strong></span>
+
+        <div class="row">
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="productName" class="form-label font-14">Product name <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                        'is-invalid': f.productName.invalid && f.productName.dirty
+                    }" formControlName="productName" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productName.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productNameTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(productNameTip, f.productName, 'Product Name')"
+                        [disableTooltip]="!(f.productName.invalid && f.productName.dirty)" />
+                    <div class="font-12 mt-1" *ngIf="selectedType.key === 4">
+                        <div>Must add <span>&#123;</span>FV<span>&#125;</span> tag in product name for dynamic product.
+                        </div>
+                        <div>Sample Edenred Super Voucher $<span>&#123;</span>FV<span>&#125;</span></div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="productCode" class="form-label font-14">Product code <span
+                            class="text-danger">*</span></label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f.productCode.invalid && f.productCode.dirty
+                    }" formControlName="productCode" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productCodeTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(productCodeTip, f.productCode, 'Product Code')"
+                        [disableTooltip]="!(f.productCode.invalid && f.productCode.dirty)" />
+                    <ng-container
+                        *ngIf="(productService.loading$ | async) && f.productCode.dirty; else alreadyExistsChecker">
+                        <span class="text-info font-12">Checking if product code already exists...</span>
+                    </ng-container>
+                    <ng-template #alreadyExistsChecker>
+                        <ng-container *ngIf="f.productCode?.invalid && f.productCode.errors?.alreadyExists">
+                            <span class="text-danger font-12">
+                                {{ f.productCode.value }} already exists!
+                            </span>
+                        </ng-container>
+                    </ng-template>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="externalCode" class="form-label font-14">External code</label>
+                    <input type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f.externalProductCode.invalid && f.externalProductCode.dirty
+                    }" formControlName="externalProductCode" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.externalProductCode.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #externalProductCodeTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(externalProductCodeTip, f.externalProductCode)"
+                        [disableTooltip]="!(f.externalProductCode.invalid && f.externalProductCode.dirty)" />
+                </div>
+                <div class="col-6">
+                    <label for="productIssuer" class="form-label font-14">Product issuer <span
+                            class="text-danger">*</span></label>
+                    <div class="row">
+                        <div class="col-6">
+                            <select2 [data]="productIssuers" formControlName="productIssuer" placeholder="Select"
+                                displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+                        <div class="col-6 reseller-merchant" *ngIf="showResellerMerchantName">
+                            <input id="typeahead-custom" type="text" class="form-control font-14" [ngClass]="{
+                            'is-invalid': f.resellerMerchantName.invalid && f.resellerMerchantName.dirty
+                        }" placeholder="Enter reseller model name" formControlName="resellerMerchantName"
+                                [ngbTypeahead]="searchResellerMerchant" [inputFormatter]="merchantFormatter"
+                                [resultTemplate]="resellerMerchantResults" [focusFirst]="true"
+                                (change)="OnResellerMerchantNameTextboxChanged()"
+                                (focus)="focusResellerMerchant$.next($any($event).target.value)"
+                                (click)="clickResellerMerchant$.next($any($event).target.value)"
+                                (selectItem)="onSelectMerchantReseller($event)" #instance="ngbTypeahead"
+                                triggers="manual" [ngbTooltip]="tipContent"
+                                [tooltipClass]="f.resellerMerchantName.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                                #productIssuerTip="ngbTooltip"
+                                (click)="toggleTooltipWithContext(productIssuerTip, f.resellerMerchantName)"
+                                [disableTooltip]="!(f.resellerMerchantName.invalid && f.resellerMerchantName.dirty)" />
+                            <ng-template #resellerMerchantResults let-r="result" let-t="term">
+                                <ngb-highlight [result]="r.merchantName" [term]="t"></ngb-highlight>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="productDescription" class="form-label font-14">
+                        Product description
+                    </label>
+                    <textarea type="text" class="form-control font-14" [ngClass]="{
+                        'is-invalid': f.productDescription.invalid && f.productDescription.dirty
+                    }" formControlName="productDescription" triggers="manual" [ngbTooltip]="tipContent"
+                        [tooltipClass]="f.productDescription.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                        #productDescriptionTip="ngbTooltip"
+                        (click)="toggleTooltipWithContext(productDescriptionTip, f.productDescription)"
+                        [disableTooltip]="!(f.productDescription.invalid && f.productDescription.dirty)"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6" *ngIf="productCustomizationSvc.isGlobal(selectedTenant)">
+                    <label for="voucherIssuerId" class="form-label font-14">Merchant acquirer <span
+                            class="text-danger">*</span></label>
+                    <select2 [data]="merchantAcquirersSelect2Data" formControlName="voucherIssuerId"
+                        placeholder="Select" displaySearchStatus="hidden" resultMaxHeight="500px">
+                    </select2>
+                </div>
+                <div class="col-6" *ngIf="productCustomizationSvc.isTaiwan(selectedTenant)">
+                    <label for="productTag" class="form-label font-14">Product tag </label>
+                    <select2 [data]="productTags" formControlName="productTag" placeholder="Select"
+                        displaySearchStatus="hidden" resultMaxHeight="500px">
+                    </select2>
+                </div>
+                <div class="col-6" *ngIf="productCustomizationSvc.isTaiwan(selectedTenant)">
+                    <label for="multipleSelectionType" class="form-label font-14">Multiple selection type</label>
+                    <select2 [data]="multipleSelectionTypes" formControlName="multipleSelectionType"
+                        placeholder="Select" displaySearchStatus="hidden" resultMaxHeight="500px">
+                    </select2>
+                </div>
+                <div class="col-6" *ngIf="productCustomizationSvc.isIndia(selectedTenant)">
+                    <label for="productCategory" class="form-label font-14">Product category <span
+                            class="text-danger">*</span></label>
+                    <select2 [data]="productCategories" formControlName="productCategory" placeholder="Select"
+                        displaySearchStatus="hidden" resultMaxHeight="500px">
+                    </select2>
+                </div>
+            </div>
+
+            <div class="row mb-3" *ngIf="!productCustomizationSvc.isGlobalRewards(selectedTenant)">
+                <div class="col-6">
+                    <label for="brandId" class="form-label font-14 text-secondary">Brand for this product <span
+                            *ngIf="selectedTenant === 'TW' || selectedTenant === 'IN'"
+                            class="text-danger">*</span></label>
+                    <div class="input-group" [ngClass]="{ 'is-invalid': f.brandName.invalid && f.brandName.dirty }">
+                        <div class="input-group-prepend" >
+                            <span class="input-group-text" id="search-addon">
+                                <i class="mdi mdi-magnify"></i>
+                            </span>
+                        </div>
+                        <input id="typeahead-custom" type="text" class="form-control font-14" placeholder="Search brand"
+                            formControlName="brandName" [ngbTypeahead]="searchBrand" [inputFormatter]="formatter"
+                            (focusout)="OnBrandTextboxChanged()" (focus)="focusBrand$.next($any($event).target.value)"
+                            (click)="clickBrand$.next($any($event).target.value)" [focusFirst]="true"
+                            [resultTemplate]="brandResults" #instance="ngbTypeahead"
+                            [required]="selectedTenant === 'TW' || selectedTenant === 'IN'" />
+                        <ng-template #brandResults let-r="result" let-t="term">
+                            <ngb-highlight [result]="r.brandName" [term]="t"></ngb-highlight>
+                        </ng-template>
+                    </div>
+                    <span *ngIf="f.brandName.dirty && f.brandName.invalid" class="text-danger font-12">Brand is mandatory</span>
+                </div>
+                <div class="col-6 mt-3" *ngIf="f.brandImage?.value?.nodeUrl" (click)="removeBrand()"
+                    (mouseout)="brandOnHover = false" (mouseenter)="brandOnHover = true">
+                    <div class="dashed d-flex justify-content-center p-3" [class.hover]="brandOnHover"
+                        (mouseenter)="brandOnHover = true">
+                        <div class="d-flex flex-column text-center">
+                            <img [src]="f.brandImage.value.nodeUrl" [height]="f.brandImage.value.height"
+                                [width]="f.brandImage.value.width" class="img-thumbnail">
+                            <span class="text-secondary mt-2 font-14"><strong>Brand name: {{ f.brandImage.value.keyword
+                                    | titlecase }}</strong></span>
+                            <span class="text-secondary font-12">{{ f.brandId.value.flag }}</span>
+                        </div>
+                        <div class="d-flex flex-column text-center show-on-hover pt-4" *ngIf="brandOnHover">
+                            <span class="font-20">
+                                <i class="uil-trash"></i>
+                            </span>
+                            <span class="font-14">
+                                Delete file
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16 bold">Merchant & SKU <span class="text-danger">*</span></span>
+
+        <div class="row">
+            <div class="row my-2" *ngIf="!editMode">
+                <div class="col-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="search-addon">
+                                <i class="mdi mdi-magnify"></i>
+                            </span>
+                        </div>
+                        <input id="typeahead-custom" type="text" class="form-control font-14"
+                            [placeholder]="productCustomizationSvc.isTaiwan(selectedTenant) || productCustomizationSvc.isSingapore(selectedTenant) ? 'Search merchant or merchant group' : 'Search merchant'"
+                            formControlName="merchantName" [focusFirst]="true" [ngbTypeahead]="searchMerchant"
+                            [inputFormatter]="merchantFormatter" [resultTemplate]="merchantResults"
+                            (change)="OnMerchantNameTextboxChanged()"
+                            (focus)="focusMerchant$.next($any($event).target.value)"
+                            (click)="clickMerchant$.next($any($event).target.value)" #instance="ngbTypeahead" />
+                        <ng-template #merchantResults let-r="result" let-t="term">
+                            <ngb-highlight [result]="r.merchantName" [term]="t"></ngb-highlight>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-12">
+                    <div class="row text-left text-secondary bold">
+                        <div class="col-2">
+                            <span class="font-12">{{ productCustomizationSvc.isTaiwan(selectedTenant) ||
+                                productCustomizationSvc.isSingapore(selectedTenant) ? 'Merchant / Merchant Group' :
+                                'Merchant'}}</span>
+                        </div>
+                        <div class="col-6">
+                            <span class="font-12">SKU for this product <span class="text-danger">*</span></span>
+                        </div>
+                        <div class="col-2 text-center" *ngIf="!editMode">
+                            <span class="font-12">Actions</span>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <div class="col-12">
+                    <ng-container #withAvailableMerchants *ngIf="selectedMerchant; else noAvailableMerchants">
+                        <div class="row mt-2">
+                            <div class="col-2 text-left text-primary pt-2 word-break">
+                                <span class="font-14" *ngIf="isMonoMerchant; else MerchantGroup">
+                                    <a [routerLink]="['/merchants/details']"
+                                        [queryParams]="{merchantId: selectedMerchant.merchantId}">{{
+                                        selectedMerchant.merchantName }}</a>
+                                </span>
+                                <ng-template #MerchantGroup>
+                                    <a [routerLink]="['/merchants/merchant-group-details']"
+                                        [queryParams]="{merchantId: selectedMerchant.merchantId}">{{
+                                        selectedMerchant.merchantName }}</a>
+                                </ng-template>
+                            </div>
+                            <div class="col-6 text-left text-primary pt-2 cursor-pointer search-SKU">
+                                <input id="typeahead-custom" type="text" class="form-control font-14"
+                                    [ngClass]="{
+                                        'is-invalid': f.skuName.invalid && f.skuName.dirty
+                                    }"
+                                    [placeholder]="isMonoMerchant ? 'Search SKU' : 'Search group SKU'"
+                                    formControlName="skuName" [focusFirst]="true" [ngbTypeahead]="searchSKU"
+                                    [inputFormatter]="skuFormatter" [resultTemplate]="skuResults"
+                                    triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.skuName.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                                    [disableTooltip]="!(f.skuName.invalid && f.skuName.dirty)"
+                                    (selectItem)="selectSKU($event)"
+                                    (focus)="focusSKU$.next($any($event).target.value)"
+                                    (click)="clickSKU$.next($any($event).target.value); toggleTooltipWithContext(skuNameTip, f.skuName)" 
+                                    #skuNameTip="ngbTooltip"
+                                    #instance="ngbTypeahead" />
+                                <ng-template #skuResults let-r="result" let-t="term">
+                                    <ngb-highlight [result]="r.skuName" [term]="t"></ngb-highlight>
+                                </ng-template>
+                            </div>
+                            <ng-container *ngIf="!editMode">
+                                <div class="col-2 text-center pt-2">
+                                    <button class="btn font-22" (click)="removeMerchant()">
+                                        <i class="uil-trash"></i>
+                                    </button>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <ng-template #noAvailableMerchants>
+                        <div class="row font-14 py-3">
+                            <div class="text-center text-secondary">
+                                Please search a merchant and select a SKU for this product
+                            </div>
+                        </div>
+                    </ng-template>
+                    <div class="row font-14 py-3" *ngIf="merchantId && !this.skuList.length">
+                        <div class="text-center mt-2">
+                            No available sku for this merchant, please go to <a [routerLink]="['/merchants/details']"
+                                [queryParams]="{merchantId: merchantId}">merchant</a> to create one
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="selectedSKU && this.selectedSKU.contractSKUCosts.length">
+                    <app-merchant-sku [selectedSKU]="selectedSKU" [selectedMerchant]="selectedMerchant"
+                        [selectedType]="selectedType" [isMonoMerchant]="isMonoMerchant"
+                        [viewMode]="false"></app-merchant-sku>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Acceptance loop <span class="text-danger">*</span></strong></span>
+        <app-acceptance-loop-table *ngIf="acceptanceLoopList.length; else noACL" [isReview]="false"
+            [isMonoMerchant]="isMonoMerchant" [acceptanceLoopList]="acceptanceLoopList" [page]="acceptanceLoopPage"
+            [errorMessage]="acceptanceLoopErrorMessage" [shopCount]="shopCount"
+            [merchantId]="selectedMerchant?.merchantId" [selectedMerchant]="selectedMerchant"
+            [selectedAcceptanceLoopId]="f.acceptanceLoopId.value"
+            (acceptanceLoopSelectionChanged)="OnAcceptanceLoopSelectionChanged($event)"
+            (acceptanceLoopPaginationChanged)="OnAcceptanceLoopPaginationChanged($event)">
+        </app-acceptance-loop-table>
+        <ng-template #noACL>
+            <div class="text-center text-secondary font-14 py-3">
+                Select available merchant above to have related acceptance loop info
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Voucher number rule <span class="text-danger">*</span></strong></span>
+        <ng-container *ngIf="(programLoading$ | async)">
+            <span class="mx-2 font-12 bold text-info">Loading merchant program....</span>
+        </ng-container>
+        <ng-container *ngIf="(vnrLoading$ | async)">
+            <span class="mx-2 font-12 bold text-info">Loading voucher number rule....</span>
+        </ng-container>
+        <app-voucher-number-rule-table *ngIf="merchantProgram; else noMerchantProgram" [selectedSKU]="selectedSKU"
+            [program]="merchantProgram" [voucherNumberRuleList]="voucherNumberRuleList"
+            [errorMessage]="vnrErrorMessage"></app-voucher-number-rule-table>
+        <ng-template #noMerchantProgram>
+            <div class="text-center text-secondary font-14 py-3">
+                Select available merchant & sku above to have related voucher number rule info
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="bg-white rounded-3 px-3 py-2 my-3">
+        <span class="text-dark font-16"><strong>Additional information</strong></span>
+        <div class="row my-3">
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14">Note for internal used (Operation)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.operationNote.invalid && f.operationNote.dirty
+                }" formControlName="operationNote" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.operationNote.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #operationNoteTip="ngbTooltip" (click)="toggleTooltipWithContext(operationNoteTip, f.operationNote)"
+                    [disableTooltip]="!(f.operationNote.invalid && f.operationNote.dirty)"></textarea>
+            </div>
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14 text-secondary">Note for internal used
+                    (Sales)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.salesNote.invalid && f.salesNote.dirty
+                }" formControlName="salesNote" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.salesNote.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #salesNoteTip="ngbTooltip" (click)="toggleTooltipWithContext(salesNoteTip, f.salesNote)"
+                    [disableTooltip]="!(f.salesNote.invalid && f.salesNote.dirty)"></textarea>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-6">
+                <label for="operationTextArea" class="form-label font-14 text-secondary">Note for internal used
+                    (Customer
+                    service)</label>
+                <textarea class="form-control font-14" [ngClass]="{
+                    'is-invalid': f.customerServiceNote.invalid && f.customerServiceNote.dirty
+                }" formControlName="customerServiceNote" triggers="manual" [ngbTooltip]="tipContent"
+                    [tooltipClass]="f.customerServiceNote.invalid ? 'tooltip-danger' : 'tooltip-success'"
+                    #customerServiceNoteTip="ngbTooltip"
+                    (click)="toggleTooltipWithContext(customerServiceNoteTip, f.customerServiceNote)"
+                    [disableTooltip]="!(f.customerServiceNote.invalid && f.customerServiceNote.dirty)"></textarea>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,39 @@
+.template-list {
+    .input-search {
+        width: 300px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+
+        .input-search-icon {
+            position: absolute;
+            padding: 10px;
+            min-width: 40px;
+
+            &::before {
+                color: #D5D8DD;
+            }
+        }
+
+        .input-search-field {
+            width: 100%;
+            padding: 10px;
+            padding-left: 30px;
+
+            &::placeholder {
+                color: #D5D8DD;
+            }
+        }
+    }
+    .nav-tabs {
+        .nav-item {
+            .nav-link {
+                background-color: #F2F4F8;
+            }
+
+            .active {
+                color: #0D8AFF;
+                font-weight: bold;
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+.dp-hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+    height: 0;
+    line-height: 0;
+}
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}
+.custom-day.focused {
+    background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: blac;
+}
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+}
+
+.dateControlWidth100
+{
+    width: 100%;
+    margin-top: 0%;
+}
+
+.dateControlWidth50
+{
+    width: 50%;
+    margin-top: 0%;
+}
+
+.trDisable
+{
+    background: #8080803d;
+    pointer-events: none;
+}
+
+.f-color
+{
+    color: red;
+}
+
+.auto-overflow
+{
+    max-height: calc(80vh - 190px);
+    overflow: auto;
+}

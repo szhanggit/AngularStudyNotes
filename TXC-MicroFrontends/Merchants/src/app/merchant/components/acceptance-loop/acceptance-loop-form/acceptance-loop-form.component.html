@@ -1,0 +1,273 @@
+<form [formGroup]="acceptanceLoopFormGroup">
+    <div class="row my-3">
+        <div class="col-6">
+            <span class="font-22 text-dark bold">
+                {{ isEdit ? 'Edit Acceptance Loop' : 'Create Acceptance Loop' }}
+            </span>
+        </div>
+
+        <div class="col-12">
+            <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+                <div class="row my-3">
+                    <div class="col-12 mb-2">
+                        <span class="font-16 text-dark bold">
+                            Acceptance Loop
+                        </span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <label for="code">Acceptance loop name <span class="text-danger bold">*</span></label>
+                                <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.code.invalid && f.code.dirty
+                                }" formControlName="code" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.code.invalid && f.code.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #codeTip="ngbTooltip" (click)="toggleTooltipWithContext(codeTip, f.code, 'Only alphanumaric, space and chinese character allowed.')"
+                                    [disableTooltip]="!(f.code.invalid && f.code.dirty)">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control font-14 text-secondary" [ngClass]="{
+                                    'is-invalid': f.description.invalid && f.description.dirty
+                                }" formControlName="description" triggers="manual" [ngbTooltip]="tipContent"
+                                    [tooltipClass]="f.description.invalid && f.description.dirty ? 'tooltip-danger' : 'tooltip-success'"
+                                    #descriptionTip="ngbTooltip" (click)="toggleTooltipWithContext(descriptionTip, f.description)"
+                                    [disableTooltip]="!(f.description.invalid && f.description.dirty)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <ng-container *ngTemplateOutlet="shopSelection"></ng-container>
+        </div>
+
+        <div class="col-12">
+            <div class="row my-2">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill w-100 p-2 font-12" (click)="navigateToMerchantDetails()">Cancel</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary rounded-pill w-100 p-2 font-12" (click)="OnSubmit()"
+                                [disabled]="acceptanceLoopFormGroup.invalid">{{ isEdit ? 'Save' : 'Create' }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #shopSelection>
+    <div class="bg-white rounded-3 px-3 py-2 my-2 font-14">
+        <div class="row my-3 ">
+            <div class="col-6 mb-2">
+                <span class="font-16 text-dark bold">
+                    Select shops for this acceptance loop <span class="text-danger bold">*</span>
+                </span>
+            </div>
+            <div *ngIf="(totalSelected$ | async)" class="col-6 container-fluid">
+                <div class="float-end">
+                    <button class="btn btn-primary font-12 px-4" (click)="editSelection()">Edit selection</button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="totalSelected; else nodata" class="mb-3">
+            <ng-container *ngTemplateOutlet="selectedShops"></ng-container>
+            <ng-container *ngTemplateOutlet="unselectedShops"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #nodata>
+    <div class="row mt-3">
+        <div class="col-12 mb-3 text-center">
+            <button class="btn btn-primary font-12 px-4" (click)="selectShops()">Select shops</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #selectedShops>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn rounded-circle btn-sm" [class]="selectedListCollapsed ? 'btn-light' : 'btn-secondary'"
+                (click)="toggle('SELECTED')" [attr.aria-expanded]="!selectedListCollapsed" aria-controls="selectedListCollapse">
+                <i [class]="selectedListCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>Selected shops ({{ totalSelected$ | async }})</strong>
+            </span>
+        </div>
+    </div>
+    <div #selectedListCollapse="ngbCollapse" [(ngbCollapse)]="selectedListCollapsed">
+        <div class="row">
+            <ng-container *ngTemplateOutlet="tableSelected"></ng-container>
+            <ng-container *ngIf="(totalSelected$ | async)">
+                <ng-container *ngTemplateOutlet="paginationSelected"></ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #unselectedShops>
+    <div class="row mt-2">
+        <div class="col-12">
+            <button class="btn rounded-circle btn-sm" [class]="unselectedListCollapsed ? 'btn-light' : 'btn-secondary'"
+                (click)="toggle('UNSELECTED')" [attr.aria-expanded]="!unselectedListCollapsed" aria-controls="unselectedListCollapse">
+                <i [class]="unselectedListCollapsed ? 'uil-angle-down' : 'uil-angle-up'"></i>
+            </button>
+            <span class="text-dark collapse-title font-16 m-2">
+                <strong>Unselected shops ({{ totalUnselected$ | async }})</strong>
+            </span>
+        </div>
+    </div>
+    <div #unselectedListCollapse="ngbCollapse" [(ngbCollapse)]="unselectedListCollapsed">
+        <div class="row mb-2">
+            <ng-container *ngTemplateOutlet="tableUnselected"></ng-container>
+            <ng-container *ngIf="(totalUnselected$ | async)">
+                <ng-container *ngTemplateOutlet="paginationUnselected"></ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tableSelected>
+    <table class="table table-striped table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col" class="col-name">Shop Name</th>
+                <th scope="col" class="col-status">Status</th>
+                <th scope="col" class="col-code">Internal Shop Code</th>
+                <th scope="col" class="col-min"></th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let shopOption of selectedShopOptions(true) | async | slice: (acceptanceLoopService.pageSelected-1) * acceptanceLoopService.pageSize : acceptanceLoopService.pageSelected * acceptanceLoopService.pageSize">
+                <td>{{ shopOption.shopName }}</td>
+                <td>{{ shopOption.shopStatus | shopStatusType }}</td>
+                <td>{{ shopOption.identityCode }}</td>
+                <td><button class="btn" (click)="removeSelectedShop(shopOption)"><i class="uil-trash"></i></button></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #tableUnselected>
+    <table class="table table-striped table-centered mt-2">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col" class="col-name">Shop Name</th>
+                <th scope="col" class="col-status">Status</th>
+                <th scope="col" class="col-code">Internal Shop Code</th>
+                <th scope="col" class="col-min"></th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <tr *ngFor="let shopOption of selectedShopOptions(false) | async | slice: (acceptanceLoopService.pageUnselected-1) * acceptanceLoopService.pageSize : acceptanceLoopService.pageUnselected * acceptanceLoopService.pageSize">
+                <td>{{ shopOption.shopName }}</td>
+                <td>{{ shopOption.shopStatus | shopStatusType }}</td>
+                <td>{{ shopOption.identityCode }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<!-- FIXME: when there are lots of pages, the page numbers exceed entire page -->
+<ng-template #paginationSelected>
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ acceptanceLoopService.pageSelected }} of {{ pageCountSelected }}, items {{ itemStartSelected }} to {{ itemEndSelected }} of
+                {{
+                (totalSelected$ | async)! }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end font-12">
+                <ngb-pagination [collectionSize]="(totalSelected$ | async)!" [(page)]="acceptanceLoopService.pageSelected"
+                    [pageSize]="acceptanceLoopService.pageSize" class="pagination-rounded" [maxSize]="5">
+                    <ng-template ngbPaginationPrevious>
+                        <i class="uil-angle-left"></i>
+                    </ng-template>
+                    <ng-template ngbPaginationNext>
+                        <i class="uil-angle-right"></i>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #paginationUnselected>
+    <div class="row">
+        <div class="col-6">
+            <span class="text-secondary font-12">
+                Displaying page {{ acceptanceLoopService.pageUnselected }} of {{ pageCountUnselected }}, items {{ itemStartUnselected }} to {{ itemEndUnselected }} of
+                {{
+                (totalUnselected$ | async)! }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end font-12">
+                <ngb-pagination [collectionSize]="(totalUnselected$ | async)!" [(page)]="acceptanceLoopService.pageUnselected"
+                    [pageSize]="acceptanceLoopService.pageSize" class="pagination-rounded" [maxSize]="5">
+                    <ng-template ngbPaginationPrevious>
+                        <i class="uil-angle-left"></i>
+                    </ng-template>
+                    <ng-template ngbPaginationNext>
+                        <i class="uil-angle-right"></i>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tipContent let-formControl="formControl" let-message="message">
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.required">
+        This is a required field
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.maxlength">
+        Entered value exceeded maximum characters!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.pattern">
+        Entered invalid pattern!
+    </ng-container>
+    <ng-container *ngIf="formControl?.invalid && formControl.errors?.allowAlphanumericWithChinese">
+        {{ message == '' ? 'Entered invalid pattern!' : message }}
+    </ng-container>
+</ng-template>
+
+<ng-template #popup let-modal>
+	<div class="modal-header border-0 text-center d-block">
+		<h4 class="modal-title">Unable to {{ isEdit ? 'edit' : 'create'}}</h4>
+	</div>
+	<div class="modal-body">
+		<p class="d-flex justify-content-between">{{ popupMessageString }}</p>
+	</div>
+    <div class="modal-footer border-0 d-block">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-sm-6">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-secondary rounded-pill" (click)="closePopup('discard')">Discard {{ isEdit ? 'edit' : 'creation'}}</button>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-sm-6">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary rounded-pill" (click)="closePopup()" >Modify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>

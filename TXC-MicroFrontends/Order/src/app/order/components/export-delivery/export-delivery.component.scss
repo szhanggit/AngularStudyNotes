@@ -1,0 +1,19 @@
+@import "../../../../styles/variables";
+
+%light-grey {
+  color: $dark-grey;
+}
+
+span {
+  @extend %light-grey;
+  font-weight: 500;
+}
+
+label {
+  @extend %light-grey;
+  font-weight: 400;
+}
+
+.modal-title {
+  color: black;
+}

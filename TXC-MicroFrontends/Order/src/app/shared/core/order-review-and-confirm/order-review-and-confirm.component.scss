@@ -1,0 +1,32 @@
+@import "../../../../styles/variables";
+
+.ratio-1x1 {
+  height: 30px;
+  width: 30px;
+}
+
+.btn-sm.rounded-circle {
+  padding: 0;
+
+  [class^="uil-"]:before,
+  [class*=" uil-"]:before {
+    font-size: 2rem;
+  }
+}
+
+.collapse-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.download-attachment {
+  color: $light-blue;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.card {
+  background-color: $grey-bg-color;
+  border: 1.5px solid $grey;
+}

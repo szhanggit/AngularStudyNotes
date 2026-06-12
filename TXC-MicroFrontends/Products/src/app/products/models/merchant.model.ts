@@ -1,0 +1,47 @@
+import { Address } from './address.model';
+
+export interface Merchant {
+    merchantId: number;
+    merchantGroupId?: number;
+    programId: number;
+    programCode: number;
+    programName?: string;
+    identityCode: string;
+    name?: string;
+    merchantName: string;
+    externalCode: string;
+    invoiceRegisterNumber?: string;
+    securityKey: string;
+    status: number;
+    tX1MerchantUID?: string;
+    isAutoCreateReimbursement?: boolean;
+    autoCreateReimbursementIntervalType?: number;
+    reimbursementTaxType?: number;
+    reimbursementType?: number;
+    reimbursementReceivers?: string;
+    sameKeyWithShop: boolean;
+    mamEmail: string;
+    merchantAutoType?: number;
+    notificationMerchantCode: string;
+    merchantEmail: string;
+    merchantAcquireId?: number;
+    merchantAcquireName?: string;
+    merchantAcquirerId?: number;
+    needConsumerScan: boolean;
+    memo: string;
+    issuerType: number;
+    workKeyId: number;
+    workKey: null;
+    workKeyExpireTime: string;
+    workKeyCreatedTime: string;
+    isLegacyMerchant: boolean;
+    mainContact: string;
+    mainPhone: string;
+    autoCreateReimbursementDay?: number;
+    description: string;
+    categoryId?: number;
+    address?: Address;
+    merchantContactEmailList: string[] | any[];
+    edenredContactEmailList: string[] | any[];
+    merchantAddress?: string;
+}

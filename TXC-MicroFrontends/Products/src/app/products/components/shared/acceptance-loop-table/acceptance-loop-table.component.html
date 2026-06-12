@@ -1,0 +1,118 @@
+<div class="row">
+    <table class="table table-centered mt-2" *ngIf="acceptanceLoopList && acceptanceLoopList.length; else nodata">
+        <thead class="font-12 bold">
+            <tr>
+                <th scope="col" *ngIf="!isReview"></th>
+                <th scope="col">Acceptance Loop Name</th>
+                <th scope="col">AC Type</th>
+                <th scope="col">Available Merchants</th>
+                <th scope="col">Available Shops</th>
+            </tr>
+        </thead>
+        <tbody class="font-14">
+            <ng-container *ngFor="let acceptanceLoop of acceptanceLoopListPaginated; let index = index">
+                <tr *ngIf="(isReview && acceptanceLoop.acceptanceLoopId === selectedAcceptanceLoopId) || !isReview" [ngClass]="{'hide-bottom-border': !isMonoMerchant && acceptanceLoop.merchantAggregation.length > MERCHANT_DEFAULT_SIZE}">
+                    <td *ngIf="!isReview">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="selectAcceptanceLoop" name="selectAcceptanceLoop"
+                                [value]="acceptanceLoop.acceptanceLoopId" [(ngModel)]="selectedAcceptanceLoopId"
+                                (change)="OnAcceptanceLoopSelectionChanged()" class="form-check-input">
+                        </div>
+                    </td>
+                    <td>{{ acceptanceLoop.code }}</td>
+                    <td>{{ isMonoMerchant ? 'Mono Merchant' : 'Merchant Group'}}</td>
+                    <td>
+                        <ng-container *ngIf="isMonoMerchant; else MerchantGroupAvailableMerchants">
+                            <a [routerLink]="['/merchants/details']"
+                                [queryParams]="{merchantId: selectedMerchant?.merchantId}">{{
+                                selectedMerchant?.merchantName
+                                }}</a> <br />
+                        </ng-container>
+                        <ng-template #MerchantGroupAvailableMerchants>
+                            <span *ngFor="let merchant of acceptanceLoop.merchantsDisplay">
+                                <a [routerLink]="['/merchants/details']"
+                                    [queryParams]="{merchantId: merchant.merchantId}">{{
+                                    merchant.merchantName }}</a> <br />
+                            </span>
+                        </ng-template>
+                    </td>
+                    <ng-container *ngIf="isMonoMerchant; else MerchantGroupAvailableShops">
+                        <td [class]="{'text-primary': shopCount, 'text-secondary': !shopCount }">
+                            <ng-container *ngIf="shopCount; else noShop">
+                                <a [routerLink]="['/merchants/details']" [queryParams]="{merchantId: merchantId}">
+                                    {{ acceptanceLoop.isDefault ? "All (" + acceptanceLoop.shopCountAvailableInAL + (
+                                    acceptanceLoop.shopCountAvailableInAL > 1 ? " shops)" : " shop)") : "Limited (" +
+                                    acceptanceLoop.shopCountAvailableInAL + ( acceptanceLoop.shopCountAvailableInAL > 1
+                                    ? "
+                                    shops)" : " shop)") }}
+                                </a>
+                            </ng-container>
+                            <ng-template #noShop>
+                                {{acceptanceLoop.availableShops}}
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-template #MerchantGroupAvailableShops>
+                        <td>
+                            <span *ngFor="let merchant of acceptanceLoop.merchantsDisplay">
+                                <ng-container *ngIf="merchant.merchantShopCount; else noShop">
+                                    <a [routerLink]="['/merchants/details']"
+                                        [queryParams]="{merchantId: merchant.merchantId}">
+                                        <span
+                                            *ngIf="merchant.availableShopCount === merchant.merchantActiveShopCount">All
+                                        </span>
+                                        <span
+                                            *ngIf="merchant.availableShopCount !== merchant.merchantActiveShopCount">Limited
+                                        </span>({{merchant.availableShopCount}} shops)</a> <br />
+                                </ng-container>
+                                <ng-template #noShop>
+                                    <div>No shops</div>
+                                </ng-template>
+                            </span>
+                        </td>
+                    </ng-template>
+                </tr>
+                <tr *ngIf="((!isReview && !isMonoMerchant) || (isReview && !isMonoMerchant && acceptanceLoop.acceptanceLoopId === selectedAcceptanceLoopId)) && acceptanceLoop.merchantAggregation.length > MERCHANT_DEFAULT_SIZE">
+                    <td colspan="6" class="view-all">
+                        <button class="btn" (click)="toggleViewAll(index)">
+                            <i [class]="acceptanceLoop.isExpanded ? 'uil-angle-up' : 'uil-angle-down'"></i>
+                            <span *ngIf="acceptanceLoop.isExpanded"> COLLAPSE </span>
+                            <span *ngIf="!acceptanceLoop.isExpanded"> VIEW ALL ({{ acceptanceLoop.merchantAggregation.length
+                                }}) </span>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+
+    <div class="row font-12" *ngIf="!isReview">
+        <div class="col-6">
+            <span class="text-secondary">
+                Displaying page {{ page }} of {{ pageCount }}, items {{ itemStart }} to {{ itemEnd }} of {{ acceptanceLoopList.length }}
+            </span>
+        </div>
+        <div class="col-6">
+            <div class="float-end">
+                <ngb-pagination [collectionSize]="acceptanceLoopList.length!" [(page)]="page" [maxSize]="PAGE_SIZE"
+                [pageSize]="PAGE_SIZE" class="pagination-rounded">
+                <ng-template ngbPaginationPrevious>
+                    <i class="uil-angle-left"></i>
+                </ng-template>
+                <ng-template ngbPaginationNext>
+                    <i class="uil-angle-right"></i>
+                </ng-template>
+            </ngb-pagination>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #nodata>
+        <div class="text-center text-secondary font-14 py-3">
+            {{ errorMessage ? '' : 'Select available merchant above to have related acceptance loop info' }}
+            <div *ngIf="errorMessage">
+                <div [innerHTML]="errorMessage"></div>
+            </div>
+        </div>
+    </ng-template>
+</div>

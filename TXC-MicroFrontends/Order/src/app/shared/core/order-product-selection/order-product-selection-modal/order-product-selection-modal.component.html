@@ -1,0 +1,57 @@
+<div class="modal-header border-bottom-0">
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <span class="text-center text-dark font-18"> Select product </span>
+  </div>
+  <div class="row m-3 font-14">
+    <span class="text-left text-dark"
+      >Which way you would like to proceed?</span
+    >
+    <div class="col-12">
+      <!-- TODO: implement manual selection logic -->
+      <button
+        class="btn btn-outline-secondary btn-sm w-100 mt-2 py-3"
+        (click)="activeModal.dismiss('manualSelection')"
+        [disabled]="disableSingleUpload"
+      >
+        <i class="fs-2 uil uil-file-plus"></i>
+        <div class="mt-1">Select product online manually</div>
+      </button>
+    </div>
+    <div class="col-12">
+      <button
+        class="btn btn-outline-secondary btn-sm w-100 mt-2 py-3"
+        (click)="onUploadFileClicked()"
+      >
+        <i [class]="'fs-2 uil-upload'"></i>
+        <div class="mt-1">Upload an excel file</div>
+      </button>
+    </div>
+    <div class="col-12 mt-3 text-left font-12">
+      <a
+        href="javascript:void(0)"
+        class="text-decoration-underline"
+        (click)="downloadTemplate($event)"
+        >Download template</a
+      >
+    </div>
+  </div>
+</div>
+<ngbd-toast-global></ngbd-toast-global>
+
+<input
+  #inputFile
+  type="file"
+  name="inputFile"
+  id="inputFile"
+  (change)="onFileSelected($event)"
+  hidden="true"
+  accept=".xls,.xlsx"
+/>

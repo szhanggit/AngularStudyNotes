@@ -1,0 +1,16 @@
+<div class="bg-white rounded-3 p-3">
+    <div class="text-dark font-16 mb-3"><strong>Which product type you would like to create? </strong><span class="text-danger">*</span></div>
+    <div class="row">
+        <div class="col-6" *ngFor="let productType of selectProductTypes">
+            <div class="card text-center" *ngIf="!(selectedTenant === 'GR' && (productType.key === 5 || productType.key === 8))">
+                <div class="card-body text-center"
+                    [ngClass]="{'active': productType.key === selectedType.key }"
+                    (click)="selectType(productType)">
+                    <div
+                        [ngClass]="{ 'text-primary': productType.key === selectedType.key }">
+                        {{ productType.value }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

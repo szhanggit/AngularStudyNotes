@@ -1,0 +1,19 @@
+.side-nav-item {
+    padding-right: 1rem;
+
+    .side-nav-link-ref:hover,
+    .side-nav-link-ref:focus {
+        background: #F1F7FF;
+        border-radius: 0px 40px 40px 0px;
+        font-weight: bold;
+        color: #0D8AFF;
+    }
+
+    .side-nav-link-ref {
+
+        &.child:hover,
+        &.child:focus {
+            background-color: transparent;
+        }
+    }
+}

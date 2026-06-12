@@ -1,0 +1,24 @@
+.nav-user {
+  padding: 15.5px 20px 15.5px 70px !important;
+
+  .account-user-avatar {
+      top: 0px;
+      left: 0px;
+  }
+}
+
+.nav-user .account-user-name {
+  margin-bottom: 2px;
+}
+
+.dropdown-menu.show {
+  inset: auto;
+}
+
+.notify-item {
+  cursor: pointer;
+
+  &:hover {
+    color: #0D8AFF;
+  }
+}

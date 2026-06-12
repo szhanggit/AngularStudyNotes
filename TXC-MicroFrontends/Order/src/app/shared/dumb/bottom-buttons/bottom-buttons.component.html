@@ -1,0 +1,27 @@
+<div class="row my-3">
+    <ng-container *ngIf="buttons.length > 0">
+        <div class="col-9"></div>
+        <div class="col-3">
+          <div class="row">
+            <ng-container *ngFor="let button of buttons">
+                <div class="col-6">
+                    <button
+                      class="btn rounded-pill w-100 p-2 font-12"
+                      [ngClass]="{
+                        'btn-primary': buttonClass.Primary === button.class,
+                        'btn-secondary': buttonClass.Secondary === button.class,
+                        'btn-danger': buttonClass.Error === button.class,
+                        'btn-warning': buttonClass.Warning === button.class
+                      }"
+                      [disabled]="button.disabled"
+                      (click)="buttonClicked.emit(button.label)"
+                    >
+                      {{button.label}}
+                    </button>
+                  </div>
+            </ng-container>
+          </div>
+        </div>
+    </ng-container>
+    
+  </div>

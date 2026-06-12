@@ -1,0 +1,247 @@
+<div class="container-fluid order-list">
+    <div class="row my-3">
+        <div class="col-xl-10 col-lg-8 col-md-12 col-sm-12">
+            <h3 class="text-dark">Order List</h3>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 d-flex justify-content-end align-self-center">
+            <div>
+                <button *ngIf="isOrderCreator" class="btn btn-primary rounded-pill font-12 px-4" [routerLink]="['create']">Create order</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-2 rounded">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <ul ngbNav #nav="ngbNav" (activeId)="1" (navChange)="onNavChange(nav)" class="nav-tabs nav-bordered my-3">
+                <li ngbNavItem="1">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                        <span class="d-none d-md-block">Non-API order</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="list; context: { tab: 1 }"></ng-container>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="2">
+                    <a ngbNavLink>
+                        <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                        <span class="d-none d-md-block">API order</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                        <ng-container *ngTemplateOutlet="list; context: { tab: 2 }"></ng-container>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+        <div [ngbNavOutlet]="nav"></div>
+    </div>
+</div>
+
+<ng-template #list let-tab="tab">
+    <div class="bg-white p-2 rounded">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-6 col-md-6 col-sm-2"></div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-10 d-flex justify-content-end">
+                        <app-page-size
+                            [pageSizes]="pageSizes"
+                            [(pageSizeModel)]="orderSvc.pageSize"
+                        ></app-page-size>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngIf="loading$ | async; else notLoading">
+            <app-loader></app-loader>
+        </ng-container>
+        
+        <ng-template #notLoading>
+            <ng-container *ngIf="tab === 1">
+                <ng-container *ngIf="(total$ | async); else nodata">
+                    <ng-container *ngTemplateOutlet="tableNonApi"></ng-container>
+                    <ng-container *ngTemplateOutlet="pagination"></ng-container> 
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="tab === 2">
+                <ng-container *ngIf="(total$ | async); else nodata">
+                    <ng-container *ngTemplateOutlet="tableApi"></ng-container>
+                    <ng-container *ngTemplateOutlet="pagination"></ng-container> 
+                </ng-container>
+            </ng-container>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #tableNonApi>
+    <div class="table-responsive">
+        <table class="table table-striped table-centered mt-2">
+            <thead>
+                <tr>
+                    <th scope="col">Order No./Name</th>
+                    <th scope="col">Quotation No.</th>
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Product Qty</th>
+                    <th scope="col">Voucher Qty</th>
+                    <th scope="col">Delivery Method</th>
+                    <th scope="col">Publish Date</th>
+                    <th scope="col">Order Status/Remark</th>
+                    <th scope="col">Delivery Status</th>
+                    <th scope="col">Created By/Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders$ | async; index as i">
+                    <td scope="col">
+                        <div class="text-primary cursor-pointer" [routerLink]="[order.id]">{{order.orderNumber}}</div>
+                        <div>{{order.orderName}}</div>
+                    </td>
+                    <td scope="col">{{order.quotation.length ? order.quotation[0].quotationNumber || '--' : '--' }}</td>
+                    <td scope="col">{{order.quotation.length ? order.quotation[0].clintById[0]?.clientName || '--' : '--'}}</td> 
+                    <td scope="col">{{order.quotation.length ? order.quotation[0].clintById[0]?.clientName || '--' : '--'}}</td>
+                    <td scope="col">product quantity</td>
+                    <td scope="col">voucher quantity</td>
+                    <td scope="col">{{order.mode === orderModeEnum.IndirectNonAPI ? 'Indirect' : 'Direct' }}</td>
+                    <td scope="col">{{order.publishDateTime | date:'yyyy/MM/dd HH:mm:ss'}}</td>
+                    <td scope="col"><app-status [orderStatus]="order.status"></app-status></td>
+                    <td scope="col">
+                        <div *ngIf="!order.isDirectDelivery || order.status !== orderStatusEnum.Published">Delivered</div>
+                        <div *ngIf="order.isDirectDelivery && order.status === orderStatusEnum.Published && canExportDeliveryStatus">
+                            <a href="javascript:void(0)" class="text-primary" (click)="onExport(order, 1)">Export</a>
+                        </div>
+                        <ng-template #status>Delivered</ng-template>
+                    </td>
+                    <td scope="col">
+                        <div>{{order.createdBy}}</div>
+                        <div>{{order.createdDateTime | date:'yyyy/MM/dd HH:mm:ss'}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>
+<ng-template #tableApi>
+    <div class="table-responsive">
+        <table class="table table-striped table-centered mt-2">
+            <thead>
+                <tr>
+                    <th scope="col">Order No./Name</th>
+                    <th scope="col">Quotation No.</th>
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Product Qty</th>
+                    <th scope="col">Voucher Qty</th>
+                    <th scope="col">Publish Date</th>
+                    <th scope="col">Order Status/Remark</th>
+                    <th scope="col">Delivery Status</th>
+                    <th scope="col">Create Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders$ | async; index as i">
+                    <td scope="row">
+                        <div  class="text-primary cursor-pointer" [routerLink]="[order.id]">{{order.orderNumber}}</div>
+                        <div>{{order.orderName}}</div>
+                    </td>
+                    <td scope="col">{{order.quotation.length ? order.quotation[0].quotationNumber || '--' : '--' }}</td>
+                    <td scope="col">{{order.quotation.length ? order.quotation[0].clintById[0]?.clientName || '--' : '--'}}</td> 
+                    <td scope="col">{{order.quotation.length ? order.quotation[0].clintById[0]?.clientName || '--' : '--'}}</td>
+                    <td>product quantity</td>
+                    <td>voucher quantity</td>
+                    <td>{{order.publishDateTime | date:'yyyy/MM/dd HH:mm:ss'}}</td>
+                    <td><app-status [orderStatus]="order.status"></app-status></td>
+                    <td>
+                        <div *ngIf="order.isDirectDelivery && order.status===64; else status">
+                            <a href="javascript:void(0)" class="text-primary" (click)="onExport(order, 2)">Export</a>
+                        </div>
+                        <ng-template #status>Delivered</ng-template>
+                    </td>
+                    <td>{{order.createdDateTime | date:'yyyy/MM/dd HH:mm:ss'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>                 
+</ng-template>
+
+<ngbd-toast-global></ngbd-toast-global>
+
+<ng-template #toolbar>
+    <div class="row my-2">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                    <app-search
+                        [placeholder]="'Search order no, quotation no, client name'"
+                        [(searchTerm)]="orderSvc.searchTerm"
+                    ></app-search>
+                </div>
+            </div>
+        </div>
+
+        <!-- datepicker -->
+        <div class="col-3">
+            <div class="row">
+                <div class="col-12 d-flex">
+                        <span class="text-secondary align-self-center font-12 text-nowrap mr-2">Created period</span>
+                        <app-date-picker class="w-75" 
+                            (datePickerValues)="datePickerValues($event)" 
+                            (deleteDatesByKeyboard)="handleDatePickerValuesDelete()"
+                            [parentClass]="inputErrorPosition"
+                            [type]="rangeDatePicker"
+                        ></app-date-picker>
+                </div>
+            
+            </div>
+            
+        </div>
+        
+        <div class="col-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-6 d-flex">
+                            <span class="text-secondary align-self-center font-12 text-nowrap mr-2">Order Status</span>
+                            <select2 class="font-12 w-100" 
+                                [data]="orderStatusData" [(ngModel)]="orderSvc.orderStatus" displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+                        <div class="col-6 d-flex">
+                            <span class="text-secondary align-self-center font-12 text-nowrap mr-2">Delivery Status</span>
+                            <select2 class="font-12 w-100" [data]="deliveryStatusData" placeholder="All" displaySearchStatus="hidden" resultMaxHeight="500px">
+                            </select2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #nodata>
+    <ng-container *ngIf="orderSvc.searchTerm; else emptyList">
+        <ng-container *ngTemplateOutlet="noResult"></ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #emptyList>
+    <app-no-data></app-no-data>
+</ng-template>
+
+<ng-template #noResult>
+    <app-no-data message=" No matches result. Please try other keywords."></app-no-data>
+</ng-template>
+
+<ng-template #pagination>
+    <app-pagination
+        [(page)]="orderSvc.page"
+        [pageSize]="orderSvc.pageSize"
+        [total$]="total$"
+    ></app-pagination>
+</ng-template>
