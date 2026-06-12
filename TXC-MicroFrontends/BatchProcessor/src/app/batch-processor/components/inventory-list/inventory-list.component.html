@@ -1,0 +1,30 @@
+<div [ngSwitch]="selectedView">
+  <div *ngSwitchDefault class="my-3">
+    <lib-header
+      title="Batch Inventory List"
+      [buttons]="actionButtons"
+    ></lib-header>
+    <div class="mt-3">
+      <app-base-batch-list
+        [tableData]="tableData"
+        [total]="total"
+        (selectedViewChange)="handleSelectedViewChange($event)"
+        (searchEvent)="onSearchBatch($event)"
+      ></app-base-batch-list>
+    </div>
+  </div>
+  <ngbd-toast-global></ngbd-toast-global>
+  <app-batch-error
+    *ngSwitchCase="statuses.Failed"
+    [status]="selectedView"
+    title="Import voucher number"
+  ></app-batch-error>
+
+  <app-batch-error
+    *ngSwitchCase="statuses.InitialzingError"
+    [status]="selectedView"
+    title="Import voucher number"
+    reuploadTitle="Reupload voucher number"
+    (selectedViewChange)="handleSelectedViewChange($event)"
+  ></app-batch-error>
+</div>

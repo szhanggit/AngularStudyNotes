@@ -1,0 +1,7 @@
+@import '../../../../styles/_variables.scss';
+
+.nav-link.active {
+  color: $light-blue;
+  font-weight: 700;
+  background-color: $light-grey;
+}

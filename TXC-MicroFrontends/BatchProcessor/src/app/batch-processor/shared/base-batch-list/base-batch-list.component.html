@@ -1,0 +1,18 @@
+<lib-table
+  [tableModel]="tableModel"
+  (actionEvent)="onActionEvent($event)"
+  [total]="total"
+  [pageSize]="pageSize"
+  [page]="page"
+  [loading]="(eventStateService.batchListLoading$ | async)!"
+  [statusEnum]="statuses"
+  [noResultsMessage]="noResultsMessage!"
+  [statusProperties]="statusProperties!"
+>
+  <ng-container>
+    <app-common-table-filter
+      [batchDomain]="batchDomain"
+      (filtersEvent)="onSearchBatch($event)"
+    ></app-common-table-filter>
+  </ng-container>
+</lib-table>
