@@ -1,0 +1,43 @@
+<div>
+  <button (click)="onClick()">Click Me </button>
+</div>
+
+<table>
+  <thead>
+      <tr>
+          <th attr.colspan="{{ColumnSpan}}">
+              Student Details
+          </th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>First Name</td>
+          <td>{{FirstName}}</td>
+      </tr>
+      <tr>
+          <td>Last Name</td>
+          <td>{{LastName}}</td>
+      </tr>
+      <tr *ngIf='ShowDetails'>
+          <td>Branch</td>
+          <td>{{Branch}}</td>
+      </tr>
+      <tr *ngIf='ShowDetails'>
+          <td>Mobile</td>
+          <td>{{Mobile}}</td>
+      </tr>
+      <tr *ngIf='ShowDetails'>
+          <td>Gender</td>
+          <td>{{Gender}}</td>
+      </tr>
+      <tr *ngIf='ShowDetails'>
+          <td>Age</td>
+          <td>{{Age}}</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<button (click)='ToggleDetails()'>
+  {{ShowDetails ? 'Hide' : 'Show'}} Details
+</button>

@@ -1,0 +1,29 @@
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+cd MyAngularApp
+npm install bootstrap@3 jquery –save
+
+angular.json
+"styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+]
+
+styles.css
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+app.component.html
+<button class="btn btn-primary">
+  Bootstrap Button
+</button>

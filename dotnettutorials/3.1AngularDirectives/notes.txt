@@ -1,0 +1,19 @@
+Structural Directive
+
+NgFor (*ngFor)
+NgIf (*ngIf)
+NgSwitch (*ngSwitch)
+
+
+Attribute Directive
+
+
+NgStyle: This NgStyle Attribute Directive is basically used to modify the element appearance or behavior.
+NgClass: This NgClass Attribute Directive is basically used to change the class attribute of the element in the DOM or in the Component to which it has been attached.
+
+
+
+Component Directives
+
+
+The Component Directive is a class with @Component decorator function.

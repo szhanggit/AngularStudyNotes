@@ -1,0 +1,10 @@
+<h2>Angular Routing Example</h2>
+<a [routerLink] = "['/studentLink']" >Student</a> <br/>
+<a [routerLink] = "['/studentdetailsLink']" >student details</a>
+<a [routerLink] = "['/invalidLink']" >Invalid Link</a>
+<br /><br /><br /><br /><br /><br />
+<button (click)="GetStudent()">Student</button>
+<button (click)="GetStudentDetails()">GetStudentDetails</button>
+<div>
+    <router-outlet></router-outlet>
+</div>

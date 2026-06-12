@@ -1,0 +1,45 @@
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+ng g c student
+ng g c studentdetail
+ng g c Login
+ng generate module app-routing –flat –module=app
+
+
+ng config -g cli.warnings.versionMismatch false
+
+
+
+const routes: Routes = [
+  {
+    path:'', redirectTo:'Nothing', pathMatch:'full'
+  },
+  {
+    path:'studentLink', component:StudentComponent
+  },
+  {
+    path:'studentdetailsLink', component: StudentdetailComponent
+  },
+  {
+    path:'Login', component:LoginComponent
+  },
+  {
+    path:'**', redirectTo:'Login'
+  }
+];
+
+
+If path:'' matches, however cannot be redirected to Nothing Page, system will treat path:'' not match.
+Then go to the next match.
+That will be path:'**'

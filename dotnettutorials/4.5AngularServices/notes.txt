@@ -1,0 +1,18 @@
+https://dotnettutorials.net/lesson/angular-services/
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+ng generate service Student
+
+Tasks that are time consuming should use ngOnInit instead of the constructor. 
+As fetching data from a remote server is time consuming, the better place for calling the service method is ngOnInit.

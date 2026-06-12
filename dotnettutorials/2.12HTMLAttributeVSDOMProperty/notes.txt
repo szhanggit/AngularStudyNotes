@@ -1,0 +1,17 @@
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+
+1. The HTML attributes and DOM properties are two different things.
+2. Angular binding works with the properties and events, and not with the attributes.
+3. The job of attributes is to initialize the DOM object properties.

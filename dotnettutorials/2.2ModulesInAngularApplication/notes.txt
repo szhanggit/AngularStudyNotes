@@ -1,0 +1,18 @@
+https://dotnettutorials.net/lesson/modules-angular-application/
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng serve -o
+
+------------------------------------------------------------
+
+
+
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g module student
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g module Employee
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g c Employee/EmployeeLogin

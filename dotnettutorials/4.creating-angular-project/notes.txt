@@ -1,0 +1,6 @@
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned)
+
+ng create -o

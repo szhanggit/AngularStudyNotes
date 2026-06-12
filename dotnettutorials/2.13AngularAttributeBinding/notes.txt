@@ -1,0 +1,18 @@
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+The Angular team recommends using the property binding or Interpolation whenever possible and use the attribute binding only when there is no corresponding element property to bind. 
+To tell the angular framework that we are setting an attribute value, we have to prefix the attribute name with the attr and a DOT as shown below.
+          <th [attr.colspan]='ColumnSpan'>
+              {{pageHeader}}
+          </th>

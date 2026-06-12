@@ -1,0 +1,13 @@
+<p>Date Pipe : {{today | date}}</p>
+<p>Full Date : {{today | date:'fullDate'}}</p>
+<p>Mediate Date : {{today | date:'medium'}}</p>
+<p>Short Date : {{today | date:'short'}}</p>
+<p>Date (dd/MM/yyyy) : {{today | date:'dd/MM/yyyy'}}</p>
+<p>Time : {{today | date:'h:mm a z'}}</p>
+<p>Medium Time : {{today | date:'mediumTime'}}</p>
+
+<p>Currency USD in Symbol : {{salary | currency:'USD':true}}</p>
+<p>Currency INR in Symbol : {{salary | currency:'INR':true}}</p>
+
+<p>Currency USD in Code : {{salary | currency:'USD':false:'4.2-2'}}</p>
+<p>Currency INR in Code : {{salary | currency:'INR':false:'1.3-3'}}</p>

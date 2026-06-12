@@ -1,0 +1,17 @@
+https://dotnettutorials.net/lesson/angular-property-binding/
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+
+
+PS D:\Study\AngularStudyNotes\dotnettutorials\2.2ModulesInAngularApplication\MyAngularApp>ng g component MyComponent

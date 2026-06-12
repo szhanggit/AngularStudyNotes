@@ -1,0 +1,14 @@
+View -> Terminal
+ng new MyAngularApp
+
+(In Powershell: Set-ExecutionPolicy RemoteSigned
+Then choose A
+Set-ExecutionPolicy Restricted)
+
+cd MyAngularApp
+ng g c student
+ng serve -o
+
+------------------------------------------------------------
+
+This is because the ngModel directive is available in the system module called FormsModule. If you want to use the ngModel directive, then in your root module that is AppModule, you will have to import the FormsModule first. 
