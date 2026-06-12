@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-body">
+        <div class="align-items-center d-sm-flex justify-content-sm-between mb-3">
+            <h4 class="header-title mb-0">Balance Status</h4>
+
+            <ul class="nav-pills bg-nav-pills p-1 rounded" ngbNav #nav="ngbNav" [(activeId)]="active"
+                (activeIdChange)="changeChartData($event)">
+                <li ngbNavItem="day">
+                    <a ngbNavLink class="py-1">
+                        <span class="">Day</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="week">
+                    <a ngbNavLink class="py-1">
+                        <span class="">Week</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="month">
+                    <a ngbNavLink class="py-1">
+                        <span class="">Month</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+                <li ngbNavItem="year">
+                    <a ngbNavLink class="py-1">
+                        <span class="">Year</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+
+        <div [ngbNavOutlet]="nav"></div>
+
+        <div dir="ltr">
+            <apx-chart class="apex-charts" [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+                [xaxis]="chartOptions.xaxis!" [tooltip]="chartOptions.tooltip!" [stroke]="chartOptions.stroke!"
+                [markers]="chartOptions.markers!" [fill]="chartOptions.fill!" [colors]="chartOptions.colors!"
+                [yaxis]="chartOptions.yaxis!" [dataLabels]="chartOptions.dataLabels!" *ngIf="chartOptions">
+            </apx-chart>
+        </div>
+    </div>
+</div>

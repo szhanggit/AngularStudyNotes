@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="card-body">
+
+        <app-card-title cardTitle="Monthly Progress" [dropdownOptions]="dropdownOptions">
+        </app-card-title>
+
+
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of progressData">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="rounded-circle" [src]="item.avatar" alt="Avtar image" width="31">
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    {{item.name}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{item.emailId}}</td>
+                        <td>{{item.projectName}}</td>
+                        <td>
+                            <span class="badge bg-primary-lighten text-primary" *ngIf="item.status==='In Progress'">In
+                                Progress</span>
+                            <span class="badge bg-success-lighten text-success"
+                                *ngIf="item.status==='Completed'">Completed</span>
+                            <span class="badge bg-warning-lighten text-warning"
+                                *ngIf="item.status==='Pending'">Pending</span>
+
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" class="font-18 text-info me-2" placement="top"
+                                ngbTooltip="Edit"><i class="uil uil-pen"></i></a>
+                            <a href="javascript:void(0);" class="font-18 text-danger" placement="top"
+                                ngbTooltip="Delete"><i class="uil uil-trash"></i></a>
+                        </td>
+                    </tr> <!-- end tr -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

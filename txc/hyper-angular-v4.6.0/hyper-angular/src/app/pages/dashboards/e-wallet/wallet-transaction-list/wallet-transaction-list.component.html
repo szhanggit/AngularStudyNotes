@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="header-title mb-0">Transaction List</h4>
+            <div>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Today</option>
+                    <option value="1">Yesterday</option>
+                    <option value="2">Tomorrow</option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col" class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let transaction of transactions">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="rounded-circle" [src]="transaction.avatar" alt="Avtar image" width="33">
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    {{transaction.name}}
+                                </div>
+                            </div>
+                        </td>
+                        <td><i class="uil uil-calender me-1"></i>{{transaction.date}}</td>
+                        <td>
+                            <span class="badge" [ngClass]="{
+                                'bg-success-lighten text-success': transaction.status==='Incoming',
+                                'bg-danger-lighten text-danger': transaction.status==='Outgoing',
+                                'bg-warning-lighten text-warning': transaction.status==='In Progress'
+                            }">{{transaction.status}}</span>
+                        </td>
+                        <td>
+                            <span class="fw-semibold" [ngClass]="{
+                                'text-success': transaction.status==='Incoming',
+                                'text-danger': transaction.status==='Outgoing',
+                                'text-warning': transaction.status==='In Progress'
+                            }">{{['Incoming','In Progress'].includes(transaction.status) ? '+' : '-'}}
+                                {{transaction.amount | currency}}</span>
+                        </td>
+                        <td class="text-end">
+                            <a href="javascript:void(0);" class="font-18 text-info me-2" placement="top"
+                                ngbTooltip="Edit"><i class="uil uil-pen"></i></a>
+                            <a href="javascript:void(0);" class="font-18 text-danger" placement="top"
+                                ngbTooltip="Delete"><i class="uil uil-trash"></i></a>
+                        </td>
+                    </tr> <!-- end tr -->
+
+                </tbody>
+            </table>
+        </div>
+    </div>

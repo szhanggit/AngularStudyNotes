@@ -1,0 +1,139 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Pagination"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Default Pagination</h4>
+                <p class="text-muted font-14">Simple pagination inspired by Rdio, great for apps and search results.</p>
+
+                <ngb-pagination [collectionSize]="70" [(page)]="page1" aria-label="Default pagination"></ngb-pagination>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Disabled and active states</h4>
+                <p class="text-muted font-14">Pagination control can be disabled by adding <code>disabled</code>
+                    property.
+                    we can pass active page number using <code>page</code> property.
+                </p>
+
+                <ngb-pagination [collectionSize]="70" [(page)]="page2" [disabled]='isDisabled'></ngb-pagination>
+                <hr>
+                <button class="btn btn-sm btn-outline-primary" (click)="toggleDisabled()">
+                    Toggle disabled
+                </button>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Alignment</h4>
+                <p class="text-muted font-14">Change the alignment of pagination components with flexbox utilities.</p>
+
+                <ngb-pagination class="d-flex justify-content-start" [collectionSize]="50" [(page)]="page3">
+                </ngb-pagination>
+                <ngb-pagination class="d-flex justify-content-center" [collectionSize]="50" [(page)]="page4">
+                </ngb-pagination>
+                <ngb-pagination class="d-flex justify-content-end" [collectionSize]="50" [(page)]="page5">
+                </ngb-pagination>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Custom Pagination</h4>
+                <p class="text-muted font-14">A pagination with customized links:</p>
+                <div>
+                    <ngb-pagination [collectionSize]="70" [(page)]="customPage1" aria-label="Custom pagination">
+                        <ng-template ngbPaginationPrevious>Prev</ng-template>
+                        <ng-template ngbPaginationNext>Next</ng-template>
+                        <ng-template ngbPaginationNumber let-p>{{ getPageSymbol(p) }}</ng-template>
+                    </ngb-pagination>
+                </div>
+                <p class="text-muted font-14">A pagination with customized pages:</p>
+
+                <ngb-pagination [collectionSize]="70" [(page)]="customPage2" [boundaryLinks]="true">
+                    <ng-template ngbPaginationPages let-page let-pages="pages">
+                        <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                            <div class="form-group d-flex flex-nowrap px-2">
+                                <label id="paginationInputLabel" for="paginationInput"
+                                    class="col-form-label me-2 ms-1">Page</label>
+                                <input #i type="text" inputmode="numeric" pattern="[0-9]*"
+                                    class="form-control custom-pages-input" id="paginationInput" [value]="customPage2"
+                                    (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                    (input)="formatInput($any($event).target)"
+                                    aria-labelledby="paginationInputLabel paginationDescription"
+                                    style="width: 2.5rem" />
+                                <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                    of {{pages.length}}</span>
+                            </div>
+                        </li>
+                    </ng-template>
+                </ngb-pagination>
+
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">No direction links</h4>
+                <p class="text-muted font-14">Add <code> directionLinks</code> property for removing direction links
+                    from pagination.</p>
+
+                <ngb-pagination [collectionSize]="70" [(page)]="page6" [directionLinks]="false"></ngb-pagination>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Rounded Pagination</h4>
+                <p class="text-muted font-14">Add <code> .pagination-rounded</code> for rounded pagination.</p>
+                <ngb-pagination [collectionSize]="70" [(page)]="page7" aria-label="Default pagination"
+                    class="pagination-rounded">
+                </ngb-pagination>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Sizing</h4>
+                <p class="text-muted font-14">Add <code> size="lg|sm" </code> property for
+                    additional sizes.</p>
+                <ngb-pagination [collectionSize]="50" [(page)]="page8" size="lg"></ngb-pagination>
+                <ngb-pagination [collectionSize]="50" [(page)]="page9" size="sm"></ngb-pagination>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Advanced Pagination</h4>
+                <p class="text-muted font-14">Restricted size, no rotation:</p>
+                <ngb-pagination [collectionSize]="120" [(page)]="advacedPage1" [maxSize]="5" [boundaryLinks]="true">
+                </ngb-pagination>
+
+                <p class="text-muted font-14">Restricted size with rotation:</p>
+                <ngb-pagination [collectionSize]="120" [(page)]="advacedPage2" [maxSize]="5" [rotate]="true"
+                    [boundaryLinks]="true">
+                </ngb-pagination>
+
+                <p class="text-muted font-14">Restricted size with rotation and no ellipses:</p>
+                <ngb-pagination [collectionSize]="120" [(page)]="advacedPage3" [maxSize]="5" [rotate]="true"
+                    [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

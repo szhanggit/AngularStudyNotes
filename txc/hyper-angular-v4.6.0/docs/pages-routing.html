@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Hyper Angular - Responsive Bootstrap 5 and Angular Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Coderthemes" name="author">
+    <link rel="shortcut icon" href="./public/images/favicon.ico">
+    <style>
+        body.loading {
+            visibility: hidden
+        }
+    </style>
+    <link rel="icon" href="favicon.ico">
+    <link href="css/core.css" rel="stylesheet">
+</head>
+
+<body class="loading" data-layout="dark-sidenav">
+    <div class="wrapper">
+        <div class="left-side-menu" id="left-side-bar">
+            <div class="slimscroll-menu" id="left-side-menu-container"><a href="index.html"
+                    class="logo text-center"><span class="logo-lg"><img src="./public/images/logo.png" alt=""
+                            height="16" id="side-main-logo"> </span><span class="logo-sm"><img
+                            src="./public/images/logo_sm.png" alt="" height="16"></span></a>
+                <ul class="mt-3 metismenu side-nav" id="left-bar-menu">
+                    <li class="side-nav-title side-nav-item">Getting Started</li>
+                    <li class="side-nav-item"><a href="index.html" class="side-nav-link"><i class="dripicons-box"></i>
+                            <span>Introduction</span></a></li>
+                    <li class="side-nav-item"><a href="pages-installation.html" class="side-nav-link"><i
+                                class="dripicons-scale"></i> <span>Getting Started</span></a></li>
+                    <li class="side-nav-item"><a href="pages-strcuture.html" class="side-nav-link"><i
+                                class="dripicons-document"></i> <span>File Strcuture</span></a></li>
+                    <li class="side-nav-item"><a href="pages-routing.html" class="side-nav-link"><i
+                                class="dripicons-link"></i> <span>Routing</span></a></li>
+                    <li class="side-nav-item"><a href="pages-spliting.html" class="side-nav-link"><i
+                                class="dripicons-code"></i> <span>Code Spliting</span></a></li>
+                    <li class="side-nav-title side-nav-item mt-2">Customization</li>
+                    <li class="side-nav-item"><a href="pages-customization.html" class="side-nav-link"><i
+                                class="dripicons-browser"></i> <span>Layouts</span></a></li>
+                    <li class="side-nav-item"><a href="pages-themes.html" class="side-nav-link"><i
+                                class="dripicons-document-edit"></i> <span>Themes & Others</span></a></li>
+                    <li class="side-nav-title side-nav-item mt-2">Other</li>
+                    <li class="side-nav-item"><a href="pages-changelog.html" class="side-nav-link"><i
+                                class="dripicons-blog"></i> <span>Change log</span></a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="content-page">
+            <div class="content">
+                <div class="navbar-custom">
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+                        <li class="notification-list topbar-dropdown d-lg-block"></li>
+                    </ul><button class="button-menu-mobile open-left disable-btn"><i class="mdi mdi-menu"
+                            id="button-menu-mobile-toggle"></i></button>
+                    <div class="app-search">
+                        <h4>Angular Documentation <label class="badge badge-success float-right">v1.1</label></h4>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Angular</a></li>
+                                        <li class="breadcrumb-item active">Routing</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Routing</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-content">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="p-lg-1">
+                                    <p>Hyper Angular is having routing setup based on <a
+                                            href="https://angular.io/guide/router" target="_blank">Angular-Router</a>.
+                                        The pre configured routing would make your job easy when dealing with any
+                                        routing related changes. The routing is setup in a way to support <a
+                                            href="https://angular.io/guide/lazy-loading-ngmodules">lazy loading</a> as
+                                        well.</p>
+                                    </p>
+                                    <p>You can easily add, change or remove any route by simply making changes described
+                                        below:</p>
+                                </div>
+                                <div class="p-lg-1">
+                                    <ol>
+                                        <li>
+                                            <p>Enable routing in the project using <code>--routing</code> while creating
+                                                project.</p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                Add the entry for your module in
+                                                main application routing
+                                                <code>src/app/app-routing.module.ts</code> E.g.
+                                            </p>
+                                            <p><code>
+                                                                                {
+                                                                                path: 'dashboards',
+                                                                                loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule),
+                                                                                canActivate: [AuthGuard]
+                                                                                }
+                                                                            </code>
+                                            </p>
+                                            <p>Each of these properties are explained below:</p>
+                                            <ul>
+                                                <li><strong>path</strong> - relative path to component</li>
+                                                <li><strong>loadChildren</strong> - module to load on this route</li>
+                                                <li><strong>canActivate</strong> - set of Guards which decides whether
+                                                    route can
+                                                    be actiavted or not. It restrict the non authenticated user to
+                                                    access this
+                                                    module.</li>
+                                            </ul>
+                                            <p></p>
+                                        </li>
+                                        <li>
+                                            <p> Declare path for your components inside your module routing file
+                                                <code>dashboards/dashboards-routing.module.ts</code> E.g.
+                                            </p>
+                                            <p>
+                                                <code>
+                                                    {
+                                                    path: 'analytics',
+                                                    component: AnalyticsComponent
+                                                    }
+                                                </code>
+                                            </p>
+                                            <p>Each of these properties are explained below:</p>
+                                            <ul>
+                                                <li><strong>path</strong> - relative path to component</li>
+                                                <li><strong>component</strong> - component to load on this route</li>
+                                            </ul>
+                                        </li>
+
+                                    </ol>
+                                    <div class="alert alert-warning mt-4"><strong>Note that you don't need to restart
+                                            the development server in order to see the menu changes getting in
+                                            effect</strong></div>
+                                </div>
+                                <div class="p-lg-1">
+                                    <p>Optionally, you might want to add the menu entry in respective layout menu
+                                        component.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">2021 © Hyper - Coderthemes.com</div>
+                        <div class="col-md-6">
+                            <div class="text-md-right footer-links d-none d-md-block"><a href="https://coderthemes.com/"
+                                    target="_blank">About</a> <a href="https://coderthemes.com/"
+                                    target="_blank">Support</a></div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="js/runtime.c9a7772b654d36324ebe.js"></script>
+    <script src="js/core.c9a7772b654d36324ebe.js"></script>
+    <script src="js/pagesshared.c9a7772b654d36324ebe.js"></script>
+</body>
+
+</html>

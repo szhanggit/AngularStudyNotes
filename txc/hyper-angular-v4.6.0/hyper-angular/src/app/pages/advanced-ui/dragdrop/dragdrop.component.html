@@ -1,0 +1,146 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Drag and Drop"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Simple Drag and Drop Example</h4>
+                <p class="text-muted font-14">
+                    Drag and drop items in same container.
+                </p>
+
+                <div class="row" [sortablejs]="coloredCards">
+                    <div class="col-md-4" *ngFor="let card of coloredCards">
+                        <div class="card mb-0 mt-3 text-white bg-{{card.color}}">
+                            <div class="card-body">
+                                <blockquote class="card-bodyquote mb-0">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                        erat a ante.</p>
+                                    <footer>Someone famous in <cite title="Source Title">Source Title</cite>
+                                    </footer>
+                                </blockquote>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                    <!-- </ng-container> -->
+                </div>
+                <!-- end row-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div> <!-- end row -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Move stuff between containers</h4>
+                <p class="text-muted font-14 mb-3">
+                    Move cards between different container.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bg-dragula p-2 p-lg-4">
+                            <h5 class="mt-0">Part 1</h5>
+                            <div id="company-list-left" class="py-2" [sortablejs]="personList1"
+                                [sortablejsOptions]="options1">
+                                <ng-container *ngFor="let person of personList1">
+                                    <ng-container
+                                        *ngTemplateOutlet="DragabbleItem;context:{item: person, list: personList1, handle: false, includedesc:true}">
+                                    </ng-container>
+                                </ng-container>
+
+                            </div> <!-- end company-list-1-->
+                        </div> <!-- end div.bg-light-->
+                    </div> <!-- end col -->
+
+                    <div class="col-md-6">
+                        <div class="bg-dragula p-2 p-lg-4">
+                            <h5 class="mt-0">Part 2</h5>
+                            <div id="company-list-right" class="py-2" [sortablejs]="personList2"
+                                [sortablejsOptions]="options1">
+                                <ng-container *ngFor="let person of personList2">
+                                    <ng-container
+                                        *ngTemplateOutlet="DragabbleItem;context:{item: person, list: personList2, handle: false, includedesc:true}">
+                                    </ng-container>
+                                </ng-container>
+
+                            </div> <!-- end company-list-1-->
+                        </div> <!-- end div.bg-light-->
+                    </div> <!-- end col -->
+
+                </div> <!-- end row -->
+            </div> <!-- end card-body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Move stuff between containers using handle</h4>
+                <p class="text-muted font-14 mb-3">
+                    Drag can only start from the handle.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bg-dragula p-2 p-lg-4">
+                            <h5 class="mt-0">Part 1</h5>
+                            <div id="handle-dragula-left" class="py-2" [sortablejs]="personList3"
+                                [sortablejsOptions]="options2">
+                                <ng-container *ngFor="let person of personList3">
+                                    <ng-container
+                                        *ngTemplateOutlet="DragabbleItem;context:{item: person, list: personList3, handle: true, includedesc:false}">
+                                    </ng-container>
+                                </ng-container>
+
+                            </div> <!-- end company-list-1-->
+                        </div> <!-- end div.bg-light-->
+                    </div> <!-- end col -->
+
+                    <div class="col-md-6">
+                        <div class="bg-dragula p-2 p-lg-4">
+                            <h5 class="mt-0">Part 2</h5>
+                            <div id="handle-dragula-right" class="py-2" [sortablejs]="personList4"
+                                [sortablejsOptions]="options2">
+                                <ng-container *ngFor="let person of personList4">
+                                    <ng-container
+                                        *ngTemplateOutlet="DragabbleItem;context:{item: person, list: personList4, handle: true, includedesc:false}">
+                                    </ng-container>
+                                </ng-container>
+
+                            </div> <!-- end company-list-2-->
+                        </div> <!-- end div.bg-light-->
+                    </div> <!-- end col -->
+
+                </div> <!-- end row -->
+            </div> <!-- end card-body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<!-- resuable template -->
+
+<ng-template #DragabbleItem let-item='item' let-list="list" let-handle="handle" let-includedesc=includedesc>
+    <div class="card mt-2 mb-0">
+        <div class="card-body">
+            <div class="d-flex align-items-start">
+                <img [src]="item.avatar" alt="image" class="me-3 d-none d-sm-block avatar-sm rounded-circle" />
+                <div class="w-100 overflow-hidden">
+                    <h5 class="mb-1 mt-0">{{item.name}}</h5>
+                    <p [ngClass]="{'mb-0': !includedesc}"> {{item.title}} </p>
+                    <p class="mb-0 text-muted" *ngIf="includedesc">
+                        <span class="fst-italic"><b>"</b>Disrupt pork belly poutine, asymmetrical tousled succulents
+                            selfies. You
+                            probably haven't heard of them tattooed master cleanse live-edge keffiyeh.</span>
+                    </p>
+                </div> <!-- end w-100 -->
+                <span class="dragula-handle" *ngIf="handle"></span>
+            </div> <!-- end d-flex -->
+        </div> <!-- end card-body -->
+    </div>
+</ng-template>

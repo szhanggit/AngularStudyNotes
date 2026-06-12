@@ -1,0 +1,267 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <form class="d-flex">
+                    <div class="input-group">
+                        <input type="text" name="datepicker" id="dash-datepicker"
+                            class="form-control form-control-light" [(ngModel)]="date" ngbDatepicker
+                            #datepicker="ngbDatepicker" [displayMonths]="1" navigation='select'
+                            (click)="datepicker.toggle()" autoClose="'outside'" [footerTemplate]="footerTemplate">
+
+                        <ng-template #footerTemplate>
+                            <hr class="my-0">
+                            <div class="ngb-footer-button">
+                                <button class="btn btn-default btn-sm me-1" (click)="datepicker.close()">Cancel</button>
+                                <button class="btn btn-primary btn-sm ">Apply</button>
+                            </div>
+                        </ng-template>
+                        <span class="input-group-text bg-primary border-primary text-white">
+                            <i class="mdi mdi-calendar-range font-13"></i>
+                        </span>
+                    </div>
+                    <a [routerLink]="'.'" class="btn btn-primary ms-2">
+                        <i class="mdi mdi-autorenew"></i>
+                    </a>
+                    <a [routerLink]="'.'" class="btn btn-primary ms-1">
+                        <i class="mdi mdi-filter-variant"></i>
+                    </a>
+                </form>
+            </div>
+            <h4 class="page-title">Dashboard</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-5 col-lg-6">
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let item of statisticsData1">
+                <!-- sample widget-->
+                <app-widget-statistics [title]="item.title" [description]="item.description" [stats]="item.stats"
+                    [trendNumber]="item.trendNumber" [trendTime]="item.trendTime" [icon]="item.icon"
+                    [trendIcon]="item.trendIcon" [trendTextClass]="item.trendTextClass!"></app-widget-statistics>
+            </div>
+            <!-- end col -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6" *ngFor="let item of statisticsData2">
+                <!-- sample widget-->
+                <app-widget-statistics [title]="item.title" [description]="item.description" [stats]="item.stats"
+                    [trendNumber]="item.trendNumber" [trendTime]="item.trendTime" [icon]="item.icon"
+                    [trendIcon]="item.trendIcon" [trendTextClass]="item.trendTextClass!"></app-widget-statistics>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
+    <!-- end col -->
+    <div class="col-xl-7 col-lg-6">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <app-card-title cardTitle="Projections Vs Actuals" [dropdownOptions]="dropdownOptions"
+                    containerClass="mb-2">
+                </app-card-title>
+
+                <!-- bar chart -->
+                <apx-chart class="apex-charts" [series]="barChart.series!" [chart]="barChart.chart!"
+                    [xaxis]="barChart.xaxis!" [tooltip]="barChart.tooltip!" [stroke]="barChart.stroke!"
+                    [plotOptions]="barChart.plotOptions!" [autoUpdateSeries]="false" [title]="barChart.title!"
+                    [grid]="barChart.grid!" [colors]="barChart.colors!" [responsive]="barChart.responsive!"
+                    [yaxis]="barChart.yaxis!" [subtitle]="barChart.subtitle!" [dataLabels]="barChart.dataLabels!"
+                    [legend]="barChart.legend!" [labels]="barChart.labels!">
+                </apx-chart>
+
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Revenue" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+
+                <div class="chart-content-bg">
+                    <div class="row text-center">
+                        <div class="col-sm-6">
+                            <p class="text-muted mb-0 mt-3">Current Week</p>
+                            <h2 class="fw-normal mb-3">
+                                <small class="mdi mdi-checkbox-blank-circle text-primary align-middle me-1"></small>
+                                <span>$58,254</span>
+                            </h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="text-muted mb-0 mt-3">Previous Week</p>
+                            <h2 class="fw-normal mb-3">
+                                <small class="mdi mdi-checkbox-blank-circle text-success align-middle me-1"></small>
+                                <span>$69,524</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="dash-item-overlay d-none d-md-block">
+                    <h5>Today's Earning: $2,562.30</h5>
+                    <p class="text-muted font-13 mb-3 mt-2">Etiam ultricies nisi vel augue. Curabitur ullamcorper
+                        ultricies nisi. Nam
+                        eget dui.
+                        Etiam rhoncus...</p>
+                    <a href="javascript: void(0);" class="btn btn-outline-primary">View Statements
+                        <i class="mdi mdi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                <!-- chart start -->
+                <div class="mt-3">
+                    <apx-chart class="apex-charts" [series]="lineChart.series!" [chart]="lineChart.chart!"
+                        [xaxis]="lineChart.xaxis!" [tooltip]="lineChart.tooltip!" [stroke]="lineChart.stroke!"
+                        [plotOptions]="lineChart.plotOptions!" [autoUpdateSeries]="false" [title]="lineChart.title!"
+                        [grid]="lineChart.grid!" [colors]="lineChart.colors!" [responsive]="lineChart.responsive!"
+                        [yaxis]="lineChart.yaxis!" [subtitle]="lineChart.subtitle!" [legend]="lineChart.legend!"
+                        [labels]="lineChart.labels!" *ngIf="lineChart">
+                    </apx-chart>
+                </div>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Revenue By Location" [dropdownOptions]="dropdownOptions">
+                </app-card-title>
+
+                <div class="mb-4 mt-4">
+                    <app-widget-world-map mapId="worldmap2" height="224px" width="100%" [options]="worldMapConfig">
+                    </app-widget-world-map>
+                </div>
+
+                <h5 class="mb-1 mt-0 fw-normal">New York</h5>
+                <div class="progress-w-percent">
+                    <span class="progress-value fw-bold">72k </span>
+                    <ngb-progressbar type="primary" [value]="72" class="progress-sm"></ngb-progressbar>
+                </div>
+
+                <h5 class="mb-1 mt-0 fw-normal">San Francisco</h5>
+                <div class="progress-w-percent">
+                    <span class="progress-value fw-bold">39k </span>
+                    <ngb-progressbar type="primary" [value]="39" class="progress-sm"></ngb-progressbar>
+
+                </div>
+
+                <h5 class="mb-1 mt-0 fw-normal">Sydney</h5>
+                <div class="progress-w-percent">
+                    <span class="progress-value fw-bold">25k </span>
+                    <ngb-progressbar type="primary" [value]="25" class="progress-sm"></ngb-progressbar>
+                </div>
+
+                <h5 class="mb-1 mt-0 fw-normal">Singapore</h5>
+                <div class="progress-w-percent mb-0">
+                    <span class="progress-value fw-bold">61k </span>
+                    <ngb-progressbar type="primary" [value]="61" class="progress-sm"></ngb-progressbar>
+
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+        <div class="card">
+            <div class="card-body">
+                <a [routerLink]="'.'" class="btn btn-sm btn-link float-end">Export
+                    <i class="mdi mdi-download ms-1"></i>
+                </a>
+                <h4 class="header-title mt-2 mb-3">Top Selling Products</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap table-hover mb-0">
+                        <tbody>
+                            <tr *ngFor="let record of sellData">
+                                <td>
+                                    <h5 class="font-14 my-1 fw-normal">{{record.productName}}</h5>
+                                    <span class="text-muted font-13">{{record.sellDate}}</span>
+                                </td>
+                                <td>
+                                    <h5 class="font-14 my-1 fw-normal">{{record.price | currency}}</h5>
+                                    <span class="text-muted font-13">Price</span>
+                                </td>
+                                <td>
+                                    <h5 class="font-14 my-1 fw-normal">{{record.quantity}}</h5>
+                                    <span class="text-muted font-13">Quantity</span>
+                                </td>
+                                <td>
+                                    <h5 class="font-14 my-1 fw-normal">{{record.amount | currency}}</h5>
+                                    <span class="text-muted font-13">Amount</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <!-- end table-responsive-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-3 col-lg-6 order-lg-1">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Total Sales" [dropdownOptions]="dropdownOptions">
+                </app-card-title>
+
+                <div class="mb-4 mt-3">
+                    <apx-chart class="apex-charts" [series]="donutChart.series!" [chart]="donutChart.chart!"
+                        [xaxis]="donutChart.xaxis!" [tooltip]="donutChart.tooltip!" [stroke]="donutChart.stroke!"
+                        [plotOptions]="donutChart.plotOptions!" [autoUpdateSeries]="false" [title]="donutChart.title!"
+                        [grid]="donutChart.grid!" [colors]="donutChart.colors!" [responsive]="donutChart.responsive!"
+                        [yaxis]="donutChart.yaxis!" [subtitle]="donutChart.subtitle!" [legend]="donutChart.legend!"
+                        [labels]="donutChart.labels!" *ngIf="donutChart">
+                    </apx-chart>
+                </div>
+
+
+                <div class="chart-widget-list">
+                    <p>
+                        <i class="mdi mdi-square text-primary"></i> Direct
+                        <span class="float-end">$300.56</span>
+                    </p>
+                    <p>
+                        <i class="mdi mdi-square text-danger"></i> Affilliate
+                        <span class="float-end">$135.18</span>
+                    </p>
+                    <p>
+                        <i class="mdi mdi-square text-success"></i> Sponsored
+                        <span class="float-end">$48.96</span>
+                    </p>
+                    <p class="mb-0">
+                        <i class="mdi mdi-square text-warning"></i> E-mail
+                        <span class="float-end">$154.02</span>
+                    </p>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-3 col-lg-6 order-lg-1">
+        <div class="card">
+            <div class="card-body pb-0">
+                <app-card-title cardTitle="Recent Activity" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+            </div>
+            <!-- end card-body -->
+
+            <app-widget-recent-activity [recentActivities]="activityData" [height]="410">
+            </app-widget-recent-activity>
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+
+</div>
+<!-- end row -->

@@ -1,0 +1,67 @@
+<h4 class="page-title mb-3">Recently Updated Clients</h4>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5">
+    <div class="col" *ngFor="let client of clients">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <img class="rounded-circle avatar-sm" [src]="client.avatar" alt="Avtar image">
+                    </div>
+                    <div class="flex-grow-1 ms-2">
+                        <a href="javascript:void(0);" class="text-secondary">
+                            <h5 class="my-1">{{client.name}}</h5>
+                        </a>
+                        <p class="text-muted mb-0">{{client.company}}</p>
+                    </div>
+
+                    <div ngbDropdown placement="bottom-end">
+                        <a href="javascript:void(0)" class="arrow-none card-drop" ngbDropdownToggle
+                            aria-expanded="false">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                        </a>
+                        <div ngbDropdownMenu>
+                            <!-- item-->
+                            <a href="javascript:void(0);" ngbDropdownItem><i class="mdi mdi-account me-1"></i>Visit
+                                Profilo</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" ngbDropdownItem><i
+                                    class="mdi mdi-block-helper me-1"></i>Block</a>
+                            <!-- item-->
+                            <div class="dropdown-divider my-1"></div>
+                            <a href="javascript:void(0);" ngbDropdownItem class="text-danger"><i
+                                    class="mdi mdi-trash-can-outline me-1"></i>Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center card-body py-2 border-top border-light">
+                <h5 class="my-0 font-13 fw-semibold text-muted"><i class="mdi mdi-calendar me-1"></i> {{client.date}}
+                </h5>
+                <a href="javascript:void(0);" class="text-muted" (click)="open(content,client)"><i
+                        class="uil uil-comment-alt-lines font-18" placement="top" ngbTooltip="Chat"></i></a>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <img class="rounded-circle" [src]="currentClient.avatar" height="40" alt="Avtar image">
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <a href="javascript:void(0);" class="text-secondary">{{currentClient.name}}</a>
+                    <p class="text-muted fw-normal font-14 mb-0"><i
+                            class="mdi mdi-circle text-success font-12 me-1"></i>Online</p>
+                </div>
+            </div>
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <app-widget-chat [chatMessages]="chatMessages"></app-widget-chat>
+    </div>
+</ng-template>

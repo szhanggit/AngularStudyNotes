@@ -1,0 +1,67 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Checkout"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills bg-nav-pills nav-justified mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink class="rounded-0">
+                            <i class="mdi mdi-account-circle font-18"></i>
+                            <span class="d-none d-lg-block">Billing Info</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <app-ecommerce-billing (activeShipping)="changeActiveID($event)">
+                                    </app-ecommerce-billing>
+                                </div>
+                                <div class="col-lg-4">
+                                    <app-ecommerce-order-summary></app-ecommerce-order-summary>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink class="rounded-0">
+                            <i class="mdi mdi-truck-fast font-18"></i>
+                            <span class="d-none d-lg-block">Shipping Info</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <app-ecommerce-shipping (activePayment)="changeActiveID($event)">
+                                    </app-ecommerce-shipping>
+                                </div>
+                                <div class="col-lg-4">
+                                    <app-ecommerce-order-summary></app-ecommerce-order-summary>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink class="rounded-0">
+                            <i class="mdi mdi-cash-multiple font-18"></i>
+                            <span class="d-none d-lg-block">Payment Info</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <app-ecommerce-payment></app-ecommerce-payment>
+                                </div>
+                                <div class="col-lg-4">
+                                    <app-ecommerce-order-summary></app-ecommerce-order-summary>
+
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav"></div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row-->

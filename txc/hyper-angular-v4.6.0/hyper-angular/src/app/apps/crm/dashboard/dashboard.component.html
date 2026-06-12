@@ -1,0 +1,204 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="CRM Dashboard"></app-page-title>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-6 col-xl-3" *ngFor="let item of chartStatisticsData">
+        <app-widget-chart-statistics [title]="item.title" [titleTooltipText]="item.titleTooltipText"
+            [mainNumber]="item.mainNumber" [subNumber]="item.subNumber" [subTitleClass]="item.subTitleClass"
+            [subIconClass]="item.subIconClass" [chartType]="item.chartType" [data]="item.chartData"
+            [chartColor]="item.chartColor"></app-widget-chart-statistics>
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Campaigns" [dropdownOptions]="dropdownOptions" containerClass="mb-1">
+                </app-card-title>
+
+                <apx-chart class="apex-charts" [series]="campaignsChart.series!" [chart]="campaignsChart.chart!"
+                    [xaxis]="campaignsChart.xaxis!" [tooltip]="campaignsChart.tooltip!"
+                    [stroke]="campaignsChart.stroke!" [plotOptions]="campaignsChart.plotOptions!"
+                    [fill]="campaignsChart.fill!" [autoUpdateSeries]="false" [title]="campaignsChart.title!"
+                    [grid]="campaignsChart.grid!" [colors]="campaignsChart.colors!"
+                    [responsive]="campaignsChart.responsive!" [yaxis]="campaignsChart.yaxis!"
+                    [subtitle]="campaignsChart.subtitle!" [legend]="campaignsChart.legend!"
+                    [labels]="campaignsChart.labels!" [dataLabels]="campaignsChart.dataLabels!" *ngIf="campaignsChart">
+                </apx-chart>
+
+
+                <div class="row text-center mt-3">
+                    <div class="col-sm-4">
+                        <i class="mdi mdi-send widget-icon rounded-circle bg-light-lighten text-muted"></i>
+                        <h3 class="fw-normal mt-3">
+                            <span>6,510</span>
+                        </h3>
+                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-warning"></i>
+                            Total
+                            Sent</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <i class="mdi mdi-flag-variant widget-icon rounded-circle bg-light-lighten text-muted"></i>
+                        <h3 class="fw-normal mt-3">
+                            <span>3,487</span>
+                        </h3>
+                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i>
+                            Reached</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <i class="mdi mdi-email-open widget-icon rounded-circle bg-light-lighten text-muted"></i>
+                        <h3 class="fw-normal mt-3">
+                            <span>1,568</span>
+                        </h3>
+                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i>
+                            Opened</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end card body-->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col-->
+
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Revenue" [dropdownOptions]="dropdownOptions" containerClass="mb-3">
+                </app-card-title>
+
+                <div class="chart-content-bg">
+                    <div class="row text-center">
+                        <div class="col-sm-6">
+                            <p class="text-muted mb-0 mt-3">Current Month</p>
+                            <h2 class="fw-normal mb-3">
+                                <span>$42,025</span>
+                            </h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="text-muted mb-0 mt-3">Previous Month</p>
+                            <h2 class="fw-normal mb-3">
+                                <span>$74,651</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                <apx-chart class="apex-charts" [series]="revenueChart.series!" [chart]="revenueChart.chart!"
+                    [xaxis]="revenueChart.xaxis!" [tooltip]="revenueChart.tooltip!" [stroke]="revenueChart.stroke!"
+                    [plotOptions]="revenueChart.plotOptions!" [fill]="revenueChart.fill!" [autoUpdateSeries]="false"
+                    [title]="revenueChart.title!" [grid]="revenueChart.grid!" [colors]="revenueChart.colors!"
+                    [responsive]="revenueChart.responsive!" [yaxis]="revenueChart.yaxis!"
+                    [subtitle]="revenueChart.subtitle!" [legend]="revenueChart.legend!" [labels]="revenueChart.labels!"
+                    [dataLabels]="revenueChart.dataLabels!" *ngIf="revenueChart">
+                </apx-chart>
+
+            </div>
+            <!-- end card body-->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col-->
+</div>
+<!-- end row-->
+<div class="row">
+    <div class="col-xl-4 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Top Performing" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm table-nowrap table-centered mb-0">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Leads</th>
+                                <th>Deals</th>
+                                <th>Tasks</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let record of topPerdomingData">
+                                <td>
+                                    <h5 class="font-15 mb-1 fw-normal">{{record.name}}</h5>
+                                    <span class="text-muted font-13">{{record.position}}</span>
+                                </td>
+                                <td>{{record.leads}}</td>
+                                <td>{{record.deals}}</td>
+                                <td>{{record.tasks}}</td>
+                                <td class="table-action">
+                                    <a href="javascript: void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div> <!-- end table-responsive-->
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div>
+    <!-- end col-->
+
+    <div class="col-xl-4 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Recent Leads" [dropdownOptions]="dropdownOptions" containerClass="mb-3">
+                </app-card-title>
+
+                <div class="d-flex align-items-start" *ngFor="let lead of recentLeadData;let i=index"
+                    [class.mt-3]="i!==0">
+                    <img class="me-3 rounded-circle" [src]="lead.profile" width="40" alt="Generic placeholder image">
+                    <div class="w-100 overflow-hidden">
+                        <span class="badge badge-{{lead.badge.variant}}-lighten float-end"
+                            *ngIf="lead.badge">{{lead.badge.text}}</span>
+                        <h5 class="mt-0 mb-1">{{lead.name}}</h5>
+                        <span class="font-13">{{lead.email}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end card-body -->
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+
+    <div class="col-xl-4 col-lg-6">
+        <div class="card cta-box bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex align-items-start align-items-center">
+                    <div class="w-100 overflow-hidden">
+                        <h2 class="mt-0"><i class="mdi mdi-bullhorn-outline"></i>&nbsp;</h2>
+                        <h3 class="m-0 fw-normal cta-box-title">Enhance your <b>Campaign</b> for better outreach <i
+                                class="mdi mdi-arrow-right"></i></h3>
+                    </div>
+                    <img class="ms-3" src="assets/images/email-campaign.svg" width="120"
+                        alt="Generic placeholder image">
+                </div>
+            </div>
+            <!-- end card-body -->
+        </div>
+        <!-- end card-->
+
+        <!-- Todo-->
+        <div class="card">
+            <div class="card-body pb-0">
+                <app-card-title cardTitle="Todo" [dropdownOptions]="dropdownOptions">
+                </app-card-title>
+            </div> <!-- end card-body -->
+
+            <app-widget-todo [toDoItems]="toDoItems" [height]="231">
+            </app-widget-todo>
+        </div> <!-- end card-->
+
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row-->

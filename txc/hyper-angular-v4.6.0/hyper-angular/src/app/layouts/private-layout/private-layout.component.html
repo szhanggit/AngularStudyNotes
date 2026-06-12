@@ -1,0 +1,20 @@
+<!-- Vertical Layout -->
+<app-vertical-layout [layoutWidth]="layoutWidth" [sidebarTheme]="leftSidebarTheme" [sidebarType]="leftSidebarWidth"
+    [layoutColor]="layoutColor" *ngIf="isVerticalLayoutRequested()"></app-vertical-layout>
+
+<!-- Horizontal Layout -->
+<app-horizontal-layout *ngIf="isHorizontalLayoutRequested()" [layoutWidth]="layoutWidth"
+    [configuredDemo]="configuredDemo" [layoutColor]="layoutColor"></app-horizontal-layout>
+
+<!-- Detached Layout -->
+<app-detached-layout *ngIf="isDetachedLayoutRequested()" [sidebarType]="leftSidebarWidth" [layoutColor]="layoutColor">
+</app-detached-layout>
+
+<!-- Full Layout -->
+<app-full-layout [sidebarTheme]="leftSidebarTheme" [sidebarType]="leftSidebarWidth" [layoutColor]="layoutColor"
+    *ngIf="isFullLayoutRequested()">
+</app-full-layout>
+
+<!-- Right sidebar -->
+<app-right-side-bar [layoutType]="layoutType" [layoutColor]="layoutColor" [layoutWidth]="layoutWidth"
+    [leftSidebarTheme]="leftSidebarTheme" [leftSidebarWidth]="leftSidebarWidth"></app-right-side-bar>

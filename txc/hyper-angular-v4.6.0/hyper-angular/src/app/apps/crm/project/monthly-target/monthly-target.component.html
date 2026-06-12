@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="header-title">Monthly Target</h4>
+
+        <div id="monthly-target" class="mb-4 mt-4">
+            <apx-chart class="apex-charts" [series]="monthlyTargetChart.series!" [chart]="monthlyTargetChart.chart!"
+                [stroke]="monthlyTargetChart.stroke!" [colors]="monthlyTargetChart.colors!"
+                [responsive]="monthlyTargetChart.responsive!" [legend]="monthlyTargetChart.legend!"
+                [labels]="monthlyTargetChart.labels!" *ngIf="monthlyTargetChart">
+            </apx-chart>
+
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="text-center">
+                    <h5 class="">Target</h5>
+                    <p class="fw-semibold text-muted mb-0">
+                        <i class="mdi mdi-circle text-primary"></i> Projects
+
+                    </p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center">
+                    <h5 class="">Done</h5>
+                    <p class="fw-semibold text-muted mb-0">
+                        <i class="mdi mdi-circle text-success"></i> Projects
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Order List"></app-page-title>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-xl-8">
+                        <form class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+                            <div class="col-auto">
+                                <label for="inputPassword2" class="visually-hidden">Search</label>
+                                <input type="search" class="form-control" id="inputPassword2" placeholder="Search..."
+                                    name="searchTerm" [(ngModel)]="searchTerm" (ngModelChange)="searchData()">
+                            </div>
+                            <div class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    <label for="status-select" class="me-2">Status</label>
+                                    <select class="form-select" id="status-select">
+                                        <option value="All">Choose...</option>
+                                        <option value="1">Paid</option>
+                                        <option value="2">Awaiting Authorization</option>
+                                        <option value="3">Payment failed</option>
+                                        <option value="4">Cash On Delivery</option>
+                                        <option value="5">Fulfilled</option>
+                                        <option value="6">Unfulfilled</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="text-xl-end mt-xl-0 mt-2">
+                            <button type="button" class="btn btn-danger mb-2 me-2"><i class="mdi mdi-basket me-1"></i>
+                                Add New Order</button>
+                            <button type="button" class="btn btn-light mb-2">Export</button>
+                        </div>
+                    </div><!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 20px;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck1">
+                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </th>
+                                <th>Order ID</th>
+                                <th>Customers</th>
+                                <th>Project</th>
+                                <th>Address</th>
+                                <th>Date Order</th>
+                                <th>Order Status</th>
+                                <th style="width: 125px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders">
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                            id="customCheck{{order.orderId}}">
+                                        <label class="form-check-label"
+                                            for="customCheck{{order.orderId}}">&nbsp;</label>
+                                    </div>
+                                </td>
+                                <td><a [routerLink]="['../../ecommerce/order-details']"
+                                        class="text-body fw-bold">{{order.orderId}}</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <img [src]="order.customer.avatar" class="rounded-circle avatar-xs"
+                                                    alt="friend">
+                                            </div>
+                                            <div class="flex-grow-1 ms-2">
+                                                <h5 class="my-0">{{order.customer.name}}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{order.project}}</td>
+                                <td>
+                                    <h5 class="my-0">{{order.address.country}}</h5>
+                                    <p class="mb-0 txt-muted">{{order.address.city}}</p>
+                                </td>
+                                <td>{{order.orderDate}}</td>
+                                <td>
+                                    <h5 class="my-0">
+                                        <span class="badge badge-info-lighten"
+                                            *ngIf="order.orderStatus==='In Progress'">In Progress</span>
+                                        <span class="badge badge-success-lighten"
+                                            *ngIf="order.orderStatus==='Complete'">Complete</span>
+                                        <span class="badge badge-warning-lighten"
+                                            *ngIf="order.orderStatus==='Pending'">Pending</span>
+                                        <span class="badge badge-primary-lighten"
+                                            *ngIf="order.orderStatus==='Delivered'">Delivered</span>
+                                    </h5>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" class="action-icon"> <i
+                                            class="mdi mdi-square-edit-outline"></i></a>
+                                    <a href="javascript:void(0);" class="action-icon"> <i
+                                            class="mdi mdi-delete"></i></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div> <!-- end row -->

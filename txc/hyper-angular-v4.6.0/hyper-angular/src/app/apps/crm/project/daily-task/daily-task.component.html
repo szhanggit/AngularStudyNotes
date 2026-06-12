@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body pb-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="header-title mb-0">Daily Task</h4>
+            <div>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option selected>Today</option>
+                    <option value="1">Yesterday</option>
+                    <option value="2">Tomorrow</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <ngx-simplebar class="card-body py-0" style="max-height: 292px;">
+        <div class="border rounded p-2 mb-2" *ngFor="let task of dailyTasks">
+            <ul class="list-inline mb-2">
+                <li class="list-inline-item font-16 fw-semibold"><a href="javascript:void(0);"
+                        class="text-secondary">{{task.title}}</a></li>
+                <li class="list-inline-item text-muted"><i class="mdi mdi-circle-small"></i></li>
+                <li class="list-inline-item font-13 fw-semibold text-muted">{{task.time}}</li>
+            </ul>
+            <p class="text-muted mb-0">{{task.shortDesc}}</p>
+            <p class="text-muted mb-0"><i class="mdi mdi-account-group me-1"></i> <b>{{task.teamSize}}</b> People</p>
+        </div>
+
+        <div class="text-center">
+            <i class="mdi mdi-dots-circle mdi-spin font-20 text-muted"></i>
+        </div>
+    </ngx-simplebar>
+</div>

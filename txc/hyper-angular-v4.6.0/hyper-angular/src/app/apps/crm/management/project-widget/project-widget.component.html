@@ -1,0 +1,58 @@
+<div class="card" *ngIf="project">
+    <div class="card-body">
+        <div class="float-end" ngbDropdown placement="bottom-end">
+            <a href="javascript:void(0)" class="arrow-none card-drop" ngbDropdownToggle aria-expanded="false">
+                <i class="mdi mdi-dots-vertical"></i>
+            </a>
+            <div ngbDropdownMenu>
+                <!-- item-->
+                <a href="javascript:void(0);" ngbDropdownItem><i class=""></i><i class="uil uil-pen me-1"></i>
+                    Edit</a>
+                <!-- item-->
+                <a href="javascript:void(0);" ngbDropdownItem class="text-danger"><i class="uil uil-trash me-1"></i>
+                    Remove</a>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center mb-3">
+            <div class="flex-shrink-0">
+                <div class="avatar-sm">
+                    <span class="avatar-title bg-{{project.variant}}-lighten text-{{project.variant}} rounded">
+                        <i class="{{project.icon}} font-24"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <a href="javascript:void(0);" class="font-16 fw-bold text-secondary">{{project.title}} <i
+                        class="mdi mdi-checkbox-marked-circle-outline text-success"></i></a>
+                <p class="text-muted mb-0">{{project.subTitle}}</p>
+            </div>
+        </div>
+
+        <span class="badge badge-lg bg-light text-secondary rounded-pill me-1">Work in Progress</span>
+        <span class="font-12 fw-semibold text-muted"><i class="mdi mdi-clock-time-four me-1"></i>{{project.hours}}
+            Hours</span>
+
+        <div class="row mt-2">
+            <div class="col-6">
+                <p class="text-muted fw-semibold mb-1">Tasks</p>
+                <h3 class="my-0 text-muted fw-normal">{{project.task | number:'2.0-0'}}</h3>
+            </div>
+            <div class="col-6 text-end">
+                <p class="text-muted fw-semibold mb-1">Assign to</p>
+                <div class="multi-user">
+                    <a href="javascript:void(0);" class="d-inline-block me-1" *ngFor="let member of modifiedMembers">
+                        <img [src]="member" class="rounded-circle avatar-xs" alt="friend">
+                    </a>
+                    <a href="javascript: void(0);" *ngIf="project.assignTo.length>modifiedMembers.length"
+                        class="d-inline-block ms-n2">
+                        <div class="avatar-xs">
+                            <span
+                                class="avatar-title bg-primary rounded-circle">+{{project.assignTo.length-displayCount}}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

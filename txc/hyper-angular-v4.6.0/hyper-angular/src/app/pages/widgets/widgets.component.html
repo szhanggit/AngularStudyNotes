@@ -1,0 +1,188 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Widgets"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-4 col-lg-12">
+        <app-widget-user-profile></app-widget-user-profile>
+    </div> <!-- end col -->
+
+    <div class="col-xl-4 col-lg-6" *ngFor="let item of chartWidgetData">
+        <!-- chart statistics widget -->
+        <app-widget-chart [title]="item.title" [subTitle]="item.subTitle" [chartType]="item.chartType"
+            [data]="item.chartData" [chartColor]="item.chartColor"></app-widget-chart>
+    </div> <!-- end col -->
+</div>
+<!-- end row-->
+
+<div class="row">
+    <div class="col-xxl-3 col-sm-6" *ngFor="let item of statisticsData">
+        <!-- statistics widget -->
+        <app-widget-statistics [title]="item.title" [description]="item.description" [stats]="item.stats"
+            [trendNumber]="item.trendNumber" [trendTime]="item.trendTime" [icon]="item.icon"
+            [trendIcon]="item.trendIcon" [trendTextClass]="item.trendTextClass!" [badgeVariant]="item.badgeVariant"
+            [bgClass]="item.bgClass"></app-widget-statistics>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-xxl-3" *ngFor="let item of chartStatisticsData">
+        <!-- chart statistics widget -->
+        <app-widget-chart-statistics [title]="item.title" [titleTooltipText]="item.titleTooltipText"
+            [mainNumber]="item.mainNumber" [subNumber]="item.subNumber" [subTitleClass]="item.subTitleClass"
+            [subIconClass]="item.subIconClass" [chartType]="item.chartType" [data]="item.chartData"
+            [chartColor]="item.chartColor"></app-widget-chart-statistics>
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-4">
+        <!-- chat -->
+        <div class="card">
+            <div class="card-body pb-0">
+                <app-card-title cardTitle="Chat" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+            </div>
+
+            <app-widget-chat [chatMessages]="chatMessages" listContainerClass="card-body py-0"
+                formContainerClass="card-body pt-0"></app-widget-chat>
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-4">
+        <div class="card cta-box bg-danger text-white">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="w-100 overflow-hidden">
+                        <h2 class="mt-0"><i class="mdi mdi-bullhorn-outline"></i></h2>
+                        <h3 class="m-0 fw-normal cta-box-title">Enhance your <b>Campaign</b> for better outreach <i
+                                class="mdi mdi-arrow-right-bold-outline"></i></h3>
+                    </div>
+                    <img class="ms-3" src="assets/images/email-campaign.svg" width="120"
+                        alt="Generic placeholder image">
+                </div>
+            </div>
+            <!-- end card-body -->
+        </div>
+        <!-- end card-->
+
+        <div class="card cta-box bg-primary text-white">
+            <div class="card-body">
+                <div class="text-center">
+                    <h3 class="m-0 fw-normal cta-box-title">Enhance your <b>Campaign</b> for better outreach</h3>
+
+                    <img class="my-3" src="assets/images/report.svg" width="180" alt="Generic placeholder image">
+
+                    <br />
+
+                    <a href="javascript:void(0);" class="btn btn-sm btn-light rounded-pill">Know More <i
+                            class="mdi mdi-arrow-right"></i></a>
+                </div>
+            </div>
+            <!-- end card-body -->
+        </div>
+        <!-- end card-->
+
+    </div> <!-- end col-->
+
+    <div class="col-xl-4">
+        <!-- Todo-->
+        <div class="card">
+            <div class="card-body pb-0">
+                <app-card-title cardTitle="Todo" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+            </div>
+
+            <app-widget-todo [toDoItems]="todoList" [height]="298" [archivable]="true" [addable]="true"
+                (archiveTodos)="archiveTodos()" (addTask)="addTask($event)">
+            </app-widget-todo>
+
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-xl-4">
+        <!-- Messages-->
+        <app-widget-messages></app-widget-messages>
+    </div>
+    <!-- end col-->
+
+    <div class="col-xl-4">
+        <!-- Recent Activity -->
+        <div class="card">
+            <div class="card-body pb-0">
+                <app-card-title cardTitle="Recent Activity" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+            </div>
+            <!-- end card-body -->
+            <app-widget-recent-activity [recentActivities]="recentActivities" [height]="330">
+            </app-widget-recent-activity>
+
+        </div>
+        <!-- end card-->
+
+    </div>
+    <!-- end col -->
+
+    <div class="col-xl-4">
+        <!-- Transactions -->
+        <div class="card">
+            <div class="card-body pb-0">
+                <app-card-title cardTitle="Transactions" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+                </app-card-title>
+            </div>
+            <!-- end card-body -->
+            <app-widget-transaction [transactionList]="transactionList">
+            </app-widget-transaction>
+        </div>
+        <!-- end card-->
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row-->
+
+<div class="row">
+    <div class="col-xxl-3 col-md-6" *ngFor="let item of chartStatistics2Data">
+        <app-widget-chart-statistics2 [title]="item.title" [mainNumber]="item.mainNumber" [chartType]="item.chartType"
+            [data]="item.chartData" [chartColor]="item.chartColor" [lastMonthNumber]="item.lastMonthNumber"
+            [currentMonthNumber]="item.currentMonthNumber"></app-widget-chart-statistics2>
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card text-white bg-info overflow-hidden">
+            <div class="card-body">
+                <div class="toll-free-box text-center">
+                    <h4> <i class="mdi mdi-deskphone"></i> Toll Free : 1-234-567-8901</h4>
+                </div>
+            </div> <!-- end card-body-->
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-danger overflow-hidden">
+            <div class="card-body">
+                <div class="toll-free-box text-center">
+                    <h4> <i class="mdi mdi-headset"></i> Need help ? Just contact us</h4>
+                </div>
+            </div> <!-- end card-body-->
+        </div>
+    </div> <!-- end col-->
+
+    <div class="col-lg-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="text-center">
+                    <h4> <i class="mdi mdi-deskphone"></i> Toll Free : 1-234-567-8901</h4>
+                </div>
+            </div> <!-- end card-body-->
+        </div>
+    </div> <!-- end col-->
+</div>
+<!-- end row-->

@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-body">
+
+        <app-card-title cardTitle="Task Status" [dropdownOptions]="dropdownOptions" containerClass="mb-3">
+        </app-card-title>
+        <div *ngFor="let task of tasks;let i=index" [class.mb-4]="i<tasks.length-1">
+            <div class="d-flex align-items-center mb-2">
+                <div class="flex-shrink-0">
+                    <i class="{{task.icon}} widget-icon bg-{{task.variant}}-lighten text-{{task.variant}}"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <h5 class="my-0 fw-semibold">{{task.title}}</h5>
+                </div>
+                <h5 class="my-0" *ngIf="(task.completedTask && task.totalTask);else progress">
+                    {{task.completedTask}}/{{task.totalTask}} </h5>
+                <ng-template #progress>
+                    <h5 class="my-0">{{task.progressValue}}%</h5>
+                </ng-template>
+            </div>
+            <ngb-progressbar height="6px" [value]="task.progressValue" [type]="task.variant"></ngb-progressbar>
+        </div>
+    </div>
+</div>

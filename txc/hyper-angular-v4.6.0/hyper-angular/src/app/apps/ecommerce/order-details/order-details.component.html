@@ -1,0 +1,160 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Order Details"></app-page-title>
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-7 col-md-10 col-sm-11">
+
+        <div class="horizontal-steps mt-4 mb-4 pb-5" id="tooltip-container">
+            <div class="horizontal-steps-content">
+                <div class="step-item" [ngClass]="{current: orderDetails.order_status === 'Placed'}">
+                    <span placement="bottom"
+                        [ngbTooltip]="['Placed','Processing','Shipped','Delivered'].includes(orderDetails.order_status!) ? '20/08/2018 07:24 PM' : ''"
+                        container="body">Order Placed</span>
+                </div>
+                <div class="step-item" [ngClass]="{current: orderDetails.order_status === 'Processing'}">
+                    <span placement="bottom"
+                        [ngbTooltip]="['Processing','Shipped','Delivered'].includes(orderDetails.order_status!) ? '21/08/2018 07:24 PM' : ''"
+                        container="body">Packed</span>
+                </div>
+                <div class="step-item" [ngClass]="{current: orderDetails.order_status === 'Shipped'}">
+                    <span placement="bottom"
+                        [ngbTooltip]="['Shipped','Delivered'].includes(orderDetails.order_status!) ? '22/08/2018 07:24 PM' : ''"
+                        container="body">Shipped</span>
+                </div>
+                <div class="step-item" [ngClass]="{current: orderDetails.order_status === 'Delivered'}">
+                    <span placement="bottom"
+                        [ngbTooltip]="orderDetails.order_status === 'Delivered' ? '23/08/2018 07:24 PM' : ''"
+                        container="body">Delivered</span>
+                </div>
+
+            </div>
+
+            <div class="process-line" style="width: 0%;" *ngIf="orderDetails.order_status === 'Placed'"></div>
+            <div class="process-line" style="width: 33%;" *ngIf="orderDetails.order_status === 'Processing'"></div>
+            <div class="process-line" style="width: 66%;" *ngIf="orderDetails.order_status === 'Shipped'"></div>
+            <div class="process-line" style="width: 100%;" *ngIf="orderDetails.order_status === 'Delivered'"></div>
+
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Items from Order #{{orderDetails.id}}</h4>
+
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of orderDetails.items">
+                                <td>{{item.name}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.price | currency}}</td>
+                                <td>{{item.total | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end table-responsive -->
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Order Summary</h4>
+
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of orderDetails.summary">
+                                <td>{{item.description}}</td>
+                                <td>{{item.price | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end table-responsive -->
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Shipping Information</h4>
+
+                <h5>{{orderDetails.shipping.provider}}</h5>
+
+                <address class="mb-0 font-14 address-lg">
+                    {{orderDetails.shipping.address_1}}<br>
+                    {{orderDetails.shipping.address_2}}<br>
+                    <abbr title="Phone">P:</abbr> {{orderDetails.shipping.phone}} <br />
+                    <abbr title="Mobile">M:</abbr> {{orderDetails.shipping.mobile}}
+                </address>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Billing Information</h4>
+
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <p class="mb-2"><span class="fw-bold me-2">Payment Type:</span> {{orderDetails.billing.type}}
+                        </p>
+                        <p class="mb-2"><span class="fw-bold me-2">Provider:</span> {{orderDetails.billing.provider}}
+                        </p>
+                        <p class="mb-2"><span class="fw-bold me-2">Valid Date:</span>{{orderDetails.billing.valid}}</p>
+                        <p class="mb-0"><span class="fw-bold me-2">CVV:</span> xxx</p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mb-3">Delivery Info</h4>
+
+                <div class="text-center">
+                    <i class="mdi mdi-truck-fast h2 text-muted"></i>
+                    <h5><b>{{orderDetails.delivery.provider}}</b></h5>
+                    <p class="mb-1"><b>Order ID :</b> xxxx{{orderDetails.delivery.order_id}}</p>
+                    <p class="mb-0"><b>Payment Mode :</b> {{orderDetails.delivery.payment_mode}}</p>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

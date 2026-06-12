@@ -1,0 +1,372 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <form class="d-flex">
+                    <div class="input-group">
+                        <input type="text" name="datepicker" id="dash-datepicker"
+                            class="form-control form-control-light" [(ngModel)]="date" ngbDatepicker
+                            #datepicker="ngbDatepicker" [displayMonths]="1" navigation='select'
+                            (click)="datepicker.toggle()" autoClose="'outside'" [footerTemplate]="footerTemplate">
+                        <span class="input-group-text bg-primary border-primary text-white">
+                            <i class="mdi mdi-calendar-range font-13"></i>
+                        </span>
+
+                        <ng-template #footerTemplate>
+                            <hr class="my-0">
+                            <div class="ngb-footer-button">
+                                <button class="btn btn-default btn-sm me-1" (click)="datepicker.close()">Cancel</button>
+                                <button class="btn btn-primary btn-sm ">Apply</button>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <a href="javascript: void(0);" class="btn btn-primary ms-2">
+                        <i class="mdi mdi-autorenew"></i>
+                    </a>
+                </form>
+            </div>
+            <h4 class="page-title" i18n>Analytics</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-3 col-lg-4">
+
+
+        <ng-container
+            *ngTemplateOutlet="StatWidget;context:{title: 'Active Users', value: 121, change: '5.27%', arrow: 'up', subtitle: 'Since last month',icon:'uil uil-users-alt'}">
+        </ng-container>
+
+        <ng-container
+            *ngTemplateOutlet="StatWidget;context:{title: 'Views per minute', value: 560, change: '1.08%', arrow: 'down', subtitle: 'Since previous week',icon:'uil uil-window-restore'}">
+        </ng-container>
+
+        <div class="card cta-box overflow-hidden">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h3 class="m-0 fw-normal cta-box-title" i18n>Enhance your <b>Campaign</b> for better outreach <i
+                                class="mdi mdi-arrow-right"></i></h3>
+                    </div>
+                    <img class="ms-3" src="assets/images/email-campaign.svg" width="92" alt="Generic placeholder image">
+                </div>
+            </div>
+            <!-- end card-body -->
+        </div>
+    </div> <!-- end col -->
+    <div class="col-xl-9 col-lg-8">
+        <div class="card">
+            <div class="card-body">
+
+                <ngb-alert [dismissible]="true" type="warning" class="mb-3" i18n>
+                    Property HY1xx is not receiving hits. Either your site is not receiving any sessions or it is not
+                    tagged
+                    correctly.
+                </ngb-alert>
+
+                <ul class="nav float-end d-none d-lg-flex">
+                    <li class="nav-item">
+                        <a class="nav-link text-muted" href="javascript:void(0)">Today</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted" href="javascript:void(0)">7d</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="javascript:void(0)">15d</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted" href="javascript:void(0)">1m</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted" href="javascript:void(0)">1y</a>
+                    </li>
+                </ul>
+                <h4 class="header-title mb-3" i18n>Sessions Overview</h4>
+
+                <div class="mt-3">
+                    <apx-chart class="apex-charts" [series]="overviewChart.series!" [chart]="overviewChart.chart!"
+                        [xaxis]="overviewChart.xaxis!" [tooltip]="overviewChart.tooltip!"
+                        [stroke]="overviewChart.stroke!" [plotOptions]="overviewChart.plotOptions!"
+                        [fill]="overviewChart.fill!" [autoUpdateSeries]="false" [title]="overviewChart.title!"
+                        [grid]="overviewChart.grid!" [colors]="overviewChart.colors!"
+                        [responsive]="overviewChart.responsive!" [yaxis]="overviewChart.yaxis!"
+                        [subtitle]="overviewChart.subtitle!" [legend]="overviewChart.legend!"
+                        [labels]="overviewChart.labels!" [dataLabels]="overviewChart.dataLabels!" *ngIf="overviewChart">
+                    </apx-chart>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Sessions by country" [dropdownOptions]="dropdownOptions"
+                    containerClass="mb-3">
+                </app-card-title>
+
+                <div class="row">
+                    <div class="col-lg-8">
+
+                        <div class="mt-3 mb-3">
+                            <app-widget-world-map mapId="world-map-markers" height="300px" width="100%"
+                                [options]="worldMapConfig">
+                            </app-widget-world-map>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <apx-chart class="apex-charts" [series]="countryChart.series!" [chart]="countryChart.chart!"
+                            [xaxis]="countryChart.xaxis!" [tooltip]="countryChart.tooltip!"
+                            [stroke]="countryChart.stroke!" [plotOptions]="countryChart.plotOptions!"
+                            [fill]="countryChart.fill!" [autoUpdateSeries]="false" [title]="countryChart.title!"
+                            [grid]="countryChart.grid!" [colors]="countryChart.colors!"
+                            [responsive]="countryChart.responsive!" [yaxis]="countryChart.yaxis!"
+                            [subtitle]="countryChart.subtitle!" [legend]="countryChart.legend!"
+                            [labels]="countryChart.labels!" [dataLabels]="countryChart.dataLabels!"
+                            *ngIf="countryChart">
+                        </apx-chart>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-xl-4 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Views Per Minute" [dropdownOptions]="dropdownOptions" containerClass="mb-3">
+                </app-card-title>
+
+                <div class="mt-2">
+                    <apx-chart class="apex-charts" [series]="viewsChart.series!" [chart]="viewsChart.chart!"
+                        [xaxis]="viewsChart.xaxis!" [tooltip]="viewsChart.tooltip!" [stroke]="viewsChart.stroke!"
+                        [plotOptions]="viewsChart.plotOptions!" [fill]="viewsChart.fill!" [autoUpdateSeries]="false"
+                        [title]="viewsChart.title!" [grid]="viewsChart.grid!" [colors]="viewsChart.colors!"
+                        [responsive]="viewsChart.responsive!" [yaxis]="viewsChart.yaxis!"
+                        [subtitle]="viewsChart.subtitle!" [legend]="viewsChart.legend!" [labels]="viewsChart.labels!"
+                        [dataLabels]="viewsChart.dataLabels!" *ngIf="viewsChart">
+                    </apx-chart>
+                </div>
+
+                <div class="table-responsive mt-3">
+                    <table class="table table-sm mb-0 font-13">
+                        <thead>
+                            <tr>
+                                <th i18n>Page</th>
+                                <th i18n>Views</th>
+                                <th i18n>Bounce Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let view of viewsData">
+                                <td>
+                                    <a href="javascript:void(0);" class="text-muted">{{view.page}}</a>
+                                </td>
+                                <td>{{view.views}}</td>
+                                <td>{{view.bounce_rate}}%</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-4 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <app-card-title cardTitle="Sessions by Browser" [dropdownOptions]="dropdownOptions"
+                    containerClass="mb-3">
+                </app-card-title>
+
+                <div class="mt-3">
+                    <apx-chart class="apex-charts" [series]="browserChart.series!" [chart]="browserChart.chart!"
+                        [xaxis]="browserChart.xaxis!" [tooltip]="browserChart.tooltip!" [stroke]="browserChart.stroke!"
+                        [plotOptions]="browserChart.plotOptions!" [fill]="browserChart.fill!" [autoUpdateSeries]="false"
+                        [title]="browserChart.title!" [grid]="browserChart.grid!" [colors]="browserChart.colors!"
+                        [responsive]="browserChart.responsive!" [yaxis]="browserChart.yaxis!"
+                        [subtitle]="browserChart.subtitle!" [legend]="browserChart.legend!"
+                        [labels]="browserChart.labels!" [dataLabels]="browserChart.dataLabels!" *ngIf="browserChart">
+                    </apx-chart>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-4 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+
+                <app-card-title cardTitle="Sessions by Operating System" [dropdownOptions]="dropdownOptions"
+                    containerClass="mb-3">
+                </app-card-title>
+
+                <div class="mt-3">
+                    <apx-chart class="apex-charts" [series]="osChart.series!" [chart]="osChart.chart!"
+                        [xaxis]="osChart.xaxis!" [tooltip]="osChart.tooltip!" [stroke]="osChart.stroke!"
+                        [plotOptions]="osChart.plotOptions!" [fill]="osChart.fill!" [autoUpdateSeries]="false"
+                        [title]="osChart.title!" [grid]="osChart.grid!" [colors]="osChart.colors!"
+                        [responsive]="osChart.responsive!" [yaxis]="osChart.yaxis!" [subtitle]="osChart.subtitle!"
+                        [legend]="osChart.legend!" [labels]="osChart.labels!" [dataLabels]="osChart.dataLabels!"
+                        *ngIf="osChart">
+                    </apx-chart>
+                </div>
+
+                <div class="row text-center mt-2">
+                    <div class="col-6">
+                        <h4 class="fw-normal">
+                            <span>6,510</span>
+                        </h4>
+                        <p class="text-muted mb-0" i18n>Online System</p>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="fw-normal">
+                            <span>2,031</span>
+                        </h4>
+                        <p class="text-muted mb-0" i18n>Offline System</p>
+                    </div>
+                </div>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-xl-4 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <a [routerLink]="['.']" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
+                <h4 class="header-title mt-1 mb-3" i18n>Channels</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-sm table-centered mb-0 font-14">
+                        <thead class="table-light">
+                            <tr>
+                                <th i18n>Channel</th>
+                                <th i18n>Visits</th>
+                                <th style="width: 40%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let channel of channelData">
+                                <td i18n>{{channel.channel}}</td>
+                                <td>{{channel.visits | number}}</td>
+                                <td>
+                                    <ngb-progressbar type="primary" [value]="channel.progress" height="3px"
+                                        *ngIf="channel.progress>60"></ngb-progressbar>
+                                    <ngb-progressbar type="info" [value]="channel.progress" height="3px"
+                                        *ngIf="channel.progress<=60 && channel.progress>45">
+                                    </ngb-progressbar>
+                                    <ngb-progressbar type="warning" [value]="channel.progress" height="3px"
+                                        *ngIf="channel.progress<=45&&channel.progress>30">
+                                    </ngb-progressbar>
+                                    <ngb-progressbar type="danger" [value]="channel.progress" height="3px"
+                                        *ngIf="channel.progress<=30"></ngb-progressbar>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div> <!-- end table-responsive-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-4 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <a [routerLink]="'.'" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
+                <h4 class="header-title mt-1 mb-3" i18n>Social Media Traffic</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-sm table-centered mb-0 font-14">
+                        <thead class="table-light">
+                            <tr>
+                                <th i18n>Network</th>
+                                <th i18n>Visits</th>
+                                <th style="width: 40%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of socialMediaTrafficData">
+                                <td>{{item.network}}</td>
+                                <td>{{item.visits | number}}</td>
+                                <td>
+
+                                    <ngb-progressbar type="primary" [value]="item.progress" height="3px">
+                                    </ngb-progressbar>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div> <!-- end table-responsive-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-4 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <a [routerLink]="['.']" class="p-0 float-end">Export <i class="mdi mdi-download ms-1"></i></a>
+                <h4 class="header-title mt-1 mb-3" i18n>Engagement Overview</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-sm table-centered mb-0 font-14">
+                        <thead class="table-light">
+                            <tr>
+                                <th i18n>Duration (Secs)</th>
+                                <th style="width: 30%;" i18n>Sessions</th>
+                                <th style="width: 30%;" i18n>Views</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let engagement of engagementData">
+                                <td>{{engagement.duration}}</td>
+                                <td>{{engagement.sessions}}</td>
+                                <td>{{engagement.visits}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div> <!-- end table-responsive-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+</div>
+<!-- end row -->
+
+<!-- resuable templates -->
+<ng-template #StatWidget let-title="title" let-value="value" let-change="change" let-subtitle="subtitle"
+    let-arrow="arrow" let-icon="icon">
+    <div class="card tilebox-one">
+        <div class="card-body">
+            <i class="{{icon}} float-end"></i>
+            <h6 class="text-uppercase mt-0" i18n>{{title}}</h6>
+            <h2 class="my-2">{{value}}</h2>
+            <p class="mb-0 text-muted">
+                <span class="text-success me-2" *ngIf="arrow=='up'"><span
+                        class="mdi mdi-arrow-up-bold"></span>{{change}}</span>
+                <span class="text-danger me-2" *ngIf="arrow=='down'"><span
+                        class="mdi mdi-arrow-down-bold"></span>{{change}}</span>
+                <span class="text-nowrap" i18n>{{subtitle}}</span>
+            </p>
+        </div> <!-- end card-body-->
+    </div>
+    <!--end card-->
+
+</ng-template>

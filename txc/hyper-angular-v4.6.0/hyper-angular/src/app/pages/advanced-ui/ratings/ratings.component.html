@@ -1,0 +1,126 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Ratings"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Default Ratings</h4>
+                <p class="text-muted font-14">You can provide star rating using <code>ngb-rating</code></p>
+                <ngb-rating [(rate)]="currentRate1">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+                <hr />
+                <pre>Rate: <b>{{currentRate1}}</b></pre>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Events and readonly ratings</h4>
+                <p class="text-muted font-14">You can make ratings read only by using <code>readonly</code> property.
+                </p>
+                <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+                <hr>
+                <p>
+                    Selected: <b>{{selected}}</b>
+                    Hovered: <b>{{hovered}}</b>
+                </p>
+                <button class="btn btn-sm btn-outline-{{readonly ? 'danger' : 'success'}}"
+                    (click)="readonly = !readonly">
+                    {{ readonly ? "readonly" : "editable"}}
+                </button>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Custom Icon</h4>
+                <p class="text-muted font-14">You can customize icon class.
+                </p>
+
+                <ngb-rating [(rate)]="currentRate2">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star mdi mdi-heart" [class.filled-success]="fill === 100"></span>
+                    </ng-template>
+                </ngb-rating>
+
+                <hr />
+                <p class="pb-0">
+                    Rate: <b>{{currentRate2}}</b>
+
+                </p>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Decimal rating</h4>
+                <p class="text-muted font-14">Custom rating template provided via a variable. Shows fine-grained rating
+                    display</p>
+
+                <ng-template #t let-fill="fill">
+                    <span class="star decimal font-24" [class.filled]="fill === 100">
+                        <span class="half" [style.width.%]="fill"><span class="mdi mdi-star"></span></span><span
+                            class="mdi mdi-star"></span>
+                    </span>
+                </ng-template>
+
+                <ngb-rating [(rate)]="decimalRate" [starTemplate]="t" [max]="5" [readonly]="true"></ngb-rating>
+
+                <hr />
+                <p class="pb-0">
+                    Rate: <b>{{decimalRate}}</b>
+                    <button class="btn btn-sm btn-outline-primary mx-2" (click)="decimalRate = 1.35">Set to
+                        1.35</button>
+                    <button class="btn btn-sm btn-outline-primary mr-2" (click)="decimalRate = 4.5">Set to
+                        4.25</button>
+                </p>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Form integration</h4>
+                <p class="text-muted font-14">NgModel and reactive forms can be used without the 'rate' binding</p>
+
+                <div class="form-group">
+                    <ngb-rating [formControl]="ctrl">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                    <div class="form-text small">
+                        <div *ngIf="ctrl.valid" class="text-success">Thanks!</div>
+                        <div *ngIf="ctrl.invalid" class="text-danger">Please rate us</div>
+                    </div>
+                </div>
+
+                <hr>
+                <pre>Model: <b>{{ ctrl.value }}</b></pre>
+                <button class="btn btn-sm btn-outline-{{ ctrl.disabled ? 'danger' : 'success'}} me-2"
+                    (click)="toggle()">
+                    {{ ctrl.disabled ? "control disabled" : " control enabled" }}
+                </button>
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="ctrl.setValue(null)">Clear</button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

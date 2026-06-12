@@ -1,0 +1,147 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Tooltips"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tooltip on links</h4>
+                <p class="text-muted font-14">Hover over the links below to see tooltips.</p>
+
+                <p class="muted mb-0" id="tooltip-container">
+                    Tight pants next level keffiyeh <a href="javascript:void(0)" placement="top"
+                        ngbTooltip="Default tooltip">you probably</a> haven't heard
+                    of them. Photo booth beard raw denim letterpress vegan messenger bag
+                    stumptown. Farm-to-table seitan, mcsweeney's fixie sustainable quinoa
+                    8-bit american apparel <a href="javascript:void(0)" placement="top"
+                        ngbTooltip="Another tooltip">have a</a> terry richardson
+                    vinyl chambray. Beard stumptown, cardigans banh mi lomo thundercats.
+                    Tofu biodiesel williamsburg marfa, four loko mcsweeney's cleanse vegan
+                    chambray. A really ironic artisan <a href="javascript:void(0)" placement="top"
+                        ngbTooltip="Another one here too">whatever
+                    </a> keytar, scenester farm-to-table banksy Austin <a href="javascript:void(0)" placement="top"
+                        ngbTooltip="The last tip!">twitter handle</a> freegan cred
+                    raw denim single-origin coffee viral.
+                </p>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Disabled elements</h4>
+                <p class="text-muted font-14">Elements with the <code>disabled</code> attribute
+                    aren’t interactive, meaning users cannot focus, hover, or click them to trigger
+                    a tooltip (or popover). As a workaround, you’ll want to trigger the tooltip from
+                    a wrapper <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>, ideally made
+                    keyboard-focusable using <code>tabindex="0"</code>, and override the
+                    <code>pointer-events</code> on the disabled element.
+                </p>
+                <span class="d-inline-block" tabindex="0" ngbTooltip="Disabled tooltip">
+                    <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Disabled
+                        button</button>
+                </span>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Custom and manual triggers</h4>
+                <p class="text-muted font-14"> You can easily override open and close triggers by specifying event names
+                    (separated by <code>:</code>) in the <code>triggers</code> property.</p>
+
+                <button type="button" class="btn btn-success" ngbTooltip="You see, I show up on click!"
+                    triggers="click:blur">
+                    Click me!
+                </button>
+
+                <hr>
+                <p class="text-muted font-14">
+                    Alternatively you can take full manual control over tooltip opening / closing events.
+                </p>
+
+                <button type="button" class="btn btn-danger me-2" ngbTooltip="What a great tip!" [autoClose]="false"
+                    triggers="manual" #t="ngbTooltip" (click)="t.open()">
+                    Click me to open a tooltip
+                </button>
+                <button type="button" class="btn btn-secondary me-2" (click)="t.close()">
+                    Click me to close a tooltip
+                </button>
+            </div><!-- end card-body -->
+        </div> <!-- end card-->
+
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Four Directions</h4>
+                <p class="text-muted font-14">Hover over the buttons below to see the four tooltips
+                    directions: top, right, bottom, and left.</p>
+                <div class="button-list" id="tooltip-container2">
+                    <button type="button" class="btn btn-info" placement="top" ngbTooltip="Tooltip on top">Tooltip
+                        on
+                        top</button>
+                    <button type="button" class="btn btn-info" placement="bottom" ngbTooltip="Tooltip on bottom">Tooltip
+                        on
+                        bottom</button>
+                    <button type="button" class="btn btn-info" placement="start" ngbTooltip="Tooltip on left">Tooltip on
+                        left</button>
+                    <button type="button" class="btn btn-info" placement="end" ngbTooltip="Tooltip on right">Tooltip
+                        on
+                        right</button>
+                </div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">HTML Tags</h4>
+                <p class="text-muted font-14">And with custom HTML added:</p>
+
+                <ng-template #tipContent>Hello, <b>User</b>!</ng-template>
+                <button type="button" class="btn btn-primary" [ngbTooltip]="tipContent">
+                    Tooltip with HTML
+                </button>
+            </div><!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Open and close delays</h4>
+                <p class="text-muted font-14">
+                    When using non-manual triggers, you can control the delay to open and close the tooltip through the
+                    <code>openDelay</code> and
+                    <code>closeDelay</code> properties. Note that the <code>autoClose</code> feature does not use the
+                    close delay, it
+                    closes the tooltip immediately.
+                </p>
+
+                <button type="button" class="btn btn-secondary me-2"
+                    ngbTooltip="You see, I show up after 300ms and disappear after 500ms!" [openDelay]="300"
+                    [closeDelay]="500">
+                    Hover 300ms here
+                </button>
+                <button type="button" class="btn btn-secondary me-2"
+                    ngbTooltip="You see, I show up after 1s and disappear after 2s!" [openDelay]="1000"
+                    [closeDelay]="2000">
+                    Hover 1s here
+                </button>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tooltip with custom class</h4>
+                <p class="text-muted font-14">You can optionally pass in a custom class via <code>tooltipClass</code>
+                </p>
+
+                <button type="button" class="btn btn-info" ngbTooltip="Nice class!" tooltipClass="custom-tooltip">
+                    Tooltip with custom class
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

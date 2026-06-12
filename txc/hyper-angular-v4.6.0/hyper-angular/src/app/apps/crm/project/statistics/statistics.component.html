@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-sm-6 col-xl-3" *ngFor="let item of statistics">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm">
+                            <span class="avatar-title bg-{{item.variant}}-lighten text-{{item.variant}} rounded">
+                                <i class="{{item.icon}} font-24"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5 class="mt-0 mb-1">{{item.title}}</h5>
+                        <p class="mb-0">{{item.stats}}</p>
+                    </div>
+                    <div class="float-end" ngbDropdown placement="bottom-end">
+                        <a href="javascript:void(0)" class="arrow-none card-drop" ngbDropdownToggle
+                            aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div ngbDropdownMenu>
+                            <!-- item-->
+                            <a href="javascript:void(0);" ngbDropdownItem>Today</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" ngbDropdownItem>Yesterday</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" ngbDropdownItem>Last Week</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" ngbDropdownItem>Last Month</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

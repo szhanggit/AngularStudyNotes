@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-body">
+        <div class="float-end" ngbDropdown placement="bottom-end">
+            <a href="javascript:void(0)" class="arrow-none card-drop" id="socialProfileOption" ngbDropdownToggle
+                aria-expanded="false">
+                <i class="mdi mdi-dots-horizontal"></i>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="socialProfileOption">
+                <!-- item-->
+                <a [routerLink]="'.'" ngbDropdownItem>Edit Profile</a>
+                <!-- item-->
+                <a [routerLink]="'.'" ngbDropdownItem>Settings</a>
+            </div>
+        </div>
+
+        <div class="d-flex align-self-start" *ngIf="loggedInUser">
+            <img class="d-flex align-self-start rounded me-2" [src]="loggedInUser.avatar" [alt]="loggedInUser.firstName"
+                height="48">
+            <div class="w-100 overflow-hidden">
+                <h5 class="mt-1 mb-0">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</h5>
+                <p class="mb-1 mt-1 text-muted">{{loggedInUser.location}}</p>
+            </div>
+        </div>
+
+        <div class="list-group list-group-flush mt-2">
+            <a href="javascript:void(0);" class="list-group-item list-group-item-action text-primary border-0"><i
+                    class='uil uil-images me-1'></i> News Feed</a>
+            <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i
+                    class='uil uil-comment-alt-message me-1'></i> Messages</a>
+            <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i
+                    class='uil uil-calendar-alt me-1'></i> Events</a>
+            <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i
+                    class='uil uil-users-alt me-1'></i> Groups</a>
+            <a href="javascript:void(0);" class="list-group-item list-group-item-action border-0"><i
+                    class='uil uil-copy me-1'></i> Pages</a>
+        </div>
+    </div>
+</div>

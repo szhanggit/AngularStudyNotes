@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body pb-0">
+        <app-card-title cardTitle="My Watchlist" [dropdownOptions]="dropdownOptions" containerClass="mb-3">
+        </app-card-title>
+    </div>
+    <ngx-simplebar class="card-body py-0" style="max-height: 318px;">
+        <ng-container *ngFor="let item of watchList;let i=index">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <div class="avatar-sm rounded">
+                        <span
+                            class="avatar-title bg-{{item.variant}}-lighten text-{{item.variant}} border border-{{item.variant}} rounded-circle h3 my-0">
+                            <i [class]="item.icon"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <h4 class="mt-0 mb-1 font-16 fw-semibold">{{item.title}}</h4>
+                    <p class="mb-0 text-muted">{{item.amount | currency}}</p>
+                </div>
+                <p class="mb-0 text-success" *ngIf="item.trendStatus==='up'"><i
+                        class="mdi mdi-trending-up me-1"></i>{{item.trendValue}}%</p>
+                <p class="mb-0 text-danger" *ngIf="item.trendStatus==='down'"><i
+                        class="mdi mdi-trending-down me-1"></i>{{item.trendValue}}%</p>
+
+            </div>
+
+            <hr class="opacity-50 bg-secondary-lighten" *ngIf="i<watchList.length-1">
+        </ng-container>
+    </ngx-simplebar>
+</div>

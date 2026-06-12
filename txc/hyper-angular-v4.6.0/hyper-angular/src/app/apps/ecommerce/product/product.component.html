@@ -1,0 +1,35 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Products"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-sm-5">
+                        <a href="javascript:void(0);" class="btn btn-danger mb-2"><i
+                                class="mdi mdi-plus-circle me-2"></i> Add Products</a>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="text-sm-end">
+                            <button type="button" class="btn btn-success mb-2 me-1"><i
+                                    class="mdi mdi-cog-outline"></i></button>
+                            <button type="button" class="btn btn-light mb-2 me-1">Import</button>
+                            <button type="button" class="btn btn-light mb-2">Export</button>
+                        </div>
+                    </div><!-- end col-->
+                </div>
+                <!-- end row -->
+                <app-ui-preloader [display]="loading"></app-ui-preloader>
+
+                <!-- product table -->
+                <app-advanced-table #advancedTable (handleTableLoad)="handleTableLoad()" [tableData]="productData"
+                    [columns]="columns" [pagination]="true" [isSearchable]="true" [pageSizeOptions]="pageSizeOptions"
+                    (search)="searchData($event)" [hasRowSelection]="true" [isSortable]="true" (sort)="sort($event)"
+                    tableClasses="table-centered nowrap w-100" theadClasses="table-light">
+                </app-advanced-table>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

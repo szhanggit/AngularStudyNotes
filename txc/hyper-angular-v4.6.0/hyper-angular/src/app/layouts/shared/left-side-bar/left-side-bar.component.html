@@ -1,0 +1,126 @@
+<!-- Left Sidebar Start -->
+<div class="leftside-menu {{navClasses}}" (clickOutside)="hideMenu()" [exclude]="'.open-left,.open-left-icon'"
+    [excludeBeforeClick]="true">
+
+    <div class="leftbar-user" *ngIf="includeUserProfile && loggedInUser">
+        <a href="javascript: void(0);">
+            <img [src]="loggedInUser.avatar" alt="user-image" height="42" class="rounded-circle shadow-sm">
+            <span class="leftbar-user-name">{{loggedInUser.name}}</span>
+        </a>
+    </div>
+    <!-- LOGO -->
+    <a routerLink="/" class="logo text-center logo-light" *ngIf="!hideLogo">
+        <span class="logo-lg">
+            <img src="assets/images/logo.png" alt="" height="16">
+        </span>
+        <span class="logo-sm">
+            <img src="assets/images/logo_sm.png" alt="" height="16">
+        </span>
+    </a>
+
+    <!-- LOGO -->
+    <a routerLink="/" class="logo text-center logo-dark" *ngIf="!hideLogo">
+        <span class="logo-lg">
+            <img src="assets/images/logo-dark.png" alt="" height="16">
+        </span>
+        <span class="logo-sm">
+            <img src="assets/images/logo_sm_dark.png" alt="" height="16">
+        </span>
+    </a>
+
+    <ngx-simplebar class="h-100">
+        <div id="leftside-menu-container">
+            <!-- Sidebar Start-->
+            <ul class="side-nav">
+                <ng-container *ngFor="let menu of menuItems;let i = index">
+                    <li *ngIf="menu.isTitle" class="side-nav-title side-nav-item">
+                        {{menu.label}}
+                    </li>
+
+                    <ng-container *ngIf="!menu.isTitle">
+
+                        <!-- menu item without any child -->
+                        <ng-container *ngIf="!hasSubmenu(menu)">
+                            <ng-container
+                                *ngTemplateOutlet="MenuItem;context:{menu: menu, className: 'side-nav-item', linkClassName: 'side-nav-link side-nav-link-ref'}">
+                            </ng-container>
+                        </ng-container>
+
+                        <!-- menu item with child -->
+                        <ng-container *ngIf="hasSubmenu(menu)">
+                            <ng-container
+                                *ngTemplateOutlet="MenuItemWithChildren;context:{menu: menu, linkClassName: 'side-nav-link', subMenuClassNames: 'side-nav-second-level'}">
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+
+                </ng-container>
+            </ul>
+
+            <!-- Help Box -->
+            <div class="help-box help-box-light text-center">
+                <a href="javascript: void(0);" class="float-end close-btn text-white">
+                    <i class="mdi mdi-close"></i>
+                </a>
+                <img src="assets/images/help-icon.svg" height="90" alt="Helper Icon Image" />
+                <h5 class="mt-3 text-white">Unlimited Access</h5>
+                <p class="mb-3  text-white">Upgrade to plan to get access to unlimited reports</p>
+                <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Upgrade</a>
+            </div>
+            <!-- Help Box End-->
+            <!-- Sidebar End -->
+
+            <div class="clearfix"></div>
+        </div>
+    </ngx-simplebar>
+</div>
+<!-- Left Sidebar End -->
+
+<!-- Reusable Templates -->
+<ng-template #MenuItemWithChildren let-menu="menu" let-linkClassName="linkClassName"
+    let-subMenuClassNames="subMenuClassNames">
+    <li class="side-nav-item" [ngClass]="{'menuitem-active': activeMenuItems.includes(menu.key)}">
+        <a href="javascript: void(0)" class="side-nav-link-ref {{linkClassName}}"
+            (click)="toggleMenuItem(menu,collapse)" [attr.aria-expanded]="!menu.collapsed"
+            [attr.data-menu-key]="menu.key">
+            <i [class]="menu.icon" *ngIf="menu.icon"></i>
+            <span class="badge bg-{{menu.badge.variant}} float-end" *ngIf="menu.badge">{{menu.badge.text}}</span>
+            <span> {{ menu.label }}</span>
+            <span class="menu-arrow" *ngIf="!menu.badge"></span>
+        </a>
+
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="menu.collapsed">
+            <ul class="{{subMenuClassNames}}">
+                <ng-container *ngFor="let child of menu.children">
+                    <ng-container *ngIf="hasSubmenu(child)">
+                        <ng-container
+                            *ngTemplateOutlet="MenuItemWithChildren;context:{menu: child, linkClassName: 'side-nav-link-ref', subMenuClassNames: 'side-nav-third-level'}">
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="!hasSubmenu(child)">
+                        <ng-container
+                            *ngTemplateOutlet="MenuItem;context:{menu: child, className: '', linkClassName: 'side-nav-link-ref'}">
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ul>
+        </div>
+    </li>
+</ng-template>
+
+<ng-template #MenuItem let-menu="menu" let-className="className" let-linkClassName="linkClassName">
+    <li [class]="className" [ngClass]="{'menuitem-active': activeMenuItems.includes(menu.key)}">
+        <ng-container *ngTemplateOutlet="MenuItemLink;context:{menu: menu, className: linkClassName}">
+        </ng-container>
+    </li>
+</ng-template>
+
+<ng-template #MenuItemLink let-menu="menu" let-className="className">
+    <a [routerLink]="menu.link" [class]="className" [ngClass]="{'active': activeMenuItems.includes(menu.key)}"
+        [attr.data-menu-key]="menu.key">
+        <i [class]="menu.icon" *ngIf="menu.icon"></i>
+        <span class="badge bg-{{menu.badge.variant}} rounded float-end" *ngIf="menu.badge">{{menu.badge.text}}</span>
+        <span> {{ menu.label }}</span>
+    </a>
+</ng-template>

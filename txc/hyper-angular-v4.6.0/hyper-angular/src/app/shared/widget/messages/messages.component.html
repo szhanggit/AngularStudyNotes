@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-body">
+        <app-card-title cardTitle="Messages" [dropdownOptions]="dropdownOptions" containerClass="mb-2">
+        </app-card-title>
+        <div class="inbox-widget">
+            <div class="inbox-item" *ngFor="let message of messages">
+                <div class="inbox-item-img"><img [src]="message.avatar" class="rounded-circle" alt=""></div>
+                <p class="inbox-item-author">{{message.sender}}</p>
+                <p class="inbox-item-text">{{message.text}}</p>
+                <p class="inbox-item-date">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                </p>
+            </div>
+        </div>
+    </div> <!-- end card-body-->
+</div> <!-- end card-->

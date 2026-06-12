@@ -1,0 +1,224 @@
+<div class="row">
+    <div class="col-xxl-8">
+        <!-- start page title -->
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <div class="app-search">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." />
+                            <span class="mdi mdi-magnify search-icon"></span>
+                            <div ngbDropdown placement="bottom-end">
+                                <button class="input-group-text btn-secondary rounded-0 rounded-end" type="button"
+                                    id="taskListDropdown" aria-expanded="false" ngbDropdownToggle>
+                                    <i class='uil uil-sort-amount-down'></i>
+                                </button>
+                                <div ngbDropdownMenu aria-labelledby="taskListDropdown">
+                                    <a ngbDropdownItem [routerLink]="'.'">Due Date</a>
+                                    <a ngbDropdownItem [routerLink]="'.'">Added Date</a>
+                                    <a ngbDropdownItem [routerLink]="'.'">Assignee</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <h4 class="page-title">Tasks <a href="javascript:void(0)" class="btn btn-success btn-sm ms-3">Add New</a>
+            </h4>
+        </div>
+        <!-- end page title -->
+
+        <!-- todays tasks -->
+        <div class="mt-2">
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" role="button" (click)="todayTasks.toggle()" [attr.aria-expanded]="!showTodaysTask"
+                    aria-controls="todayTasks">
+                    <i class='uil font-18' [class]="!showTodaysTask ? 'uil-angle-down' : 'uil-angle-right'"></i>Today
+                    <span class="text-muted">({{todaysTasks.length}})</span>
+                </a>
+            </h5>
+
+            <div #todayTasks="ngbCollapse" [(ngbCollapse)]="showTodaysTask" id="todayTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between" *ngFor="let task of todaysTasks;let i=index;"
+                            [class.mt-2]="i!=0">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="task-complete-checkbox"
+                                        id="task{{task.id}}" (change)="task.completed=!task.completed">
+                                    <label class="form-check-label" for="task{{task.id}}">
+                                        {{task.title}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                    <div id="tooltip-container">
+                                        <img [src]="task.assignee_avatar" alt="image"
+                                            class="avatar-xs rounded-circle me-1" placement="bottom"
+                                            ngbTooltip="Assigned to {{task.assigned_to}}" />
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline font-13 text-end"
+                                            [class.mb-0]="i===todaysTasks.length-1">
+                                            <li class="list-inline-item">
+                                                <i class='uil uil-schedule font-16 me-1'></i> {{task.due_date}}
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class='uil uil-align-alt font-16 me-1'></i> 3/7
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class='uil uil-comment-message font-16 me-1'></i>
+                                                {{task.comments?.length}}
+                                            </li>
+                                            <li class="list-inline-item ms-2">
+                                                <span class="badge p-1"
+                                                    [ngClass]="{'badge-danger-lighten': task.priority === 'High','badge-info-lighten': task.priority === 'Medium','badge-success-lighten': task.priority === 'Low'}">{{
+                                                    task.priority }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div> <!-- end .collapse-->
+        </div> <!-- end .mt-2-->
+        <!-- end todays task -->
+
+        <!-- upcoming tasks -->
+        <div class="mt-4">
+
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" role="button" (click)="upcomingTask.toggle()"
+                    [attr.aria-expanded]="!showUpcomingTask" aria-controls="upcomingTasks">
+                    <i class='uil font-18'
+                        [class]="!showUpcomingTask ? 'uil-angle-down' : 'uil-angle-right'"></i>Upcoming <span
+                        class="text-muted">({{upcomingTasks.length}})</span>
+                </a>
+            </h5>
+
+            <div #upcomingTask="ngbCollapse" [(ngbCollapse)]="showUpcomingTask" id="upcomingTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between" *ngFor="let task of upcomingTasks;let i=index;"
+                            [class.mt-2]="i!=0">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="task-complete-checkbox"
+                                        id="task{{task.id}}" (change)="task.completed=!task.completed">
+                                    <label class="form-check-label" for="task{{task.id}}">
+                                        {{task.title}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                    <div id="tooltip-container3">
+                                        <img [src]="task.assignee_avatar" alt="image"
+                                            class="avatar-xs rounded-circle me-1" placement="bottom"
+                                            ngbTooltip="Assigned to {{task.assigned_to}}" />
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline font-13 text-end"
+                                            [class.mb-0]="i===upcomingTasks.length-1">
+                                            <li class="list-inline-item">
+                                                <i class='uil uil-schedule font-16 me-1'></i> {{task.due_date}}
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class='uil uil-align-alt font-16 me-1'></i> 1/12
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class='uil uil-comment-message font-16 me-1'></i>
+                                                {{task.comments?.length}}
+                                            </li>
+                                            <li class="list-inline-item ms-2">
+                                                <span class="badge p-1"
+                                                    [ngClass]="{'badge-danger-lighten': task.priority === 'High','badge-info-lighten': task.priority === 'Medium','badge-success-lighten': task.priority === 'Low'}">{{
+                                                    task.priority }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div> <!-- end collapse-->
+        </div>
+        <!-- end upcoming tasks -->
+
+        <!-- other tasks -->
+        <div class="mt-4 mb-4">
+            <h5 class="m-0 pb-2">
+                <a class="text-dark" role="button" (click)="otherTask.toggle()" [attr.aria-expanded]="!showOtherTask"
+                    aria-controls="otherTasks">
+                    <i class='uil font-18' [class]="!showOtherTask ? 'uil-angle-down' : 'uil-angle-right'"></i>Other
+                    <span class="text-muted">({{otherTasks.length}})</span>
+                </a>
+            </h5>
+
+            <div #otherTask="ngbCollapse" [(ngbCollapse)]="showOtherTask" id="otherTasks">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <!-- task -->
+                        <div class="row justify-content-sm-between mt-2" *ngFor="let task of otherTasks;let i=index;"
+                            [class.mt-2]="i!=0">
+                            <div class="col-sm-6 mb-2 mb-sm-0">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="task-complete-checkbox"
+                                        id="task{{task.id}}" (change)="task.completed=!task.completed">
+                                    <label class="form-check-label" for="task{{task.id}}">
+                                        {{task.title}}
+                                    </label>
+                                </div> <!-- end checkbox -->
+                            </div> <!-- end col -->
+                            <div class="col-sm-6">
+                                <div class="d-flex justify-content-between">
+                                    <div id="tooltip-container">
+                                        <img [src]="task.assignee_avatar" alt="image"
+                                            class="avatar-xs rounded-circle me-1" placement="bottom"
+                                            ngbTooltip="Assigned to {{task.assigned_to}}" />
+                                    </div>
+                                    <div>
+                                        <ul class="list-inline font-13 text-end" [class.mb-0]="i===otherTasks.length-1">
+                                            <li class="list-inline-item">
+                                                <i class='uil uil-schedule font-16 me-1'></i> {{task.due_date}}
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class='uil uil-align-alt font-16 me-1'></i> 3/7
+                                            </li>
+                                            <li class="list-inline-item ms-1">
+                                                <i class='uil uil-comment-message font-16 me-1'></i>
+                                                {{task.comments?.length}}
+                                            </li>
+                                            <li class="list-inline-item ms-2">
+                                                <span class="badge p-1"
+                                                    [ngClass]="{'badge-danger-lighten': task.priority === 'High','badge-info-lighten': task.priority === 'Medium','badge-success-lighten': task.priority === 'Low'}">{{
+                                                    task.priority }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> <!-- end .d-flex-->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end task -->
+                    </div> <!-- end card-body-->
+                </div> <!-- end card -->
+            </div>
+        </div>
+        <!-- end other tasks -->
+    </div> <!-- end col -->
+
+    <!-- task details -->
+    <div class="col-xxl-4">
+        <app-task-detail [selectedTask]="selectedTask"></app-task-detail>
+    </div> <!-- end col -->
+</div>
+<!-- end row-->

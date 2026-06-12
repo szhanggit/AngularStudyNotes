@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-body p-0">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="activeGroup" class="nav-tabs nav-bordered">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink class="py-2" (click)="filterUsersByGroup('All')">All</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="ChatUsers">
+                    </ng-container>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink class="py-2" (click)="filterUsersByGroup('Favourites')">Favourites</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="ChatUsers">
+                    </ng-container>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+                <a ngbNavLink class="py-2" (click)="filterUsersByGroup('Friends')">Friends</a>
+                <ng-template ngbNavContent>
+                    <ng-container *ngTemplateOutlet="ChatUsers">
+                    </ng-container>
+                </ng-template>
+            </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav"></div>
+    </div> <!-- end card-body-->
+</div> <!-- end card-->
+
+<!-- reusable templates -->
+<ng-template #ChatUsers let-userGroup="userGroup">
+    <div class="card-body pb-0">
+        <!-- start search box -->
+        <div class="app-search">
+            <form #searchUserForm="ngForm">
+                <div class="mb-2 position-relative">
+                    <input type="text" class="form-control" placeholder="People, groups & messages..."
+                        [(ngModel)]="searchUser" name="seachUser" #seachUser="ngModel" (keyup)="search()" />
+                    <span class="mdi mdi-magnify search-icon"></span>
+                </div>
+            </form>
+        </div>
+        <!-- end search box -->
+    </div>
+    <!-- users -->
+    <div class="row">
+        <div class="col">
+            <ngx-simplebar class="card-body py-0" style="height: 550px">
+                <a href="javascript:void(0);" class="text-body" *ngFor="let user of userList"
+                    (click)="activateUser(user)">
+                    <div class="d-flex align-items-start mt-1 p-2"
+                        [ngClass]="{'bg-light': user.id === selectedUser.id}">
+                        <img [src]="user.avatar" class="me-2 rounded-circle" height="48" alt="user.name" />
+                        <div class="w-100 overflow-hidden">
+                            <h5 class="mt-0 mb-0 font-14">
+                                <span class="float-end text-muted font-12">{{user.lastMessageOn}}</span>
+                                {{user.name}}
+                            </h5>
+                            <p class="mt-1 mb-0 text-muted font-14">
+                                <span class="w-25 float-end text-end"><span
+                                        class="badge badge-danger-lighten">{{user.totalUnread}}</span></span>
+                                <span class="w-75">{{user.lastMessage}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </ngx-simplebar>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+    <!-- end users -->
+
+
+</ng-template>

@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-body">
+        <app-card-title cardTitle="Project Overview" [dropdownOptions]="dropdownOptions"></app-card-title>
+
+        <div class="row align-items-center mt-2">
+            <div class="col-md-6 order-2 order-md-1">
+                <div class="d-flex align-items-center" *ngFor="let item of projectOverview;let i=index"
+                    [class.mb-3]="i<projectOverview.length-1">
+                    <div class="flex-shrink-0">
+                        <i
+                            class="mdi mdi-checkbox-blank-circle widget-icon rounded-circle bg-{{item.variant}}-lighten text-{{item.variant}}"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="fw-semibold mt-0 mb-1">{{item.title}}</h5>
+                        <ul class="list-inline mb-0 text-muted">
+                            <li class="list-inline-item"><b>{{item.totalProjects}}</b> Total Projects</li>
+                            <li class="list-inline-item"><i class="mdi mdi-circle-small"></i></li>
+                            <li class="list-inline-item"><b>{{item.totalEmployees}}</b> Employees</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 order-1 order-md-2">
+                <div class="mb-3 mb-md-0">
+                    <apx-chart class="apex-charts" [series]="overviewChart.series!" [chart]="overviewChart.chart!"
+                        [colors]="overviewChart.colors!" [plotOptions]="overviewChart.plotOptions!"
+                        [labels]="overviewChart.labels!" *ngIf="overviewChart">
+                    </apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

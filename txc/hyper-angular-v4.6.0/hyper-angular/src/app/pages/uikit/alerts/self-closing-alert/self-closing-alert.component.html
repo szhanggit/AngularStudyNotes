@@ -1,0 +1,5 @@
+<ngb-alert #selfClosingAlert type="success" *ngIf="show" (closed)="show=false">This alert will be closed after 5 seconds
+</ngb-alert>
+<p>
+    <button class="btn btn-primary" (click)="showMessage()">Show Message</button>
+</p>

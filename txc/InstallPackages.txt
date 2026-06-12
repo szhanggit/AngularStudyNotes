@@ -1,0 +1,15 @@
+Go to Shared-library
+Download packages: npm install --force
+Build it first:    npm run build
+Go to D:\git\TXC-MicroFrontends\Shared-Library\dist\authorization-library
+Run:               npm pack
+
+Go to D:\git\TXC-MicroFrontends\Products
+npm install ‪D:\git\TXC-MicroFrontends\Shared-Library\dist\authorization-library\authorization-library-0.0.1.tgz --force
+
+
+-------------------------
+https://yarnpkg.com/getting-started/install
+npm i -g corepack
+yarn 
+instead of 'npm i'

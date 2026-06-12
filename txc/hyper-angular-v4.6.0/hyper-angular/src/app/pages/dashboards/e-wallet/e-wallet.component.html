@@ -1,0 +1,45 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="E-Wallet"></app-page-title>
+
+<div class="row">
+    <div class="col-xxl-9">
+        <div class="row">
+            <div class="col-xl-4" *ngFor="let item of chartStatistics">
+                <app-wallet-statistics [statisticsItem]="item"></app-wallet-statistics>
+            </div>
+        </div> <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <app-wallet-balance-status></app-wallet-balance-status>
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-xxl-3">
+        <div class="row">
+            <div class="col-md-6 col-xxl-12">
+                <app-wallet-card></app-wallet-card>
+            </div>
+
+            <div class="col-md-6 col-xxl-12">
+                <app-wallet-watchlist [watchList]="watchList"></app-wallet-watchlist>
+            </div>
+        </div>
+
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<div class="row">
+    <div class="col-md-6 col-xxl-3">
+        <app-wallet-money-history [moneyHistory]="moneyHistory"></app-wallet-money-history>
+    </div>
+
+    <div class="col-md-6 col-xxl-3">
+        <app-wallet-merchants></app-wallet-merchants>
+    </div> <!-- end col -->
+
+    <div class="col-xxl-6">
+        <app-wallet-transaction-list [transactions]="transactions"></app-wallet-transaction-list>
+    </div> <!-- end col -->
+</div> <!-- end row -->

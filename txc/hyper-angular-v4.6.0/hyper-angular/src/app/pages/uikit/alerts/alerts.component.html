@@ -1,0 +1,174 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Alerts"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Default Alert</h4>
+                <p class="text-muted font-14 mb-3">
+                    Provide contextual feedback messages for typical user actions with the handful of available and
+                    flexible alert messages.
+                    Alerts are available for any length of text, as well as an optional dismiss
+                    button.
+                </p>
+                <p *ngFor="let alert of alertVariants">
+                    <ngb-alert [type]="alert.type" [dismissible]="false"><strong>{{alert.type | titlecase}}- </strong> A
+                        simple
+                        {{alert.type}}
+                        alert—check it out!</ngb-alert>
+                </p>
+
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Closable Alerts</h4>
+                <p class="text-muted font-14 mb-3">
+                    Add a dismiss button by adding <code>dismissible</code> property, which adds
+                    extra padding to the right of the alert
+                    and positions the <code>.btn-close</code> button.For background color use class
+                    <code>.bg-* </code>, <code>.text-white </code>
+                </p>
+
+                <p *ngFor="let alert of closableAlerts">
+                    <ngb-alert [type]="alert.type" (closed)="close(alert)" class="bg-{{alert.type}} border-0"
+                        [ngClass]="{'text-white': alert.type!=='light','text-dark': alert.type==='light','text-light':['dark','secondary'].includes(alert.type)}">
+                        <strong>{{alert.type | titlecase}}-
+                        </strong> A
+                        simple {{alert.type}}
+                        alert—check it out!
+                    </ngb-alert>
+                </p>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Custom Alert</h4>
+                <p class="text-muted font-14 mb-3">
+                    Display alert with transparent background and with contextual text color. Use
+                    classes
+                    <code>.bg-white</code>, and <code>.text-*</code>. E.g. <code>bg-white
+                                                                text-primary</code>.
+                </p>
+                <p *ngFor="let alert of customAlerts">
+                    <ngb-alert [type]="alert.type" [dismissible]="false" class="bg-transparent text-{{alert.type}}">
+                        {{alert.message}}</ngb-alert>
+                </p>
+
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Link Color</h4>
+                <p class="text-muted font-14 mb-3">
+                    Use the <code>.alert-link</code> utility class to quickly provide matching
+                    colored links within any alert.
+                </p>
+
+
+                <p *ngFor="let alert of alertWithLink">
+
+                    <ngb-alert [type]="alert.type" [dismissible]="false">
+                        A simple {{alert.type}} alert with <a href="javascript:void(0)" class="alert-link">an example
+                            link</a>. Give it a click if you like.
+                    </ngb-alert>
+                </p>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Live Alerts</h4>
+                <p class="text-muted font-14 mb-3">
+                    Click the button below to show an alert (hidden with inline styles to start), then dismiss (and
+                    destroy) it with the
+                    built-in close button.
+                </p>
+                <app-self-closing-alert></app-self-closing-alert>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Globally Configured Alerts</h4>
+                <p class="text-muted font-14 mb-3">
+                    Use the <code>NgbAlertConfig</code> provider to configure alerts.
+                </p>
+
+                <app-global-configured-alert></app-global-configured-alert>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Icons with Alerts</h4>
+                <p class="text-muted font-14 mb-3">
+                    You can also include additional elements like icons, heading, etc along side the actual message.
+                </p>
+
+                <p *ngFor="let alert of alertWithIcons">
+                    <ngb-alert [type]="alert.type" [dismissible]="false" *ngIf="alert.icon">
+                        <i [class]="alert.icon" class="me-2"></i>
+                        {{alert.message}}
+                    </ngb-alert>
+                </p>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Additional content</h4>
+                <p class="text-muted font-14 mb-3">
+                    Alerts can also contain additional HTML elements like headings, paragraphs and
+                    dividers.
+                </p>
+
+                <ngb-alert type="success" [dismissible]="false">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>Aww yeah, you successfully read this important alert message. This
+                        example text is going to run a bit longer so that you can see how
+                        spacing within an alert works with this kind of content.</p>
+                    <hr>
+                    <p class="mb-0">Whenever you need to, be sure to use margin utilities to
+                        keep things nice and tidy.</p>
+                </ngb-alert>
+
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->

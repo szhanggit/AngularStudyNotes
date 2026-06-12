@@ -1,0 +1,229 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Popover"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Simple Popover</h4>
+                <p class="text-muted font-14">
+                    Popover is a component which displays a box with a content after a click on an
+                    element - similar to the tooltip but can contain more content.
+                </p>
+
+                <button type="button" class="btn btn-danger" placement="end" [autoClose]="'inside'"
+                    popoverTitle="Popover title"
+                    ngbPopover="And here's some amazing content. It's very engaging. Right?">Click to toggle
+                    popover</button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Dismiss on Next Click</h4>
+                <p class="text-muted font-14">Use the <code>autoClose='outside'</code> property to dismiss popovers
+                    on the user’s next click of a different element than the toggle element.</p>
+
+                <button type="button" tabindex="0" class="btn btn-success" placement="end" [autoClose]="'outside'"
+                    popoverTitle="Dissmisible popover"
+                    ngbPopover="And here's some amazing content. It's very engaging. Right?">
+                    Dismissible popover
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Hover</h4>
+                <p class="text-muted font-14">Use the <code>triggers="mouseenter:mouseleave"</code>
+                    property to show the popover on hovering the element.</p>
+
+                <button type="button" tabindex="0" class="btn btn-dark" placement="end" triggers="mouseenter:mouseleave"
+                    ngbPopover="And here's some amazing content. It's very engaging. Right?" popoverTitle="Ohh Wow !">
+                    Please Hover Me
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Manual triggers</h4>
+                <p class="text-muted font-14">You can take full manual control over popover opening / closing events</p>
+
+                <button type="button" class="btn btn-primary me-2" ngbPopover="What a great tip!" [autoClose]="false"
+                    triggers="manual" #p="ngbPopover" (click)="p.open()" popoverTitle="Pop title">
+                    Open popover
+                </button>
+                <button type="button" class="btn btn-secondary me-2" (click)="p.close()">
+                    Close popover
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Popover with custom class</h4>
+                <p class="text-muted font-14">You can optionally pass in a custom class via <code>popoverClass</code>
+                </p>
+
+                <button type="button" class="btn btn-info" ngbPopover="Nice class!" popoverClass="custom-popover">
+                    Popover with custom class
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Container <q>body</q></h4>
+                <p class="text-muted font-14">Set the <code>container</code> property to "body" to have the popover be
+                    appended to the body instead of the triggering element's
+                    parent.
+                </p>
+
+                <div class="row">
+                    <div class="py-3">
+
+                        <button type="button" class="btn btn-primary mb-2"
+                            ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                            Default popover
+                        </button><br />
+                        <button type="button" class="btn btn-primary"
+                            ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." container="body">
+                            Popover appended to body
+                        </button>
+
+                    </div>
+                </div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Four Directions</h4>
+                <p class="text-muted font-14">Four options are available: top, right, bottom, and
+                    left aligned.</p>
+
+                <div class="button-list">
+
+                    <button type="button" class="btn btn-primary" placement="top" container="body"
+                        [autoClose]="'inside'" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Popover on top
+                    </button>
+
+                    <button type="button" class="btn btn-primary" placement="bottom" [autoClose]="'inside'"
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Popover on bottom
+                    </button>
+
+
+                    <button type="button" class="btn btn-primary" placement="start" [autoClose]="'inside'"
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                        popoverTitle="Popover title">
+                        Popover on left
+                    </button>
+
+                    <button type="button" class="btn btn-primary" placement="end" [autoClose]="'inside'"
+                        ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                        Popover on right
+                    </button>
+
+
+                </div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Disabled Elements</h4>
+                <p class="text-muted font-14">Elements with the <code>disabled</code> attribute
+                    aren’t interactive, meaning users cannot hover or click them to trigger a
+                    popover (or tooltip). As a workaround, you’ll want to trigger the popover from a
+                    wrapper <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> and override the
+                    <code>pointer-events</code> on the disabled element.
+                </p>
+
+                <span class="d-inline-block" placement="end" ngbPopover="Disabled popover" [autoClose]="'inside'">
+                    <button class="btn btn-primary" style="pointer-events: none;" type="button" disabled>Disabled
+                        button</button>
+                </span>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">HTML and bindings in popovers</h4>
+                <p class="text-muted font-14">Popovers can contain any arbitrary HTML, Angular bindings and even
+                    directives! Simply enclose desired content or title
+                    in a <code>&lt;ng-template&gt;</code>element.</p>
+
+                <ng-template #popContent>Hello, <b>User</b>!</ng-template>
+                <ng-template #popTitle>Fancy <b>content!!</b></ng-template>
+                <button type="button" class="btn btn-dark" [ngbPopover]="popContent" [popoverTitle]="popTitle">
+                    I've got markup and bindings in my popover!
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Open and close delays</h4>
+                <p class="text-muted font-14">When using non-manual triggers, you can control the delay to open and
+                    close the popover through the
+                    <code>openDelay</code> and
+                    <code>closeDelay</code> properties. Note that the <code>autoClose</code> feature does not use
+                    the close delay, it closes
+                    the popover immediately.
+                </p>
+
+                <button type="button" class="btn btn-danger me-2"
+                    ngbPopover="You see, I show up after 300ms and disappear after 500ms!" [openDelay]="300"
+                    [closeDelay]="500" triggers="mouseenter:mouseleave">
+                    Hover 300ms here
+                </button>
+
+                <button type="button" class="btn btn-success me-2"
+                    ngbPopover="You see, I show up after 1s and disappear after 2s!" [openDelay]="1000"
+                    [closeDelay]="2000" triggers="mouseenter:mouseleave">
+                    Hover 1s here
+                </button>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Popover visibiity events</h4>
+                <p class="text-muted font-14">You can track open and close time of popover.
+                </p>
+
+                <button type="button" class="btn btn-secondary" placement="end"
+                    ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top"
+                    #popover="ngbPopover" (shown)="recordShown()" (hidden)="recordHidden()">
+                    Open Popover
+                </button>
+
+                <hr>
+
+                <ul>
+                    <li>Popover is currently: <code>{{ popover.isOpen() ? 'open' : 'closed' }}</code></li>
+                    <li>Last shown at: <code>{{lastShown | date:'h:mm:ss'}}</code></li>
+                    <li>Last hidden at: <code>{{lastHidden | date:'h:mm:ss'}}</code></li>
+                </ul>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

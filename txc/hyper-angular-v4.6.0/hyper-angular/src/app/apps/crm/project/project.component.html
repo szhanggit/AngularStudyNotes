@@ -1,0 +1,37 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Projects"></app-page-title>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xxl-9">
+        <app-project-list [projects]="projects"></app-project-list>
+
+        <div class="row">
+            <div class="col-xxl-3 col-md-4">
+                <app-project-monthly-target></app-project-monthly-target>
+            </div>
+            <div class="col-xxl-9 col-md-8">
+                <app-project-statistics></app-project-statistics>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-3">
+        <app-project-summary></app-project-summary>
+    </div>
+</div>
+
+
+<app-statistics [statistics]="statistics"></app-statistics>
+
+
+<div class="row">
+    <div class="col-xxl-6">
+        <app-project-overview [projectOverview]="projectOverview"></app-project-overview>
+    </div>
+    <div class="col-md-6 col-xxl-3">
+        <app-project-daily-task [dailyTasks]="dailyTasks"></app-project-daily-task>
+    </div>
+    <div class="col-md-6 col-xxl-3">
+        <app-project-team-members [team]="team"></app-project-team-members>
+    </div>
+</div> <!-- end row -->

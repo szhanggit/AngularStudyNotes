@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-between align-items-center" [class]="containerClass">
+    <h4 class="header-title">{{cardTitle}}</h4>
+    <div ngbDropdown placement="bottom-end">
+        <a ngbDropdownToggle class="arrow-none card-drop" id="cardDropdown" href="javascript:void(0)"
+            aria-expanded="false">
+            <i [class]="icon"></i>
+        </a>
+        <div ngbDropdownMenu aria-labelledby="cardDropdown">
+            <!-- item-->
+            <a ngbDropdownItem [routerLink]="'.'" *ngFor="let option of dropdownOptions"
+                [class]="option.variant ? 'text-'+option.variant :''"><i class="me-1" [class]="option.icon"
+                    *ngIf="option.icon"></i>{{option.label}}</a>
+        </div>
+    </div>
+</div>

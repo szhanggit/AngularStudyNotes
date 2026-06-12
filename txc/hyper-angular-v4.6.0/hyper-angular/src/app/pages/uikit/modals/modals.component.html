@@ -1,0 +1,621 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Modals"></app-page-title>
+
+<!-- modal start -->
+<ng-template #standardModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>Text in a modal</h6>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        <hr>
+        <h6>Overflowing text to show scroll behavior</h6>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas eget quam. Morbi
+            leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue laoreet rutrum
+            faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl consectetur et.
+            Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Save
+            changes</button>
+    </div>
+</ng-template>
+
+<ng-template #sizeableModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        </button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Save
+            changes</button>
+    </div>
+</ng-template>
+
+
+<ng-template #scrollableModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+            vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Save
+            changes</button>
+    </div>
+</ng-template>
+
+<ng-template #staticBackdropModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="m-0">I will not close if you click outside me. Don't even try to press escape key.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+    </div>
+</ng-template>
+
+<ng-template #alertModal let-modal>
+    <div class="modal-body p-4">
+        <div class="text-center">
+            <i class="dripicons-checkmark h1"></i>
+            <h4 class="mt-2">Well Done!</h4>
+            <p class="mt-3">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                egestas eget quam.</p>
+            <button type="button" class="btn btn-light my-2" (click)="modal.close('Close click')">Continue</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #positionModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="topModalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>Text in a modal</h5>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Save
+            changes</button>
+    </div>
+</ng-template>
+
+<ng-template #coloredHeaderModal let-modal>
+    <div class="modal-header modal-colored-header bg-{{modalHeaderColor}}">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5 class="mt-0 text-capitalize">{{modalHeaderColor}} Background</h5>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+            quam.
+            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+            rutrum faucibus dolor auctor.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-{{modalHeaderColor}}" (click)="modal.close('Close click')">Save
+            changes</button>
+    </div>
+</ng-template>
+
+<ng-template #coloredModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Filled Modal</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+            quam.
+            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+            rutrum faucibus dolor auctor.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-outline-light" (click)="modal.close('Close click')">Save
+            changes</button>
+    </div>
+</ng-template>
+
+
+<ng-template #stackedModal1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5 class="mt-0">Text in a modal</h5>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="openStackedModal(stackedModal2,modal)">Next</button>
+    </div>
+</ng-template>
+
+<ng-template #stackedModal2 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalLabel">Modal Heading</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5 class="mt-0">Text in a modal</h5>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #toggleModal1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalToggleLabel">Modal 1</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        Show a second modal and hide this one with the button below.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="openToggleModal(toggleModal2,modal)">Open second
+            modal</button>
+    </div>
+</ng-template>
+
+<ng-template #toggleModal2 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body">
+        Hide this modal and show the first with the button below.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="openToggleModal(toggleModal1,modal)">Back to
+            first</button>
+    </div>
+</ng-template>
+
+<ng-template #signupFormModal let-modal>
+
+    <div class="modal-body">
+        <div class="auth-brand text-center mt-2 mb-4 position-relative top-0">
+            <a [routerLink]="['/']" class="logo-dark">
+                <span><img src="assets/images/logo-dark.png" alt="" height="18"></span>
+            </a>
+            <a [routerLink]="['/']" class="logo-light">
+                <span><img src="assets/images/logo.png" alt="" height="18"></span>
+            </a>
+        </div>
+
+
+        <form class="ps-3 pe-3" [formGroup]="signupForm">
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Name</label>
+                <input class="form-control" type="email" id="username" required formControlName="name"
+                    placeholder="Michael Zenaty">
+            </div>
+
+            <div class="mb-3">
+                <label for="emailaddress" class="form-label">Email address</label>
+                <input class="form-control" type="email" id="emailaddress" required formControlName="email"
+                    placeholder="john@deo.com">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input class="form-control" type="password" required formControlName="password" id="password"
+                    placeholder="Enter your password">
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="customCheck1" formControlName="terms">
+                    <label class="form-check-label" for="customCheck1">I accept <a href="javascript:void(0)">Terms and
+                            Conditions</a></label>
+                </div>
+            </div>
+
+            <div class="mb-3 text-center">
+                <button class="btn btn-primary" type="submit">Sign Up Free</button>
+            </div>
+
+        </form>
+    </div>
+</ng-template>
+
+
+<ng-template #loginFormModal let-modal>
+    <div class="modal-body">
+        <div class="auth-brand text-center mt-2 mb-4 position-relative top-0">
+            <a [routerLink]="['/']" class="logo-dark">
+                <span><img src="assets/images/logo-dark.png" alt="" height="18"></span>
+            </a>
+            <a [routerLink]="['/']" class="logo-light">
+                <span><img src="assets/images/logo.png" alt="" height="18"></span>
+            </a>
+        </div>
+
+        <form [formGroup]="loginForm" class="ps-3 pe-3">
+            <div class="mb-3">
+                <label for="emailaddress1" class="form-label">Email address</label>
+                <input class="form-control" type="email" id="emailaddress1" required formControlName="email"
+                    placeholder="john@deo.com">
+            </div>
+
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input class="form-control" type="password" required formControlName="password" id="password1"
+                    placeholder="Enter your password">
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="customCheck2">
+                    <label class="form-check-label" for="customCheck2">Remember me</label>
+                </div>
+            </div>
+
+            <div class="mb-3 text-center">
+                <button class="btn rounded-pill btn-primary" type="submit">Sign In</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<!-- modal end -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Modal</h4>
+
+                <p class="text-muted font-14">
+                    A rendered modal with header, body, and set of actions in the footer.
+                </p>
+
+                <div class="button-list">
+                    <!-- Standard  modal -->
+                    <button type="button" class="btn btn-primary" (click)="open(standardModal)">Standard
+                        Modal</button>
+
+                    <!-- Scrollable modal -->
+                    <button type="button" class="btn btn-secondary"
+                        (click)="openScrollableModal(scrollableModal)">Scrollable
+                        Modal</button>
+                    <!-- Static Backdrop modal -->
+                    <button type="button" class="btn btn-info" (click)="openBackdropModal(staticBackdropModal)">
+                        Static Backdrop
+                    </button>
+                </div>
+
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Different Size Modal</h4>
+                <p class="text-muted font-14">Yu can set size of modal window using <code>size</code> property.
+                </p>
+
+                <div class="button-list">
+                    <!-- Small modal -->
+                    <button type="button" class="btn btn-success" (click)="openModalWithSize(sizeableModal,'sm')">Small
+                        Modal</button>
+                    <!-- Large modal -->
+                    <button type="button" class="btn btn-info" (click)="openModalWithSize(sizeableModal,'lg')">Large
+                        Modal</button>
+                    <!-- Extra Large modal -->
+                    <button type="button" class="btn btn-warning" (click)="openModalWithSize(sizeableModal,'xl')">Extra
+                        Large Modal</button>
+
+                    <!-- Full width modal -->
+                    <button type="button" class="btn btn-primary"
+                        (click)="openModalWithSize(standardModal,'full-width')">Full
+                        width
+                        Modal</button>
+                </div> <!-- btn list -->
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Modal based Alerts</h4>
+                <p class="text-muted font-14">Show different contexual alert messages using modal component.
+                </p>
+
+                <div class="button-list">
+                    <!-- Success Alert modal -->
+                    <button type="button" class="btn btn-success" (click)="openAlertModal(alertModal,'success')">Success
+                        Alert</button>
+                    <!-- Info Alert modal -->
+                    <button type="button" class="btn btn-info" (click)="openAlertModal(alertModal,'info')">Info
+                        Alert</button>
+                    <!-- Warning Alert modal -->
+                    <button type="button" class="btn btn-warning" (click)="openAlertModal(alertModal,'warning')">Warning
+                        Alert</button>
+                    <!-- Danger Alert modal -->
+                    <button type="button" class="btn btn-danger" (click)="openAlertModal(alertModal,'danger')">Danger
+                        Alert</button>
+                </div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Modal Position</h4>
+                <p class="text-muted font-14">Specify the position for the modal. You can display modal at top, bottom
+                    or right of page by specifying
+                    classes <code>modal-top</code>, <code>modal-bottom</code>and
+                    <code>modal-right</code>
+                    respectively. To center modal in page, use <code>centered</code> property.
+                </p>
+
+
+                <div class="button-list">
+                    <!-- Top modal -->
+                    <button type="button" class="btn btn-secondary"
+                        (click)="openCustomPositionedModal(positionModal,'top')">Top
+                        Modal</button>
+                    <!-- Bottom modal -->
+                    <button type="button" class="btn btn-secondary"
+                        (click)="openCustomPositionedModal(positionModal,'bottom')">Bottom
+                        Modal</button>
+                    <!-- Center modal -->
+                    <button type="button" class="btn btn-secondary"
+                        (click)="openVerticallyCentered(positionModal)">Center
+                        modal</button>
+                    <!-- Right modal -->
+                    <button type="button" class="btn btn-secondary"
+                        (click)="openCustomPositionedModal(positionModal,'right')">Rightbar
+                        Modal</button>
+                </div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Colored Header Modals</h4>
+                <p class="text-muted font-14">A rendered modal with header having contexual background color.</p>
+
+                <div class="button-list">
+                    <!-- Primary header modal -->
+                    <button type="button" class="btn btn-primary"
+                        (click)="openColoredHeaderModal(coloredHeaderModal,'primary')">Primary
+                        Header</button>
+                    <!-- Success header modal -->
+                    <button type="button" class="btn btn-success"
+                        (click)="openColoredHeaderModal(coloredHeaderModal,'success')">Success
+                        Header</button>
+                    <!-- Info header modal -->
+                    <button type="button" class="btn btn-info"
+                        (click)="openColoredHeaderModal(coloredHeaderModal,'info')">Info
+                        Header</button>
+                    <!-- Warning header modal -->
+                    <button type="button" class="btn btn-warning"
+                        (click)="openColoredHeaderModal(coloredHeaderModal,'warning')">Warning
+                        Header</button>
+                    <!-- Danger header modal -->
+                    <button type="button" class="btn btn-danger"
+                        (click)="openColoredHeaderModal(coloredHeaderModal,'danger')">Danger
+                        Header</button>
+                    <!-- Dark header modal -->
+                    <button type="button" class="btn btn-dark"
+                        (click)="openColoredHeaderModal(coloredHeaderModal,'dark')">Dark
+                        Header</button>
+                </div>
+
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Filled Modals</h4>
+                <p class="text-muted font-14">A rendered modal with header, body and footer having contexual background
+                    color. You can use <code>modalDialogClass</code> property to color
+                    modal.</p>
+
+                <div class="button-list">
+                    <!-- Primary header modal -->
+                    <button type="button" class="btn btn-primary"
+                        (click)="openColoredModal(coloredModal,'primary')">Primary
+                        Filled</button>
+                    <!-- Success header modal -->
+                    <button type="button" class="btn btn-success"
+                        (click)="openColoredModal(coloredModal,'success')">Success
+                        Filled</button>
+                    <!-- Info header modal -->
+                    <button type="button" class="btn btn-info" (click)="openColoredModal(coloredModal,'info')">Info
+                        Filled</button>
+                    <!-- Warning header modal -->
+                    <button type="button" class="btn btn-warning"
+                        (click)="openColoredModal(coloredModal,'warning')">Warning
+                        Filled</button>
+                    <!-- Danger header modal -->
+                    <button type="button" class="btn btn-danger"
+                        (click)="openColoredModal(coloredModal,'danger')">Danger
+                        Filled</button>
+                    <!-- Dark header modal -->
+                    <button type="button" class="btn btn-dark" (click)="openColoredModal(coloredModal,'dark')">Dark
+                        Filled</button>
+                </div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Modal with Pages</h4>
+                <p class="text-muted font-14">Examples of custom modals.</p>
+
+                <div class="button-list">
+                    <!-- Sign Up modal -->
+                    <button type="button" class="btn btn-primary" (click)="open(signupFormModal)">Sign
+                        Up
+                        Modal</button>
+                    <!-- Log In modal -->
+                    <button type="button" class="btn btn-info" (click)="open(loginFormModal)">Log
+                        In
+                        Modal</button>
+                </div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Stacked Modal</h4>
+                <p class="text-muted font-14">Display a series of modals one by one to guide your users on multiple
+                    aspects or take step wise input.</p>
+
+                <div class="button-list">
+                    <!-- Multiple modal -->
+                    <button type="button" class="btn btn-secondary" (click)="openStackedModal(stackedModal1)">Stacked
+                        Modal</button>
+                </div>
+
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Toggle Between Modals</h4>
+                <p class="text-muted font-14">Toggle between multiple modals by passing reference of each other.
+                </p>
+                <div class="button-list">
+                    <a class="btn btn-secondary" (click)="openToggleModal(toggleModal1)">Open first
+                        modal</a>
+                </div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+</div>
+<!-- end row -->

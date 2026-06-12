@@ -1,0 +1,33 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Editors"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="mb-2">
+                        <h4 class="header-title mt-2">Quill Editor</h4>
+                        <p class="text-muted font-14">Snow is a clean, flat toolbar theme.</p>
+                        <!-- quill editor -->
+                        <quill-editor [(ngModel)]="editorText1" #quillEditor [sanitize]="true" [modules]="quillConfig"
+                            [styles]="{height:'300px'}">
+                        </quill-editor>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="mb-2">
+                        <h4 class="header-title mt-2">Bubble Editor</h4>
+                        <p class="text-muted font-14">Snow is a clean, flat toolbar theme.</p>
+                        <!-- quill editor -->
+                        <quill-editor [(ngModel)]="editorText2" #quillEditor [sanitize]="true" theme="bubble"
+                            [styles]="{height:'300px'}">
+                        </quill-editor>
+                    </div>
+                </li>
+            </ul> <!-- end list-->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+</div>
+<!-- end row -->

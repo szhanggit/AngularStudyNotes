@@ -1,0 +1,216 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
+                    <li class="breadcrumb-item active">Kanban Board</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Kanban Board
+                <a href="javascript:void(0)" class="btn btn-success btn-sm ms-3" (click)="openModal()">Add New</a>
+            </h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- kanban board start -->
+<div class="row">
+    <div class="col-12">
+        <div class="board">
+            <!-- todo tasks -->
+            <div class="tasks">
+                <h5 class="mt-0 task-header text-uppercase">Todo ({{todoTasks.length}})</h5>
+                <div id="task-list-one" class="task-list-items" [sortablejs]="todoTasks" [sortablejsOptions]="options">
+                    <ng-container *ngFor="let task of todoTasks">
+                        <ng-template [ngTemplateOutlet]="KanbanTask" [ngTemplateOutletContext]="{task:task}">
+                        </ng-template>
+                    </ng-container>
+                </div> <!-- end task-list-1-->
+            </div>
+
+            <!-- in progress tasks -->
+            <div class="tasks">
+                <h5 class="mt-0 task-header text-uppercase">In Progress ({{inprogressTasks.length}})</h5>
+                <div id="task-list-two" class="task-list-items" [sortablejs]="inprogressTasks"
+                    [sortablejsOptions]="options">
+                    <ng-container *ngFor="let task of inprogressTasks">
+                        <ng-template [ngTemplateOutlet]="KanbanTask" [ngTemplateOutletContext]="{task:task}">
+                        </ng-template>
+                    </ng-container>
+                </div> <!-- end task-list-2-->
+            </div>
+
+            <!-- review tasks -->
+            <div class="tasks">
+                <h5 class="mt-0 task-header text-uppercase">Review ({{reviewTasks.length}})</h5>
+                <div id="task-list-three" class="task-list-items" [sortablejs]="reviewTasks"
+                    [sortablejsOptions]="options">
+                    <ng-container *ngFor="let task of reviewTasks">
+                        <ng-template [ngTemplateOutlet]="KanbanTask" [ngTemplateOutletContext]="{task:task}">
+                        </ng-template>
+                    </ng-container>
+                </div> <!-- end task-list-3-->
+            </div>
+
+            <!-- finished tasks -->
+            <div class="tasks">
+                <h5 class="mt-0 task-header text-uppercase">Done ({{doneTasks.length}})</h5>
+                <div id="task-list-four" class="task-list-items" [sortablejs]="doneTasks" [sortablejsOptions]="options">
+                    <ng-container *ngFor="let task of doneTasks">
+                        <ng-template [ngTemplateOutlet]="KanbanTask" [ngTemplateOutletContext]="{task:task}">
+                        </ng-template>
+                    </ng-container>
+                </div> <!-- end task-list-1-->
+            </div>
+        </div> <!-- end .board-->
+    </div> <!-- end col -->
+</div>
+<!-- end row-->
+
+<ng-template #KanbanTask let-task="task">
+    <!-- Task Item -->
+    <div class="card mb-0">
+        <div class="card-body p-3">
+            <small class="float-end text-muted">{{task.date}}</small>
+            <span class="badge"
+                [class]="task.priority==='High' ? 'bg-danger' : task.priority==='Low' ? 'bg-success' : 'bg-secondary'">{{task.priority}}</span>
+
+            <h5 class="mt-2 mb-2">
+                <a href="javascript:void(0)" class="text-body">
+                    {{task.title}}
+                </a>
+            </h5>
+
+            <p class="mb-0">
+                <span class="pe-2 text-nowrap mb-2 d-inline-block">
+                    <i class="mdi mdi-briefcase-outline text-muted"></i> {{task.project}}
+                </span>
+                <span class="text-nowrap mb-2 d-inline-block">
+                    <i class="mdi mdi-comment-multiple-outline text-muted"></i>&nbsp;<b>{{task.comments}}</b> Comments
+                </span>
+            </p>
+            <div class="float-end" ngbDropdown container="body" placement="bottom-end">
+                <a href="javascript:void(0);" class="text-muted arrow-none" id="taskDetailDropdown"
+                    aria-expanded="false" ngbDropdownToggle>
+                    <i class='mdi mdi-dots-vertical font-18'></i>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="taskDetailDropdown">
+                    <!-- item-->
+                    <a ngbDropdownItem [routerLink]="'.'">
+                        <i class="mdi mdi-pencil me-1"></i>Edit
+                    </a>
+                    <!-- item-->
+                    <a ngbDropdownItem [routerLink]="'.'">
+                        <i class="mdi mdi-delete me-1"></i>Delete
+                    </a>
+                    <!-- item-->
+                    <a ngbDropdownItem [routerLink]="'.'">
+                        <i class="mdi mdi-plus-circle-outline me-1"></i>Add People
+                    </a>
+                    <!-- item-->
+                    <a ngbDropdownItem [routerLink]="'.'">
+                        <i class="mdi mdi-exit-to-app me-1"></i>Leave
+                    </a>
+                </div> <!-- end dropdown menu-->
+            </div> <!-- end dropdown-->
+
+            <p class="mb-0">
+                <img [src]="task.assignee_avatar" alt="user-img" class="avatar-xs rounded-circle me-1" />
+                <span class="align-middle">{{task.assigned_to}}</span>
+            </p>
+        </div> <!-- end card-body -->
+    </div>
+    <!-- Task Item End -->
+</ng-template>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="NewTaskModalLabel">Create New Task</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('')"></button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="saveTask()" #newTask="ngForm" class="p-2">
+            <div class="mb-3">
+                <label class="form-label">Project</label>
+                <select class="form-select form-control-light" [(ngModel)]="project" name="project-name">
+                    <option value="Hyper">Hyper - Admin Dashboard</option>
+                    <option value="CRM">CRM - Design & Development</option>
+                    <option value="iOS">iOS - App Design</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label for="task-title" class="form-label">Title</label>
+                        <input type="text" class="form-control form-control-light" id="task-title" name="task-title"
+                            placeholder="Enter title" [(ngModel)]="title" #name="ngModel" required
+                            [ngClass]="{'is-invalid': submitted && name.invalid}">
+                        <div *ngIf="submitted && name.invalid" class="invalid-feedback">
+                            <div *ngIf="name.errors?.['required']">
+                                Title is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="task-priority2" class="form-label">Priority</label>
+                        <select class="form-select form-control-light" id="task-priority2" name="task-priority"
+                            [(ngModel)]="priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="task-description" class="form-label">Description</label>
+                <textarea class="form-control form-control-light" id="task-description" rows="3"
+                    name="task-description"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="task-title" class="form-label">Assign To</label>
+                        <select class="form-select form-control-light" id="task-assignee" name="task-assignee"
+                            [(ngModel)]="assigned_to">
+                            <option value="Robert Carlile">Robert Carlile</option>
+                            <option value="Louis Allen">Louis Allen</option>
+                            <option value="Sean White">Sean White</option>
+                            <option value="Riley Steele">Riley Steele</option>
+                            <option value="Zak Turnbull">Zak Turnbull</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="task-priority" class="form-label">Due Date</label>
+                        <input type="text" class="form-control form-control-light" id="birthdatepicker" name="due_date"
+                            [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" #duedate="ngModel"
+                            [ngClass]="{'is-invalid': submitted && date===undefined}">
+                        <div *ngIf="submitted && date===undefined" class="invalid-feedback">
+                            <div>
+                                Select a date
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-light me-1" (click)="modal.dismiss('')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

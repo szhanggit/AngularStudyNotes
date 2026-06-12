@@ -1,0 +1,510 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Tabs"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Default Tabs</h4>
+                <p class="text-muted font-14 mb-3">Simple widget of tabbable panes of local content.</p>
+
+                <ul ngbNav #nav1="ngbNav" [(activeId)]="tabs1" class="nav-tabs mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Home</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab1"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Profile</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab2"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Settings</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab3"></ng-container>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav1"></div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tabs Justified</h4>
+                <p class="text-muted font-14 mb-3">Using class <code>.nav-justified</code>, you can force your
+                    <code>tab menu items</code> to use the full available width.
+                </p>
+
+                <ul ngbNav #nav2="ngbNav" [(activeId)]="tabs2" class="nav-pills bg-nav-pills nav-justified mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink class="rounded-0">
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Home</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab1"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink class="rounded-0">
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Profile</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab2"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink class="rounded-0">
+                            <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Settings</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab3"></ng-container>
+                        </ng-template>
+                    </li>
+                </ul>
+                <div [ngbNavOutlet]="nav2"></div>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tabs Vertical Left</h4>
+                <p class="text-muted font-14 mb-3">
+                    You should use <code>class="nav-pills" </code> if you need pills and the <code>[orientation]</code>
+                    input
+                    to change nav orientation
+                </p>
+                <div class="row">
+                    <div class="col-sm-3 mb-2 mb-sm-0">
+                        <ul ngbNav #nav3="ngbNav" [(activeId)]="tabs3" class="nav-pills" orientation="vertical">
+                            <li ngbNavItem="home3">
+                                <a ngbNavLink>
+                                    <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                                    <span class="d-none d-md-block">Home</span>
+                                </a>
+
+                            </li>
+                            <li ngbNavItem="profile3">
+                                <a ngbNavLink>
+                                    <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                    <span class="d-none d-md-block">Profile</span>
+                                </a>
+
+                            </li>
+                            <li ngbNavItem="setting3">
+                                <a ngbNavLink>
+                                    <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block">Settings</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                        <div [ngbNavOutlet]="nav3"></div>
+                    </div> <!-- end col-->
+                    <div class="col-sm-9">
+                        <p class="mb-0" *ngIf="tabs3==='home3'">Cillum ad ut irure tempor velit nostrud occaecat ullamco
+                            aliqua anim
+                            Leggings sint. Veniam sint duis
+                            incididunt
+                            do esse magna mollit excepteur laborum qui. Id id reprehenderit sit est eu aliqua
+                            occaecat quis et velit
+                            excepteur laborum mollit dolore eiusmod. Ipsum dolor in occaecat commodo et
+                            voluptate minim reprehenderit
+                            mollit pariatur. Deserunt non laborum enim et cillum eu deserunt excepteur ea
+                            incididunt minim occaecat.</p>
+                        <p class="mb-0" *ngIf="tabs3==='profile3'">Culpa dolor voluptate do laboris laboris irure
+                            reprehenderit id
+                            incididunt duis pariatur mollit aute
+                            magna
+                            pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis
+                            laboris ipsum velit
+                            id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit
+                            aliquip labore Leggings
+                            enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim
+                            eiusmod do sint minim consectetur
+                            qui.</p>
+                        <p class="mb-0" *ngIf="tabs3==='setting3'">Food truck quinoa dolor sit amet, consectetuer
+                            adipiscing elit. Aenean
+                            commodo ligula eget dolor. Aenean
+                            massa. Cum sociis
+                            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
+                            quam felis, ultricies nec,
+                            pellentesque
+                            eu, pretium quis, sem. Nulla consequat massa quis enim. Cillum ad ut irure tempor
+                            velit nostrud occaecat ullamco
+                            aliqua anim Leggings sint. Veniam sint duis incididunt do esse magna mollit
+                            excepteur laborum qui.</p>
+                    </div> <!-- end col-->
+                </div>
+                <!-- end row-->
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tabs Vertical Right</h4>
+                <p class="text-muted font-14 mb-3">
+                    You can stack your navigation by changing the flex item direction with the <code>.flex-column</code>
+                    utility.
+                </p>
+
+                <div class="row">
+
+                    <div class="col-sm-9">
+                        <p class="mb-0" *ngIf="tabs4==='home4'">Cillum ad ut irure tempor velit nostrud occaecat ullamco
+                            aliqua anim
+                            Leggings sint. Veniam sint duis
+                            incididunt
+                            do esse magna mollit excepteur laborum qui. Id id reprehenderit sit est eu aliqua
+                            occaecat quis et velit
+                            excepteur laborum mollit dolore eiusmod. Ipsum dolor in occaecat commodo et
+                            voluptate minim reprehenderit
+                            mollit pariatur. Deserunt non laborum enim et cillum eu deserunt excepteur ea
+                            incididunt minim occaecat.</p>
+                        <p class="mb-0" *ngIf="tabs4==='profile4'">Culpa dolor voluptate do laboris laboris irure
+                            reprehenderit id
+                            incididunt duis pariatur mollit aute
+                            magna
+                            pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis
+                            laboris ipsum velit
+                            id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit
+                            aliquip labore Leggings
+                            enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim
+                            eiusmod do sint minim consectetur
+                            qui.</p>
+                        <p class="mb-0" *ngIf="tabs4==='setting4'">Food truck quinoa dolor sit amet, consectetuer
+                            adipiscing elit. Aenean
+                            commodo ligula eget dolor. Aenean
+                            massa. Cum sociis
+                            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
+                            quam felis, ultricies nec,
+                            pellentesque
+                            eu, pretium quis, sem. Nulla consequat massa quis enim. Cillum ad ut irure tempor
+                            velit nostrud occaecat ullamco
+                            aliqua anim Leggings sint. Veniam sint duis incididunt do esse magna mollit
+                            excepteur laborum qui.</p>
+                    </div> <!-- end col-->
+                    <div class="col-sm-3 mb-2 mb-sm-0">
+                        <ul ngbNav #nav4="ngbNav" [(activeId)]="tabs4" class="nav-pills" orientation="vertical">
+                            <li ngbNavItem="home4">
+                                <a ngbNavLink>
+                                    <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                                    <span class="d-none d-md-block">Home</span>
+                                </a>
+
+                            </li>
+                            <li ngbNavItem="profile4">
+                                <a ngbNavLink>
+                                    <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                                    <span class="d-none d-md-block">Profile</span>
+                                </a>
+
+                            </li>
+                            <li ngbNavItem="setting4">
+                                <a ngbNavLink>
+                                    <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                                    <span class="d-none d-md-block">Settings</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                        <div [ngbNavOutlet]="nav4"></div>
+                    </div> <!-- end col-->
+                </div>
+                <!-- end row-->
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tabs Bordered</h4>
+                <p class="text-muted font-14 mb-3">
+                    The navigation item can have a simple bottom border as well. Just specify the class
+                    <code>.nav-bordered</code>.
+                </p>
+
+
+                <ul ngbNav #nav5="ngbNav" [(activeId)]="tabs5" class="nav-tabs nav-bordered mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Home</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab1"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Profile</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab2"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Settings</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab3"></ng-container>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav5"></div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Tabs Bordered Justified</h4>
+                <p class="text-muted font-14 mb-3">
+                    The navigation item with a simple bottom <code>border</code> and <code>.justified</code>
+                </p>
+
+                <ul ngbNav #nav6="ngbNav" [(activeId)]="tabs6" class="nav-tabs nav-justified nav-bordered  mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Home</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab1"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Profile</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab2"></ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink>
+                            <i class="mdi mdi-cog-outline d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Settings</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngTemplateOutlet="Tab3"></ng-container>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav6"></div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Selecting navs</h4>
+                <p class="text-muted font-14 mb-3">
+                    You can disable opening of any tab.
+                </p>
+
+                <ul ngbNav #nav7="ngbNav" [(activeId)]="tabs7" (navChange)="onNavChange($event)" class="nav-tabs mb-3">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>Home</a>
+                        <ng-template ngbNavContent>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown
+                                aliqua, retro
+                                synth
+                                master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
+                                Reprehenderit butcher retro
+                                keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex
+                                squid. Aliquip
+                                placeat
+                                salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate
+                                nisi qui.</p>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>Profile</a>
+                        <ng-template ngbNavContent>
+                            <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan
+                                four loko
+                                farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer
+                                mlkshk aliquip jean
+                                shorts
+                                ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna
+                                delectus mollit.
+                                Keytar
+                                helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack
+                                odio cillum wes
+                                anderson
+                                8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel.
+                                Art party
+                                scenester
+                                stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3">
+                        <a ngbNavLink>I can't be selected on click</a>
+                        <ng-template ngbNavContent>
+                            <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id
+                                diam. Nulla
+                                facilisi.
+                                Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget
+                                tincidunt eu, congue
+                                et odio.
+                                Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus
+                                ultrices et. Sed
+                                diam urna,
+                                egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus
+                                faucibus nisl
+                                enim, nec
+                                tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius
+                                natoque
+                                penatibus et
+                                magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem
+                                aliquet ultricies in
+                                eget
+                                neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="4" [disabled]="true">
+                        <a ngbNavLink>I'm disabled</a>
+                        <ng-template ngbNavContent>
+                            <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id
+                                diam. Nulla
+                                facilisi.
+                                Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget
+                                tincidunt eu, congue
+                                et odio.
+                                Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus
+                                ultrices et. Sed
+                                diam urna,
+                                egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus
+                                faucibus nisl
+                                enim, nec
+                                tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius
+                                natoque
+                                penatibus et
+                                magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem
+                                aliquet ultricies in
+                                eget
+                                neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav7"></div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Dynamic navs</h4>
+                <p class="text-muted font-14 mb-3">You can create dynamic nav.
+                </p>
+
+                <ul ngbNav #nav8="ngbNav" [(activeId)]="tabs8" class="nav-tabs nav-bordered mb-3">
+                    <li *ngFor="let id of dynamicTabs" [ngbNavItem]="id">
+                        <a ngbNavLink>
+                            Tab {{ id }}
+                            <span class="close position-relative pl-2 font-weight-light"
+                                (click)="close($event, id)">×</span>
+                        </a>
+                        <ng-template ngbNavContent>
+                            <p>Tab {{ id }} content</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit suscipit, sed natus cum
+                                culpa, blanditiis vero nulla vitae minus quasi sequi eaque sunt cumque? Quis, modi?
+                                Natus ratione fugit dicta?</p>
+                        </ng-template>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href (click)="add($event)">...</a>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav8"></div>
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+
+<ng-template #Tab1>
+    <p>Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+        Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+        nec,
+        pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+        imperdiet
+        a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus
+        elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+        eleifend
+        ac, enim.</p>
+</ng-template>
+
+<ng-template #Tab2>
+    <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+        venenatis
+        vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum
+        semper
+        nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+    <p class="mb-0">Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+        Aenean
+        massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+        ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+</ng-template>
+
+<ng-template #Tab3>
+    <p>Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+        Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+        nec,
+        pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+        imperdiet
+        a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus
+        elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+        eleifend
+        ac, enim.</p>
+</ng-template>

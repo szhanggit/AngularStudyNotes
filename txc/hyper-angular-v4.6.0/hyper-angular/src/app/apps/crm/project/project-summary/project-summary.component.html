@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="card-body">
+        <app-card-title cardTitle="Project Summary" [dropdownOptions]="dropdownOptions"></app-card-title>
+
+        <ngb-alert [dismissible]="false" class="mt-2">
+            <i class="uil-folder-heart me-1 h4 align-middle me-1"></i> <b>38</b> Total Admin & Client Projects
+        </ngb-alert>
+
+        <div class="d-flex align-items-center border border-light rounded p-2 mb-2">
+            <div class="flex-shrink-0 me-2">
+                <i class="mdi mdi-account-group widget-icon rounded-circle"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="fw-semibold my-0">Project Discssion</h5>
+                <p class="mb-0">6 Person</p>
+            </div>
+            <a href="javasript:void(0)" class="text-muted" placement="top" ngbTooltip="Info"><i
+                    class="mdi mdi-information-outline h4  my-0"></i></a>
+        </div>
+
+        <div class="d-flex align-items-center border border-light rounded p-2 mb-2">
+            <div class="flex-shrink-0 me-2">
+                <i class="mdi mdi-progress-pencil widget-icon rounded-circle bg-warning-lighten text-warning"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="fw-semibold my-0">In Progress</h5>
+                <p class="mb-0">16 Projects</p>
+            </div>
+            <a href="javasript:void(0)" class="text-muted" placement="top" ngbTooltip="Info"><i
+                    class="mdi mdi-information-outline h4  my-0"></i></a>
+        </div>
+
+        <div class="d-flex align-items-center border border-light rounded p-2 mb-2">
+            <div class="flex-shrink-0 me-2">
+                <i
+                    class="mdi mdi-checkbox-marked-circle-outline widget-icon rounded-circle bg-danger-lighten text-danger"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="fw-semibold my-0">Completed Projects</h5>
+                <p class="mb-0">24</p>
+            </div>
+            <a href="javasript:void(0)" class="text-muted" placement="top" ngbTooltip="Info"><i
+                    class="mdi mdi-information-outline h4  my-0"></i></a>
+        </div>
+
+        <div class="d-flex align-items-center border border-light rounded p-2">
+            <div class="flex-shrink-0 me-2">
+                <i class="mdi mdi-send widget-icon rounded-circle bg-success-lighten text-success"></i>
+            </div>
+            <div class="flex-grow-1">
+                <h5 class="fw-semibold my-0">Delivery Projects</h5>
+                <p class="mb-0">20</p>
+            </div>
+            <a href="javasript:void(0)" class="text-muted" placement="top" ngbTooltip="Info"><i
+                    class="mdi mdi-information-outline h4  my-0"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="fw-semibold mt-0 mb-3">On Time Completed Rate <span
+                class="badge bg-primary-lighten text-primary fw ms-sm-1"><i
+                    class="mdi mdi-trending-up me-1"></i>59%</span></h4>
+        <h5 class="float-end mt-0">65%</h5>
+        <h5 class="fw-normal mt-0">Completed Projects</h5>
+        <ngb-progressbar [value]="65" height="3px"></ngb-progressbar>
+    </div>
+</div>

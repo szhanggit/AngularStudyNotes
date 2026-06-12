@@ -1,0 +1,629 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Basic Tables"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="header-title">Basic example</h4>
+                <p class="text-muted font-14">
+                    For basic styling—light padding and only horizontal dividers—add the base class <code>.table</code>
+                    to any <code>&lt;table&gt;</code>.
+                </p>
+
+                <div class="table-responsive-sm">
+                    <table class="table table-centered mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Date of Birth</th>
+                                <th>Active?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let person of personData">
+                                <td>{{person.name}}</td>
+                                <td>{{person.phone}}</td>
+                                <td>{{person.birthdate}}</td>
+                                <td>
+                                    <!-- Switch-->
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="customSwitch1"
+                                            [checked]="person.isActive">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <!-- end table-responsive-->
+
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="header-title">Inverse table</h4>
+                <p class="text-muted font-14">
+                    You can also invert the colors—with light text on dark backgrounds—with <code>.table-dark</code>.
+                </p>
+
+                <div class="table-responsive-sm">
+                    <table class="table table-dark mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Date of Birth</th>
+                                <th>Active?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let person of personData">
+                                <td>{{person.name}}</td>
+                                <td>{{person.phone}}</td>
+                                <td>{{person.birthdate}}</td>
+                                <td>
+                                    <!-- Switch-->
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="customSwitch2"
+                                            [checked]="person.isActive">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title">Striped rows</h4>
+                    <p class="text-muted font-14">
+                        Use <code>.table-striped</code> to add zebra-striping to any table row
+                        within the <code>&lt;tbody&gt;</code>.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Account No.</th>
+                                    <th>Date of Birth</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let person of personData">
+                                    <td class="table-user">
+                                        <img [src]="person.avatar" alt="table-user" class="me-2 rounded-circle" />
+                                        {{person.name}}
+                                    </td>
+                                    <td>{{person.accountNo}}</td>
+                                    <td>{{person.birthdate}}</td>
+                                    <td class="table-action">
+                                        <a href="javascript: void(0);" class="action-icon"> <i
+                                                class="mdi mdi-pencil"></i></a>
+                                        <a href="javascript: void(0);" class="action-icon"
+                                            (click)="removePerson(person)"> <i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title">Table head options</h4>
+                    <p class="text-muted font-14">
+                        Use one of two modifier classes to make <code>&lt;thead&gt;</code>s appear light or dark gray.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-centered mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Courier</th>
+                                    <th>Process</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of productData">
+                                    <td>{{product.productName}}</td>
+                                    <td>{{product.courier}}</td>
+                                    <td>
+                                        <ngb-progressbar type="info" [value]="25" class="progress-sm"
+                                            *ngIf="product.status==='Order Received'">
+                                        </ngb-progressbar>
+                                        <ngb-progressbar type="warning" [value]="50" class="progress-sm"
+                                            *ngIf="product.status==='Shipped'">
+                                        </ngb-progressbar>
+                                        <ngb-progressbar type="success" [value]="100" class="progress-sm"
+                                            *ngIf="product.status==='Delivered'">
+                                        </ngb-progressbar>
+                                    </td>
+                                    <td><i class="mdi mdi-circle"
+                                            [ngClass]="{'text-success': product.status==='Delivered','text-warning': product.status==='Shipped','text-info': product.status==='Order Received'}"></i>
+                                        {{product.status}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Hoverable rows</h4>
+                    <p class="text-muted font-14">
+                        Add <code>.table-hover</code> to enable a hover state on table rows within a
+                        <code>&lt;tbody&gt;</code>.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-hover table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of productData">
+                                    <td>{{product.productName}}</td>
+                                    <td>{{product.price | currency}}</td>
+                                    <td><span class="badge bg-primary">{{product.quantity}} Pcs</span></td>
+                                    <td>{{product.amount | currency}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title">Small table</h4>
+                    <p class="text-muted font-14">
+                        Add <code>.table-sm</code> to make tables more compact by cutting cell padding in half.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-sm table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of productData">
+                                    <td>{{product.productName}}</td>
+                                    <td>{{product.price | currency}}</td>
+                                    <td><span class="badge bg-primary">{{product.quantity}} Pcs</span></td>
+                                    <td>{{product.amount | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Bordered table</h4>
+                    <p class="text-muted font-14">
+                        Add <code>.table-bordered</code> for borders on all sides of the table and cells.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Account No.</th>
+                                    <th>Balance</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let person of personData">
+                                    <td class="table-user">
+                                        <img [src]="person.avatar" alt="table-user" class="me-2 rounded-circle" />
+                                        {{person.name}}
+                                    </td>
+                                    <td>{{person.accountNo}}</td>
+                                    <td>{{person.birthdate}}</td>
+
+                                    <td class="table-action text-center">
+                                        <a href="javascript: void(0);" class="action-icon"
+                                            (click)="removePerson(person)"> <i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Bordered color table</h4>
+                    <p class="text-muted font-14">
+                        Add <code>.table-bordered</code> & <code>.border-primary</code> can be added to change colors.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered border-primary table-centered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Account No.</th>
+                                    <th>Balance</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let person of personData">
+                                    <td class="table-user">
+                                        <img [src]="person.avatar" alt="table-user" class="me-2 rounded-circle" />
+                                        {{person.name}}
+                                    </td>
+                                    <td>{{person.accountNo}}</td>
+                                    <td>{{person.birthdate}}</td>
+
+                                    <td class="table-action text-center">
+                                        <a href="javascript: void(0);" class="action-icon"
+                                            (click)="removePerson(person)"> <i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title">Always responsive</h4>
+                    <p class="text-muted font-14">
+                        Across every breakpoint, use
+                        <code>.table-responsive</code> for horizontally scrolling tables. Use
+                        <code>.table-responsive{{ '{' }}-sm|-md|-lg|-xl{{ '}' }}</code> as needed to create responsive
+                        tables up to a
+                        particular breakpoint. From that breakpoint and up, the table will behave
+                        normally and not scroll horizontally.
+                    </p>
+
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col" *ngFor="let item of [].constructor(9)">Heading</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let number of [].constructor(3);let i=index">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td *ngFor="let item of [].constructor(9)">Cell</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title">Basic Borderless Example</h4>
+                    <p class="text-muted font-14">
+                        Add <code>.table-borderless</code> for a table without borders.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-centered table-borderless mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Date of Birth</th>
+                                    <th>Active?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let person of personData">
+                                    <td>{{person.name}}</td>
+                                    <td>{{person.phone}}</td>
+                                    <td>{{person.birthdate}}</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1"
+                                                [checked]="person.isActive">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title">Inverse Borderless table</h4>
+                    <p class="text-muted font-14">
+                        Add <code>.table-borderless</code> for a table without borders.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-dark table-borderless mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Date of Birth</th>
+                                    <th>Active?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let person of personData">
+                                    <td>{{person.name}}</td>
+                                    <td>{{person.phone}}</td>
+                                    <td>{{person.birthdate}}</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1"
+                                                [checked]="person.isActive">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Active tables</h4>
+                    <p class="text-muted font-14">
+                        Highlight a table row or cell by adding a <code>.table-active</code> class.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Date of Birth</th>
+                                    <th>Active?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-active">
+                                    <td>Risa D. Pearson</td>
+                                    <td>336-508-2157</td>
+                                    <td>July 24, 1950</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ann C. Thompson</td>
+                                    <td>646-473-2057</td>
+                                    <td>January 25, 1959</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Paul J. Friend</td>
+                                    <td>281-308-0793</td>
+                                    <td>September 1, 1939</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">Linda G. Smith</td>
+                                    <td colspan="2" class="table-active">606-253-1207</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Paul J. Friend</td>
+                                    <td>281-308-0793</td>
+                                    <td>September 1, 1939</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- end table-responsive-->
+
+                </div><!-- end card body-->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Nesting</h4>
+                    <p class="text-muted font-14">
+                        Border styles, active styles, and table variants are not inherited by nested tables.
+                    </p>
+
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Date of Birth</th>
+                                    <th>Active?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Risa D. Pearson</td>
+                                    <td>336-508-2157</td>
+                                    <td>July 24, 1950</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Date of Birth</th>
+                                                    <th>Active?</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Risa D. Pearson</td>
+                                                    <td>336-508-2157</td>
+                                                    <td>July 24, 1950</td>
+                                                    <td>
+                                                        <!-- Switch-->
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="customSwitch1">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ann C. Thompson</td>
+                                                    <td>646-473-2057</td>
+                                                    <td>January 25, 1959</td>
+                                                    <td>
+                                                        <!-- Switch-->
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="customSwitch1">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Linda G. Smith</td>
+                                    <td>606-253-1207</td>
+                                    <td>September 2, 1939</td>
+                                    <td>
+                                        <!-- Switch-->
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox" class="form-check-input" id="customSwitch1">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div><!-- end card body-->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div><!-- end row -->

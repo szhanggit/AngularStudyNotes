@@ -1,0 +1,49 @@
+<div class="border p-3 mt-4 mt-lg-0 rounded">
+    <h4 class="header-title mb-3">Order Summary</h4>
+
+    <div class="table-responsive">
+        <table class="table table-nowrap table-centered mb-0">
+            <tbody>
+                <tr *ngFor="let item of cartItems">
+                    <td>
+                        <img [src]="item.image" alt="contact-img" title="contact-img" class="rounded me-2"
+                            height="48" />
+                        <p class="m-0 d-inline-block align-middle">
+                            <a href="javascript:void(0)" class="text-body fw-semibold">{{item.name}}</a>
+                            <br>
+                            <small>{{item.qty}} x {{item.price | currency}}</small>
+                        </p>
+                    </td>
+                    <td class="text-end">
+                        {{item.qty * item.price | currency}}
+                    </td>
+                </tr>
+                <tr class="text-end">
+                    <td>
+                        <h6 class="m-0">Sub Total:</h6>
+                    </td>
+                    <td class="text-end">
+                        {{total | currency}}
+                    </td>
+                </tr>
+                <tr class="text-end">
+                    <td>
+                        <h6 class="m-0">Shipping:</h6>
+                    </td>
+                    <td class="text-end">
+                        FREE
+                    </td>
+                </tr>
+                <tr class="text-end">
+                    <td>
+                        <h5 class="m-0">Total:</h5>
+                    </td>
+                    <td class="text-end fw-semibold">
+                        {{total | currency}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end table-responsive -->
+</div> <!-- end .border-->

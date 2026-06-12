@@ -1,0 +1,73 @@
+<div class="d-grid">
+    <button type="button" class="btn btn-danger" (click)="openModal()">Compose</button>
+</div>
+
+<div class="email-menu-list mt-3">
+    <a href="javascript: void(0);" class="text-danger fw-bold"><i class="dripicons-inbox me-2"></i>Inbox<span
+            class="badge badge-danger-lighten float-end ms-2">7</span></a>
+    <a href="javascript: void(0);"><i class="dripicons-star me-2"></i>Starred</a>
+    <a href="javascript: void(0);"><i class="dripicons-clock me-2"></i>Snoozed</a>
+    <a href="javascript: void(0);"><i class="dripicons-document me-2"></i>Draft<span
+            class="badge badge-info-lighten float-end ms-2">32</span></a>
+    <a href="javascript: void(0);"><i class="dripicons-exit me-2"></i>Sent Mail</a>
+    <a href="javascript: void(0);"><i class="dripicons-trash me-2"></i>Trash</a>
+    <a href="javascript: void(0);"><i class="dripicons-tag me-2"></i>Important</a>
+    <a href="javascript: void(0);"><i class="dripicons-warning me-2"></i>Spam</a>
+</div>
+
+<div class="mt-4">
+    <h6 class="text-uppercase">Labels</h6>
+    <div class="email-menu-list labels-list mt-2">
+        <a href="javascript: void(0);"><i class="mdi mdi-circle font-13 text-info me-2"></i>Updates</a>
+        <a href="javascript: void(0);"><i class="mdi mdi-circle font-13 text-warning me-2"></i>Friends</a>
+        <a href="javascript: void(0);"><i class="mdi mdi-circle font-13 text-success me-2"></i>Family</a>
+        <a href="javascript: void(0);"><i class="mdi mdi-circle font-13 text-primary me-2"></i>Social</a>
+        <a href="javascript: void(0);"><i class="mdi mdi-circle font-13 text-danger me-2"></i>Important</a>
+        <a href="javascript: void(0);"><i class="mdi mdi-circle font-13 text-secondary me-2"></i>Promotions</a>
+    </div>
+</div>
+
+<div class="mt-5">
+    <h4><span class="badge rounded-pill p-1 px-2 badge-secondary-lighten">FREE</span></h4>
+    <h6 class="text-uppercase mt-3">Storage</h6>
+
+    <ngb-progressbar type="success" [value]="46" class="progress-sm my-2"></ngb-progressbar>
+
+    <p class="text-muted font-13 mb-0">7.02 GB (46%) of 15 GB used</p>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header modal-colored-header bg-primary">
+        <h4 class="modal-title" id="compose-header-modalLabel">New Message</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('')"></button>
+    </div>
+    <div class="p-1">
+        <div class="modal-body px-3 pt-3 pb-0">
+            <form>
+                <div class="mb-2">
+                    <label for="msgto" class="form-label">To</label>
+                    <input type="text" id="msgto" class="form-control" [(ngModel)]="email" name="email" required
+                        placeholder="Example@email.com" [ngClass]="{'is-invalid': submitted && email===''}">
+                </div>
+                <div class="mb-2">
+                    <label for="mailsubject" class="form-label">Subject</label>
+                    <input type="text" id="mailsubject" class="form-control" name="subject" [(ngModel)]="subject"
+                        required placeholder="Your subject" [ngClass]="{'is-invalid': submitted && subject===''}">
+                </div>
+                <div class="write-mdg-box mb-3">
+                    <label class="form-label">Message</label>
+
+                    <quill-editor [(ngModel)]="message" name="message" [styles]="{height:'180px'}" #quillEditor
+                        placeholder="Write something" [sanitize]="true" [modules]="quillConfig">
+                    </quill-editor>
+                </div>
+            </form>
+        </div>
+        <div class="px-3 pb-3">
+            <button type="submit" class="btn btn-primary me-1" (click)="saveEvent()"><i class="mdi mdi-send me-1"></i>
+                Send
+                Message</button>
+            <button type="button" class="btn btn-light" (click)="modal.dismiss('')">Cancel</button>
+        </div>
+    </div>
+</ng-template>

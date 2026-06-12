@@ -1,0 +1,47 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Order"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-xl-2">
+                        <form #displayForm="ngForm" class="me-3">
+                            <div class="d-flex align-items-center">
+                                <label for="status-select" class="me-2">Status</label>
+                                <select class="form-select" id="status-select" name="payment-status"
+                                    [(ngModel)]="OrderStatusGroup" #status="ngModel"
+                                    (change)="changeOrderStatusGroup(OrderStatusGroup)">
+                                    <option value="All">All</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Authorization">Awaiting Authorization</option>
+                                    <option value="Failed">Payment failed</option>
+                                    <option value="Unpaid">Unpaid</option>
+                                </select>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col-xl-10">
+                        <div class="text-xl-end mt-xl-0 mt-2">
+                            <button type="button" class="btn btn-danger mb-2 me-2"><i class="mdi mdi-basket me-1"></i>
+                                Add New Order</button>
+                            <button type="button" class="btn btn-light mb-2">Export</button>
+                        </div>
+                    </div><!-- end col-->
+                </div>
+                <app-ui-preloader [display]="loading"></app-ui-preloader>
+                <!-- order table -->
+                <!-- product table -->
+                <app-advanced-table #advancedTable (handleTableLoad)="handleTableLoad()" [tableData]="orderList"
+                    [columns]="columns" [pagination]="true" [hasRowSelection]="true" [isSearchable]="true"
+                    [pageSizeOptions]="pageSizeOptions" tableClasses="table-centered table-nowrap mb-0"
+                    theadClasses="table-light" (search)="searchData($event)" [isSortable]="true" (sort)="sort($event)">
+                </app-advanced-table>
+            </div>
+            <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

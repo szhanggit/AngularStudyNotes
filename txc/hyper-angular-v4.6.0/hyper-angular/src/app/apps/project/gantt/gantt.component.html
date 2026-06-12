@@ -1,0 +1,100 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Gantt"></app-page-title>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <!-- start projects-->
+            <div class="col-xxl-3 col-lg-4">
+                <div class="pe-xl-3">
+                    <h5 class="mt-0 mb-3">Projects</h5>
+                    <!-- start search box -->
+                    <div class="app-search">
+                        <form>
+                            <div class="mb-2 position-relative">
+                                <input type="text" class="form-control" placeholder="search by name..." />
+                                <span class="mdi mdi-magnify search-icon"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end search box -->
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ngx-simplebar style="max-height: 535px;" class="pe-xl-3">
+                            <a href="javascript:void(0);" class="text-body" *ngFor="let project of projects">
+                                <div class="d-flex mt-2 p-2" [ngClass]="{'bg-light': selectedProject.id === project.id}"
+                                    (click)="selectedProject=project">
+                                    <div class="avatar-sm d-table">
+                                        <span class="avatar-title rounded-circle"
+                                            [class]="project.status==='On-Track' ? 'badge-success-lighten text-success' : project.status==='Locked' ? 'badge-warning-lighten text-warning' : 'badge-danger-lighten text-danger' ">
+                                            <i [class]="project.icon" class='font-24'></i>
+                                        </span>
+                                    </div>
+                                    <div class="ms-2">
+                                        <h5 class="mt-0 mb-0">
+                                            {{project.name}}
+                                            <span class="badge ms-1"
+                                                [class]="project.status==='On-Track' ? 'badge-success-lighten' : project.status==='Locked' ? 'badge-warning-lighten' : 'badge-danger-lighten' ">{{project.status}}</span>
+                                        </h5>
+                                        <p class="mt-1 mb-0 text-muted">
+                                            ID: {{project.id}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+
+
+                        </ngx-simplebar>
+                    </div>
+                </div>
+            </div>
+            <!-- end projects -->
+
+            <!-- gantt view -->
+            <div class="col-xxl-9 mt-4 mt-xl-0 col-lg-8">
+                <div class="ps-xl-3">
+                    <div class="row">
+                        <div class="col-auto">
+                            <a href="javascript: void(0);" class="btn btn-success btn-sm mb-2">Add New Task</a>
+                        </div>
+                        <div class="col text-sm-end">
+                            <div class="btn-group btn-group-sm mb-2" id="modes-filter" ngbRadioGroup name="radioBasic"
+                                [(ngModel)]="view_mode" (ngModelChange)="changeMode($event)">
+                                <label class="btn btn-primary d-none d-sm-inline-block" ngbButtonLabel>
+                                    <input class="btn-check" type="radio" ngbButton name="modes" id="qday"
+                                        value="Quarter Day">
+                                    Quarter Day
+                                </label>
+                                <label class="btn btn-primary" ngbButtonLabel>
+                                    <input class="btn-check" type="radio" ngbButton name="modes" id="hday"
+                                        value="Half Day"> Half
+                                    Day
+                                </label>
+                                <label class="btn btn-primary" ngbButtonLabel>
+                                    <input class="btn-check" type="radio" ngbButton name="modes" id="day" value="Day">
+                                    Day
+                                </label>
+                                <label class="btn btn-primary" ngbButtonLabel>
+                                    <input class="btn-check" type="radio" ngbButton name="modes" id="week" value="Week">
+                                    Week
+                                </label>
+                                <label class="btn btn-primary" ngbButtonLabel>
+                                    <input class="btn-check" type="radio" ngbButton name="modes" id="month"
+                                        value="Month"> Month
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col mt-3">
+                            <svg id="tasks-gantt" #ganttEl></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end gantt view -->
+        </div>
+    </div>
+</div>

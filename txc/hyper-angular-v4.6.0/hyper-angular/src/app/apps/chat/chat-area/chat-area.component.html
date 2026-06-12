@@ -1,0 +1,111 @@
+<div class="card">
+    <div class="card-body position-relative px-0 pb-0">
+        <app-ui-preloader [display]="loading"></app-ui-preloader>
+        <ngx-simplebar style="max-height: 532px">
+            <!-- messages start -->
+            <ul class="conversation-list px-3">
+                <li class="clearfix" *ngFor="let message of messages"
+                    [ngClass]="{'odd': message.from.id === toUser.id}">
+                    <div class="chat-avatar">
+                        <img [src]="message.from.avatar" class="rounded" [alt]="message.from.name" />
+                        <i>{{message.sendOn}}</i>
+                    </div>
+                    <div class="conversation-text">
+                        <div class="ctext-wrap">
+                            <i>{{message.from.name}}</i>
+                            <p *ngIf="message.message.type==='text'">
+                                {{message.message.value.text}}
+                            </p>
+                        </div>
+                        <div class="card mt-2 mb-1 shadow-none border text-start" *ngIf="message.message.type==='file'">
+                            <div class="p-2">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title rounded">
+                                                .ZIP
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col ps-0"
+                                        *ngIf="message.message.value.file && message.message.value.size">
+                                        <a href="javascript:void(0);"
+                                            class="text-muted fw-bold">{{message.message.value.file!}}</a>
+                                        <p class="mb-0">{{message.message.value.size!}}</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- Button -->
+                                        <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                            <i class="dripicons-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <ng-container *ngTemplateOutlet="ChatMessageDropdown;context:{message:message}"></ng-container>
+                </li>
+            </ul>
+            <!-- messages end -->
+        </ngx-simplebar>
+
+        <!-- new message form -->
+        <div class="row  px-3 pb-3">
+            <div class="col">
+                <div class="mt-2 bg-light p-3 rounded">
+                    <form novalidate="" name="chat-form" id="chat-form"
+                        (ngSubmit)="chatForm.form.valid && sendChatMessage()" #chatForm="ngForm">
+                        <div class="row">
+                            <div class="col mb-2 mb-sm-0">
+                                <input type="text" class="form-control border-0" placeholder="Enter your text"
+                                    [(ngModel)]="newMessage" name="message" #message="ngModel"
+                                    [ngClass]="{'is-invalid': chatForm.submitted && message.invalid && (message.dirty || message.touched)}"
+                                    required />
+
+                                <div *ngIf="chatForm.submitted && message.invalid && (message.dirty || message.touched)"
+                                    class="invalid-feedback">
+                                    Please enter your messsage
+                                </div>
+
+                            </div>
+                            <div class="col-sm-auto">
+                                <div class="btn-group">
+                                    <a href="javascript:void(0)" class="btn btn-light"><i
+                                            class="uil uil-paperclip"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-light"> <i class='uil uil-smile'></i>
+                                    </a>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-success chat-send"
+                                            [disabled]="!chatForm.form.valid"><i class='uil uil-message'></i></button>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row-->
+                    </form>
+                </div>
+            </div> <!-- end col-->
+        </div>
+        <!-- end row -->
+    </div> <!-- end card-body -->
+</div> <!-- end card -->
+
+
+<!-- resuable templates -->
+<ng-template #ChatMessageDropdown let-message="message">
+    <div class="conversation-actions" ngbDropdown
+        [placement]="message.from.id !== toUser.id?'bottom-end':'bottom-start'">
+        <button ngbDropdownToggle class="btn btn-sm btn-link arrow-none" id="chatMessageDropdown"
+            href="javascript:void(0)" aria-expanded="false">
+            <i class="uil uil-ellipsis-v"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="chatMessageDropdown">
+            <!-- item -->
+            <a ngbDropdownItem [routerLink]="'.'">Copy Message</a>
+            <!-- item-->
+            <a ngbDropdownItem [routerLink]="'.'">Edit</a>
+            <!-- item -->
+            <a ngbDropdownItem [routerLink]="'.'">Delete</a>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-body">
+
+        <app-card-title cardTitle="Revenue Statistics" [dropdownOptions]="dropdownOptions">
+        </app-card-title>
+
+
+        <div dir="ltr" class="mt-1">
+
+            <apx-chart class="apex-charts" [series]="revenueChart.series!" [chart]="revenueChart.chart!"
+                [stroke]="revenueChart.stroke!" [colors]="revenueChart.colors!" [dataLabels]="revenueChart.dataLabels!"
+                [xaxis]=" revenueChart.xaxis!" [yaxis]="revenueChart.yaxis!" *ngIf="revenueChart">
+            </apx-chart>
+        </div>
+    </div>
+</div>

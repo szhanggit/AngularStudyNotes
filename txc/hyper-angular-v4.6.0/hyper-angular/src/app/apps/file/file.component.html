@@ -1,0 +1,89 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="File Manager"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- Left sidebar -->
+                <div class="page-aside-left">
+                    <div class="btn-group d-block mb-2" ngbDropdown>
+                        <button type="button" class="btn btn-success dropdown-toggle w-100" aria-expanded="false"
+                            id="optionDropdown" ngbDropdownToggle><i class="mdi mdi-plus"></i> Create New </button>
+                        <div ngbDropdownMenu aria-labelledby="optionDropdown">
+                            <a ngbDropdownItem [routerLink]="'.'"><i class="mdi mdi-folder-plus-outline me-1"></i>
+                                Folder</a>
+                            <a ngbDropdownItem [routerLink]="'.'"><i class="mdi mdi-file-plus-outline me-1"></i>
+                                File</a>
+                            <a ngbDropdownItem [routerLink]="'.'"><i class="mdi mdi-file-document me-1"></i>
+                                Document</a>
+                            <a ngbDropdownItem [routerLink]="'.'"><i class="mdi mdi-upload me-1"></i> Choose File</a>
+                        </div>
+                    </div>
+
+                    <div class="email-menu-list mt-3">
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-folder-outline font-18 align-middle me-2"></i>My
+                            Files</a>
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-google-drive font-18 align-middle me-2"></i>Google
+                            Drive</a>
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-dropbox font-18 align-middle me-2"></i>Dropbox</a>
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-share-variant font-18 align-middle me-2"></i>Share
+                            with me</a>
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-clock-outline font-18 align-middle me-2"></i>Recent</a>
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-star-outline font-18 align-middle me-2"></i>Starred</a>
+                        <a [routerLink]="'.'" class="list-group-item border-0"><i
+                                class="mdi mdi-delete font-18 align-middle me-2"></i>Deleted
+                            Files</a>
+                    </div>
+
+                    <div class="mt-5">
+                        <h4><span class="badge rounded-pill p-1 px-2 badge-secondary-lighten">FREE</span></h4>
+                        <h6 class="text-uppercase mt-3">Storage</h6>
+
+                        <ngb-progressbar type="success" [value]="46" class="progress-sm my-2"></ngb-progressbar>
+
+                        <p class="text-muted font-12 mb-0">7.02 GB (46%) of 15 GB used</p>
+                    </div>
+
+                </div>
+                <!-- End left sidebar -->
+                <!-- Right sidebar -->
+                <div class="page-aside-right">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="app-search">
+                            <form>
+                                <div class="mb-2 position-relative">
+                                    <input type="text" class="form-control" placeholder="Search files...">
+                                    <span class="mdi mdi-magnify search-icon"></span>
+                                </div>
+                            </form>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-sm btn-light"><i
+                                    class="mdi mdi-format-list-bulleted"></i></button>
+                            <button type="submit" class="btn btn-sm"><i class="mdi mdi-view-grid"></i></button>
+                            <button type="submit" class="btn btn-sm"><i
+                                    class="mdi mdi-information-outline"></i></button>
+                        </div>
+                    </div>
+                    <!-- quick access files -->
+                    <app-quick-access [quickAccessFiles]="quickAccessData"></app-quick-access>
+                    <!-- recent files -->
+                    <app-recent-file [recentFiles]="recentFiles"></app-recent-file>
+                </div>
+                <!-- End right sidebar-->
+            </div>
+            <!-- end card-body -->
+            <div class="clearfix"></div>
+        </div> <!-- end card-box -->
+
+    </div> <!-- end Col -->
+</div>
+<!-- End row -->
